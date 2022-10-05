@@ -1,12 +1,12 @@
 #  Flight Simulator Adventure Creator 0.2
   (c) Paul Alan Freshney 2022 / paul@freshney.org
-
-  Source code and latest data and exe files
-    https://github.com/MaximumOctopus/FlightSimAdventureCreator
+```
+Source code and latest data and exe files
+https://github.com/MaximumOctopus/FlightSimAdventureCreator
   
-  Uses airport and runway data from Our Airports (without which this application couldn't exist)
-    https://ourairports.com/data/
-	
+Uses airport and runway data from Our Airports (without which this application couldn't exist)
+https://ourairports.com/data/
+```	
   October 5th 2022
 
 ------------------------------------------------------------------------------------------------------------------------------------
