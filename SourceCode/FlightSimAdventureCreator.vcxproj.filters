@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Aircraft">
+      <UniqueIdentifier>{ab8dcbde-b359-4a72-b635-441d4f2e4a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Airport">
+      <UniqueIdentifier>{165e1a3e-92ea-41e2-8e01-106e9123dcc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Aircraft">
+      <UniqueIdentifier>{fd438b4c-e3f1-4264-89d8-40ffcdd58241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Airport">
+      <UniqueIdentifier>{f5beb48d-4a37-4e6e-adc4-52bc540744ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{de93e240-da86-4f3d-b30d-4f4b8028b1d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{67c98e1c-f717-424f-b97d-d6a01fb86ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Configuration">
+      <UniqueIdentifier>{ce9cd8b9-0df7-48c6-be02-9e9ba51d8553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Configuration">
+      <UniqueIdentifier>{6e8884c4-ca1c-4503-9243-f35ae819bfb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Help">
+      <UniqueIdentifier>{230f7100-5e69-43a6-8ac4-ed5b805ab0c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Help">
+      <UniqueIdentifier>{37112100-b387-4c15-abab-abac50f8000a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Route">
+      <UniqueIdentifier>{b3ddc179-e102-4700-8eb6-5f99fb239d3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Route">
+      <UniqueIdentifier>{af898c65-8e62-41f5-8a9c-53cce86142d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Export">
+      <UniqueIdentifier>{40add864-b303-4103-8764-ba2d9daf7135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Export">
+      <UniqueIdentifier>{28d20425-c05a-4144-a052-621db329e71e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Runway">
+      <UniqueIdentifier>{f729d533-98bf-4d4c-9f9c-3342d50819b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runway">
+      <UniqueIdentifier>{bd4ee447-0dcc-4bff-bd29-2513d9cf9c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\POI">
+      <UniqueIdentifier>{fb20b084-6799-4759-b486-f18b70ce284d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\POI">
+      <UniqueIdentifier>{a0cf404a-2fdc-4467-bb9a-5324534c26f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ini">
+      <UniqueIdentifier>{47712550-fd9e-4c84-89dd-533e52cfba83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ini">
+      <UniqueIdentifier>{718c2f32-d7b3-4995-9ddf-0afa079aa751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Stats">
+      <UniqueIdentifier>{59b14cf3-3e5d-4bbc-bed6-4808f827abc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stats">
+      <UniqueIdentifier>{3c92140f-84d1-4476-bf67-709285a7ae84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Job">
+      <UniqueIdentifier>{1b7696ca-b822-46f8-bdd5-8f94aea33efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Job">
+      <UniqueIdentifier>{e7e50179-3a9e-4082-8faa-a0b9b6a8c985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MSFSSystem">
+      <UniqueIdentifier>{726e2f54-9a50-4827-a3ec-5e1f0c1179c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MSFSSystem">
+      <UniqueIdentifier>{5a199dd9-0dd1-4b2d-b18b-68309077d1b2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FlightSimAdventureCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AircraftHandler.cpp">
+      <Filter>Source Files\Aircraft</Filter>
+    </ClCompile>
+    <ClCompile Include="Aircraft.cpp">
+      <Filter>Source Files\Aircraft</Filter>
+    </ClCompile>
+    <ClCompile Include="Airport.cpp">
+      <Filter>Source Files\Airport</Filter>
+    </ClCompile>
+    <ClCompile Include="AirportHandler.cpp">
+      <Filter>Source Files\Airport</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Help.cpp">
+      <Filter>Source Files\Help</Filter>
+    </ClCompile>
+    <ClCompile Include="MSFSFlightPlan.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="RouteHandler.cpp">
+      <Filter>Source Files\Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Formatting.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Runway.cpp">
+      <Filter>Source Files\Runway</Filter>
+    </ClCompile>
+    <ClCompile Include="RunwayHandler.cpp">
+      <Filter>Source Files\Runway</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalObjects.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="POI.cpp">
+      <Filter>Source Files\POI</Filter>
+    </ClCompile>
+    <ClCompile Include="POIHandler.cpp">
+      <Filter>Source Files\POI</Filter>
+    </ClCompile>
+    <ClCompile Include="FSACAirportData.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="TextItinerary.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="Ini.cpp">
+      <Filter>Source Files\Ini</Filter>
+    </ClCompile>
+    <ClCompile Include="XPlaneFlightPlan.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="Stats.cpp">
+      <Filter>Source Files\Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="JobHandler.cpp">
+      <Filter>Source Files\Job</Filter>
+    </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>Source Files\Job</Filter>
+    </ClCompile>
+    <ClCompile Include="DateUtility.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="MSFSSystem.cpp">
+      <Filter>Source Files\MSFSSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aircraft.h">
+      <Filter>Header Files\Aircraft</Filter>
+    </ClInclude>
+    <ClInclude Include="Airport.h">
+      <Filter>Header Files\Airport</Filter>
+    </ClInclude>
+    <ClInclude Include="AircraftHandler.h">
+      <Filter>Header Files\Aircraft</Filter>
+    </ClInclude>
+    <ClInclude Include="AirportHandler.h">
+      <Filter>Header Files\Airport</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Help.h">
+      <Filter>Header Files\Help</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MSFSFlightPlan.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="RouteHandler.h">
+      <Filter>Header Files\Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Formatting.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Runway.h">
+      <Filter>Header Files\Runway</Filter>
+    </ClInclude>
+    <ClInclude Include="RunwayHandler.h">
+      <Filter>Header Files\Runway</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalObjects.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="POI.h">
+      <Filter>Header Files\POI</Filter>
+    </ClInclude>
+    <ClInclude Include="POIHandler.h">
+      <Filter>Header Files\POI</Filter>
+    </ClInclude>
+    <ClInclude Include="FCASAirportData.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="TextItinerary.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="AirportConstants.h">
+      <Filter>Header Files\Airport</Filter>
+    </ClInclude>
+    <ClInclude Include="AircraftConstants.h">
+      <Filter>Header Files\Aircraft</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ini.h">
+      <Filter>Header Files\Ini</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationConstants.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="XPlaneFlightPlan.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Stats.h">
+      <Filter>Header Files\Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="JobHandler.h">
+      <Filter>Header Files\Job</Filter>
+    </ClInclude>
+    <ClInclude Include="Job.h">
+      <Filter>Header Files\Job</Filter>
+    </ClInclude>
+    <ClInclude Include="DateUtility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MSFSSystem.h">
+      <Filter>Header Files\MSFSSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlightSimAdventureCreator.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
