@@ -1,0 +1,15 @@
+﻿//
+// this file is in the exact same format as default_aircraft.txt
+// have a look at that, it's easy to add your own aircraft here
+// all of the details can be found within MSFS
+//
+//{
+//name=
+//cruise=          {cruise speed in knots}
+//range=           {in nautical miles}
+//availability=    {all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party}
+//type=            {0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop }
+//military=0       {0 = no, 1 = yes}   
+//airliner=0       {0 = no, 1 = yes}
+//minrunway=0      {in feet, 0 = doesn't matter)
+//}

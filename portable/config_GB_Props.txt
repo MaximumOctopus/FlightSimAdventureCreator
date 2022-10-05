@@ -1,0 +1,43 @@
+// Example config file
+//
+// This will generate a simple route in Great Britain, with legs no more than 50 miles long.
+// Only props and turbo props will be allowed. No twins, no military, no airliners.
+//
+// to use this config file:
+//
+//     fsac /loadconfig:file_name
+//
+
+// set the pool of aircraft your random one will be picked from
+[aircraft]
+// use default aircraft (from default_aircraft.txt): 1 = yes, 0 = no
+Default=1
+// use custom aircraft (from custom_aircraft.txt): 1 = yes, 0 = no
+Custom=1
+// this option sets several different parameters from a single option
+// special: ga (props, twins, turbos, no military, no airliners)
+//          jetairliners (jets, airliners, no military)
+//          twins (twin props, twin turbo props, no military)
+//          props (props and turbo props (no twins), no military, no airliners)
+Special=props
+		
+[airport]
+// ISO country code, see here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+Country=GB
+// include by airport type, 1 = yes, 0 = no
+SmallAirports=1
+MediumAirports=1
+LargeAirports=0
+Heliports=0
+
+[route]
+// create routes, 1 = yes, 0 = no
+AtoB=1
+// maximum range between legs
+Range=50
+// number of legs to generate
+Legs=1
+
+[export]
+// export all routes to MSFS 2020 plan files, 1 = yes, 0 = no (which will saved to \Plans\icao_to_icao.txt)
+MSFS=1

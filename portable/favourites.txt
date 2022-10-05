@@ -1,0 +1,19 @@
+//  list of your favourite airports, one ICAO airport code per line
+//  if you edit this file then please keep a backup, future updates will overwrite this file!
+//
+NFFN
+OMDB
+FSPP
+TNCM
+NTTB
+KMLB
+LGSK
+LFMN
+EGLC
+LIMW
+EGPB
+LSZS
+LFLB
+EGHE
+EGJJ
+LIRJ

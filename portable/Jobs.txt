@@ -1,0 +1,122 @@
+// feel free to edit this file, but keep a backup!
+// if you have the skills to translate this file then please let me know
+//
+// jx where x: 0 = all, 1, props, turbos, all twins, 2 = airliners, 3 = jets, 4 = military, 5 = helicopters
+// o: a job which requires an object
+// s: a job which requires SLF
+// small objects are picked when the aircraft is GA/military/heli, and large objects for airliners
+//
+{j0
+s:Take this {0} to an important assignment.
+s:Take this {0} to an important meeting.
+s:Take this {0} to a conference.
+s:Take this {0} to a courthouse.
+s:Take this {0} to a hospital as quickly as you can.
+}
+{j1
+o:Deliver this {0} without delay.
+o:This {0} needs delivering for a birthday party.
+o:A wealthy gentleman has asked you to deliver this {0} to a lady friend.
+x:A local businessman has asked you to deliver this {0} to a friend.
+x:A slightly shady individual needs this {0} taking to a waiting car.
+}
+{j2
+o:Deliver this {0} without delay.
+s:Take this {0} and thier family to safety.
+s:Take this {0} and thier team to an important meeting.
+s:Take this {0} and thier team to an important assignment.
+}
+{j3
+s:This {0} needs a speedy journey to safety.
+}
+{j5
+o:Deliver this {0} without delay.
+}
+// list of small objects
+{o0
+i:crate of medical supplies
+i:lion cub
+i:briefcase of top secret documents
+i:delivery of rare kittens
+i:crate of gold bars
+i:priceless artwork
+i:consignment of fresh fruit and vegetables
+i:consignment of rare frogs
+i:box of welding equipment
+i:injured person
+i:canister of oxygen
+i:canister of hydrogen
+i:canister of helium
+i:selection of acids in a protective case
+i:expensive telephoto zoom lens
+i:high performance bicycle
+i:thermal camera
+i:first edition manuscript
+i:priceless violin
+i:blue diamond in a locked case
+i:bespoke guitar in case
+i:case containing rare Roman coins
+i:case of expensive wine
+i:a Nebuchadnezzar of very expensive Champagne
+i:package of endangered butterflies
+}
+// list of large objects
+{o1
+i:baby elephant
+i:drilling machine
+i:football team
+i:rescue team and equipment
+i:cycle team
+i:pair of dolphins
+i:tractor
+i:supercomputer
+i:team of engineers and their equipment
+i:pair of jet engines
+i:race horse (called Colin)
+i:racing car and team of engineers
+i:racing yacht
+i:marble sculpture
+i:priceless piano
+i:newly purchased Aston Martin
+i:one-of-a-kind Ferrari
+i:speedboat
+}
+// a list of unusual items
+{o2
+i:nuclear material
+i:suspicious package
+i:locked atache case
+i:slightly damaged safe
+i:box of fireworks
+i:large box of party poppers
+i:diving cylinder
+i:box of lithium batteries
+}
+// list of SLF
+{p0
+i:Nuclear scientist
+i:CEO of a large blue chip
+i:Military General
+i:Admiral
+i:Foreign leader
+i:visitng monarch
+i:famous cat
+i:doctor
+i:heart surgeon
+i:dentist
+i:famous economist
+i:not-so-famous software engineer
+i:famous YouTuber
+i:visiting professor
+i:scientist
+i:secret agent
+i:rather suspicious individual
+i:detective
+i:forensics expert
+i:bomb disposal expert
+}
+// list of "large" SLF (groups, teams, etc.)
+{p1
+i:football team
+i:delegation of foreign nationals
+}
