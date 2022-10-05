@@ -136,8 +136,8 @@ This option must NEVER be used.
 ------------------------------------------------------------------------------------------------------------------------------------
 
 You can combine as many parameters as you like, but some combinations won't make much sense and may lead to unwanted behaviour.
-
-eg. /continent:NA /country:GB 
+```
+eg. /continent:NA /country:GB
 North America and in Great Britain? That's not going to work.
 
 eg. /twins /jet
@@ -145,7 +145,7 @@ The parameters are processed in order (left to right), so the /twins parameter w
 
 eg. /day /night
 Lol, but no.
-
+```
 ------------------------------------------------------------------------------------------------------------------------------------
 
 List of files that come in the zip file:
@@ -233,16 +233,17 @@ Written in C++ 20 with Visual Studio 2022. This application is open source, code
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
- Credits:
+ Credits
+```
+Paul A Freshney (all coding)
+Rutherford, Freeman, and Maxwell (all-important Development Cats)
+Our Airports (ourairports.com) (data)
+https://icon-icons.com (icon)
+```
 
-   All coding       : Paul A Freshney
-   Development Cats : Rutherford, Freeman, and Maxwell
-   Data             : Our Airports (ourairports.com)
-   Icon             : https://icon-icons.com
-   Thanks           : Brian Bernacki for his MSFS airport data                      
-                      r/MicrosoftFlightSim/
-					  
-   Dedicated to Julie, Adam, and Dyanne.
+Thanks to Brian Bernacki for his MSFS airport data and r/MicrosoftFlightSim/ for ideas.
+
+Dedicated to Julie, Adam, and Dyanne.
 
 All of my softare is free and open source; please consider donating to a local cat charity or shelter. Thanks.
 
