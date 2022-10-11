@@ -1,3 +1,4 @@
+//
 // FSAC configuration file help, October 5th 2022
 //
 // if you use the same command-line options regularly then a config file is just the thing for you!
@@ -56,10 +57,15 @@ LargeAirports=1
 Heliports=0
 // this flag will force the randomiser to expand range and/or direction if no valid airports can be found ( 1 = yes, 0 = no)
 KeepTrying=0
+// filter airports by latitude and location. angles only. from 0 to -180', 0 to +180'
+LatitudeFrom=
+LatitudeTo=
+LongitudeFrom=
+LongitudeTo=
 // limit airports to those in daylight (beta!)
-Day=1
+Day=0
 // limit airports to those in darkness (beta!)
-Night=1
+Night=0
 
 [route]
 // create routes, 1 = yes, 0 = no
@@ -72,12 +78,16 @@ Legs=1
 Number=1
 // angle to travel (with 25' margin on each side of selected)
 Direction=-1
-// set a bearing instead of angle, N, NE, E, SE, S, SW, W, NW, (with same margin as above)
+// set a bearing instead of angle: N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW, (with same margin as above)
 Bearing=
 // ICAO code of the airport where you wish to start all journeys
 StartAirport=
+// ICAO code of the airport you wish to end your journeys
+EndAirport=
 // use selected aircraft range to decide maximum leg distance
 UseAircraftRange=0
+// set range based on selected aircraft travel time
+Time=
 // pick a random airport from "favourites.txt"
 StartFromFavourite=
 // use a modifier to determine maximum range, in percent of aircraft maximum
@@ -89,5 +99,7 @@ AircraftRangePercent=75
 SimpleRouteCount=5
 
 [export]
-// export all routes to MSFS 2020 plan files, 1 = yes, 0 = no (which will saved to \Plans\icao_to_icao_yyyymmdd_hhmmss.txt)
+// export all routes to MSFS 2020 plan files, 1 = yes, 0 = no (which will saved to \Plans\icao_to_icao_yyyymmdd_hhmmss.pln)
 MSFS=0
+// export the routes to a text file (1 = yes, 0 = no), (saves to \Reports\icao_to_icao_yyyymmdd_hhmmss.txt)
+Text=0

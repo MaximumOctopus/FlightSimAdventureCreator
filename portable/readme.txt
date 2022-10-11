@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.2
+  Flight Simulator Adventure Creator 0.3
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -11,7 +11,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 5th 2022
+  October 11th 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -43,7 +43,7 @@ If you'd like me to add aircraft details to create an MSFS Flight Plan (.flt), w
 
 This will give you a detailed list of every command-line option and information on how to use them.
 
-Please note that options that take a numeric value (eg range) will only accept integer values (42, 69, 1138). Real numbers (100.4, 42.01, 3.141) will be ignored.
+Please note that options that most options only take an integer value (eg range) (42, 69, 1138). Real numbers (100.4, 42.01, 3.141) will be ignored. The exception to this is the settings that filter airports by longitude and latitude. These will happy except real numbers, and of course, negative values.
 
 When thinking about options, generally speaking the application starts by including everything. All airports, all aircraft. The command line options you select will act to remove either airports or aircraft from the final selection. The more options you add the smaller the selection pool will be.
 
@@ -74,29 +74,29 @@ As mentioned below, the data available is larger than the number of valid airpor
   
 Generate simple routes (from one airport to another) in the continent of North America.
 
-  fsac /atob /leg:2
+  fsac /atob /legs:2
   
 Generate a route of two legs. Starting location can be anywhere, maximum distance between legs is 100 nm (default).
 
-  fsac /atob /leg:2 /range:80
+  fsac /atob /legs:2 /range:80
   
 Generate a route of two leg. Starting location can be anywhere, maximum distance between legs is 80 nm.
 
-  fsac /atob /leg:2 /range:80 /ga
+  fsac /atob /legs:2 /range:80 /ga
   
 As above, but will now limit the random aircraft selection to either prop or twin prop, ignores military and airliners.
 
-  fsac /atob /leg:3 /range:200 /jet /noairliner
+  fsac /atob /legs:3 /range:200 /jet /noairliner
   
 A route of 3 leg, where each leg is no more than 200 nm. Only jets, no airliners. Military jets allowed.
  
-  fsac /atob /leg:3 /range:200 /jet /noairliner /country:GB
+  fsac /atob /legs:3 /range:200 /jet /noairliner /country:GB
   
 As above, but limit airports to Great Britian.
 
 A complete list of ISO country codes can be found here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 
-  fsac /atob /useaircraftrange /leg:3
+  fsac /atob /useaircraftrange /legs:3
 
 Creates a three-leg journey where each leg length is determined by the chosen aircraft's max range. A modifier is first applied to the aircraft's max range (the default is 75%) before dividing the range by the number of legs.
 
@@ -118,13 +118,27 @@ This is very much a beta feature. It'll likely work better for Northern Hemisphe
   
 So we start a 2-leg journey from Copenhagen (EKCH) and will fly north into Sweden. 
 
-  fsac /atob /turbos /favourite
+  fsac /startairport:EGKK /endairport:EGXW /range:50
+  
+Generate a route from Gatwick Airport to Waddington Airfield.
+  
+This will automatically set the number of legs based on distance from the start to end airports. If legs was specified instead, then the range would be automatically calculated. 
+
+Notice that /atob is missing. From version 0.3 onwards, the application will see that it's missing (providing some other settings have been set) and add it automatically.
+
+Setting start and end is in beta at the moment. It seems to work well with testing. If you get any issues from it then please send me details.
+
+  fsac /atob /turbos /favourite 
   
 As you can guess by now, this one plots an A->B route (a single leg), and specifies only turbo props or twin turbo props. It will pick the starting airport from one of the airports in the "favourites.txt" file. As with all FSAC files, this is editable, and I suggest you fill it full of your own favourite places. It comes pre-populated with a selection of interesting aiports from across the world.
 
   fsac /atob /props /range:20 /keeptrying
   
 A nice short route in a slow-but-fun prop (probably). There are plenty of places in the world where 20 miles between airports isn't going to cause a problem. There are plenty of places where <5 will work! But this isn't true for many remote locations. So, rather than not getting a route at all, try using /keeptrying. If a search finds no airports, then it will search again but will multiply range by 1.25 and (if set) increase the direction angle by 5 degrees plus and minus. If it still can't find an airport it will try again, modifying range and direction by the same amounts. It will give-up after 21 tries...
+
+  fsac /startairport:YSSY /range:200k
+  
+A->B route (/atob added automatically as a start airport is specified). Range is specified in kilometers (which will be converted to nautical miles).
 
   /saveconfig:filename
   
@@ -133,6 +147,14 @@ This will save your route/aircraft configuration, using all of the options you'v
   /loadconfig:filename
   
 This will load a previously saved or created configuration. You won't have to use command-line options again!
+
+  /findnearest:ICAO /range:50
+  
+Show all airports within range of the specified airport. If the range parameter is omitted then the default (100 nm) will be used.
+
+This is one of a planned list of "data analysis" functions that will be added to regularly.
+
+These can't be combined with any other route options. Once it's listed the nearest airports the application will exit.
 
   fsac /cat
  
@@ -151,6 +173,22 @@ The parameters are processed in order (left to right), so the /twins parameter w
 
 eg. /day /night
 Lol, but no.
+
+eg. /bearing /direction
+
+Internally, bearing converts to a direction. So as the rule above, the second setting will take precedence and /bearing will be ignored.
+
+eg. /startairport:xxxx /endairport:yyyy /legs:3 /range:80
+
+We already know the distance between the airports, so setting the number of legs and range doesn't make much sense. Total distance is legs * range. So what should the application do if this is much less than the distance between the specified airports, or much more?!
+
+If this happens, then FSAC will use the specified range, and calculate the legs from that.
+
+eg. some combination of /night /day /longfrom /longto /country /region /continent
+
+Filtering by longitude and continent may work, setting /longfrom and /longto with /night or /day, won't.
+
+Internally, /night and /day set latitudefrom and latitudeto.
 
 ====================================================================================================================================
 ====================================================================================================================================
@@ -193,18 +231,14 @@ Some airports do not have corresponding runway information. If you get an error 
 
  "Couldn't get a runway for airport "ICAO" (exported files may not work correctly)"
 
-Then it's possible the MSFS plan files won't work correctly as they need a departure runway.
+Then it's possible the MSFS plan files won't work correctly, as they need a departure runway.
 
 If you have the time, then you would help everyone by going over to ourairports.com and adding a runway to this target airport (it's usually possible to find this information online without too much trouble). Their runway data file is updated daily.
-
-So the High Performance Group decided to release a hot air ballon just as I was finalising the code. This isn't currently supported as its own type, but I'll add an aircraft filter category for it in the next update.
 
 ====================================================================================================================================
 ====================================================================================================================================
 
 To-do list (in no particular order):
-
-Unit tests (this one is in the correct order!)
 
 A proper manual.
 
@@ -212,27 +246,24 @@ Fixing the UTF8 import of airport names.
 
 Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
 
-Route generation based on flight time (eg /time:60 to get an hour's flight)
-
 Adding points of interest (POIs) to routes. 
-
-Optimising performance of route generation.
+Adding NavAids (VOR, DME, etc.).
 
 Automatic creation of custom_aircraft.txt by reading from the community folder.
+(This works, but I'm having trouble finding a reliable way to locate the community folder.)
 
 More route customisation options.
 
-A human-readable text document of a generated route.
+Optimising the performance of route generation.
 
 Multi-language support.
 
 Support for X-Plane 11/12. Their flight plan file format seems very simple, if anyone can test this for me please get in touch.
+(Export option exists in code, needs testing)
+ 
+GUI version. (should be available late 2022 or early 2023)
 
 Support for IFR flying.
-
-Mac version.
-
-GUI version. (should be available before end of 2022)
 
 (if you dive in to the code you'll see that some of these have been started, so they aren't that far away from being released)
 
@@ -255,11 +286,31 @@ Written in C++ 20 with Visual Studio 2022. This application is open source, code
 					  
    Dedicated to Julie, Adam, and Dyanne.
 
-All of my softare is free and open source; please consider donating to a local cat charity or shelter. Thanks.
+All of my software is free and open source; please consider donating to a local cat charity or shelter. Thanks.
 
 ====================================================================================================================================
 
 Release History
+
+0.3 / October 11th 2022
+
+Added: /endairport:ICAO, you can combine this with /startairport:ICAO but it's very much BETA.
+Added: /bearing now supports all 16 compass bearings: N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW
+Added: EGPR (Barra Airport)
+Added: Balloon support!
+Added: Airport filtering by latitude and longitude
+       /longfrom /longto /latfrom /latto
+Added: basic text output of route, /exporttext
+Added: Optimised runway data file to only include runways for MSFS-valid airports
+
+Fixed: Some minor text output issues, and trimmed various values (no-one needs 6 decimal places!)
+Fixed: A bug with direction. It would work for the first 180', and erm... not very well with the rest.
+Fixes: Airports with an elevation below 0 feet... oops
+
+And if you're interested in the code:
+Added: Quite a few unit tests, likely more to come
+Added: Some extra debug and data sanity checking while testing
+
 
 0.2 / October 5th 2022
 

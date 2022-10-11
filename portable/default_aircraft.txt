@@ -4,12 +4,12 @@
 //{
 //name=
 //cruise=
-//range=cannot be zero
-//availability={all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party (everything in custom_aircraft)
-//type=must be one of these: 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop
-//military=0 (1 = is military aircraft)
-//airliner=0 (1 = is airliner)
-//minrunway=0 (in feet, 0 = doesn't matter)
+//range=			{ cannot be zero }
+//availability=		{ all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party (everything in custom_aircraft }
+//type=				{ must be one of these: 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon }
+//military=0 		{ 1 = is military aircraft }
+//airliner=0 		{ 1 = is airliner }
+//minrunway=0 		{ in feet, 0 = doesn't matter }
 //}
 
 

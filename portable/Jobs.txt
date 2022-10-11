@@ -85,7 +85,7 @@ i:speedboat
 {o2
 i:nuclear material
 i:suspicious package
-i:locked atache case
+i:locked attache case
 i:slightly damaged safe
 i:box of fireworks
 i:large box of party poppers
@@ -95,7 +95,7 @@ i:box of lithium batteries
 // list of SLF
 {p0
 i:Nuclear scientist
-i:CEO of a large blue chip
+i:CEO of a large blue-chip
 i:Military General
 i:Admiral
 i:Foreign leader
