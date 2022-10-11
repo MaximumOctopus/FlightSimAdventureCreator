@@ -1,4 +1,4 @@
-#  Flight Simulator Adventure Creator 0.2
+#  Flight Simulator Adventure Creator 0.3
   (c) Paul Alan Freshney 2022 / paul@freshney.org
 ```
 Source code and latest data and exe files
@@ -7,7 +7,7 @@ https://github.com/MaximumOctopus/FlightSimAdventureCreator
 Uses airport and runway data from Our Airports (without which this application couldn't exist)
 https://ourairports.com/data/
 ```	
-  October 5th 2022
+  October 11th 2022
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -251,9 +251,28 @@ All of my softare is free and open source; please consider donating to a local c
 
 Release History
 
+0.3 / October 11th 2022
+```
+Added: /endairport:ICAO, you can combine this with /startairport:ICAO but it's very much BETA.
+Added: /bearing now supports all 16 compass bearings: N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW
+Added: EGPR (Barra Airport)
+Added: Balloon support!
+Added: Airport filtering by latitude and longitude
+       /longfrom /longto /latfrom /latto
+Added: basic text output of route, /exporttext
+Added: Optimised runway data file to only include runways for MSFS-valid airports
+
+Fixed: Some minor text output issues, and trimmed various values (no-one needs 6 decimal places!)
+Fixed: A bug with direction. It would work for the first 180', and erm... not very well with the rest.
+Fixes: Airports with an elevation below 0 feet... oops
+
+And if you're interested in the code:
+Added: Quite a few unit tests, likely more to come
+Added: Some extra debug and data sanity checking while testing
+```
 0.2 / October 5th 2022
-
+```
 First official release.
-
+```
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
