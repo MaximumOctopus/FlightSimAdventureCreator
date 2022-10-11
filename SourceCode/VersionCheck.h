@@ -13,12 +13,9 @@
 
 
 #include <string>
-#include <vector>
-
-#include "Airport.h"
 
 
-namespace MSFSFlightPlan
+namespace VersionCheck
 {
-	bool Export(std::vector<Airport>& airports, const std::wstring file_name);
-};
+	bool IsNewVersion();
+}

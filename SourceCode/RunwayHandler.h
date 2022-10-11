@@ -28,9 +28,13 @@ class RunwayHandler
 {
 	bool Silent = false;
 
-	[[nodiscard]] bool LoadRunways(std::wstring);
+	[[nodiscard]] bool LoadRunways(const std::wstring);
 
 	[[nodiscard]] bool ImportFromRow(const std::wstring);
+
+	#ifdef _DEBUG
+	void ImportedDataCheck();
+	#endif
 
 public:
 
@@ -38,7 +42,13 @@ public:
 
 	std::vector<Runway> Runways;
 
-	RunwayHandler(bool);
+	RunwayHandler(const std::wstring);
+
+	RunwayHandler(bool, const std::wstring);
 
 	Runway GetRandom(std::wstring);
+
+	int FindAndSet(const std::wstring);
+
+	bool Save(const std::wstring, bool);
 };

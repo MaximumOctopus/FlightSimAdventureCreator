@@ -22,17 +22,22 @@ namespace RouteHandler
 	{
 		double distance = 0;
 
-		std::wcout << std::format(L"    Starting airport: {0} ({1}), elevation {2} ft", airports[0].Ident, airports[0].Country, airports[0].Elevation) << L"\n";
+		std::wcout << std::format(L"    Starting airport: {0} ({1}), @ {2:5.1f}° (elevation {3} ft)\n", airports[0].Ident, airports[0].Country, airports[1].Angle, airports[0].Elevation);
 
 		for (int i = 1; i < airports.size(); i++)
 		{
-			int d = static_cast<int>(airports[i].Distance);
-
-			std::wcout << Formatting::AddLeadingSpace(std::to_wstring(d), 13) << std::format(L" nm -->  {0} ({1}), elevation {2} ft", airports[i].Ident, airports[i].Country, airports[i].Elevation) << L"\n";
+			if (i != airports.size() - 1)
+			{
+				std::wcout << std::format(L"{0:13.1f} nm -->  {1} ({2}), @ {3:5.1f}° (elevation {4} ft)\n", airports[i].Distance, airports[i].Ident, airports[i].Country, airports[i + 1].Angle, airports[i].Elevation);
+			}
+			else
+			{
+				std::wcout << std::format(L"{0:13.1f} nm -->  {1} ({2}),          (elevation {3} ft)\n", airports[i].Distance, airports[i].Ident, airports[i].Country, airports[i].Elevation);
+			}
 
 			distance += airports[i].Distance;
 		}
 
-		std::wcout << L"\n    Total distance: " << distance << L" nm\n\n";
+		std::wcout << std::format(L"\n    Total distance: {0:.1f} nm\n\n", distance);
 	}
 }

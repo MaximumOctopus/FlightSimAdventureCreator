@@ -155,6 +155,8 @@
     <ClCompile Include="JobHandler.cpp" />
     <ClCompile Include="MSFSFlightPlan.cpp" />
     <ClCompile Include="MSFSSystem.cpp" />
+    <ClCompile Include="NavAid.cpp" />
+    <ClCompile Include="NavAidsHandler.cpp" />
     <ClCompile Include="POI.cpp" />
     <ClCompile Include="POIHandler.cpp" />
     <ClCompile Include="RouteHandler.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="TextItinerary.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="VersionCheck.cpp" />
+    <ClCompile Include="WindowsUtility.cpp" />
     <ClCompile Include="XPlaneFlightPlan.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +181,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DateUtility.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Defults.h" />
     <ClInclude Include="FCASAirportData.h" />
     <ClInclude Include="Formatting.h" />
     <ClInclude Include="GlobalObjects.h" />
@@ -184,8 +189,11 @@
     <ClInclude Include="Ini.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobHandler.h" />
+    <ClInclude Include="Locations.h" />
     <ClInclude Include="MSFSFlightPlan.h" />
     <ClInclude Include="MSFSSystem.h" />
+    <ClInclude Include="NavAid.h" />
+    <ClInclude Include="NavAidsHandler.h" />
     <ClInclude Include="POI.h" />
     <ClInclude Include="POIHandler.h" />
     <ClInclude Include="resource.h" />
@@ -195,6 +203,8 @@
     <ClInclude Include="Stats.h" />
     <ClInclude Include="TextItinerary.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="VersionCheck.h" />
+    <ClInclude Include="WindowsUtility.h" />
     <ClInclude Include="XPlaneFlightPlan.h" />
   </ItemGroup>
   <ItemGroup>

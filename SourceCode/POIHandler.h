@@ -26,7 +26,7 @@ static const int kPFieldDescription = 8;
 
 class POIHandler
 {
-	[[nodiscard]] bool LoadPOIs(std::wstring);
+	[[nodiscard]] bool LoadPOIs(const std::wstring);
 
 	[[nodiscard]] bool ImportFromRow(const std::wstring);
 

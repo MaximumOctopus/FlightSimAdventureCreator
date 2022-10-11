@@ -7,24 +7,24 @@
 // 
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
 // 
-//
+// 
 
 #pragma once
-
 
 #include <string>
 
 
-class POI
+class NavAid
 {
-
 public:
 
 	std::wstring Name = L"";
-	std::wstring Description = L"";
+	std::wstring Ident = L"";
+	std::wstring Type = L"";
+	std::wstring Freq = L"";				// kHz
+	std::wstring Country = L"";				// ICO code
 
-	std::wstring Latitude = L"";
-	std::wstring Longitude = L"";
+	int Elevation = 0;
 
 	double LatitudeD = 0;					// value cached as double for quicker calcs
 	double LongitudeD = 0;					//
@@ -32,5 +32,5 @@ public:
 	double LatitudeR = 0;					// value cached in radians for quicker distance calc
 	double LongitudeR = 0;					//
 
-	POI(const std::wstring name, const std::wstring description, const std::wstring latitude, const std::wstring longitude);
+	NavAid(const std::wstring, const std::wstring, const std::wstring);
 };

@@ -7,18 +7,20 @@
 // 
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
 // 
-//
+// 
 
 #pragma once
 
-
 #include <string>
-#include <vector>
-
-#include "Airport.h"
 
 
-namespace MSFSFlightPlan
+class NavAidsHandler
 {
-	bool Export(std::vector<Airport>& airports, const std::wstring file_name);
+	[[nodiscard]] bool LoadNavAids(const std::wstring);
+
+public:
+
+	bool Loaded = false;
+
+	NavAidsHandler();
 };

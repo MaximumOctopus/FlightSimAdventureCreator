@@ -16,9 +16,16 @@
 
 namespace MSFSSystem
 {
-	[[nodiscard]] bool CreateAircraftList();
+	[[nodiscard]] bool CreateAircraftList(const std::wstring);
 
-	bool ProcessFolder(const std::wstring);
+	bool ProcessContentsFolder(std::vector<Aircraft>&, const std::wstring);
+
+	std::wstring GetNameFromUSLocalisation(const std::wstring);
+	std::wstring StripFromJSON(const std::wstring);
+
+	bool SaveCustomAircraftFile(std::vector<Aircraft>&, const std::wstring);
+
+	std::wstring GetFirstFolder(const std::wstring&);
 
 	void FindFolder(std::vector<std::wstring>&, const std::wstring&);
 }

@@ -16,6 +16,12 @@ namespace AirportConstants
 {
 	enum class AirportType { None = 0, Small = 1, Medium = 2, Large = 3, Heliport = 4, SeaplaneBase = 5 };
 
+	static const std::wstring SmallAirport = L"small_airport";		// as specified in the source airports.csv file from ourairports.com
+	static const std::wstring MediumAirport = L"medium_airport";	//
+	static const std::wstring LargeAirport = L"large_airport";		//
+	static const std::wstring Heliport = L"heliport";				//
+	static const std::wstring SeaplaneBase = L"seaplane_base";		//
+
 	static const int AirportTypeCount = 5;
 
 	static const int AirportTypeSmall = 0;

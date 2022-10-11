@@ -24,7 +24,7 @@
 
 namespace MSFSFlightPlan
 {
-	bool Export(std::vector<Airport>& airports, std::wstring file_name)
+	bool Export(std::vector<Airport>& airports, const std::wstring file_name)
 	{
 		std::ofstream ofile(file_name);
 
@@ -49,7 +49,7 @@ namespace MSFSFlightPlan
                 ofile << Formatting::to_utf8(L"        <DestinationID>" + airports.back().Ident + L"</DestinationID>\n");
                 ofile << Formatting::to_utf8(L"        <DestinationLLA>" + Utility::DegreesToDMS(airports.back().LongitudeD, airports.back().LatitudeD) + L",+000000.00</DestinationLLA>\n");
                 ofile << Formatting::to_utf8(L"        <Descr>" + airports[0].Ident + L" to " + airports.back().Ident + L"</Descr>\n");
-                ofile << Formatting::to_utf8(L"        <DeparturePosition>" + airports[0].Runway + L"</DeparturePosition>\n");
+                ofile << Formatting::to_utf8(L"        <DeparturePosition>" + airports[0].Runway.Name + L"</DeparturePosition>\n");
                 ofile << Formatting::to_utf8(L"        <DepartureName>" + airports[0].Ident + L"</DepartureName>\n");
                 ofile << Formatting::to_utf8(L"        <DestinationName>" + airports.back().Ident + L"</DestinationName>\n");
                 ofile << Formatting::to_utf8(L"        <AppVersion>\n");
@@ -108,7 +108,7 @@ namespace MSFSFlightPlan
                 ofile << Formatting::to_utf8(L"        <DestinationID>" + airports.back().Ident + L"</DestinationID>\n");
                 ofile << Formatting::to_utf8(L"        <DestinationLLA>" + Utility::DegreesToDMS(airports.back().LongitudeD, airports.back().LatitudeD) + L",+000000.00</DestinationLLA>\n");
                 ofile << Formatting::to_utf8(L"        <Descr>" + airports[0].Ident + L" to " + airports.back().Ident + L"</Descr>\n");
-                ofile << Formatting::to_utf8(L"        <DeparturePosition>" + airports[0].Runway + L"</DeparturePosition>\n");
+                ofile << Formatting::to_utf8(L"        <DeparturePosition>" + airports[0].Runway.Name + L"</DeparturePosition>\n");
                 ofile << Formatting::to_utf8(L"        <DepartureName>" + airports[0].Ident + L"</DepartureName>\n");
                 ofile << Formatting::to_utf8(L"        <DestinationName>" + airports.back().Ident + L"</DestinationName>\n");
                 ofile << Formatting::to_utf8(L"        <AppVersion>\n");

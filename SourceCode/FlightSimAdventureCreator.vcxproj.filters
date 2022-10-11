@@ -91,6 +91,15 @@
     <Filter Include="Header Files\MSFSSystem">
       <UniqueIdentifier>{5a199dd9-0dd1-4b2d-b18b-68309077d1b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Constants">
+      <UniqueIdentifier>{b7c8f54c-c1f3-4a63-871d-39fa047ca1c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NavAids">
+      <UniqueIdentifier>{78f81ffd-41c9-4fa5-a4c3-d0f1c75b71b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NavAids">
+      <UniqueIdentifier>{854dcc92-74f5-4ae1-a1eb-c207091e8751}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlightSimAdventureCreator.cpp">
@@ -171,6 +180,18 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="WindowsUtility.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="NavAid.cpp">
+      <Filter>Source Files\NavAids</Filter>
+    </ClCompile>
+    <ClCompile Include="NavAidsHandler.cpp">
+      <Filter>Source Files\NavAids</Filter>
+    </ClCompile>
+    <ClCompile Include="VersionCheck.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h">
@@ -190,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="Help.h">
       <Filter>Header Files\Help</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Header Files\Utility</Filter>
     </ClInclude>
     <ClInclude Include="MSFSFlightPlan.h">
       <Filter>Header Files\Export</Filter>
@@ -261,6 +279,27 @@
       <Filter>Header Files\MSFSSystem</Filter>
     </ClInclude>
     <ClInclude Include="Debug.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Defults.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Locations.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsUtility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="NavAid.h">
+      <Filter>Header Files\NavAids</Filter>
+    </ClInclude>
+    <ClInclude Include="NavAidsHandler.h">
+      <Filter>Header Files\NavAids</Filter>
+    </ClInclude>
+    <ClInclude Include="VersionCheck.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,6 +25,8 @@ private:
 
 	[[nodiscard]] bool LoadFile(const std::wstring);
 
+	std::wstring NormaliseEntry(const std::wstring);
+
 public:
 
 	bool Loaded = false;

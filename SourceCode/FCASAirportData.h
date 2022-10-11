@@ -19,5 +19,7 @@
 
 namespace FSACAirportData
 {
-	void Export();
+	void ExportAirports();
+
+	void ExportRunways();
 }

@@ -19,6 +19,7 @@
 #include "Constants.h"
 #include "DateUtility.h"
 #include "Formatting.h"
+#include "Locations.h"
 #include "Ini.h"
 #include "Utility.h"
 
@@ -80,7 +81,7 @@ void Configuration::ShowConfiguration()
 		std::wcout << L"    Config source    : Config file\n\n";
 	}
 
-	// airport
+    // == airport =====================================================================================
 
 	std::wcout << L"    Small Airports   : " << Utility::BoolToYesNo(Airport.SmallAirports) << L"\n";
 	std::wcout << L"    Medium Airports  : " << Utility::BoolToYesNo(Airport.MediumAirports) << L"\n";
@@ -92,6 +93,16 @@ void Configuration::ShowConfiguration()
 		std::wcout << L"    Continent        : All\n";
 		std::wcout << L"    Country          : All\n";
 		std::wcout << L"    Region           : All\n";
+
+		if (Airport.LatitudeFilter)
+		{
+			std::wcout << L"    Latitude         : " << Airport.LatitudeFrom << L" to " << Airport.LatitudeTo << L"\n";
+		}
+
+		if (Airport.LongitudeFilter)
+		{
+			std::wcout << L"    Longitude        : " << Airport.LongitudeFrom << L" to " << Airport.LongitudeTo << L"\n";
+		}
 	}
 	else
 	{
@@ -120,6 +131,16 @@ void Configuration::ShowConfiguration()
 			{
 				std::wcout << L"    Region           : " << Airport.Region << L"\n";
 			}
+
+			if (Airport.LatitudeFilter)
+			{
+				std::wcout << L"    Latitude         : " << Airport.LatitudeFrom << L" to " << Airport.LatitudeTo << L"\n";
+			}
+
+			if (Airport.LongitudeFilter)
+			{
+				std::wcout << L"    Longitude        : " << Airport.LongitudeFrom << L" to " << Airport.LongitudeTo << L"\n";
+			}
 		}
 	}
 
@@ -132,7 +153,7 @@ void Configuration::ShowConfiguration()
 
 	std::wcout << "\n";
 
-	// aircraft
+	// == aircraft ====================================================================================
 
 	if (Aircraft.Default)
 	{
@@ -147,31 +168,31 @@ void Configuration::ShowConfiguration()
 	std::wcout << L"    Max Cruise Speed : " << Aircraft.MaxSpeed << L" kts\n";
 	std::wcout << L"    Min Cruise Speed : " << Aircraft.MinSpeed << L" kts\n";
 
-	if (Aircraft.Special != SpecialMode::None)
+	if (Aircraft.Special != AircraftConstants::SpecialMode::None)
 	{
 		switch (Aircraft.Special)
 		{
-		case SpecialMode::GA:
+		case AircraftConstants::SpecialMode::GA:
 			std::wcout << L"    Aircraft Type    : Props, Twin Props, Turbo props, Twin turbo props\n";
 			std::wcout << L"    Airliners        : No\n";
 			std::wcout << L"    Military         : No\n";
 			break;
-		case SpecialMode::JetAirliners:
+		case AircraftConstants::SpecialMode::JetAirliners:
 			std::wcout << L"    Aircraft Type    : Jets\n";
 			std::wcout << L"    Airliners        : Yes\n";
 			std::wcout << L"    Military         : No\n";
 			break;
-		case SpecialMode::Twins:
+		case AircraftConstants::SpecialMode::Twins:
 			std::wcout << L"    Aircraft Type    : Twin props and Twin turbo props\n";
 			std::wcout << L"    Airliners        : Yes\n";
 			std::wcout << L"    Military         : Yes\n";
 			break;
-		case SpecialMode::Props:
+		case AircraftConstants::SpecialMode::Props:
 			std::wcout << L"    Aircraft Type    : Props and twin props\n";
 			std::wcout << L"    Airliners        : No\n";
 			std::wcout << L"    Military         : No\n";
 			break;
-		case SpecialMode::TurboProps:
+		case AircraftConstants::SpecialMode::TurboProps:
 			std::wcout << L"    Aircraft Type    : Turbo props and twin turbo props\n";
 			std::wcout << L"    Airliners        : Yes\n";
 			std::wcout << L"    Military         : Yes\n";
@@ -186,7 +207,7 @@ void Configuration::ShowConfiguration()
 		}
 		else
 		{
-			std::wcout << L"    Aircraft Type    : Prop/Jet/Heli/Glider/Twin Prop/Turbo props/Twin turbo props\n";
+			std::wcout << L"    Aircraft Type    : All (Props/Twins/Turbos/Jets/Helis/Gliders/Balloons)\n";
 		}
 
 		std::wcout << L"    Airliners        : " << Utility::BoolToYesNo(Aircraft.Airliner) << L"\n";
@@ -207,11 +228,24 @@ void Configuration::ShowConfiguration()
 
 	std::wcout << "\n";
 
-	// route
+	// == route =======================================================================================
 
 	if (Route.AtoB)
 	{
-		std::wcout << L"    Range            : " << Route.Range << L" nm\n";
+		if (Route.AtoBAutomatic)
+		{
+			std::wcout << L"    Route generation : Added automatically (looks like you forgot /atob)\n";
+		}
+
+		if (Route.RequestedFlightTime != 0)
+		{
+			std::wcout << L"    Range            : set from flight time (" << Route.RequestedFlightTime << L" mins. (+/- " << Defaults::DefaultRangeModifier << L"%)\n";
+		}
+		else
+		{
+			std::wcout << L"    Range            : " << Route.Range << L" nm (+/- " << Defaults::DefaultRangeModifier << L"%)\n";
+		}		
+
 		std::wcout << L"    Legs             : " << Route.Legs << L"\n";
 
 		if (Route.Direction != Defaults::DefaultDirection)
@@ -251,11 +285,16 @@ void Configuration::ShowConfiguration()
 		std::wcout << "\n";
 	}
 
-	// export
+	// == export ======================================================================================
 
 	if (Export.MSFS)
 	{
 		std::wcout << L"    Export           : MSFS Plan (.pln)\n";
+	}
+
+	if (Export.Text)
+	{
+		std::wcout << L"    Export           : Text itinerary (.txt)\n";
 	}
 
 	if (Export.XPlane)
@@ -416,19 +455,19 @@ void Configuration::SetFromCommandLine()
 				Aircraft.Military = false;
 				break;
 			case ParameterOption::GAOnly:
-				Aircraft.Special = SpecialMode::GA;
+				Aircraft.Special = AircraftConstants::SpecialMode::GA;
 				break;
 			case ParameterOption::JAOnly:
-				Aircraft.Special = SpecialMode::JetAirliners;
+				Aircraft.Special = AircraftConstants::SpecialMode::JetAirliners;
 				break;
 			case ParameterOption::TwinsOnly:
-				Aircraft.Special = SpecialMode::Twins;
+				Aircraft.Special = AircraftConstants::SpecialMode::Twins;
 				break;
 			case ParameterOption::Props:
-				Aircraft.Special = SpecialMode::Props;
+				Aircraft.Special = AircraftConstants::SpecialMode::Props;
 				break;
 			case ParameterOption::TurboProps:
-				Aircraft.Special = SpecialMode::TurboProps;
+				Aircraft.Special = AircraftConstants::SpecialMode::TurboProps;
 				break;
 			case ParameterOption::MaxSpeed:
 				HandleAircraftMaxSpeed(Parameters[p].property);
@@ -441,6 +480,9 @@ void Configuration::SetFromCommandLine()
 				break;
 			case ParameterOption::ExportMSFS:
 				Export.MSFS = true;
+				break;
+			case ParameterOption::ExportText:
+				Export.Text = true;
 				break;
 			case ParameterOption::ExportXPlane:
 				break;
@@ -457,6 +499,8 @@ void Configuration::SetFromCommandLine()
 				Helpers.FindNearest = true;
 				
 				Route.FindNearestICAO = Parameters[p].property;
+
+				Meta.OnlyNeedAirports = true;
 				break;
 			case ParameterOption::SaveConfig:
 			{
@@ -493,16 +537,61 @@ void Configuration::SetFromCommandLine()
 			case ParameterOption::ListAirports:
 				Airport.ListAirports = true;
 				break;
+			case ParameterOption::Time:
+				HandleTime(Parameters[p].property);
+				break;
+			case ParameterOption::LatitudeMax:
+				HandleLatLong(Parameters[p].property, Constants::LatLongSelection::LatitudeFrom);
+				break;
+			case ParameterOption::LatitudeMin:
+				HandleLatLong(Parameters[p].property, Constants::LatLongSelection::LatitudeTo);
+				break;
+			case ParameterOption::LongitudeMax:
+				HandleLatLong(Parameters[p].property, Constants::LatLongSelection::LongitudeFrom);
+				break;
+			case ParameterOption::LongitudeMin:
+				HandleLatLong(Parameters[p].property, Constants::LatLongSelection::LongitudeTo);
+				break;
+			case ParameterOption::AddStartToFav:
+				if (!AddToFavourite(Route.StartAirportICAO))
+				{
+
+				}
+				break;
+			case ParameterOption::AddEndToFav:
+				if (!AddToFavourite(Route.EndAirportICAO))
+				{
+
+				}
+				break;
 
 			default:
 				std::wcout << L" Warning, parameter " << Parameters[p].command << " was unhandled.\n";
 			}
 		}
 
+		// =====================================================================================================
+		// == post-processing, these must be actioned after all parameters have been processed
+		// =====================================================================================================
+
 		if (!Airport.SmallAirports && !Airport.MediumAirports && !Airport.LargeAirports && Airport.Heliports)
 		{
 			Aircraft.Type = AircraftConstants::AircraftTypeHeli;
 		}	
+
+		// =====================================================================================================
+		// == a few sanity checks, and let's help the user if they've forgotten a parameter
+		// =====================================================================================================
+
+		if (!Route.AtoB)
+		{
+			// the user has likely wanted a route but forgotten the /atob parameter
+			if (Route.Range != Defaults::DefaultRange || Route.StartAirportICAO != L"" || Route.EndAirportICAO != L"" || Route.Direction != -1 || Route.Legs != 1)
+			{
+				Route.AtoB = true;
+				Route.AtoBAutomatic = true;
+			}
+		}
 	}
 }
 
@@ -537,6 +626,30 @@ void Configuration::HandleAircraftMinSpeed(const std::wstring speed)
 }
 
 
+void Configuration::HandleAircraftRangePercent(const std::wstring range_percent)
+{
+	double RangePC = Defaults::DefaultACPC;
+
+	try
+	{
+		RangePC = stod(range_percent);
+	}
+	catch (...)
+	{
+		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
+	}
+
+	if (RangePC > 0)
+	{
+		Route.Range = RangePC;
+	}
+	else
+	{
+		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
+	}
+}
+
+
 void Configuration::HandleAircraftType(const std::wstring aircraft_type)
 {
 	int Type = SafelyGetIntFromString(aircraft_type, Defaults::DefaultAircraftSelection);
@@ -558,42 +671,17 @@ void Configuration::HandleBearing(const std::wstring input)
 	std::wstring bearing(input);
 	std::transform(bearing.begin(), bearing.end(), bearing.begin(), ::toupper);
 
-	if (bearing == L"N")
+	for (int t = 0; t < 16; t++)
 	{
-		Route.Direction = 0;
+		if (bearing == Constants::CompassBearings[t])
+		{
+			Route.Direction = Constants::CompassDegrees[t];
+
+			return;
+		}
 	}
-	else if (bearing == L"E")
-	{
-		Route.Direction = 90;
-	}
-	else if (bearing == L"S")
-	{
-		Route.Direction = 180;
-	}
-	else if (bearing == L"W")
-	{
-		Route.Direction = 270;
-	}
-	else if (bearing == L"NE")
-	{
-		Route.Direction = 45;
-	}
-	else if (bearing == L"SE")
-	{
-		Route.Direction = 135;
-	}
-	else if (bearing == L"SW")
-	{
-		Route.Direction = 225;
-	}
-	else if (bearing == L"NW")
-	{
-		Route.Direction = 315;
-	}
-	else
-	{
-		std::wcerr << std::format(L"Error, invalid bearing \"{0}\". Direction disabled.\n", bearing);
-	}
+
+	std::wcerr << std::format(L"Error, invalid bearing \"{0}\". Direction disabled.\n", bearing);
 }
 
 
@@ -604,9 +692,9 @@ void Configuration::HandleContinent(const std::wstring input)
 
 	bool isvalid = false;
 
-	for (int t = 0; t < kContinentCount; t++)
+	for (int t = 0; t < Location::ContinentCount; t++)
 	{
-		if (ContinentShort[t] == continent)
+		if (Location::ContinentShort[t] == continent)
 		{
 			isvalid = true;
 
@@ -647,9 +735,9 @@ void Configuration::HandleCountry(const std::wstring input)
 
 	bool isvalid = false;
 
-	for (int t = 0; t < kISOCountries; t++)
+	for (int t = 0; t < Location::ISOCountriesCount; t++)
 	{
-		if (ISOCountries[t][0] == country)
+		if (Location::ISOCountries[t][0] == country)
 		{
 			isvalid = true;
 
@@ -672,15 +760,20 @@ void Configuration::HandleDirection(const std::wstring angle)
 {
 	if (angle != L"-1")
 	{
-		int Direction = SafelyGetIntFromString(angle, Defaults::DefaultDirection);
+		double Direction = Defaults::DefaultDirection;
 
-		if (Direction >= 0 && Direction <= 359)
+		try
+		{
+			Direction = stod(angle);
+		}
+		catch(...)
+		{ 
+			std::wcerr << std::format(L"Error, invalid direction \"{0}\". Using any (default).\n", angle);
+		}
+
+		if (Direction >= 0 && Direction < 360)
 		{
 			Route.Direction = Direction;
-		}
-		else
-		{
-			std::wcerr << std::format(L"Error, invalid direction \"{0}\". Using any (default).\n", angle);
 		}
 	}
 }
@@ -716,6 +809,43 @@ void Configuration::HandleLegs(const std::wstring legs)
 }
 
 
+void Configuration::HandleLatLong(const std::wstring input, Constants::LatLongSelection setting)
+{
+	double value = 999;
+
+	try
+	{
+		value = stod(input);
+	}
+	catch (...)
+	{
+		std::wcerr << std::format(L"Error, invalid lat//long value \"{0}\". Disabling.\n", input);
+
+		return;
+	}
+
+	switch (setting)
+	{
+	case Constants::LatLongSelection::LatitudeFrom:
+		Airport.LatitudeFrom = value;
+		Airport.LatitudeFilter = true;
+		break;
+	case Constants::LatLongSelection::LatitudeTo:
+		Airport.LatitudeTo = value;
+		Airport.LatitudeFilter = true;
+		break;
+	case Constants::LatLongSelection::LongitudeFrom:
+		Airport.LongitudeFrom = value;
+		Airport.LongitudeFilter = true;
+		break;
+	case Constants::LatLongSelection::LongitudeTo:
+		Airport.LongitudeTo = value;
+		Airport.LongitudeFilter = true;
+		break;
+	}
+}
+
+
 void Configuration::HandleMSFSVersion(const std::wstring version)
 {
 	int Version = SafelyGetIntFromString(version, 0);
@@ -742,13 +872,29 @@ void Configuration::HandleMSFSVersion(const std::wstring version)
 }
 
 
-void Configuration::HandleRange(const std::wstring range)
+void Configuration::HandleRange(const std::wstring input)
 {
+	bool ConvertFromK = false;
+	std::wstring range = input;
+
+	if (range.back() == L'K' || range.back() == L'k')
+	{
+		ConvertFromK = true;
+
+		range = input.substr(0, input.length() - 1);
+	}
+
 	double Range = Defaults::DefaultRange;
 
 	try
 	{ 
 		Range = stod(range);
+
+		if (ConvertFromK)
+		{
+			// input in kilometers, convert to nm
+			Range = Range / 1.852;
+		}
 	}
 	catch (...)
 	{
@@ -788,23 +934,38 @@ void Configuration::HandleSpecial(const std::wstring input)
 
 	if (input == L"ga")
 	{
-		Aircraft.Special = SpecialMode::GA;
+		Aircraft.Special = AircraftConstants::SpecialMode::GA;
 	}
 	else if (input == L"jetairliners")
 	{
-		Aircraft.Special = SpecialMode::JetAirliners;
+		Aircraft.Special = AircraftConstants::SpecialMode::JetAirliners;
 	}
 	else if (input == L"twins")
 	{
-		Aircraft.Special = SpecialMode::Twins;
+		Aircraft.Special = AircraftConstants::SpecialMode::Twins;
 	}
 	else if (input == L"props")
 	{
-		Aircraft.Special = SpecialMode::Props;
+		Aircraft.Special = AircraftConstants::SpecialMode::Props;
 	}
 	else if (input == L"turbos")
 	{
-		Aircraft.Special = SpecialMode::TurboProps;
+		Aircraft.Special = AircraftConstants::SpecialMode::TurboProps;
+	}
+}
+
+
+void Configuration::HandleTime(const std::wstring input)
+{
+	int Time = SafelyGetIntFromString(input, 0);
+
+	if (Time > 0)
+	{
+		Route.RequestedFlightTime = Time;
+	}
+	else
+	{
+		std::wcerr << std::format(L"Error, invalid flight time \"{0}\". Feature disable.\n", input);
 	}
 }
 
@@ -814,7 +975,7 @@ void Configuration::HandleSpecial(const std::wstring input)
 // now let's extend out a number of degreess each side of this, based on the month
 void Configuration::SetLongitude(Constants::TimeOfDay tod, int month)
 {
-	constexpr double DegreesPerHour = 180 / 12;
+	static const double DegreesPerHour = 15.0;	// assuming 24 hour earth rotation, 15' per hour
 
 	double time = 0; // hours in 24-hour clock
 	double HoursOfInterest = 0;
@@ -867,27 +1028,23 @@ void Configuration::SetLongitude(Constants::TimeOfDay tod, int month)
 }
 
 
-void Configuration::HandleAircraftRangePercent(const std::wstring range_percent)
+// the range can't be set from time until we have an aircraft, so this
+// function must be called once an aircraft has been generated
+bool Configuration::SetRangeFromTime(int speed, AircraftConstants::AircraftType type)
 {
-	double RangePC = Defaults::DefaultACPC;
+	if (speed > 0)
+	{
+		double range = Utility::AircraftTimeToDistance(Route.RequestedFlightTime, speed, Route.Legs, type);
 
-	try
-	{
-		RangePC = stod(range_percent);
-	}
-	catch (...)
-	{
-		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
+		if (range > 0)
+		{
+			Route.Range = range;
+
+			return true;
+		}
 	}
 
-	if (RangePC > 0)
-	{
-		Route.Range = RangePC;
-	}
-	else
-	{
-		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
-	}
+	return false;
 }
 
 
@@ -1127,6 +1284,34 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Airport.KeepTrying = IntegerKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Airport", L"LatitudeFrom", 0);
+		if (config->LastKeyExist)
+		{
+			Airport.LatitudeFrom = IntegerKey;
+			Airport.LatitudeFilter = true;
+		}
+
+		IntegerKey = config->ReadInteger(L"Airport", L"LatitudeTo", 0);
+		if (config->LastKeyExist)
+		{
+			Airport.LatitudeTo = IntegerKey;
+			Airport.LatitudeFilter = true;
+		}
+
+		IntegerKey = config->ReadInteger(L"Airport", L"LongitudeFrom", 0);
+		if (config->LastKeyExist)
+		{
+			Airport.LongitudeFrom = IntegerKey;
+			Airport.LongitudeFilter = true;
+		}
+
+		IntegerKey = config->ReadInteger(L"Airport", L"LongitudeTo", 0);
+		if (config->LastKeyExist)
+		{
+			Airport.LongitudeTo = IntegerKey;
+			Airport.LongitudeFilter = true;
+		}
+
 		IntegerKey = config->ReadInteger(L"Airport", L"Day", 0);
 		if (config->LastKeyExist)
 		{
@@ -1211,6 +1396,12 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Route.UseAircraftRange = IntegerKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Route", L"Time", 0);
+		if (config->LastKeyExist)
+		{
+			Route.RequestedFlightTime = IntegerKey;
+		}
+
 		IntegerKey = config->ReadInteger(L"Route", L"AircraftRangePercent", Defaults::DefaultACPC);
 		if (config->LastKeyExist)
 		{
@@ -1229,6 +1420,12 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 		if (config->LastKeyExist)
 		{
 			Export.MSFS = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Export", L"Text", 0);
+		if (config->LastKeyExist)
+		{
+			Export.Text = IntegerKey;
 		}
 
 		IntegerKey = config->ReadInteger(L"Export", L"XPlane", 0);
@@ -1300,19 +1497,19 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 
 		switch (Aircraft.Special)
 		{
-		case SpecialMode::GA:
+		case AircraftConstants::SpecialMode::GA:
 			ofile << Formatting::to_utf8(L"Special=ga\n");
 			break;
-		case SpecialMode::JetAirliners:
+		case AircraftConstants::SpecialMode::JetAirliners:
 			ofile << Formatting::to_utf8(L"Special=jetairliners\n");
 			break;
-		case SpecialMode::Twins:
+		case AircraftConstants::SpecialMode::Twins:
 			ofile << Formatting::to_utf8(L"Special=twins\n");
 			break;
-		case SpecialMode::Props:
+		case AircraftConstants::SpecialMode::Props:
 			ofile << Formatting::to_utf8(L"Special=props\n");
 			break;
-		case SpecialMode::TurboProps:
+		case AircraftConstants::SpecialMode::TurboProps:
 			ofile << Formatting::to_utf8(L"Special=turbos\n");
 			break;
 		}
@@ -1342,6 +1539,18 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 		if (Airport.Heliports != 1)									ofile << Formatting::to_utf8(L"Heliports=" + std::to_wstring(Airport.Heliports) + L"\n");
 		if (Airport.KeepTrying != 0)								ofile << Formatting::to_utf8(L"KeepTrying=1\n");
 
+		if (Airport.LatitudeFilter)
+		{
+			if (Airport.LatitudeFrom != 1)							ofile << Formatting::to_utf8(L"LatitudeFrom=" + std::to_wstring(Airport.LatitudeFrom) + L"\n");
+			if (Airport.LatitudeTo != 1)							ofile << Formatting::to_utf8(L"LatitudeTo=" + std::to_wstring(Airport.LatitudeTo) + L"\n");
+		}
+
+		if (Airport.LongitudeFilter)
+		{
+			if (Airport.LongitudeFrom != 1)							ofile << Formatting::to_utf8(L"LongitudeFrom=" + std::to_wstring(Airport.LongitudeFrom) + L"\n");
+			if (Airport.LongitudeTo != 1)							ofile << Formatting::to_utf8(L"LongitudeTo=" + std::to_wstring(Airport.LongitudeTo) + L"\n");
+		}
+
 		if (Airport.Day)											ofile << Formatting::to_utf8(L"Day=1\n");
 		if (Airport.Night)											ofile << Formatting::to_utf8(L"Night=1\n");
 
@@ -1359,6 +1568,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 		if (Route.StartAirportICAO != L"")							ofile << Formatting::to_utf8(L"StartAirport=" + Route.StartAirportICAO + L"\n");
 		if (Route.EndAirportICAO != L"")							ofile << Formatting::to_utf8(L"EndAirport=" + Route.EndAirportICAO + L"\n");
 		if (Route.UseAircraftRange != 0)							ofile << Formatting::to_utf8(L"UseAircraftRange=1\n");
+		if (Route.RequestedFlightTime != 0)							ofile << Formatting::to_utf8(L"Time=" + std::to_wstring(Route.RequestedFlightTime) + L"\n");
 		if (Route.AircraftRangePercent != Defaults::DefaultACPC)	ofile << Formatting::to_utf8(L"AircraftRangePercent=" + std::to_wstring(Route.AircraftRangePercent) + L"\n");
 		if (Route.StartFromFavourite != 0)                          ofile << Formatting::to_utf8(L"StartFromFavourite=1");
 		if (Route.SimpleRouteCount != -1)                           ofile << Formatting::to_utf8(L"SimpleRouteCount=" + std::to_wstring(Route.SimpleRouteCount) + L"\n");
@@ -1369,8 +1579,9 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 
 		ofile << Formatting::to_utf8(L"[Export]\n");
 
-		if (Export.MSFS != 0)										ofile << Formatting::to_utf8(L"MSFS=1\n");
-		if (Export.XPlane != 0)										ofile << Formatting::to_utf8(L"XPlane=1\n");
+		if (!Export.MSFS)											ofile << Formatting::to_utf8(L"MSFS=1\n");
+		if (!Export.Text)											ofile << Formatting::to_utf8(L"Text=1\n");
+		if (!Export.XPlane)											ofile << Formatting::to_utf8(L"XPlane=1\n");
 
 		ofile.close();
 
@@ -1385,7 +1596,7 @@ std::wstring Configuration::GetFromFavourites()
 {
 	std::vector<std::wstring> Favourites;
 
-	std::wifstream file(L"Favourites.txt");
+	std::wifstream file(SystemConstants::FavouritesFileName);
 
 	if (file)
 	{
@@ -1415,8 +1626,27 @@ std::wstring Configuration::GetFromFavourites()
 	}
 	else
 	{
-		std::wcout << L"Couldn't locate \"Favourites.txt\" :(\n";
+		std::wcout << L"Couldn't locate \"" << SystemConstants::FavouritesFileName << L"\" :(\n";
 	}
 
 	return L"";
+}
+
+
+bool Configuration::AddToFavourite(const std::wstring icao)
+{
+	if (icao != L"")
+	{
+		std::ofstream ofile(SystemConstants::FavouritesFileName, std::ios::app);
+
+		if (ofile)
+		{
+			ofile << Formatting::to_utf8(icao + L"\n");
+			ofile.close();
+
+			return true;
+		}
+	}
+
+	return false; 
 }

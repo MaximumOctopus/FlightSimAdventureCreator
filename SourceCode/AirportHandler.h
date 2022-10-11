@@ -33,8 +33,15 @@ static const int kAFieldRegion = 9;
 static const int kAFieldMSFSCompatible = 25;
 
 
+struct AirportStats
+{
+	int ElevationLowest = 99999;
+	int ElevationHighest = -99999;
+};
+
+
 struct AirportLoadFilter {
-	int MinimumElevation = 0;		// in feet
+	int MinimumElevation = -2000;	// in feet (LLMZ is the lowest airport in the world at -1266 feet)
 
 	std::wstring Country = L"";		// ISO code https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 	std::wstring Continent = L"";	// ISO code
@@ -45,17 +52,26 @@ struct AirportLoadFilter {
 	bool SmallAirports = false;		// "small_airport" in fcas.csv
 	bool Heliports = false;			// "heliport" in fcas.csv
 
+	double LongitudeFrom = 0;		// limit airports to a range of longitudes
+	double LongitudeTo = 0;			//
+	double LatitudeFrom = 0;		// limit airports to a range of latitudes
+	double LatitudeTo = 0;			//
+
+	bool LongitudeFilter = false;
+	bool LatitudeFilter = false;
+
+	bool LongitudeInverse = false;	// if from < to, then this means we have to alter the conditions of discovery
+	bool LatitudeInverse = false;	//
+
 	bool Day = false;				// airports in daylight
 	bool Night = false;				// airports at night
-
-	double LongitudeFrom = 0;		// longitude range
-	double LongitudeTo = 0;			//
 };
 
 
 struct AirportRouteGeneration
 {
 	int ShortRouteCount = Defaults::DefaultShortRoutesToShow;	// how many of the short, A->B, routes to display (it could create hundreds!)
+	int MaximumAttempts = Defaults::DefaultMaximumAttempts;
 };
 
 
@@ -65,29 +81,40 @@ class AirportHandler
 
 	bool Silent = false;
 
+	std::vector<Airport> SingleLegAirports;
 	std::vector<Airport> MultiLegAirports;
 	std::vector<Airport> RouteCache;
 
 	bool ExportMSFSPlan = false;
+	bool ExportTextReport = false;
 
 	AirportLoadFilter Filter;
 	AirportRouteGeneration Generation;
+	AirportStats Stats;
 
 	[[nodiscard]] bool LoadAirports(const std::wstring);
 	bool ImportFromRow(const std::wstring);
 
-	[[nodiscard]] AirportConstants::AirportType GetTypeFrom(std::wstring);
+	[[nodiscard]] AirportConstants::AirportType GetTypeFrom(const std::wstring);
 
 	[[nodiscard]] double DistanceBetween(double, double, double, double);
 
 	void CalculateDistances(double, double, double);
-	void CalculateDistances(double, double, int, double, double);					// when we also need distance
+	void CalculateDistances(double, double, double, double, double);					// when we also need distance
 	void CalculateDistancesNoMinimum(double, double, double);				// unlike the above two, this is strictly if airport range <= range
 
-	bool SimpleRoute(std::wstring, double, double, bool);
-	bool MultiLegRoute(std::wstring, double, double, int, bool);
+	bool SimpleRoute(const std::wstring, double, double, bool, bool);
+	bool MultiLegRoute(const std::wstring, double, double, int, bool, bool);
+	bool StartToFinish(const std::wstring, const std::wstring, double, int, bool);
+
+	void FinaliseMultiLegData();
+	void HandleMultiLegExport();
 
 	void ListAirports();
+
+	#ifdef _DEBUG
+	void ImportedDataCheck();
+	#endif
 
 public:
 
@@ -95,17 +122,19 @@ public:
 
 	std::vector<Airport> Airports;
 
-	AirportHandler(std::wstring);
+	AirportHandler(const std::wstring);
 
-	AirportHandler(bool, bool, AirportData);
+	AirportHandler(bool, bool, bool, AirportData);
 
 	Airport GetAirport(int);
 
-	int GetIndexFromICAO(std::wstring);
+	int GetIndexFromICAO(const std::wstring);
 
-	void GetRoute(std::wstring, double, double, int, int, bool);
+	void GetRoute(const std::wstring, const std::wstring, double, double, int, int, bool);
 
 	int FindNearest(const std::wstring, double, bool);
 
-	[[nodiscard]] bool Save(std::wstring, bool);
+	[[nodiscard]] double DistanceBetweenTwoAirports(const std::wstring, const std::wstring);
+
+	[[nodiscard]] bool Save(const std::wstring, bool);
 };

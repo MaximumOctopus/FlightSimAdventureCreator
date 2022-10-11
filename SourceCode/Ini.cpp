@@ -54,7 +54,7 @@ bool Ini::LoadFile(const std::wstring file_name)
 }
 
 
-int Ini::ReadInteger(const std::wstring section, std::wstring key, int default_value)
+int Ini::ReadInteger(const std::wstring section, const std::wstring key, int default_value)
 {
 	std::wstring::size_type sz;   // alias of size_t
 
@@ -131,16 +131,18 @@ std::wstring Ini::ReadString(std::wstring section, std::wstring key, const std::
 				{
 					if ((Lines[i][0] != L';') && (Lines[i][0] != L'/'))
 					{
-						std::wstring line(Lines[i]);
+						std::wstring normalised_line = NormaliseEntry(Lines[i]);
+
+						std::wstring line(normalised_line);
 						std::transform(line.begin(), line.end(), line.begin(), ::tolower);
 
 						if (line.starts_with(key))
 						{
-							if (Lines[i].length() > key.length())
+							if (normalised_line.length() > key.length())
 							{
 								LastKeyExist = true;
 
-								return Lines[i].substr(key.length());
+								return normalised_line.substr(key.length());
 							}
 							else
 							{
@@ -158,4 +160,52 @@ std::wstring Ini::ReadString(std::wstring section, std::wstring key, const std::
 	}
 
 	return default_value;
+}
+
+
+// this removes white space, quote characters so that our input resembles this:
+// key=value
+std::wstring Ini::NormaliseEntry(const std::wstring line)
+{
+	std::wstring output = L"";
+
+	bool inquotes = false;
+	bool intovalue = false;
+
+	for (int t = 0; t < line.length(); t++)
+	{
+		if (line[t] == L'=')
+		{
+			intovalue = true;
+
+			output += line[t];
+		}
+		else if (line[t] == L'"')
+		{
+			inquotes = !inquotes;
+		}
+		else if (line[t] == L';')
+		{
+			if (intovalue && !inquotes)
+			{
+				break;
+			}
+		}
+		else
+		{
+			if (line[t] == L' ')
+			{
+				if (inquotes)
+				{
+					output += L' ';
+				}
+			}
+			else
+			{
+				output += line[t];
+			}
+		}
+	}
+
+	return output;
 }

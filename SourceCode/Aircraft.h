@@ -32,7 +32,7 @@ public:
 
 	Aircraft();
 
-	Aircraft(std::wstring, int, int, int, AircraftConstants::MSFSVersion, AircraftConstants::AircraftType, bool, bool);
+	Aircraft(const std::wstring, int, int, int, AircraftConstants::MSFSVersion, AircraftConstants::AircraftType, bool, bool);
 
 	std::wstring Show();
 };

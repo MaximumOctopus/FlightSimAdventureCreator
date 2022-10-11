@@ -19,10 +19,11 @@
 #include "AircraftConstants.h"
 #include "Constants.h"
 #include "ConfigurationConstants.h"
+#include "Defults.h"
 
 
 struct AircraftLoadFilter {
-	int Type = Defaults::DefaultAircraftSelection;	// 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop
+	int Type = Defaults::DefaultAircraftSelection;	// 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon
 
 	int MaxSpeed = Defaults::DefaultMaxSpeed;		// maximum cruise speed required
 	int MinSpeed = 0;								// minimum cruise speed required
@@ -30,7 +31,8 @@ struct AircraftLoadFilter {
 	bool Airliner = true;
 	bool Military = true;	
 
-	SpecialMode Special = SpecialMode::None;		// this is a setting that encapulates several settings in a single flag
+	AircraftConstants::SpecialMode Special = AircraftConstants::SpecialMode::None;		
+													// this is a setting that encapulates several settings in a single flag
 													// GA: prop and twin prop types, no military, no airliners
 													// Twins: twin props and twin turbo props, no military
 													// Turbos: turbo props and twin turbo props
@@ -46,7 +48,7 @@ class AircraftHandler {
 
 	AircraftLoadFilter LoadFilter;
 
-	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0 };
+	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 	enum class RowType { Unknown = 0, SectionStart = 1, SectionEnd = 2, Name = 3, Cruise = 4, Range = 5, Availability = 6, Type = 7, Military = 8, AirLiner = 9, RunwayLength = 10 };
 	enum class ProcessingMode { ReadyForSection = 0, SectionFound = 1 };
@@ -64,7 +66,7 @@ public:
 
 	std::vector<Aircraft> AircraftList;
 
-	AircraftHandler(bool, bool, bool, int, bool, bool, int, int, AircraftConstants::MSFSVersion, SpecialMode);
+	AircraftHandler(bool, bool, bool, int, bool, bool, int, int, AircraftConstants::MSFSVersion, AircraftConstants::SpecialMode);
 
 	Aircraft GetRandomAircraft();
 };

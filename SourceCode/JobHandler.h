@@ -32,7 +32,7 @@ class JobHandler
 
 	[[nodiscard]] int JobAircraftTypeToIndex(JobAircraft);
 
-	void AddTo(JobAircraft, JobCargo, std::wstring);
+	void AddTo(JobAircraft, JobCargo, const std::wstring);
 
 public:
 

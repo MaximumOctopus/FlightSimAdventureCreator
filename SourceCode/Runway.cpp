@@ -18,7 +18,7 @@ Runway::Runway()
 }
 
 
-Runway::Runway(std::wstring ident, std::wstring name, std::wstring type, int length)
+Runway::Runway(const std::wstring ident, const std::wstring name, const std::wstring type, int length)
 {
 	Ident = ident;
 	Name = name;

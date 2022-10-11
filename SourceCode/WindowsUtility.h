@@ -12,13 +12,9 @@
 #pragma once
 
 
-#include <string>
-#include <vector>
-
-#include "Airport.h"
-
-
-namespace MSFSFlightPlan
+namespace WindowsUtility
 {
-	bool Export(std::vector<Airport>& airports, const std::wstring file_name);
-};
+	[[nodiscard]] bool FileExists(const std::wstring&);
+
+	[[nodiscard]] bool DirectoryExistsWString(const std::wstring&);
+}

@@ -13,6 +13,7 @@
 
 #include "ConfigurationConstants.h"
 #include "Constants.h"
+#include "Defults.h"
 #include "Help.h"
 
 
@@ -20,7 +21,7 @@ namespace Help
 {
 	void ConsoleHeader()
 	{
-		std::wcout << L"\n  FlightSimAdventureCreator " << __FSACVersion << L", " << __FSACDate << L" :: paul@freshney.org\n\n";
+		std::wcout << L"\n  FlightSimAdventureCreator " << SystemConstants::FSACVersion << L", " << SystemConstants::FSACDate << L" :: paul@freshney.org\n\n";
 	}
 
 	void Commands()
@@ -48,22 +49,27 @@ namespace Help
 		std::wcout << L"  the following options affect airport selection/randomisation:\n\n";
 		std::wcout << L"    /elevation:min_elevation  : minimum airport elevation, in feet.\n";
 		std::wcout << L"    /continent:selection      : select a specific continent\n";
-		std::wcout << L"                                 AF, AN, AS, EU, NA, OC, SA\n";
+		std::wcout << L"                                  AF, AN, AS, EU, NA, OC, SA\n";
 		std::wcout << L"    /country:selection        : select a specific country\n";
-	    std::wcout << L"                                 see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n";
+	    std::wcout << L"                                  see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n";
 		std::wcout << L"    /region:selection         : select a specific region of a country\n";
-		std::wcout << L"                                 https://en.wikipedia.org/wiki/ISO_3166-2 (links to available codes for each location)\n";
+		std::wcout << L"                                  https://en.wikipedia.org/wiki/ISO_3166-2 (links to available codes for each location)\n";
 		std::wcout << L"    /direction:angle          : set the direction to fly (with " << Defaults::DefaultDirectionMargin << L" degrees added on either side)\n";
 		std::wcout << L"    /bearing:compass 		  : set the direction to fly (with " << Defaults::DefaultDirectionMargin << L" degrees added on either side)\n";
-		std::wcout << L"                                compass can be either of: N, NE, E, SE, S, SW, W, NW \n";
+		std::wcout << L"                                  N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW \n";
 		std::wcout << "\n";
-		std::wcout << L"    /keeptrying				  : expand range and/or direction if the route cannot be continued due to lack\n";
+		std::wcout << L"    /latfrom:latitude         : from -> to, should go clockwise around the earth (as seen from the North Pole).\n";
+		std::wcout << L"    /latto:latitude           : 0' is the Greenwich Meridian, +/-180 is the international date line.\n";
+		std::wcout << L"    /longfrom:longitude       : from -> to, should go around the Earth anti-clockwise as seen side-on (0' to the left).\n";
+		std::wcout << L"    /longto:longitude         : 0' is the equator, +90 North Pole, -90 South Pole.\n";
+		std::wcout << "\n";
+		std::wcout << L"    /keeptrying               : expand range and/or direction if the route cannot be continued due to lack\n";
 		std::wcout << L"                                of airports within range and/or direction.\n";
 		std::wcout << "\n";
 		std::wcout << L"    /nosmall                  : ignore small aiports\n";
 		std::wcout << L"    /nomedium                 : ignore medium aiports\n";
 		std::wcout << L"    /nolarge                  : ignore large aiports\n";
-		std::wcout << L"	/noheliports              : ignore heliports aiports\n";
+		std::wcout << L"    /noheliports              : ignore heliports aiports\n";
 		std::wcout << "\n";
 		std::wcout << L"    /onlysmall                : only load small aiports\n";
 		std::wcout << L"    /onlymedium               : only load medium aiports\n";
@@ -78,14 +84,17 @@ namespace Help
 		std::wcout << L"    /legs:number              : number of legs (airports to visit)\n";
 		std::wcout << L"    /range:distance           : maximum distance between legs (in nm)\n";
 		std::wcout << L"                                +/-10% will be used when searching\n";
+		std::wcout << L"                                append a k (/range:50k) to specify range in kilometres.\n";
+		std::wcout << L"    /time:minutes             : an alternative to setting route length, is to set a flight time, and let FSAC calculate\n";
+		std::wcout << L"                                a range. uses the selected aircraft's cruise speed and some number magic.\n";
 		std::wcout << L"    /startairport:ICAO        : start random route from here.\n";
-		//std::wcout << L"    /endairport:ICAO          : end route here.\n"; // to do
+		std::wcout << L"    /endairport:ICAO          : end route here.\n";
 		std::wcout << L"    /number:count             : create \"count\" routes (default is 1).\n";
 		std::wcout << L"    /simple:count             : set how many A->B, 2-leg only, routes are display (default is " << Defaults::DefaultShortRoutesToShow << L")\n";
 		std::wcout << "\n";
-		std::wcout << L"    /favourite                : pick a random airport from \"favourites.txt\".\n";
+		std::wcout << L"    /favourite                : pick a random airport from \"" << SystemConstants::FavouritesFileName << L"\".\n";
 		std::wcout << "\n";
-		std::wcout << L"    /useaircraftrange         : uses randomly-selected aircraft range\n";
+		std::wcout << L"    /useaircraftrange         : uses the randomly-selected aircraft range\n";
 		std::wcout << L"                                for leg distance (uses, default " << Defaults::DefaultACPC << L"% of this value)\n";
 		std::wcout << L"    /aircraftrange:percent    : change the default " << Defaults::DefaultACPC << L"% to a new value, 1 - 100\n";
 		std::wcout << "\n";
@@ -93,17 +102,17 @@ namespace Help
 		std::wcout << L"                                by default, the maximum leg length will be adjusted to fit.\n";
 		std::wcout << "\n";
 		std::wcout << L"  the following options affect aircraft selection:\n\n";
-		std::wcout << L"    /nodefault                : ignores aircraft from \"default_aircraft.txt\"\n";
-		std::wcout << L"    /nocustom                 : ignores aircraft from \"custom_aircraft.txt\"\n";
-		std::wcout << L"    /msfsversion:version      : import based on which version of MSFS they are available in:";
+		std::wcout << L"    /nodefault                : ignores aircraft from \"" << SystemConstants::DefaultAircraft << L"\"\n";
+		std::wcout << L"    /nocustom                 : ignores aircraft from \"" << SystemConstants::CustomAircraft << L"\n";
+		std::wcout << L"    /msfsversion:version      : import based on which version of MSFS they are available in:\n";
 		std::wcout << L"                                0 - all (including third party), 1 - deluxe, 2 - premium deluxe\n";
 		std::wcout << "\n";
 		std::wcout << L"    /maxspeed:speed           : maximum cruise speed in kts (default is " << Defaults::DefaultMaxSpeed << L" kts)\n";
 		std::wcout << L"    /minspeed:speed           : minimum cruise speed in kts (default is 0 kts)\n";
 		std::wcout << "\n";
-		std::wcout << L"    /aircrafttype:type        : use only selected aircraft type\n";
+		std::wcout << L"    /aircrafttype:type        : use only selected aircraft type:\n";
 		std::wcout << L"                                0 - props, 1 - jets, 2 - heli, 3 - glider\n";
-		std::wcout << L"                                4 - twin prop, 5 - turbo prop, 6 - twin turbo prop\n";
+		std::wcout << L"                                4 - twin prop, 5 - turbo prop, 6 - twin turbo prop, 7 - balloon\n";
 		std::wcout << L"    /noairliner               : ignore airliners\n";
 		std::wcout << L"    /nomilitary               : ignore military aircraft\n";
 		std::wcout << "\n";
@@ -116,16 +125,21 @@ namespace Help
 		std::wcout << L"  the following are export options:\n\n";
 		std::wcout << L"    /exportmsfs               : export all generated routes to MSFS plan files\n";
 		std::wcout << L"                                \"\\plans\\icao_from_to_icao_to_yyyymmdd_hhmmss.pln\"\n";
+		std::wcout << L"    /exporttext               : export your routes as an itinerary text file\n";
+		std::wcout << L"                                \"\\reports\\icao_from_to_icao_to_yyyymmdd_hhmmss.txt\"\n";
 		std::wcout << "\n";
 		std::wcout << L"  miscellaneous options:\n\n";
+		std::wcout << L"    /q                        : will silence some output (full config details, and loaded data stats).\n";
+		std::wcout << "\n";
+		std::wcout << L"  data analysis options (FSAC will exit after running these):\n\n";
 		std::wcout << L"    /findnearest:selection    : show all airports within range of the selection. must be an ICAO code.\n";
-		std::wcout << L"    /q                        : will silence some output (full config details, and loaded data stats).";
 		std::wcout << "\n";
 		#ifdef _DEBUG
 		std::wcout << "   the following are special magic:\n\n";
-		std::wcout << L"    /fcasexport               : merges aircraft.csv (from ourairports.com) and a file containing\n";
+		std::wcout << L"    /fsacxa                   : merges aircraft.csv (from ourairports.com) and a file containing\n";
 		std::wcout << L"                                MSFS compatibily data to create fsac.csv. Read the source code\n";
 		std::wcout << L"                                before trying to use this one :) (FSACAirportData.cpp)\n";
+		std::wcout << L"    /fsacxr                   : builds runway data.\n";
 		std::wcout << "\n";
 		#endif
 	}
@@ -133,7 +147,7 @@ namespace Help
 
 	void Header()
 	{
-		std::wcout << L"\n  FlightSimAdventureCreator " << __FSACVersion << " / " << __FSACDate << "\n\n";
+		std::wcout << L"\n  FlightSimAdventureCreator " << SystemConstants::FSACVersion << " / " << SystemConstants::FSACDate << "\n\n";
 		std::wcout << L"      https://github.com/MaximumOctopus/FlightSimAdventureCreator" << "\n";
 		std::wcout << L"      paul@freshney.org" << "\n\n";
 	}

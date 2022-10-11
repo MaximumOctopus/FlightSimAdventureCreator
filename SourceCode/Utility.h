@@ -22,26 +22,30 @@
 
 namespace Utility
 {
-	[[nodiscard]] bool FileExists(const std::wstring&);
-
 	[[nodiscard]] double AngleBetween(double lat1, double long1, double lat2, double long2);
 
 	[[nodiscard]] std::wstring DegreesToDMS(double, double);
 
-	[[nodiscard]] std::wstring GetContinentFromShortCode(std::wstring);
-	[[nodiscard]] std::wstring GetCountryFromShortCode(std::wstring);
+	[[nodiscard]] std::wstring GetContinentFromShortCode(const std::wstring);
+	[[nodiscard]] std::wstring GetCountryFromShortCode(const std::wstring);
 
 	[[nodiscard]] std::wstring GetAircraftType(int);
 	[[nodiscard]] std::wstring GetAircraftType(AircraftConstants::AircraftType);
+	[[nodiscard]] AircraftConstants::AircraftType GetAircraftTypeFromInt(int);
+	[[nodiscard]] int GetAircraftTypeToConfigType(AircraftConstants::AircraftType);
 
 	[[nodiscard]] std::wstring GetAirportType(AirportConstants::AirportType);
+	AirportConstants::AirportType GetAirportType(const std::wstring);
 	[[nodiscard]] std::wstring GetAirportTypeDisplay(AirportConstants::AirportType);
 
 	[[nodiscard]] std::wstring BoolToYesNo(bool);
 
-	[[nodiscard]] int GetUTCHour();
+	[[nodiscard]] std::wstring ExtractFileName(const std::wstring);
 
-	[[nodiscard]] std::wstring DateTime(int);
+	[[nodiscard]] double AircraftTimeToDistance(int, int, int, AircraftConstants::AircraftType);
+	[[nodiscard]] double AircraftDistanceToTime(int, int, int, AircraftConstants::AircraftType);
 
-	[[nodiscard]] std::wstring ExtractFileName(std::wstring);
+	double ReverseAngle(double);
+
+	bool IsWithinLongLat(double, double, double);
 }

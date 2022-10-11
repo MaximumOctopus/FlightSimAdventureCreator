@@ -19,5 +19,5 @@
 
 namespace TextItinerary
 {
-	bool Export(std::vector<Airport>&, std::wstring);
+	bool Export(std::vector<Airport>&, const std::wstring);
 }

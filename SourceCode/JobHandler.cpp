@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "Constants.h"
 #include "Job.h"
 #include "JobHandler.h"
 
@@ -22,7 +23,7 @@ JobHandler* GJobHandler;
 
 JobHandler::JobHandler(bool silent)
 {
-	Loaded = LoadJobs(L"Jobs.txt");
+	Loaded = LoadJobs(SystemConstants::JobsFileName);
 
     if (!Silent)
     {
@@ -69,6 +70,7 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
             break;
 
         case AircraftConstants::AircraftType::Helicopter:
+        case AircraftConstants::AircraftType::Balloon:
             jt = JobAircraft::Helicopters;
             break;        
         }
@@ -198,7 +200,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                                     break;
 
                                 default:
-                                    std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                                    std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                                     break;
                                 }
                                 break;
@@ -227,7 +229,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid job list identifier \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                            std::wcout << std::format(L"Invalid job list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'}':
@@ -256,7 +258,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                            std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'o':
@@ -273,7 +275,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                                std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                                std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L's':
@@ -290,7 +292,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'x':
@@ -307,7 +309,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in Jobs.txt\n", s, Line);
+                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     }
@@ -322,7 +324,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
 }
 
 
-void JobHandler::AddTo(JobAircraft job_aircraft_type, JobCargo job_cargo, std::wstring item)
+void JobHandler::AddTo(JobAircraft job_aircraft_type, JobCargo job_cargo, const std::wstring item)
 {
     Job job(job_aircraft_type, job_cargo, item);
 

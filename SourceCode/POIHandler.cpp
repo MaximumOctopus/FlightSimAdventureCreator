@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "Constants.h"
 #include "POIHandler.h"
 
 
@@ -22,13 +23,12 @@ POIHandler::POIHandler()
 
     if (!Loaded)
     {
-        std::wcout << L" Runway data file not found \"runways.csv\".\n";
-        std::wcout << L" The latest airports data file can be found here: https://ourairports.com/data/\n\n";
+        std::wcout << L" POI data file not found \"" << SystemConstants::POIFileName << L"\".\n";
     }
 }
 
 
-bool POIHandler::LoadPOIs(std::wstring file_name)
+bool POIHandler::LoadPOIs(const std::wstring file_name)
 {
     std::wifstream file(file_name);
 
@@ -37,8 +37,6 @@ bool POIHandler::LoadPOIs(std::wstring file_name)
     if (file)
     {
         std::wstring s = L"";
-
-        int count = 0;
 
         while (std::getline(file, s))
         {
@@ -50,9 +48,8 @@ bool POIHandler::LoadPOIs(std::wstring file_name)
                 }
                 else
                 {
-                    if (ImportFromRow(s))
+                    if (!ImportFromRow(s))
                     {
-                        count++;
                     }
                 }
             }
@@ -60,7 +57,7 @@ bool POIHandler::LoadPOIs(std::wstring file_name)
 
         file.close();
 
-        std::wcout << std::format(L"  Loaded {0} points of interest.", count) << L"\n";
+        std::wcout << std::format(L"  Loaded {0} points of interest.", POIs.size()) << L"\n";
     }
     else
     {

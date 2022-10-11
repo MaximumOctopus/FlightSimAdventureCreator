@@ -21,7 +21,7 @@ Aircraft::Aircraft()
 }
 
 
-Aircraft::Aircraft(std::wstring name, int speed, int range, int runway_length, AircraftConstants::MSFSVersion availability, AircraftConstants::AircraftType type, bool military, bool airliner)
+Aircraft::Aircraft(const std::wstring name, int speed, int range, int runway_length, AircraftConstants::MSFSVersion availability, AircraftConstants::AircraftType type, bool military, bool airliner)
 {
 	Name = name;
 	CruiseSpeed = speed;

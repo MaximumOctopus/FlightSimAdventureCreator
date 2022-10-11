@@ -29,7 +29,7 @@ AircraftHandler* GAircraftHandler;
 
 
 AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom_aircraft, int type, bool include_airliners, bool include_military, 
-    int max_speed, int min_speed, AircraftConstants::MSFSVersion version, SpecialMode special_mode)
+    int max_speed, int min_speed, AircraftConstants::MSFSVersion version, AircraftConstants::SpecialMode special_mode)
 {
     Silent = silent;
 
@@ -38,14 +38,14 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
 
     LoadFilter.Version = version;
 
-    if (special_mode == SpecialMode::None)
+    if (special_mode == AircraftConstants::SpecialMode::None)
     {
         LoadFilter.Type = type;
 
         LoadFilter.Airliner = include_airliners;
         LoadFilter.Military = include_military;
     }
-    else if (special_mode == SpecialMode::JetAirliners)
+    else if (special_mode == AircraftConstants::SpecialMode::JetAirliners)
     {
         LoadFilter.Type = 1;
 
@@ -59,9 +59,9 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
 
     if (default_aircraft)
     {
-        if (!LoadAircraft(L"default_aircraft.txt"))
+        if (!LoadAircraft(SystemConstants::DefaultAircraft))
         {
-            std::wcout << L" Aircraft data file not found \"default_aircraft.txt\".\n";
+            std::wcout << L" Aircraft data file not found \"" << SystemConstants::DefaultAircraft << L"\".\n";
         }
         else
         {
@@ -71,9 +71,9 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
 
     if (custom_aircraft)
     {
-        if (!LoadAircraft(L"custom_aircraft.txt"))
+        if (!LoadAircraft(SystemConstants::CustomAircraft))
         {
-            std::wcout << L" Aircraft data file not found \"custom_aircraft.txt\".\n";
+            std::wcout << L" Aircraft data file not found \"" << SystemConstants::CustomAircraft << L"\".\n";
         }
         else
         {
@@ -159,7 +159,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         {
                             switch (LoadFilter.Special)
                             {
-                            case SpecialMode::GA:
+                            case AircraftConstants::SpecialMode::GA:
                             {
                                 if (Type != AircraftConstants::AircraftType::Prop && Type != AircraftConstants::AircraftType::TwinProp && 
                                     Type != AircraftConstants::AircraftType::TurboProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
@@ -172,7 +172,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                                 break;
                             }
-                            case SpecialMode::JetAirliners:
+                            case AircraftConstants::SpecialMode::JetAirliners:
                             {
                                 if (Type != AircraftConstants::AircraftType::Jet && Airliner != true)
                                 {
@@ -180,19 +180,19 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                                 }
                                 break;
                             }
-                            case SpecialMode::Twins:
+                            case AircraftConstants::SpecialMode::Twins:
                                 if (Type != AircraftConstants::AircraftType::TwinProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
                                 {
                                     ShouldAdd = false;
                                 }
                                 break;
-                            case SpecialMode::Props:
+                            case AircraftConstants::SpecialMode::Props:
                                 if (Type != AircraftConstants::AircraftType::Prop && Type != AircraftConstants::AircraftType::TwinProp)
                                 {
                                     ShouldAdd = false;
                                 }
                                 break;
-                            case SpecialMode::TurboProps:
+                            case AircraftConstants::SpecialMode::TurboProps:
                                 if (Type != AircraftConstants::AircraftType::TurboProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
                                 {
                                     ShouldAdd = false;
@@ -389,6 +389,10 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                                 case 6:
                                     Type = AircraftConstants::AircraftType::TwinTurboProp;
                                     TypeCount[AircraftConstants::AircraftTypeTwinTurboProp]++;
+                                    break;
+                                case 7:
+                                    Type = AircraftConstants::AircraftType::Balloon;
+                                    TypeCount[AircraftConstants::AircraftTypeBalloon]++;
                                     break;
                                 }
                             }

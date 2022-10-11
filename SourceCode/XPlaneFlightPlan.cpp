@@ -23,7 +23,7 @@
 namespace XPlaneFlightPlan
 {
 	// exports a v11 xplane flight plan file
-	bool Export(std::vector<Airport>& airports, std::wstring file_name)
+	bool Export(std::vector<Airport>& airports, const std::wstring file_name)
 	{
 		std::ofstream ofile(file_name);
 
@@ -36,10 +36,10 @@ namespace XPlaneFlightPlan
 			ofile << Formatting::to_utf8(L"CYCLE 2210\n");		// this is just YYMM
 
 			ofile << Formatting::to_utf8(L"ADEP " + airports[0].Ident + L"\n");
-			ofile << Formatting::to_utf8(L"DEPRWY " + airports[0].Runway + L"\n");
+			ofile << Formatting::to_utf8(L"DEPRWY " + airports[0].Runway.Name + L"\n");
 
 			ofile << Formatting::to_utf8(L"ADES " + airports.back().Ident + L"\n");
-			ofile << Formatting::to_utf8(L"DESRWY " + airports.back().Runway + L"\n");
+			ofile << Formatting::to_utf8(L"DESRWY " + airports.back().Runway.Name + L"\n");
 
 			ofile << Formatting::to_utf8(L"NUMENR " + std::to_wstring(airports.size()) + L"\n");
 

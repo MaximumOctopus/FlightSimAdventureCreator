@@ -12,7 +12,7 @@
 #include "Job.h"
 
 
-Job::Job(JobAircraft type, JobCargo cargo, std::wstring text)
+Job::Job(JobAircraft type, JobCargo cargo, const std::wstring text)
 {
 	Type = type;
 	Text = text;

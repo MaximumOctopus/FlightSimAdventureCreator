@@ -24,7 +24,9 @@ public:
 	std::wstring SurfaceType = L"";	
 	int Length = 0;
 
+	bool MSFSCompatible = false;
+
 	Runway();
 
-	Runway(std::wstring, std::wstring, std::wstring, int);
+	Runway(const std::wstring, const  std::wstring, const std::wstring, int);
 };

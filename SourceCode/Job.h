@@ -28,5 +28,5 @@ public:
 
 	JobCargo Cargo = JobCargo::None;
 
-	Job(JobAircraft, JobCargo, std::wstring);
+	Job(JobAircraft, JobCargo, const std::wstring);
 };

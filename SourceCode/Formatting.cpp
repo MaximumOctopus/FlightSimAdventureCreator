@@ -36,8 +36,8 @@ namespace Formatting
 		return input;
 	}
 
-    // utf8 output magic
 
+    // utf8 output magic
     std::string to_utf8(const std::wstring& str)
     {
         return to_utf8(str.c_str(), (int)str.size());

@@ -9,13 +9,12 @@
 // 
 // 
 
-#include "POI.h"
+#include "NavAid.h"
 
 
-POI::POI(const std::wstring name, const std::wstring description, const std::wstring latitude, const std::wstring longitude)
+NavAid::NavAid(const std::wstring name, const std::wstring latitude, const std::wstring longitude)
 {
 	Name = name;
-	Description = description;
 
 	double LatitudeD = std::stod(latitude);
 	double LongitudeD = std::stod(longitude);
