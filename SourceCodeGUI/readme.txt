@@ -5,3 +5,5 @@ Developed with C++ Builder 10.4 Community Edition (free)
 https://www.embarcadero.com/products/cbuilder/starter
 
 Coming before the end of October 2022 :)
+
+Code in here is pre-pre-Alpha. 
