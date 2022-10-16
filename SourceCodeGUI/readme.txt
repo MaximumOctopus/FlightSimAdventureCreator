@@ -6,4 +6,4 @@ https://www.embarcadero.com/products/cbuilder/starter
 
 Coming before the end of October 2022 :)
 
-Code in here is pre-pre-Alpha. 
+Code in here is early beta, I'll release the first offical version soon.
