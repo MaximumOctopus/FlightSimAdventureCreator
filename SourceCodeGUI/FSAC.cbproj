@@ -69,7 +69,7 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppVCLApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclimg.lib</AllPackageLibs>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <Multithreaded>true</Multithreaded>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
@@ -132,7 +132,7 @@
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
-        <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi</LinkPackageImports>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -150,6 +150,13 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
     <ItemGroup>
+        <CppCompile Include="About.cpp">
+            <VirtualFolder>{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}</VirtualFolder>
+            <Form>frmAbout</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>About.h</DependentOn>
+            <BuildOrder>43</BuildOrder>
+        </CppCompile>
         <CppCompile Include="Aircraft.cpp">
             <VirtualFolder>{428444B9-8CEF-4B71-93ED-215DCED362BF}</VirtualFolder>
             <BuildOrder>3</BuildOrder>
@@ -192,7 +199,7 @@
         </None>
         <CppCompile Include="AirportSearchDialog.cpp">
             <VirtualFolder>{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}</VirtualFolder>
-            <Form>Form2</Form>
+            <Form>frmAirportSearchDialog</Form>
             <FormType>dfm</FormType>
             <DependentOn>AirportSearchDialog.h</DependentOn>
             <BuildOrder>41</BuildOrder>
@@ -268,6 +275,14 @@
             <VirtualFolder>{4BBC39EA-D948-4E5B-918C-E5302FB26347}</VirtualFolder>
             <BuildOrder>27</BuildOrder>
         </None>
+        <CppCompile Include="MSFSSystem.cpp">
+            <VirtualFolder>{932B4AE4-038F-4B4A-BB7A-D3DBB10171CB}</VirtualFolder>
+            <BuildOrder>44</BuildOrder>
+        </CppCompile>
+        <None Include="MSFSSystem.h">
+            <VirtualFolder>{932B4AE4-038F-4B4A-BB7A-D3DBB10171CB}</VirtualFolder>
+            <BuildOrder>45</BuildOrder>
+        </None>
         <CppCompile Include="Route.cpp">
             <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
             <BuildOrder>40</BuildOrder>
@@ -317,6 +332,14 @@
             <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
             <BuildOrder>21</BuildOrder>
         </None>
+        <CppCompile Include="WindowsUtility.cpp">
+            <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
+            <BuildOrder>46</BuildOrder>
+        </CppCompile>
+        <None Include="WindowsUtility.h">
+            <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
+            <BuildOrder>47</BuildOrder>
+        </None>
         <CppCompile Include="XPlaneFlightPlan.cpp">
             <VirtualFolder>{4BBC39EA-D948-4E5B-918C-E5302FB26347}</VirtualFolder>
             <BuildOrder>30</BuildOrder>
@@ -327,6 +350,7 @@
         </None>
         <FormResources Include="main.dfm"/>
         <FormResources Include="AirportSearchDialog.dfm"/>
+        <FormResources Include="About.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -360,6 +384,7 @@
                     <VFOLDER ID="{4BBC39EA-D948-4E5B-918C-E5302FB26347}" name="Export"/>
                     <VFOLDER ID="{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}" name="Forms"/>
                     <VFOLDER ID="{36A7ABB0-BED7-4F3A-9353-DC9BD17CEB7E}" name="Ini"/>
+                    <VFOLDER ID="{932B4AE4-038F-4B4A-BB7A-D3DBB10171CB}" name="MSFSSystem"/>
                     <VFOLDER ID="{40D1F4DA-E2E1-40BA-B7DB-87EDE528FAE0}" name="NavAids"/>
                     <VFOLDER ID="{E3206EC2-9F7A-4475-B540-153AB8E6F541}" name="POIs"/>
                     <VFOLDER ID="{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}" name="Route"/>
@@ -378,13 +403,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32270.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgstl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -393,8 +418,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgstl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32270.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

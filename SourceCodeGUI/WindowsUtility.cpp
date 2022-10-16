@@ -1,15 +1,16 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
+//
 //
 
-#include <ShlObj.h>  
+#include <shellapi.h>
+#include <ShlObj.h>
 #include <string>
 #include <windows.h>
 
@@ -53,5 +54,11 @@ namespace WindowsUtility
 		DWORD fileAttr = GetFileAttributes(directory.c_str());
 
 		return (fileAttr != INVALID_FILE_ATTRIBUTES && (fileAttr & FILE_ATTRIBUTE_DIRECTORY));
+	}
+
+
+	void OpenWebsite(const std::wstring path)
+	{
+		ShellExecute(0, L"open", path.c_str(), 0, 0 , SW_SHOW );
 	}
 }

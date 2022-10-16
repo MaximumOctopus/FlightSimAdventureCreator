@@ -23,7 +23,7 @@ struct RouteFilter
 {
 	double Range = DataDefaults::Range;          // nautical miles
 	int Legs = 1;
-	int Count = 1;
+	int Count = 5;
 
 	bool UseDirection = false;
 	double Direction = DataDefaults::Direction;  // travel direction in degrees

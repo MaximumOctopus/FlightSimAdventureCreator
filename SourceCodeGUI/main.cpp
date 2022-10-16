@@ -13,12 +13,17 @@
 #include <System.SysUtils.hpp>
 #pragma hdrstop
 
+#include "About.h"
+#include "AirportSearchDialog.h"
+
 #include "AircraftConstants.h"
 #include "DateUtility.h"
 #include "Configuration.h"
+#include "Formatting.h"
 #include "GlobalObjects.h"
 #include "Locations.h"
 #include "main.h"
+#include "MSFSSystem.h"
 #include "RouteHandler.h"
 #include "Utility.h"
 
@@ -53,6 +58,12 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 	{
 		sgRoutes->ColAlignments[4] = taRightJustify;
 
+		sgRoutes->Cells[0][0] = L"Route";
+		sgRoutes->Cells[1][0] = L"Cntnt";
+		sgRoutes->Cells[2][0] = L"Cntry";
+		sgRoutes->Cells[3][0] = L"Rgn";
+		sgRoutes->Cells[4][0] = L"Length";
+
 		ResetGUI();
 
 		UpdateAircraftList();
@@ -60,7 +71,8 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 		UpdateCountryList();
 	}
 
-	sbMain->SimpleText =  "Aircraft: " + System::Sysutils::IntToStr((int)GAircraftHandler->AircraftList.size()) + ", Airports: " + System::Sysutils::IntToStr((int)GAirportHandler->Airports.size());
+	lStatsAircraft->Caption = System::Sysutils::IntToStr((int)GAircraftHandler->AircraftList.size());
+	lStatsAirport->Caption = System::Sysutils::IntToStr((int)GAirportHandler->Airports.size());
 }
 
 
@@ -191,6 +203,10 @@ void __fastcall TForm1::bUpdateAircraftClick(TObject *Sender)
 	{
 		UpdateAircraftList();
 	}
+	else
+	{
+        cbAircraftList->Clear();
+    }
 
 	lFoundAircraft->Caption = "Found " + System::Sysutils::IntToStr((int)GAircraftHandler->FilteredList.size()) + " aircraft.";
 }
@@ -379,11 +395,6 @@ void TForm1::GenerateRoutes()
 
     // to do, start from favourite
 
-	//if (GConfiguration->Route.Count != 1)
-	//{
-//		std::wcout << L"\n == Route #" << route + 1 << " =======================================================\n\n";
-//	}
-
 	if (eStartAirportICAO->Text != "" && eEndAirportICAO->Text != "")
 	{
 		double d = GAirportHandler->DistanceBetweenTwoAirports(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str());
@@ -410,7 +421,6 @@ void TForm1::GenerateRoutes()
 
 	Aircraft aircraft = GAircraftHandler->AircraftList[random_aircraft];
 
-   // std::wcout << L"  " << aircraft.Show() << "\n";
   //  std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
 
 	if (cbUseFlightTime->Checked)
@@ -503,11 +513,11 @@ void __fastcall TForm1::cbLatLongFilterClick(TObject *Sender)
 
 void __fastcall TForm1::cbContinentFilterClick(TObject *Sender)
 {
-	if (cbContinentFilter->Checked || cbCountryFilter->Checked || cbRegionFilter->Checked)
-	{
-		TCheckBox *cb = (TCheckBox*)Sender;
+	TCheckBox *cb = (TCheckBox*)Sender;
 
-		switch (cb->Tag)
+	if (cb->Checked)
+	{
+        switch (cb->Tag)
 		{
 		case 0:
 			cbCountryFilter->Checked = false;
@@ -581,3 +591,119 @@ void __fastcall TForm1::tbExportItineraryClick(TObject *Sender)
 {
     GRouteHandler->ExportToItinerary();
 }
+
+
+void __fastcall TForm1::Createcustomaircrafttxt1Click(TObject *Sender)
+{
+	if (Application->MessageBox(L"hello", L"Are you sure?", MB_OKCANCEL) == IDOK)
+	{
+		if (!MSFSSystem::CreateAircraftList(true))
+		{
+
+        }
+    }
+}
+
+
+void __fastcall TForm1::About1Click(TObject *Sender)
+{
+    frmAbout->ShowModal();
+}
+
+
+void __fastcall TForm1::sgRoutesClick(TObject *Sender)
+{
+	if (sgRoutes->Selection.Top > 0)
+	{
+		UpdateRouteDescription(sgRoutes->Selection.Top - 1);
+	}
+}
+
+
+void TForm1::UpdateRouteDescription(int route_id)
+{
+	mMain->Clear();
+
+	Route r = GRouteHandler->Routes[route_id];
+
+	std::wstring output = L" Starting at: " + r.Airports[0].Ident + L" (" + r.Airports[0].Country + L", " + std::to_wstring(r.Airports[0].Angle) + L"°)";
+
+	mMain->Lines->Add(output.c_str());
+
+	for (int t = 1; t < r.Airports.size(); t++)
+	{
+		if (t == r.Airports.size() - 1)
+		{
+			output = Formatting::AddLeadingSpace(std::to_wstring((int)r.Airports[t].Distance), 7) + L"nm --> " + r.Airports[t].Ident + L" (" + r.Airports[t].Country + L")";
+		}
+		else
+		{
+			output = Formatting::AddLeadingSpace(std::to_wstring((int)r.Airports[t].Distance), 7) + L"nm --> " + r.Airports[t].Ident + L" (" + r.Airports[t].Country + L", " + std::to_wstring(r.Airports[t].Angle) + L"°)";
+		}
+
+		mMain->Lines->Add(output.c_str());
+	}
+}
+
+
+void __fastcall TForm1::cbAircraftListChange(TObject *Sender)
+{
+	if (cbAircraftList->ItemIndex != -1)
+	{
+		lAircraftStats->Caption = GAircraftHandler->FilteredList[cbAircraftList->ItemIndex].ShowStats().c_str();
+    }
+}
+
+
+void __fastcall TForm1::miSetGAClick(TObject *Sender)
+{
+	TMenuItem *mi = (TMenuItem*)Sender;
+
+	switch (mi->Tag)
+	{
+		case 0:
+			SetAircraftSelections(true, false, false, false, true, true, true, false, false, false, false);
+			break;
+		case 1:
+			SetAircraftSelections(false, true, false, false, false, false, false, false, true, false, false);
+			break;
+		case 2:
+			SetAircraftSelections(true, false, false, false, true, false, false, false, true, true, false);
+			break;
+		case 3:
+			SetAircraftSelections(false, false, false, false, false, true, true, false, true, true, false);
+			break;
+		case 4:
+			SetAircraftSelections(false, false, false, false, true, false, true, false, true, true, false);
+			break;
+		case 5:
+			SetAircraftSelections(false, false, false, false, false, false, false, false, true, false, true);
+			break;
+	}
+
+    bUpdateAircraftClick(nullptr);
+}
+
+
+void TForm1::SetAircraftSelections(bool prop, bool jet, bool heli, bool glider, bool twinprop, bool turboprop, bool ttp, bool balloon, bool airliner, bool military, bool seaplane)
+{
+	cbAircraftTypeProps->Checked = prop;
+	cbAircraftTypeJet->Checked = jet;
+	cbAircraftTypeHelicopter->Checked = heli;
+	cbAircraftTypeGlider->Checked = glider;
+	cbAircraftTypeTwinProps->Checked = twinprop;
+	cbAircraftTypeTurboProps->Checked = turboprop;
+	cbAircraftTypeTwinTurboProps->Checked = ttp;
+	cbAircraftTypeBalloon->Checked = balloon;
+
+	cbAircraftTypeAirliners->Checked = airliner;
+	cbAircraftTypeMilitary->Checked = military;
+	cbAircraftTypeSeaplanes->Checked = seaplane;
+}
+
+
+void __fastcall TForm1::Airports1Click(TObject *Sender)
+{
+	frmAirportSearchDialog->ShowModal();
+}
+

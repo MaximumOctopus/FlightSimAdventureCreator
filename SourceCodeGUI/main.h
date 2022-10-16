@@ -121,9 +121,7 @@ __published:	// IDE-managed Components
 	TLabel *Label15;
 	TComboBox *cbBearing;
 	TButton *bSetFromBearing;
-	TButton *bGenerate;
 	TToolButton *tbReset;
-	TCheckBox *cbKeepTrying;
 	TBevel *Bevel7;
 	TBevel *Bevel8;
 	TEdit *eAircraftRangeModifier;
@@ -145,6 +143,34 @@ __published:	// IDE-managed Components
 	TEdit *eElevation;
 	TLabel *Label18;
 	TToolButton *tbExportItinerary;
+	TMenuItem *ools1;
+	TMenuItem *Createcustomaircrafttxt1;
+	TMenuItem *Help1;
+	TMenuItem *About1;
+	TLabel *Label19;
+	TMemo *mMain;
+	TLabel *Label20;
+	TToolButton *ToolButton2;
+	TLabel *lAircraftStats;
+	TGroupBox *GroupBox1;
+	TButton *bGenerate;
+	TCheckBox *cbKeepTrying;
+	TGroupBox *GroupBox4;
+	TLabel *Label21;
+	TLabel *Label22;
+	TLabel *lStatsAircraft;
+	TLabel *lStatsAirport;
+	TLabel *Label23;
+	TMenuItem *Ai1;
+	TMenuItem *Set1;
+	TMenuItem *miSetGA;
+	TMenuItem *GA2;
+	TMenuItem *wins1;
+	TMenuItem *Props1;
+	TMenuItem *urbos1;
+	TMenuItem *Seaplanes1;
+	TMenuItem *Searcg1;
+	TMenuItem *Airports1;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
@@ -158,6 +184,12 @@ __published:	// IDE-managed Components
 	void __fastcall tbOpenClick(TObject *Sender);
 	void __fastcall tbExportClick(TObject *Sender);
 	void __fastcall tbExportItineraryClick(TObject *Sender);
+	void __fastcall Createcustomaircrafttxt1Click(TObject *Sender);
+	void __fastcall About1Click(TObject *Sender);
+	void __fastcall sgRoutesClick(TObject *Sender);
+	void __fastcall cbAircraftListChange(TObject *Sender);
+	void __fastcall miSetGAClick(TObject *Sender);
+	void __fastcall Airports1Click(TObject *Sender);
 
 private:	// User declarations
 
@@ -175,6 +207,9 @@ private:	// User declarations
 	RouteFilter BuildRouteLoadFilterFromUI();
 
 	void UpdateCountryList();
+    void UpdateRouteDescription(int);
+
+	void SetAircraftSelections(bool, bool, bool, bool, bool, bool, bool, bool, bool, bool, bool);
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

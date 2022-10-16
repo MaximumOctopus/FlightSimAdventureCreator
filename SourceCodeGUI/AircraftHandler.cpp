@@ -22,6 +22,25 @@
 AircraftHandler* GAircraftHandler;
 
 
+bool sortByPath(const Aircraft& lhs, const Aircraft& rhs)
+{
+	std::wstring l = lhs.Name;
+	std::wstring r = rhs.Name;
+
+	std::transform(l.begin(), l.end(), l.begin(), ::tolower);
+	std::transform(r.begin(), r.end(), r.begin(), ::tolower);
+
+	int c = l.compare(r);
+
+	if (c <= 0)
+	{
+		return true;
+	}
+
+    return false;
+}
+
+
 AircraftHandler::AircraftHandler()
 {
 	if (!LoadAircraft(SystemConstants::DefaultAircraft))
@@ -41,12 +60,14 @@ AircraftHandler::AircraftHandler()
 	{
 		Loaded = true;
 	}
+
+	std::sort(AircraftList.begin(), AircraftList.end(), sortByPath);
 }
 
 
 Aircraft AircraftHandler::GetRandomAircraft()
 {
-    if (AircraftList.size() != 0)
+	if (AircraftList.size() != 0)
     {
         int a = rand() % AircraftList.size();
 
@@ -81,6 +102,16 @@ int AircraftHandler::Filter(AircraftLoadFilter alf)
 		}
 
 		if (!alf.Seaplane && AircraftList[t].Seaplane)
+		{
+			add = false;
+		}
+
+		if (AircraftList[t].CruiseSpeed > alf.MaxSpeed)
+		{
+			add = false;
+		}
+
+        if (AircraftList[t].CruiseSpeed < alf.MinSpeed)
 		{
 			add = false;
 		}
@@ -180,8 +211,9 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 						RunwayLength = 0;
 						Availability = AircraftConstants::MSFSVersion::All;
 						Type = AircraftConstants::AircraftType::None;
-						Military = false;
 						Airliner = false;
+						Seaplane = false;
+						Military = false;
 
 						mode = ProcessingMode::ReadyForSection;
 
@@ -415,15 +447,19 @@ AircraftHandler::RowType AircraftHandler::GetRowType(const std::wstring row)
     else if (row.find(L"type=") != std::wstring::npos)
     {
         return RowType::Type;
-    }
-    else if (row.find(L"military=") != std::wstring::npos)
-    {
-        return RowType::Military;
-    }
+	}
     else if (row.find(L"airliner=") != std::wstring::npos)
     {
         return RowType::AirLiner;
-    }
+	}
+	else if (row.find(L"military=") != std::wstring::npos)
+	{
+		return RowType::Military;
+	}
+    else if (row.find(L"seaplane=") != std::wstring::npos)
+	{
+		return RowType::Seaplane;
+	}
     else if (row.find(L"minrunway=") != std::wstring::npos)
     {
         return RowType::RunwayLength;

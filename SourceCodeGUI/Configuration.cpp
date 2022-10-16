@@ -362,7 +362,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"Day=" << airportlf.Day << "\n";
 		ofile << L"Night=" << airportlf.Night << "\n";
 
-		ofile << L"[route]\n";
+		ofile << L"\n[route]\n";
 		ofile << L"Range=" << rf.Range << "\n";
 		ofile << L"Legs=" << rf.Legs << "\n";
 		ofile << L"Count=" << rf.Count << "\n";

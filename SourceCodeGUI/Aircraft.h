@@ -34,5 +34,5 @@ public:
 
 	Aircraft(const std::wstring, int, int, int, AircraftConstants::MSFSVersion, AircraftConstants::AircraftType, bool, bool, bool);
 
-	std::wstring Show();
+	std::wstring ShowStats();
 };

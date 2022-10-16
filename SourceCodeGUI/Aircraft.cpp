@@ -37,7 +37,7 @@ Aircraft::Aircraft(const std::wstring name, int speed, int range, int runway_len
 }
 
 
-std::wstring Aircraft::Show()
+std::wstring Aircraft::ShowStats()
 {
-   //	return std::format(L"{0} ({1}, {2} kts, {3} nm)", Name, Utility::GetAircraftType(Type), std::to_wstring(CruiseSpeed), std::to_wstring(Range));
+	return Utility::GetAircraftType(Type) + L", " + std::to_wstring(CruiseSpeed) + L" kts, " + std::to_wstring(Range) + L" nm";
 }

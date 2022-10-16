@@ -16,15 +16,26 @@
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
+#include <Vcl.Grids.hpp>
 //---------------------------------------------------------------------------
-class TForm2 : public TForm
+class TfrmAirportSearchDialog : public TForm
 {
 __published:	// IDE-managed Components
+	TGroupBox *GroupBox4;
+	TEdit *eSearch;
+	TButton *bSearch;
+	TComboBox *cbContinent;
+	TLabel *Label1;
+	TComboBox *cbCountry;
+	TLabel *Label2;
+	TStringGrid *StringGrid1;
+	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall bSearchClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
-	__fastcall TForm2(TComponent* Owner);
+	__fastcall TfrmAirportSearchDialog(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm2 *Form2;
+extern PACKAGE TfrmAirportSearchDialog *frmAirportSearchDialog;
 //---------------------------------------------------------------------------
 #endif
