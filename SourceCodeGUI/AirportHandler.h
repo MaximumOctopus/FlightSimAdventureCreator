@@ -132,6 +132,21 @@ struct AirportLoadFilter {
 };
 
 
+struct AirportSearchFilter
+{
+	std::wstring SearchText = L"";
+
+	std::wstring Continent = L"";  		 // ico code
+	std::wstring Country = L"";   		// ico code
+
+	bool LargeAirports = false;		// "large_airport" in fcas.csv
+	bool MediumAirports = false;		// "medium_airport" in fcas.csv
+	bool SmallAirports = false;		// "small_airport" in fcas.csv
+	bool Heliports = false;			// "heliport" in fcas.csv
+	bool SeaplaneBases = false;		// "seaplane_base" in fcas.csv
+};
+
+
 struct AirportRouteGeneration
 {
 	int ShortRouteCount = DataDefaults::ShortRoutesToShow;	// how many of the short, A->B, routes to display (it could create hundreds!)
@@ -179,10 +194,12 @@ public:
 
 	std::vector<Airport> Airports;
 	std::vector<Airport> FilteredList;
+	std::vector<Airport> SearchResults;
 
 	AirportHandler();
 
 	int Filter(AirportLoadFilter);
+	int Search(AirportSearchFilter);
 
 	Airport GetAirport(int);
 

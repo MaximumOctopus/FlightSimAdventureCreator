@@ -17,6 +17,7 @@
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.Grids.hpp>
+#include <Vcl.ComCtrls.hpp>
 //---------------------------------------------------------------------------
 class TfrmAirportSearchDialog : public TForm
 {
@@ -28,9 +29,16 @@ __published:	// IDE-managed Components
 	TLabel *Label1;
 	TComboBox *cbCountry;
 	TLabel *Label2;
-	TStringGrid *StringGrid1;
+	TStringGrid *sgResults;
+	TCheckBox *cbLargeAirports;
+	TCheckBox *cbHeliports;
+	TCheckBox *cbSeaplaneBases;
+	TCheckBox *cbSmallAirports;
+	TCheckBox *cbMediumAirports;
+	TStatusBar *sbSearch;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall bSearchClick(TObject *Sender);
+	void __fastcall eSearchKeyPress(TObject *Sender, System::WideChar &Key);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TfrmAirportSearchDialog(TComponent* Owner);

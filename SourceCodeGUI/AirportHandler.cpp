@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <Vcl.Dialogs.hpp>
 
 #include "Airport.h"
 #include "AirportHandler.h"
@@ -650,6 +649,87 @@ int AirportHandler::GetIndexFromICAO(const std::wstring icao)
 }
 
 
+int AirportHandler::Search(AirportSearchFilter asf)
+{
+	SearchResults.clear();
+
+	for (int t = 0; t < Airports.size(); t++)
+	{
+		bool add = true;
+
+		if (asf.Continent != L"")
+		{
+			if (asf.Continent != Airports[t].Continent)
+			{
+				add = false;
+			}
+		}
+
+		if (asf.Country != L"")
+		{
+			if (asf.Country != Airports[t].Country)
+			{
+				add = false;
+			}
+		}
+
+		if (asf.SearchText != L"")
+		{
+			if (Airports[t].Name.find(asf.SearchText) == std::wstring::npos)
+			{
+				add = false;
+			}
+		}
+
+        switch (Airports[t].Type)
+		{
+		case AirportConstants::AirportType::Small:
+			if (!asf.SmallAirports)
+			{
+				add = false;
+			}
+			break;
+		case AirportConstants::AirportType::Medium:
+			if (!asf.MediumAirports)
+			{
+				add = false;
+			}
+			break;
+		case AirportConstants::AirportType::Large:
+			if (!asf.LargeAirports)
+			{
+				add = false;
+			}
+			break;
+		case AirportConstants::AirportType::Heliport:
+			if (!asf.Heliports)
+			{
+				add = false;
+			}
+			break;
+		case AirportConstants::AirportType::SeaplaneBase:
+			if (!asf.SeaplaneBases)
+			{
+				add = false;
+			}
+			break;
+		}
+
+		if (add)
+		{
+			SearchResults.push_back(Airports[t]);
+
+			if (SearchResults.size() == 500)
+			{
+				break;
+            }
+		}
+	}
+
+	return SearchResults.size();
+}
+
+
 int AirportHandler::Filter(AirportLoadFilter alf)
 {
 	FilteredList.clear();
@@ -988,31 +1068,6 @@ AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row
 
     return AirportConstants::AirportType::None;
 }
-
-	 /*
-AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row)
-{
-	switch (Utility::GetAirportType(row))
-	{
-	case AirportConstants::AirportType::Small:
-		if (Filter.SmallAirports) return AirportConstants::AirportType::Small;
-		break;
-	case AirportConstants::AirportType::Medium:
-		if (Filter.MediumAirports) return AirportConstants::AirportType::Medium;
-		break;
-	case AirportConstants::AirportType::Large:
-		if (Filter.LargeAirports) return AirportConstants::AirportType::Large;
-		break;
-	case AirportConstants::AirportType::Heliport:
-		if (Filter.Heliports) return AirportConstants::AirportType::Heliport;
-		break;
-	case AirportConstants::AirportType::SeaplaneBase:
-		if (Filter.SeaplaneBase) return AirportConstants::AirportType::SeaplaneBase;
-		break;
-	}
-
-	return AirportConstants::AirportType::None;
-}      */
 
 
 int AirportHandler::FindNearest(const std::wstring start_icao, double range, bool output)

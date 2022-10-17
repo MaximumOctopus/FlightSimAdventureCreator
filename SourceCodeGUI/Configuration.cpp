@@ -29,7 +29,9 @@ Configuration* GConfiguration;
 
 Configuration::Configuration()
 {
-
+	if (!LoadFavourites())
+	{
+    }
 }
 
 
@@ -270,6 +272,18 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			rf.EndAirportICAO = StringKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Route", L"StartFromFavourite", 0);
+		if (config->LastKeyExist)
+		{
+			rf.StartFromFavourite = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"EndAtFavourite", 0);
+		if (config->LastKeyExist)
+		{
+			rf.EndAtFavourite = IntegerKey;
+		}
+
 		IntegerKey = config->ReadInteger(L"Route", L"UseAircraftRange", 1);
 		if (config->LastKeyExist)
 		{
@@ -316,6 +330,9 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"// ===============================================================================\n";
 		ofile << L"// Config created: " + DateUtility::DateTime(kDisplayModeConsole) + L"\n";
 		ofile << L"// ===============================================================================\n\n";
+
+		ofile << L"[version]\n";
+        ofile << L"Version=1\n";
 
 		ofile << L"[aircraft]\n";
 		ofile << L"Type0=" << aircraftlf.Types[0] << "\n";
@@ -371,6 +388,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"StartAirportICAO=" << rf.StartAirportICAO << "\n";
 		ofile << L"EndAirportICAO" << rf.EndAirportICAO << "\n";
 		ofile << L"StartFromFavourite=" << rf.StartFromFavourite << "\n";
+		ofile << L"EndAtFavourite=" << rf.EndAtFavourite << "\n";
 		ofile << L"UseAircraftRange=" << rf.UseAircraftRange << "\n";
 		ofile << L"AircraftRangeModifier=" << rf.AircraftRangeModifier << "\n";
 		ofile << L"UseFlightTime=" << rf.UseFlightTime  << "\n";
@@ -385,6 +403,66 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 	}
 
 	return false; // to do
+}
+
+
+bool Configuration::LoadFavourites()
+{
+	std::wifstream file(SystemConstants::FavouritesFileName);
+
+	if (file)
+	{
+		std::wstring s = L"";
+
+		while (std::getline(file, s))
+		{
+			if (s != L"")
+			{
+				if (s[0] == L'/')
+				{
+					// comment, do nothing
+				}
+				else
+				{
+					Favourites.push_back(s);
+				}
+			}
+		}
+
+		file.close();
+
+		return true;
+	}
+	else
+	{
+		LastError = L"Couldn't locate \"" + SystemConstants::FavouritesFileName + L"\" :(\n";
+	}
+
+	return false;
+}
+
+
+bool Configuration::SaveFavourites()
+{
+	std::wofstream file(SystemConstants::FavouritesFileName);
+
+	if (file)
+	{
+		for (int t = 0; t < Favourites.size(); t++)
+		{
+			file << Favourites[t] << "\n";
+		}
+
+		file.close();
+
+		return true;
+	}
+	else
+	{
+		LastError = L"Couldn't locate \"" + SystemConstants::FavouritesFileName + L"\" :(\n";
+	}
+
+	return false;
 }
 
 
@@ -404,4 +482,21 @@ bool Configuration::AddToFavourite(const std::wstring icao)
 	}
 
 	return false;
+}
+
+
+std::wstring Configuration::GetRandomFavourite()
+{
+    if (Favourites.size() != 0)
+	{
+		return Favourites[rand() % Favourites.size()];
+	}
+
+    return L"";
+}
+
+
+std::wstring Configuration::GetLastError()
+{
+	return LastError;
 }

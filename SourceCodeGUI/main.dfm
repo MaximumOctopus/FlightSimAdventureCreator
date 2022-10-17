@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Hint = 'generate random routes'
+  Hint = 'generate random routes!'
   BorderStyle = bsSingle
   Caption = 'Form1'
   ClientHeight = 649
@@ -20,7 +20,7 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label19: TLabel
-    Left = 816
+    Left = 797
     Top = 47
     Width = 103
     Height = 13
@@ -35,7 +35,7 @@ object Form1: TForm1
   object gbAircraft: TGroupBox
     Left = 8
     Top = 47
-    Width = 353
+    Width = 375
     Height = 289
     Caption = 'Aircraft'
     Font.Charset = DEFAULT_CHARSET
@@ -46,8 +46,8 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 0
     object lMinSpeed: TLabel
-      Left = 15
-      Top = 144
+      Left = 28
+      Top = 147
       Width = 53
       Height = 13
       Caption = 'Min. Speed'
@@ -59,8 +59,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label1: TLabel
-      Left = 15
-      Top = 171
+      Left = 28
+      Top = 174
       Width = 57
       Height = 13
       Caption = 'Max. Speed'
@@ -72,8 +72,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 120
-      Top = 144
+      Left = 133
+      Top = 147
       Width = 14
       Height = 13
       Caption = 'kts'
@@ -85,8 +85,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 120
-      Top = 171
+      Left = 133
+      Top = 174
       Width = 14
       Height = 13
       Caption = 'kts'
@@ -99,27 +99,14 @@ object Form1: TForm1
     end
     object Bevel8: TBevel
       Left = 15
-      Top = 19
-      Width = 322
+      Top = 22
+      Width = 346
       Height = 116
       Shape = bsFrame
       Style = bsRaised
     end
-    object lFoundAircraft: TLabel
-      Left = 15
-      Top = 264
-      Width = 30
-      Height = 13
-      Caption = 'Found'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
     object lAircraftStats: TLabel
-      Left = 29
+      Left = 28
       Top = 232
       Width = 12
       Height = 13
@@ -148,10 +135,10 @@ object Form1: TForm1
       TabOrder = 0
     end
     object cbAircraftTypeTwinProps: TCheckBox
-      Left = 29
+      Left = 28
       Top = 56
       Width = 97
-      Height = 17
+      Height = 19
       Caption = 'Twin props'
       Checked = True
       Font.Charset = DEFAULT_CHARSET
@@ -165,7 +152,7 @@ object Form1: TForm1
     end
     object cbAircraftTypeTurboProps: TCheckBox
       Left = 29
-      Top = 81
+      Top = 79
       Width = 97
       Height = 17
       Caption = 'Turbo props'
@@ -180,7 +167,7 @@ object Form1: TForm1
       TabOrder = 2
     end
     object cbAircraftTypeHelicopter: TCheckBox
-      Left = 140
+      Left = 159
       Top = 56
       Width = 97
       Height = 17
@@ -196,7 +183,7 @@ object Form1: TForm1
       TabOrder = 3
     end
     object cbAircraftTypeGlider: TCheckBox
-      Left = 140
+      Left = 159
       Top = 102
       Width = 97
       Height = 17
@@ -212,7 +199,7 @@ object Form1: TForm1
       TabOrder = 4
     end
     object cbAircraftTypeAirliners: TCheckBox
-      Left = 243
+      Left = 262
       Top = 33
       Width = 68
       Height = 17
@@ -228,7 +215,7 @@ object Form1: TForm1
       TabOrder = 5
     end
     object cbAircraftTypeMilitary: TCheckBox
-      Left = 243
+      Left = 262
       Top = 56
       Width = 68
       Height = 17
@@ -245,7 +232,7 @@ object Form1: TForm1
     end
     object cbAircraftTypeTwinTurboProps: TCheckBox
       Left = 29
-      Top = 104
+      Top = 102
       Width = 97
       Height = 17
       Caption = 'Twin turbo props'
@@ -260,7 +247,7 @@ object Form1: TForm1
       TabOrder = 7
     end
     object cbAircraftTypeJet: TCheckBox
-      Left = 140
+      Left = 159
       Top = 33
       Width = 97
       Height = 17
@@ -276,7 +263,7 @@ object Form1: TForm1
       TabOrder = 8
     end
     object cbAircraftTypeBalloon: TCheckBox
-      Left = 140
+      Left = 159
       Top = 79
       Width = 97
       Height = 17
@@ -294,7 +281,7 @@ object Form1: TForm1
     object cbAircraftList: TComboBox
       Left = 15
       Top = 205
-      Width = 322
+      Width = 346
       Height = 21
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
@@ -307,8 +294,8 @@ object Form1: TForm1
       OnChange = cbAircraftListChange
     end
     object bUpdateAircraft: TButton
-      Left = 262
-      Top = 261
+      Left = 286
+      Top = 253
       Width = 75
       Height = 25
       Caption = 'Update'
@@ -322,7 +309,7 @@ object Form1: TForm1
       OnClick = bUpdateAircraftClick
     end
     object cbAircraftTypeSeaplanes: TCheckBox
-      Left = 243
+      Left = 262
       Top = 79
       Width = 80
       Height = 17
@@ -338,8 +325,8 @@ object Form1: TForm1
       TabOrder = 12
     end
     object eMinSpeed: TEdit
-      Left = 78
-      Top = 141
+      Left = 91
+      Top = 144
       Width = 36
       Height = 21
       Font.Charset = DEFAULT_CHARSET
@@ -353,8 +340,8 @@ object Form1: TForm1
       Text = '0'
     end
     object eMaxSpeed: TEdit
-      Left = 78
-      Top = 168
+      Left = 91
+      Top = 171
       Width = 36
       Height = 21
       Font.Charset = DEFAULT_CHARSET
@@ -368,10 +355,683 @@ object Form1: TForm1
       Text = '9999'
     end
   end
-  object GroupBox2: TGroupBox
-    Left = 375
+  object GroupBox3: TGroupBox
+    Left = 8
+    Top = 342
+    Width = 375
+    Height = 282
+    Caption = 'Route'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    object Bevel10: TBevel
+      Left = 15
+      Top = 156
+      Width = 346
+      Height = 63
+      Shape = bsFrame
+      Style = bsRaised
+    end
+    object Bevel9: TBevel
+      Left = 15
+      Top = 87
+      Width = 346
+      Height = 63
+      Shape = bsFrame
+      Style = bsRaised
+    end
+    object Bevel7: TBevel
+      Left = 15
+      Top = 18
+      Width = 346
+      Height = 63
+      Shape = bsFrame
+      Style = bsRaised
+    end
+    object Label4: TLabel
+      Left = 34
+      Top = 167
+      Width = 22
+      Height = 13
+      Caption = 'Legs'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 34
+      Top = 27
+      Width = 31
+      Height = 13
+      Caption = 'Range'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 159
+      Top = 27
+      Width = 14
+      Height = 13
+      Caption = 'nm'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label11: TLabel
+      Left = 34
+      Top = 98
+      Width = 60
+      Height = 13
+      Caption = 'Start Airport'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 34
+      Top = 125
+      Width = 54
+      Height = 13
+      Caption = 'End Airport'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 151
+      Top = 98
+      Width = 34
+      Height = 13
+      Caption = '(ICAO)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label14: TLabel
+      Left = 151
+      Top = 125
+      Width = 34
+      Height = 13
+      Caption = '(ICAO)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label15: TLabel
+      Left = 132
+      Top = 198
+      Width = 3
+      Height = 13
+      Caption = #39
+    end
+    object Label16: TLabel
+      Left = 159
+      Top = 54
+      Width = 21
+      Height = 13
+      Caption = 'mins'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label17: TLabel
+      Left = 34
+      Top = 194
+      Width = 59
+      Height = 13
+      Caption = 'Route count'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Bevel11: TBevel
+      Left = 15
+      Top = 225
+      Width = 346
+      Height = 43
+      Shape = bsFrame
+      Style = bsRaised
+    end
+    object Label25: TLabel
+      Left = 339
+      Top = 167
+      Width = 11
+      Height = 13
+      Caption = '%'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label26: TLabel
+      Left = 180
+      Top = 167
+      Width = 111
+      Height = 13
+      Caption = 'Aircraft Range Modifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object eLegs: TEdit
+      Left = 109
+      Top = 164
+      Width = 36
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 0
+      Text = '0'
+    end
+    object eRange: TEdit
+      Left = 109
+      Top = 24
+      Width = 44
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 1
+      Text = '99999'
+    end
+    object eStartAirportICAO: TEdit
+      Left = 109
+      Top = 95
+      Width = 36
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+    end
+    object eEndAirportICAO: TEdit
+      Left = 109
+      Top = 122
+      Width = 36
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+    end
+    object cbUseAircraftRange: TCheckBox
+      Left = 216
+      Top = 26
+      Width = 114
+      Height = 17
+      Caption = 'Use aircraft range'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 4
+    end
+    object cbStartFromFavourite: TCheckBox
+      Left = 216
+      Top = 97
+      Width = 114
+      Height = 17
+      Caption = 'Start from favourite'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 5
+    end
+    object cbUseDirection: TCheckBox
+      Left = 34
+      Top = 238
+      Width = 69
+      Height = 17
+      Caption = 'Direction'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 6
+    end
+    object eDirection: TEdit
+      Left = 109
+      Top = 236
+      Width = 44
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+      Text = '0'
+    end
+    object cbBearing: TComboBox
+      Left = 180
+      Top = 237
+      Width = 59
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+    end
+    object bSetFromBearing: TButton
+      Left = 245
+      Top = 236
+      Width = 33
+      Height = 25
+      Caption = 'Set'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      OnClick = bSetFromBearingClick
+    end
+    object eAircraftRangeModifier: TEdit
+      Left = 297
+      Top = 164
+      Width = 36
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 10
+      Text = '0'
+    end
+    object cbAllowExcessRange: TCheckBox
+      Left = 216
+      Top = 53
+      Width = 114
+      Height = 17
+      Caption = 'Allow excess range'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 11
+    end
+    object eCount: TEdit
+      Left = 109
+      Top = 191
+      Width = 36
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 12
+      Text = '0'
+    end
+    object eFlightTime: TEdit
+      Left = 109
+      Top = 51
+      Width = 44
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 13
+      Text = '60'
+    end
+    object cbUseFlightTime: TCheckBox
+      Left = 34
+      Top = 51
+      Width = 67
+      Height = 17
+      Caption = 'Flight time'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 14
+    end
+    object cbEndAtFavourite: TCheckBox
+      Left = 216
+      Top = 124
+      Width = 114
+      Height = 17
+      Caption = 'End at favourite'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 15
+    end
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Top = 0
+    Width = 1217
+    Height = 41
+    ButtonHeight = 38
+    ButtonWidth = 39
+    Caption = 'ToolBar1'
+    Images = ImageList1
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    object tbSave: TToolButton
+      Left = 0
+      Top = 0
+      Hint = 'Save current configuration'
+      Caption = 'tbSave'
+      ImageIndex = 0
+      OnClick = tbSaveClick
+    end
+    object tbOpen: TToolButton
+      Left = 39
+      Top = 0
+      Hint = 'Load configuration'
+      Caption = 'tbOpen'
+      ImageIndex = 1
+      OnClick = tbOpenClick
+    end
+    object ToolButton3: TToolButton
+      Left = 78
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton3'
+      ImageIndex = 2
+      Style = tbsSeparator
+    end
+    object tbReset: TToolButton
+      Left = 86
+      Top = 0
+      Hint = 'Reset display'
+      ImageIndex = 2
+      OnClick = tbResetClick
+    end
+    object ToolButton1: TToolButton
+      Left = 125
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton1'
+      ImageIndex = 3
+      Style = tbsSeparator
+    end
+    object tbExport: TToolButton
+      Left = 133
+      Top = 0
+      Hint = 'Export all routes to MSFS plans (.pln)'
+      ImageIndex = 3
+      OnClick = tbExportClick
+    end
+    object tbExportItinerary: TToolButton
+      Left = 172
+      Top = 0
+      Hint = 'Export all routes to text files'
+      ImageIndex = 4
+      OnClick = tbExportItineraryClick
+    end
+    object ToolButton2: TToolButton
+      Left = 211
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton2'
+      ImageIndex = 5
+      Style = tbsSeparator
+    end
+  end
+  object sbMain: TStatusBar
+    Left = 0
+    Top = 630
+    Width = 1217
+    Height = 19
+    Panels = <>
+    SimplePanel = True
+  end
+  object sgRoutes: TStringGrid
+    Left = 797
+    Top = 66
+    Width = 412
+    Height = 407
+    DefaultRowHeight = 22
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect, goFixedRowDefAlign]
+    ScrollBars = ssVertical
+    TabOrder = 4
+    OnClick = sgRoutesClick
+    ColWidths = (
+      181
+      41
+      41
+      53
+      60)
+  end
+  object mMain: TMemo
+    Left = 797
+    Top = 479
+    Width = 412
+    Height = 145
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Courier New'
+    Font.Style = []
+    Lines.Strings = (
+      'Route details will appear here...')
+    ParentFont = False
+    TabOrder = 5
+  end
+  object GroupBox1: TGroupBox
+    Left = 390
+    Top = 536
+    Width = 281
+    Height = 88
+    Caption = 'Route Generation'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+    object Label23: TLabel
+      Left = 55
+      Top = 72
+      Width = 17
+      Height = 13
+      Caption = 'Go!'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object bGenerate: TButton
+      Left = 23
+      Top = 24
+      Width = 75
+      Height = 47
+      Hint = 'generate random routes!'
+      ImageAlignment = iaCenter
+      ImageIndex = 5
+      Images = ImageList1
+      TabOrder = 0
+      OnClick = bGenerateClick
+    end
+    object cbKeepTrying: TCheckBox
+      Left = 111
+      Top = 22
+      Width = 75
+      Height = 17
+      Caption = 'Keep Trying'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+  object GroupBox4: TGroupBox
+    Left = 677
+    Top = 536
+    Width = 114
+    Height = 88
+    Caption = 'Stats'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    object Label21: TLabel
+      Left = 15
+      Top = 19
+      Width = 36
+      Height = 13
+      Caption = 'Aircraft'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label22: TLabel
+      Left = 15
+      Top = 38
+      Width = 38
+      Height = 13
+      Caption = 'Airports'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lStatsAircraft: TLabel
+      Left = 59
+      Top = 19
+      Width = 36
+      Height = 13
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lStatsAirport: TLabel
+      Left = 59
+      Top = 38
+      Width = 36
+      Height = 13
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '99999'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbAirports: TGroupBox
+    Left = 389
     Top = 47
-    Width = 426
+    Width = 402
     Height = 483
     Caption = 'Airports'
     Font.Charset = DEFAULT_CHARSET
@@ -380,11 +1040,11 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 8
     object Bevel5: TBevel
       Left = 15
       Top = 384
-      Width = 395
+      Width = 378
       Height = 58
       Shape = bsFrame
       Style = bsRaised
@@ -392,7 +1052,7 @@ object Form1: TForm1
     object Bevel4: TBevel
       Left = 15
       Top = 223
-      Width = 395
+      Width = 378
       Height = 106
       Shape = bsFrame
       Style = bsRaised
@@ -400,23 +1060,10 @@ object Form1: TForm1
     object Bevel1: TBevel
       Left = 15
       Top = 19
-      Width = 395
+      Width = 378
       Height = 100
       Shape = bsFrame
       Style = bsRaised
-    end
-    object lFoundAirports: TLabel
-      Left = 15
-      Top = 456
-      Width = 30
-      Height = 13
-      Caption = 'Found'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
     end
     object Label5: TLabel
       Left = 47
@@ -473,7 +1120,7 @@ object Form1: TForm1
     object Bevel2: TBevel
       Left = 15
       Top = 125
-      Width = 395
+      Width = 378
       Height = 43
       Shape = bsFrame
       Style = bsRaised
@@ -481,7 +1128,7 @@ object Form1: TForm1
     object Bevel3: TBevel
       Left = 15
       Top = 174
-      Width = 395
+      Width = 378
       Height = 43
       Shape = bsFrame
       Style = bsRaised
@@ -489,7 +1136,7 @@ object Form1: TForm1
     object Bevel6: TBevel
       Left = 15
       Top = 335
-      Width = 395
+      Width = 378
       Height = 43
       Shape = bsFrame
       Style = bsRaised
@@ -508,7 +1155,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label20: TLabel
-      Left = 351
+      Left = 354
       Top = 418
       Width = 12
       Height = 13
@@ -520,8 +1167,21 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
+    object Label24: TLabel
+      Left = 264
+      Top = 351
+      Width = 30
+      Height = 13
+      Caption = '(beta)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object bUpdateAirports: TButton
-      Left = 336
+      Left = 320
       Top = 448
       Width = 75
       Height = 25
@@ -584,7 +1244,7 @@ object Form1: TForm1
       TabOrder = 3
     end
     object cbContinentEU: TCheckBox
-      Left = 334
+      Left = 326
       Top = 63
       Width = 59
       Height = 17
@@ -650,7 +1310,7 @@ object Form1: TForm1
     object cbCountryFilter: TCheckBox
       Tag = 1
       Left = 29
-      Top = 136
+      Top = 139
       Width = 18
       Height = 17
       Checked = True
@@ -709,8 +1369,8 @@ object Form1: TForm1
     end
     object cbCountryList: TComboBox
       Left = 63
-      Top = 134
-      Width = 332
+      Top = 137
+      Width = 314
       Height = 21
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
@@ -849,7 +1509,7 @@ object Form1: TForm1
     object cbRegionFilter: TCheckBox
       Tag = 2
       Left = 29
-      Top = 191
+      Top = 188
       Width = 58
       Height = 17
       Caption = 'Region'
@@ -866,7 +1526,7 @@ object Form1: TForm1
     end
     object eRegionICO: TEdit
       Left = 86
-      Top = 189
+      Top = 186
       Width = 43
       Height = 21
       Font.Charset = DEFAULT_CHARSET
@@ -939,636 +1599,8 @@ object Form1: TForm1
       Text = '-2000'
     end
   end
-  object GroupBox3: TGroupBox
-    Left = 8
-    Top = 342
-    Width = 353
-    Height = 282
-    Caption = 'Route'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 2
-    object Bevel10: TBevel
-      Left = 15
-      Top = 156
-      Width = 322
-      Height = 63
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Bevel9: TBevel
-      Left = 15
-      Top = 87
-      Width = 322
-      Height = 63
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Bevel7: TBevel
-      Left = 15
-      Top = 18
-      Width = 322
-      Height = 63
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Label4: TLabel
-      Left = 34
-      Top = 167
-      Width = 22
-      Height = 13
-      Caption = 'Legs'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label9: TLabel
-      Left = 34
-      Top = 27
-      Width = 31
-      Height = 13
-      Caption = 'Range'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label10: TLabel
-      Left = 159
-      Top = 27
-      Width = 14
-      Height = 13
-      Caption = 'nm'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label11: TLabel
-      Left = 34
-      Top = 98
-      Width = 60
-      Height = 13
-      Caption = 'Start Airport'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label12: TLabel
-      Left = 34
-      Top = 125
-      Width = 54
-      Height = 13
-      Caption = 'End Airport'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label13: TLabel
-      Left = 151
-      Top = 98
-      Width = 34
-      Height = 13
-      Caption = '(ICAO)'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label14: TLabel
-      Left = 151
-      Top = 125
-      Width = 34
-      Height = 13
-      Caption = '(ICAO)'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label15: TLabel
-      Left = 132
-      Top = 198
-      Width = 3
-      Height = 13
-      Caption = #39
-    end
-    object Label16: TLabel
-      Left = 159
-      Top = 51
-      Width = 21
-      Height = 13
-      Caption = 'mins'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label17: TLabel
-      Left = 34
-      Top = 194
-      Width = 59
-      Height = 13
-      Caption = 'Route count'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Bevel11: TBevel
-      Left = 15
-      Top = 225
-      Width = 322
-      Height = 43
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object eLegs: TEdit
-      Left = 109
-      Top = 164
-      Width = 36
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 0
-      Text = '0'
-    end
-    object eRange: TEdit
-      Left = 109
-      Top = 24
-      Width = 44
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 1
-      Text = '99999'
-    end
-    object eStartAirportICAO: TEdit
-      Left = 109
-      Top = 95
-      Width = 36
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
-    end
-    object eEndAirportICAO: TEdit
-      Left = 109
-      Top = 122
-      Width = 36
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 3
-    end
-    object cbUseAircraftRange: TCheckBox
-      Left = 216
-      Top = 26
-      Width = 114
-      Height = 17
-      Caption = 'Use aircraft range'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 4
-    end
-    object cbStartFromFavourite: TCheckBox
-      Left = 216
-      Top = 98
-      Width = 114
-      Height = 17
-      Caption = 'Start from favourite'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 5
-    end
-    object cbUseDirection: TCheckBox
-      Left = 34
-      Top = 238
-      Width = 69
-      Height = 17
-      Caption = 'Direction'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 6
-    end
-    object eDirection: TEdit
-      Left = 109
-      Top = 236
-      Width = 44
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 7
-      Text = '0'
-    end
-    object cbBearing: TComboBox
-      Left = 165
-      Top = 237
-      Width = 59
-      Height = 21
-      Style = csDropDownList
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 8
-    end
-    object bSetFromBearing: TButton
-      Left = 230
-      Top = 236
-      Width = 33
-      Height = 25
-      Caption = 'Set'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 9
-      OnClick = bSetFromBearingClick
-    end
-    object eAircraftRangeModifier: TEdit
-      Left = 287
-      Top = 166
-      Width = 36
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 10
-      Text = '0'
-    end
-    object cbAllowExcessRange: TCheckBox
-      Left = 216
-      Top = 56
-      Width = 114
-      Height = 17
-      Caption = 'Allow excess range'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 11
-    end
-    object eCount: TEdit
-      Left = 109
-      Top = 191
-      Width = 36
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 12
-      Text = '0'
-    end
-    object eFlightTime: TEdit
-      Left = 109
-      Top = 51
-      Width = 44
-      Height = 21
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 13
-      Text = '60'
-    end
-    object cbUseFlightTime: TCheckBox
-      Left = 34
-      Top = 51
-      Width = 67
-      Height = 17
-      Caption = 'Flight time'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 14
-    end
-  end
-  object ToolBar1: TToolBar
-    Left = 0
-    Top = 0
-    Width = 1217
-    Height = 41
-    ButtonHeight = 38
-    ButtonWidth = 39
-    Caption = 'ToolBar1'
-    Images = ImageList1
-    TabOrder = 3
-    object tbSave: TToolButton
-      Left = 0
-      Top = 0
-      Hint = 'Save current configuration'
-      Caption = 'tbSave'
-      ImageIndex = 0
-      OnClick = tbSaveClick
-    end
-    object tbOpen: TToolButton
-      Left = 39
-      Top = 0
-      Hint = 'Load configuration'
-      Caption = 'tbOpen'
-      ImageIndex = 1
-      OnClick = tbOpenClick
-    end
-    object ToolButton3: TToolButton
-      Left = 78
-      Top = 0
-      Width = 8
-      Caption = 'ToolButton3'
-      ImageIndex = 2
-      Style = tbsSeparator
-    end
-    object tbReset: TToolButton
-      Left = 86
-      Top = 0
-      Hint = 'Reset display'
-      ImageIndex = 2
-      OnClick = tbResetClick
-    end
-    object ToolButton1: TToolButton
-      Left = 125
-      Top = 0
-      Width = 8
-      Caption = 'ToolButton1'
-      ImageIndex = 3
-      Style = tbsSeparator
-    end
-    object tbExport: TToolButton
-      Left = 133
-      Top = 0
-      Hint = 'Export all routes'
-      ImageIndex = 3
-      OnClick = tbExportClick
-    end
-    object tbExportItinerary: TToolButton
-      Left = 172
-      Top = 0
-      ImageIndex = 4
-      OnClick = tbExportItineraryClick
-    end
-    object ToolButton2: TToolButton
-      Left = 211
-      Top = 0
-      Width = 8
-      Caption = 'ToolButton2'
-      ImageIndex = 5
-      Style = tbsSeparator
-    end
-  end
-  object sbMain: TStatusBar
-    Left = 0
-    Top = 630
-    Width = 1217
-    Height = 19
-    Panels = <>
-    SimplePanel = True
-  end
-  object sgRoutes: TStringGrid
-    Left = 816
-    Top = 66
-    Width = 393
-    Height = 407
-    DefaultRowHeight = 22
-    FixedCols = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect, goFixedRowDefAlign]
-    ScrollBars = ssVertical
-    TabOrder = 5
-    OnClick = sgRoutesClick
-    ColWidths = (
-      165
-      41
-      41
-      53
-      60)
-  end
-  object mMain: TMemo
-    Left = 816
-    Top = 479
-    Width = 393
-    Height = 145
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Courier New'
-    Font.Style = []
-    Lines.Strings = (
-      'Route details will appear here...')
-    ParentFont = False
-    TabOrder = 6
-  end
-  object GroupBox1: TGroupBox
-    Left = 367
-    Top = 536
-    Width = 323
-    Height = 88
-    Caption = 'Route Generation'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 7
-    object Label23: TLabel
-      Left = 55
-      Top = 72
-      Width = 17
-      Height = 13
-      Caption = 'Go!'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object bGenerate: TButton
-      Left = 23
-      Top = 24
-      Width = 75
-      Height = 47
-      Hint = 'generate random routes'
-      ImageAlignment = iaCenter
-      ImageIndex = 5
-      Images = ImageList1
-      TabOrder = 0
-      OnClick = bGenerateClick
-    end
-    object cbKeepTrying: TCheckBox
-      Left = 111
-      Top = 22
-      Width = 75
-      Height = 17
-      Caption = 'Keep Trying'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-    end
-  end
-  object GroupBox4: TGroupBox
-    Left = 696
-    Top = 536
-    Width = 105
-    Height = 88
-    Caption = 'Stats'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 8
-    object Label21: TLabel
-      Left = 15
-      Top = 19
-      Width = 36
-      Height = 13
-      Caption = 'Aircraft'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label22: TLabel
-      Left = 15
-      Top = 38
-      Width = 38
-      Height = 13
-      Caption = 'Airports'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lStatsAircraft: TLabel
-      Left = 59
-      Top = 19
-      Width = 36
-      Height = 13
-      Alignment = taRightJustify
-      AutoSize = False
-      Caption = '0'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lStatsAirport: TLabel
-      Left = 59
-      Top = 38
-      Width = 36
-      Height = 13
-      Alignment = taRightJustify
-      AutoSize = False
-      Caption = '99999'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-  end
   object MainMenu1: TMainMenu
-    Left = 576
+    Left = 976
     Top = 4
     object File1: TMenuItem
       Caption = 'File'
@@ -1642,7 +1674,7 @@ object Form1: TForm1
   object ImageList1: TImageList
     Height = 32
     Width = 32
-    Left = 632
+    Left = 1040
     Top = 4
     Bitmap = {
       494C010106000800040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
@@ -2167,11 +2199,10 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00A7A7A700474747000000000000000000000000004747470089898900DDDD
-      DD00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000B8B8B8005C5C5C000000000000000000000000005D5D5D009E9E9E00E4E4
+      E400000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2183,11 +2214,12 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007A7A7A00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000011111100DDDDDD00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000090909000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000018181800E4E4E400000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2199,11 +2231,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFEFF00FFFEFF00000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF007A7A7A000000000000000000000000000000
-      000047474700A7A7A700ECECEC00FFFFFF00FFFFFF00C3C3C300898989001111
-      110000000000000000000000000000000000ECECEC00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000909090000000000000000000000000000000
+      00005C5C5C00B8B8B800F0F0F000FFFFFF00FFFFFF00CFCFCF009D9D9D001818
+      180000000000000000000000000000000000F1F1F10000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2215,11 +2247,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00ECECEC0000000000000000000000000023232300ECECEC00FFFF
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000F1F1F10000000000000000000000000032323200F0F0F000FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00A7A7A7000000000000000000000000007A7A7A00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      FF00FFFFFF00B8B8B80000000000000000000000000090909000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2231,11 +2263,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      0000000000000000000000000000000000000000000000000000FFFFFF00FFFF
-      FF00D0D0D000000000000000000000000000ECECEC00FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000DADADA00000000000000000000000000F0F0F000FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF0098989800000000000000000011111100FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00ABABAB000000000000000000181818000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2247,11 +2279,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      0000000000000000000000000000000000000000000000000000FFFFFF00D0D0
-      D000000000000000000047474700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      000000000000000000000000000000000000000000000000000000000000DADA
+      DA0000000000000000005D5D5D00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000000000001111
-      1100FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000000000001818
+      1800000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000009E9E9E0000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2263,11 +2295,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      0000000000000000000000000000000000000000000000000000ECECEC000000
-      00000000000069696900FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000F0F0F0000000
+      00000000000080808000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      000034343400FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000484848000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000181818000000
       0000DADADA00FFFFFF00F0F0F000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2280,10 +2312,10 @@ object Form1: TForm1
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000057575700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      00006D6D6D00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000
-      000000000000B5B5B500FFFFFF00FFFFFF000000000000000000000000000000
+      000000000000C4C4C40000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000ABABAB000000
       00006E6E6E00FFFFFF00FFFFFF0018181800000000009D9D9D00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2298,8 +2330,8 @@ object Form1: TForm1
       000000000000000000007F7F7F00000000000000000000000000000000000000
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D0D0
-      D0000000000000000000FFFFFF00FFFFFF000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DADA
+      DA00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000FFFFFF00FFFFFF00F0F0F0000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2311,11 +2343,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF000000000000000000B8B8B800FFFFFF00000000000000
-      00000000000000000000000000007F7F7F00000000000000000000000000ECEC
-      EC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      00000000000000000000000000007F7F7F00000000000000000000000000F1F1
+      F100FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00232323000000000069696900FFFFFF000000000000000000000000000000
+      FF00323232000000000080808000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000FFFFFF00FFFFFF00FFFFFF0018181800000000009E9E9E000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2331,7 +2363,7 @@ object Form1: TForm1
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF000000000000000000FFFFFF00F0F0F00000000000000000000000
+      FF00FFFFFF00000000000000000000000000F0F0F00000000000000000000000
       0000000000000000000000000000000000000000000000000000000000001717
       170000000000DADADA00FFFFFF00FFFFFF00F0F0F00000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2347,7 +2379,7 @@ object Form1: TForm1
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF001111110000000000B5B5B5000000000018181800000000000000
+      FF00FFFFFF001818180000000000C4C4C4000000000018181800000000000000
       0000000000000000000000000000000000009D9D9D000000000000000000ABAB
       AB00000000006D6D6D00FFFFFF00FFFFFF00FFFFFF0018181800000000009E9E
       9E00000000000000000000000000000000000000000000000000000000000000
@@ -2363,7 +2395,7 @@ object Form1: TForm1
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00D0D0D000ECECEC00FFFFFF0000000000F0F0F000000000000000
+      FF00FFFFFF00DADADA00F1F1F100FFFFFF0000000000F0F0F000000000000000
       0000FFFFFF00FFFFFF00F1F1F100000000000000000000000000000000000000
       00000000000000000000FFFFFF00FFFFFF00FFFFFF00F0F0F000000000000000
       000000000000000000000000000000000000000000000000000032323200DADA
@@ -2487,7 +2519,7 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      0000000000000000000000000000000000005757570000000000FFFFFF00FFFF
+      0000000000000000000000000000000000006E6E6E0000000000FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
@@ -2503,7 +2535,7 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      0000000000000000000000000000000000001111110000000000A7A7A700FFFF
+      0000000000000000000000000000000000001818180000000000B8B8B800FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
@@ -2519,11 +2551,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000DDDDDD000000000000000000FFFF
+      000000000000000000000000000000000000E4E4E4000000000000000000FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00A7A7A7000000000000000000000000000000000000000000000000000000
+      FF00B8B8B8000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000FFFFFF00FFFFFF00FFFFFF009D9D9D0000000000171717000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2535,8 +2567,8 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF0000000000000000008989
-      8900FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000000000009E9E
+      9E00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00000000000000000000000000000000000000000000000000000000000000
@@ -2551,11 +2583,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00ECECEC00000000000000
-      0000ECECEC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      00000000000000000000000000000000000000000000F0F0F000000000000000
+      0000F0F0F000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002323
-      2300000000002323230000000000000000000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003232
+      3200000000003131310000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000DADADA000000
       000018181800FFFFFF00FFFFFF009E9E9E000000000018181800000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2567,11 +2599,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000FFFFFF00FFFFFF00FFFFFF00000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00696969000000
+      00000000000000000000000000000000000000000000000000007F7F7F000000
       000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00696969000000
-      000000000000FFFFFF0000000000000000000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007F7F7F000000
+      0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000006E6E6E000000
       0000ABABAB00FFFFFF00FFFFFF000000000000000000F0F0F000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2583,11 +2615,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000FFFFFF00FFFFFF0000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF001111
-      11000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000000000001818
+      18000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0069696900000000000000
-      0000DDDDDD00FFFFFF0000000000000000000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF007F7F7F00000000000000
+      0000E5E5E5000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000001818180000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2599,11 +2631,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000FFFFFF000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00111111000000000000000000DDDDDD00FFFFFF00FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000181818000000000000000000E5E5E500FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00232323000000000000000000D0D0
-      D000FFFFFF00FFFFFF0000000000000000000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00323232000000000000000000DADA
+      DA00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000F1F1F10000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2615,11 +2647,11 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0034343400000000000000000023232300FFFFFF00FFFFFF00FFFF
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000047474700000000000000000032323200FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00A7A7A700000000000000000000000000DDDDDD00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00B8B8B800000000000000000000000000E4E4E4000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2631,11 +2663,10 @@ object Form1: TForm1
       0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00B5B5B50000000000000000000000000011111100C3C3
-      C300FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF006969690000000000000000000000000011111100FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000C4C4C40000000000000000000000000018181800D0D0
+      D000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00808080000000000000000000000000001717170000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2647,13 +2678,11 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF006969690000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000DDDDDD00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000008080800000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000E4E4E4000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2663,11 +2692,14 @@ object Form1: TForm1
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00B5B5B5002323
-      2300000000000000000000000000000000000000000000000000000000000000
-      000069696900FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000C4C4C4003232
+      3200000000000000000000000000000000000000000000000000000000000000
+      0000808080000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2689,31 +2721,29 @@ object Form1: TForm1
       C000003FC38FF1C70000000000000000C000007FE18FE38F0000000000000000
       C00000FFF0C7E31F0000000000000000C00001FFF807C03F0000000000000000
       C00003FFFC03807F0000000000000000C00007FFFF0000FF0000000000000000
-      C0000FFFFFC007FF0000000000000000FFFFFFFFC00000CF00000000FFFFFFFF
-      FFFFFFFFC00000CF00000000FFFFFFFFF8000003C000000F00000000FFFFFFFF
-      F0000003C000000F00000000FFFFFFFFE0000003C000000F00000000FFC0FFFF
-      C0000003C000000F00000000FFC07FFFC0000003C000000F00000000FFC07FFF
-      C0000003C000000F00000000FFC03FFFC0000003C000000D00000000FFE03FFF
-      C0000003C000000800000000FFE01FFFC0000003C00000010000000000E01FFF
+      C0000FFFFFC007FF0000000000000000FFFFFFFFC00000CFFFF00FFFFFFFFFFF
+      FFFFFFFFC00000CFFF8001FFFFFFFFFFF8000003C000000FFE00007FFFFFFFFF
+      F0000003C000000FF800003FFFFFFFFFE0000003C000000F3000001FFFC0FFFF
+      C0000003C000000F2000000FFFC07FFFC0000003C000000F00000007FFC07FFF
+      C0000003C000000F00000003FFC03FFFC0000003C000000D00000003FFE03FFF
+      C0000003C000000800000001FFE01FFFC0000003C00000010000000100E01FFF
       C0000003C00000030000000080600FFFC0000003C0000007000000008000000F
       C0000003C000000F00000000C0000007C0000003C000001F00000000C0000003
       C0000003C000001F00000000E0000003C0000003C000000F00000000E0000003
       C0000003C000000F00000000E0000003C0000003C000000F00000000C0000007
       C0000003C000000F00000000C0000007C0000003C000000F0000000080600FFF
       C0000003C000000F0000000080600FFFC0000003C000000F00000000FFE01FFF
-      C0000003C000000F00000000FFE01FFFC0000003C000001F00000000FFC03FFF
-      C0000003C000003F00000000FFC03FFFC0000003C000007F00000000FFC07FFF
-      C0000003C00000FF00000000FFC07FFFC0000003C00001FF00000000FFFFFFFF
-      C0000003C00003FF00000000FFFFFFFFFFFFFFFFC00007FF00000000FFFFFFFF
-      FFFFFFFFC0000FFF00000000FFFFFFFF00000000000000000000000000000000
+      C0000003C000000F80000000FFE01FFFC0000003C000001F80000000FFC03FFF
+      C0000003C000003FC0000004FFC03FFFC0000003C000007FE0000004FFC07FFF
+      C0000003C00000FFF000000CFFC07FFFC0000003C00001FFF800001FFFFFFFFF
+      C0000003C00003FFFC00007FFFFFFFFFFFFFFFFFC00007FFFF0000FFFFFFFFFF
+      FFFFFFFFC0000FFFFFC007FFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
   object sdMain: TSaveDialog
-    Left = 760
-    Top = 8
+    Left = 1152
   end
   object odMain: TOpenDialog
-    Left = 704
-    Top = 8
+    Left = 1104
   end
 end

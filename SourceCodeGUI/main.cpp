@@ -205,10 +205,12 @@ void __fastcall TForm1::bUpdateAircraftClick(TObject *Sender)
 	}
 	else
 	{
-        cbAircraftList->Clear();
+		cbAircraftList->Clear();
+
+		lAircraftStats->Caption = "";
     }
 
-	lFoundAircraft->Caption = "Found " + System::Sysutils::IntToStr((int)GAircraftHandler->FilteredList.size()) + " aircraft.";
+	gbAircraft->Caption = "Aircraft (" + System::Sysutils::IntToStr((int)GAircraftHandler->FilteredList.size()) + " selected)";
 }
 
 
@@ -221,7 +223,9 @@ void TForm1::UpdateAircraftList()
 		cbAircraftList->Items->Add(GAircraftHandler->FilteredList[t].Name.c_str());
 	}
 
-    cbAircraftList->ItemIndex = 0;
+	cbAircraftList->ItemIndex = 0;
+
+    cbAircraftListChange(nullptr);
 }
 
 
@@ -231,7 +235,7 @@ void __fastcall TForm1::bUpdateAirportsClick(TObject *Sender)
 
 	int count = GAirportHandler->Filter(alf);
 
-	lFoundAirports->Caption = "Found " + System::Sysutils::IntToStr((int)GAirportHandler->FilteredList.size()) + " airports.";
+	gbAirports->Caption = "Airports (" + System::Sysutils::IntToStr((int)GAirportHandler->FilteredList.size()) + " selected)";
 }
 
 
@@ -393,7 +397,19 @@ void TForm1::GenerateRoutes()
         RouteDirection = eDirection->Text.ToDouble();
     }
 
-    // to do, start from favourite
+	// populate start/end from favourites if requested
+
+	if (cbStartFromFavourite->Checked)
+	{
+		eStartAirportICAO->Text = GConfiguration->GetRandomFavourite().c_str();
+	}
+
+	if (cbEndAtFavourite->Checked)
+	{
+		eEndAirportICAO->Text = GConfiguration->GetRandomFavourite().c_str();
+	}
+
+	// =========================================================================
 
 	if (eStartAirportICAO->Text != "" && eEndAirportICAO->Text != "")
 	{
@@ -417,7 +433,8 @@ void TForm1::GenerateRoutes()
 	}
 
 	int random_aircraft = rand() % cbAircraftList->Items->Count;
-    cbAircraftList->ItemIndex = random_aircraft;
+	cbAircraftList->ItemIndex = random_aircraft;
+    cbAircraftListChange(nullptr);
 
 	Aircraft aircraft = GAircraftHandler->AircraftList[random_aircraft];
 
@@ -597,9 +614,13 @@ void __fastcall TForm1::Createcustomaircrafttxt1Click(TObject *Sender)
 {
 	if (Application->MessageBox(L"hello", L"Are you sure?", MB_OKCANCEL) == IDOK)
 	{
-		if (!MSFSSystem::CreateAircraftList(true))
+		if (MSFSSystem::CreateAircraftList(true))
 		{
-
+			sbMain->SimpleText = "'custom_aircraft.txt' file created successfully.";
+		}
+		else
+		{
+			sbMain->SimpleText = "Error creating 'custom_aircraft.txt' file.";
         }
     }
 }

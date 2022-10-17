@@ -32,6 +32,7 @@ struct RouteFilter
 	std::wstring EndAirportICAO = L"";
 
 	bool StartFromFavourite = false;
+	bool EndAtFavourite = false;
 
 	bool UseAircraftRange = false;
 	double AircraftRangeModifier = DataDefaults::ACPC;
