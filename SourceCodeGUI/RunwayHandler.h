@@ -26,6 +26,8 @@ static const int kRFieldName = 8;
 
 class RunwayHandler
 {
+	std::wstring LastError = L"";
+
 	[[nodiscard]] bool LoadRunways(const std::wstring);
 
 	[[nodiscard]] bool ImportFromRow(const std::wstring);
@@ -41,4 +43,6 @@ public:
 	Runway GetRandom(std::wstring);
 
 	int FindAndSet(const std::wstring);
+
+    std::wstring GetLastError();
 };

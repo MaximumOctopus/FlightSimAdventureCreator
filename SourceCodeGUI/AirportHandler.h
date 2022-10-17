@@ -156,9 +156,9 @@ struct AirportRouteGeneration
 
 class AirportHandler
 {
-	int TypeCount[AirportConstants::AirportTypeCount] = { 0, 0, 0, 0, 0 };
+	std::wstring LastError = L"";
 
-	bool Silent = false;
+	int TypeCount[AirportConstants::AirportTypeCount] = { 0, 0, 0, 0, 0 };
 
 	std::vector<Airport> SingleLegAirports;
 	std::vector<Airport> MultiLegAirports;
@@ -210,4 +210,6 @@ public:
 	int FindNearest(const std::wstring, double, bool);
 
 	[[nodiscard]] double DistanceBetweenTwoAirports(const std::wstring, const std::wstring);
+
+	std::wstring GetLastError();
 };

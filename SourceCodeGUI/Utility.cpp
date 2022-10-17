@@ -110,9 +110,9 @@ namespace Utility
 	{
 		for (int t = 0; t < Location::ISOCountriesCount; t++)
 		{
-			if (Location::ISOCountries[t][0] == iso_code)
+			if (Location::ISOCountriesOrdered[t][1] == iso_code)
 			{
-				return Location::ISOCountries[t][1];
+				return Location::ISOCountriesOrdered[t][0];
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace Utility
 	{
 		for (int t = 0; t < Location::ISOCountriesCount; t++)
 		{
-			if (Location::ISOCountries[t][0] == iso_code)
+			if (Location::ISOCountriesOrdered[t][1] == iso_code)
 			{
 				return t;
 			}

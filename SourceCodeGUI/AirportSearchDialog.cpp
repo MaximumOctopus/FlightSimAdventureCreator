@@ -56,7 +56,7 @@ void __fastcall TfrmAirportSearchDialog::FormCreate(TObject *Sender)
 
 	for (int t = 0; t < Location::ISOCountriesCount; t++)
 	{
-		cbCountry->Items->Add(Location::ISOCountries[t][1].c_str());
+		cbCountry->Items->Add(Location::ISOCountriesOrdered[t][0].c_str());
 	}
 
 	cbCountry->ItemIndex = 0;
@@ -79,7 +79,7 @@ void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 
 	if (cbCountry->ItemIndex > 0)
 	{
-		asf.Country = Location::ISOCountries[cbCountry->ItemIndex - 1][0];
+		asf.Country = Location::ISOCountriesOrdered[cbCountry->ItemIndex - 1][1];
 	}
 
 	asf.SmallAirports = cbSmallAirports->Checked;

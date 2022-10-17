@@ -45,7 +45,7 @@ AircraftHandler::AircraftHandler()
 {
 	if (!LoadAircraft(SystemConstants::DefaultAircraft))
 	{
-		//   std::wcout << L" Aircraft data file not found \"" << SystemConstants::DefaultAircraft << L"\".\n";
+		LastError = L" Aircraft data file not found \"" + SystemConstants::DefaultAircraft + L"\".";
 	}
 	else
 	{
@@ -54,7 +54,7 @@ AircraftHandler::AircraftHandler()
 
 	if (!LoadAircraft(SystemConstants::CustomAircraft))
 	{
-	   // std::wcout << L" Aircraft data file not found \"" << SystemConstants::CustomAircraft << L"\".\n";
+	   LastError = L" Aircraft data file not found \"" + SystemConstants::CustomAircraft + L"\".";
 	}
 	else
 	{
@@ -152,7 +152,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
 		while (std::getline(file, s))
 		{
-            if (s != L"")
+			if (s != L"")
 			{
                 if (s[0] == L'/' || s[1] == L';')
 				{
@@ -394,7 +394,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         int r = GetIntValueFromRow(s);
 
                         if (r >= 0)
-                        {
+						{
                             RunwayLength = r;
                         }
 
@@ -501,4 +501,10 @@ int AircraftHandler::GetIntValueFromRow(const std::wstring row)
     }
 
     return -1;
+}
+
+
+std::wstring AircraftHandler::GetLastError()
+{
+    return LastError;
 }

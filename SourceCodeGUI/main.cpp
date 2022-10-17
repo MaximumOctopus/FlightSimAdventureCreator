@@ -280,7 +280,7 @@ AirportLoadFilter TForm1::BuildAirportLoadFilterFromUI()
 	alf.FilterCountry = cbCountryFilter->Checked;
 	if (cbCountryList->ItemIndex != -1)
 	{
-		alf.Country = Location::ISOCountries[cbCountryList->ItemIndex][0];
+		alf.Country = Location::ISOCountriesOrdered[cbCountryList->ItemIndex][1];
 	}
 
 	alf.FilterRegion = cbRegionFilter->Checked;
@@ -361,7 +361,7 @@ void TForm1::UpdateCountryList()
 
 	for (int t = 0; t < Location::ISOCountriesCount; t++)
 	{
-		cbCountryList->Items->Add(Location::ISOCountries[t][1].c_str());
+		cbCountryList->Items->Add(Location::ISOCountriesOrdered[t][0].c_str());
 	}
 
     cbCountryList->ItemIndex = 0;
@@ -727,4 +727,3 @@ void __fastcall TForm1::Airports1Click(TObject *Sender)
 {
 	frmAirportSearchDialog->ShowModal();
 }
-

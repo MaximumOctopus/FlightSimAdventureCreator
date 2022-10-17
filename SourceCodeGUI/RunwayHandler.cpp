@@ -29,9 +29,8 @@ RunwayHandler::RunwayHandler(const std::wstring file_name)
 
     if (!Loaded)
     {
-       // std::wcout << L" Runway data file not found \"" << SystemConstants::RunwaysFileName << L"\".\n";
-		//std::wcout << L" The latest airports data file can be found here: https://ourairports.com/data/\n\n";
-    }
+		LastError = L" Runway data file not found \"" << SystemConstants::RunwaysFileName << L"\". Try reinstalling or redownloading.";
+	}
 }
 
 
@@ -66,7 +65,7 @@ Runway RunwayHandler::GetRandom(const std::wstring icao)
         return Runways[Available[rand() % Available.size()]];
     }
 
-	//std::wcout << L" Couldn't get a runway for airport \"" << icao << L"\" (exported files may not work correctly)\n";
+	LastError = L" Couldn't get a runway for airport \"" + icao + L"\" (exported files may not work correctly).";
 
     return Runway();
 }
@@ -192,4 +191,10 @@ bool RunwayHandler::ImportFromRow(const std::wstring row)
     }
 
     return false;
+}
+
+
+std::wstring RunwayHandler::GetLastError()
+{
+    return LastError;
 }

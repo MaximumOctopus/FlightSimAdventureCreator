@@ -37,6 +37,8 @@ struct AircraftLoadFilter {
 
 class AircraftHandler
 {
+	std::wstring LastError = L"";
+
 	AircraftLoadFilter LoadFilter;
 
 	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -63,4 +65,6 @@ public:
 	Aircraft GetRandomAircraft();
 
 	int Filter(AircraftLoadFilter);
+
+    std::wstring GetLastError();
 };

@@ -37,9 +37,9 @@ AirportHandler::AirportHandler()
 
 	Loaded = LoadAirports(SystemConstants::AirportsFileName);
 
-    if (!Loaded)
+	if (!Loaded)
 	{
-		//std::wcout << L" Airport data file not found \"" << SystemConstants::AirportsFileName << L"\".\n";
+		LastError = L" Airport data file not found \"" + SystemConstants::AirportsFileName + L"\".";
     }
 }
 
@@ -157,8 +157,6 @@ void AirportHandler::CalculateDistances(double range, double direction, double d
 
 		if (FilteredList[t].Distance < range_max && FilteredList[t].Distance > range_min && is_within_angle && FilteredList[t].Distance != 0)
         {
-			//std::wcout << L"Rmin " << range_min << L", Rmax " << range_max << L" Amin " << angle_min << L", Amax " << angle_max << L", A " << angle << L", D " << Airports[t].Distance << L"\n";
-
 			FilteredList[t].Angle = angle;
 
 			RouteCache.push_back(FilteredList[t]);
@@ -250,7 +248,7 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 
         if (TargetAirport == kRandomAirport)
         {
-//			std::wcout << L"  Couldn't find start airport L\"" << airport_icao << L"\", using random :(\n";
+			LastError = L"  Couldn't find start airport L\"" + airport_icao + L"\", using random :(";
         }
 	}
 
@@ -326,8 +324,6 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 
 					GRouteHandler->Add(route);
 
-//                    std::wcout << L"   " << std::format(L"{0} --> {1}, {2} ({3:.1f} nm), @ {4:.1f}°\n", SingleLegAirports.front().Ident, SingleLegAirports.back().Ident, SingleLegAirports.back().Country, SingleLegAirports.back().Distance, SingleLegAirports.front().Angle);
-
 					// ==============================================================================================
 
                     if (ExportMSFSPlan || ExportTextReport)    
@@ -336,17 +332,17 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                         {
                             if (!MSFSFlightPlan::Export(SingleLegAirports, L"Plans\\" + SingleLegAirports.front().Ident + L"_to_" + SingleLegAirports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln"))
                             {
-//                                std::wcout << L"\n\nError saving plan file :( \n";
-                            }
-                        }
+								LastError = L"\n\nError saving plan file :(";
+							}
+						}
 
-                        if (ExportTextReport)
-                        {
-                            if (!TextItinerary::Export(SingleLegAirports, L"Reports\\" + SingleLegAirports.front().Ident + L"_to_" + SingleLegAirports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
-                            {
-//                                std::wcout << L"\n\nError saving text file :( \n";
-                            }
-                        }
+						if (ExportTextReport)
+						{
+							if (!TextItinerary::Export(SingleLegAirports, L"Reports\\" + SingleLegAirports.front().Ident + L"_to_" + SingleLegAirports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
+							{
+								LastError =  L"\n\nError saving text file :(";
+							}
+						}
                     }
                 }
 
@@ -354,18 +350,16 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
             }
         }
 
-		//std::wcout << std::format(L"SR. SLACount {0}; Attempt {1}.", SingleLegAirports.size(), Attempt);
-
 		Attempt++;
 
-        if (Attempt == MaximumAttempts && keep_trying)
+		if (Attempt == MaximumAttempts && keep_trying)
         {
             Retries++;
 
             // if someone is stupid enough to have a range of 1 nm and "keeptrying" then we have to shut it down eventually...
             // 21 retries from 1 nautical mile gives us just over 100 nm - that should be enough...
             if (Retries < 22)
-            {
+			{
                 Attempt = 0;
 
                 range *= 1.25;
@@ -373,11 +367,11 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                 DirectionMarginOfError += 5;
 
 //                std::wcout << L"  No airports in range, using 1.25x (" << range << L") and retrying (" << Retries << L")...\n";
-            }
-        }
-    }
- 
-//	std::wcout << std::format(L"Sorry, no routes could be generated with a range of {0} nm after {1} attempts :(", range, MaximumAttempts) << L"\n";
+			}
+		}
+	}
+
+	LastError = L"Sorry, no routes could be generated with a range of " + std::to_wstring(range) + L" nm after " + std::to_wstring(MaximumAttempts) + L" attempts :(";
 
     return false;
 }
@@ -398,7 +392,7 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
 
         if (TargetAirport == kRandomAirport)
 		{
-//            std::wcout << L"  Couldn't find airport L\"" << airport_icao << L"\" :(\n";
+			LastError = L"  Couldn't find airport L\"" + airport_icao + L"\" :(";
         }
     }
 
@@ -442,8 +436,6 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
             }
         }
 
-//		std::wcout << std::format(L"MLR. MLACount {0}; Legs {1}; Attempt {2}.\n", MultiLegAirports.size(), legs, Attempt);
-
         if (MultiLegAirports.size() == legs + 1) break;
 
         Attempt++;
@@ -461,8 +453,8 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
                 range *= 1.25;
                 DirectionMarginOfError += 5;
 
-                std::wcout << L"  No airports in range, using 1.25x (" << range << L") and retrying (" << Retries << L")...\n";
-            }
+				// std::wcout << L"  No airports in range, using 1.25x (" << range << L") and retrying (" << Retries << L")...\n";
+			}
         }
     }
 
@@ -493,8 +485,8 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
         return true;
     }
 
-//    std::wcout << std::format(L"Sorry, no routes could be generated with a range of {0} nm after {1} attempts :(", range, MaximumAttempts) << L"\n";
-    
+	LastError = L"Sorry, no routes could be generated with a range of " + std::to_wstring(range) + L" nm after " + std::to_wstring(MaximumAttempts) + L" attempts :(";
+
     return false;
 }
 
@@ -540,13 +532,11 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
             {
                 // for now... not sure what to do :(
 //                std::wcout << std::format(L"  Couldn't complete route, trying again... attempt {0} of {1}\n", Attempt + 1, MaximumAttempts);
-                break;
-            }
-        }
+				break;
+			}
+		}
 
-//        std::wcout << std::format(L"STF. MLACount {0}; Legs {1}; Attempt {2}.\n", MultiLegAirports.size(), legs, Attempt);
-
-        if (MultiLegAirports.size() == legs) break;
+		if (MultiLegAirports.size() == legs) break;
 
         Attempt++;
     }
@@ -569,8 +559,6 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 		route.Region = MultiLegAirports.front().Region;
 
 		GRouteHandler->Add(route);
-
-//              std::wcout << L"   " << std::format(L"{0} --> {1}, {2} ({3:.1f} nm), @ {4:.1f}°\n", SingleLegAirports.front().Ident, SingleLegAirports.back().Ident, SingleLegAirports.back().Country, SingleLegAirports.back().Distance, SingleLegAirports.front().Angle);
 
 		// ==============================================================================================
 
@@ -621,7 +609,7 @@ void AirportHandler::HandleMultiLegExport()
     {
         if (!MSFSFlightPlan::Export(MultiLegAirports, L"Plans\\" + MultiLegAirports[0].Ident + L"_to_" + MultiLegAirports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln"))
         {
-//            std::wcout << L"\n\nError saving MSFS plan file :( \n";
+			LastError = L"\n\nError saving MSFS plan file :(";
 		}
 	}
 
@@ -629,7 +617,7 @@ void AirportHandler::HandleMultiLegExport()
 	{
 		if (!TextItinerary::Export(MultiLegAirports, L"Reports\\" + MultiLegAirports[0].Ident + L"_to_" + MultiLegAirports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
 		{
-            //std::wcout << L"\n\nError saving text file :( \n";
+			LastError = L"\n\nError saving text file :(";
         }
     }
 }
@@ -889,11 +877,6 @@ bool AirportHandler::LoadAirports(const std::wstring file_name)
         }
 
         file.close();
-
-        if (!Silent)
-        {
-//            std::wcout << std::format(L"  Loaded {0} airports, rejected {1} airports.", count, ignored) << L"\n";
-        }
     }
     else
     {
@@ -1112,4 +1095,10 @@ int AirportHandler::FindNearest(const std::wstring start_icao, double range, boo
 	}
 
 	return static_cast<int>(RouteCache.size());
+}
+
+
+std::wstring AirportHandler::GetLastError()
+{
+    return LastError;
 }
