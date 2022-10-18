@@ -11,11 +11,13 @@
 
 // https://docs.flightsimulator.com/html/Content_Configuration/SimObjects/Aircraft_SimO/aircraft_cfg.htm
 // https://docs.flightsimulator.com/html/Content_Configuration/SimObjects/Aircraft_SimO/flight_model_cfg.htm
+// https://www.fsdeveloper.com/forum/threads/auto-detect-msfs-2020-community-path.449293/
 
 #include <algorithm>
 #include <format>
 #include <fstream>
 #include <iostream>
+#include <shlobj.h>
 #include <string>
 #include <vector>
 #include <Windows.h>
@@ -35,41 +37,65 @@
 // range=				; aircraft.cfg, [fltsim.x] ui_max_range
 // availability=99		; all custom aircraft have this value
 // type=				; aircraft.cfg, [fltsim.x] ui_typerole 
-// military=			; aircraft.cfg, [fltsim.x] atc_parking_types could contain either MIL_COMBAT or MIL_CARGO (indicats military) (though not 100% reliable if not set)
 // airliner=			; aircraft.cfg, [fltsim.x] ui_typerole 
+// military=			; aircraft.cfg, [fltsim.x] atc_parking_types could contain either MIL_COMBAT or MIL_CARGO (indicats military) (though not 100% reliable if not set)
+// seaplane=0			; if runwaywater.flt or finalwater.flt exists then this is a seaplane
 // minrunway=			; cannot get this value from MSFS data files
 
 
 namespace MSFSSystem
 {
-	static const std::wstring TypeRoles[] = { L"Commercial Airliner", L"747 - 400 V3",	L"747 - 400BCF V3",	L"747 - 400D V3", L"747 - 400ER V3", L"747 - 400ERF V3", L"747 - 400F V3", L"747 - 400M V3",
-		L"Single Engine Prop", L"Twin Engine Prop", L"Single Engine TurboProp", L"Twin Engine TurboProp", L"Twin Engine Jet", L"Regional Jet", L"Single Engine Jet", L"Helicopter" };
+	// this is the list according to the MS SDK, but it appears a developer can put anything they like in the ui_typerole field (eg Milviz use Fighter/Bomber for thier Corsair)
+	static const std::wstring TypeRoles[] = { L"commercial airliner", L"747 - 400 v3",	L"747 - 400bcf v3",	L"747 - 400d v3", L"747 - 400er v3", L"747 - 400erf v3", L"747 - 400f v3", L"747 - 400m v3",
+			L"single engine prop", L"twin engine prop", L"single engine turboprop", L"twin engine turboprop", L"twin engine jet", L"regional jet", L"single engine jet", L"helicopter" };
 
 	static const int TypeRoleToAircraftType[] = { 1, 1, 1, 1, 1, 1, 1, 1, 0, 4, 5, 6, 1, 1, 1, 2 };
 	static const bool IsAirliner[] = { true, true, true, true, true, true, true, true, false, false, false, false, false, true, false, false };
 
-	// this generates the custom_aircraft.txt file automatically from the Community folder
-	bool CreateAircraftList(const std::wstring community_folder)
+	// this generates the custom_aircraft.txt file automatically from the contents of the \Community\ folder
+	// passing false to this function will cause it to scan the \Official\OneStore\ folder, this stores all default aircraft and marketplace purchases
+	// however, many marketplace aircraft are mising aircraft.cfg and can't be added accurately to the default_aircraft.txt file :(
+	bool CreateAircraftList(bool community)
 	{
 		std::vector<std::wstring> msfsfolders;
 		std::vector<Aircraft> aircraft;
 
-		FindFolder(msfsfolders, community_folder);
+		std::wstring community_folder = GetCommunityFolderPath(community);
 
-		if (msfsfolders.size() != 0)
+		if (community_folder != L"")
 		{
-			std::wcout << L"Found " << msfsfolders.size() << L" folders.\n";
+			std::wcout << L"  Found community folder path: " << community_folder << L"\n";
 
-			for (int t = 0; t < msfsfolders.size(); t++)
+			FindFolder(msfsfolders, community_folder);
+
+			if (msfsfolders.size() != 0)
 			{
-				ProcessContentsFolder(aircraft, community_folder + msfsfolders[t]);
-			}
+				std::wcout << L"\n  Found " << msfsfolders.size() << L" folders.\n\n";
 
-			if (aircraft.size() != 0)
-			{
-				std::wcout << L"Found " << aircraft.size() << L" aircraft.\n";
+				for (int t = 0; t < msfsfolders.size(); t++)
+				{
+					ProcessContentsFolder(aircraft, community_folder + msfsfolders[t]);
+				}
 
-				SaveCustomAircraftFile(aircraft, L"__" + SystemConstants::CustomAircraft);
+				if (aircraft.size() != 0)
+				{
+					std::wcout << L"\n  Found " << aircraft.size() << L" aircraft.\n\n";
+
+					std::wstring FileName = L"";
+
+					if (community)
+					{
+						FileName = L"__" + SystemConstants::CustomAircraft;
+					}
+					else
+					{
+						FileName = L"__" + SystemConstants::DefaultAircraft;
+					}
+
+					SaveCustomAircraftFile(aircraft, FileName);
+				}
+
+				return true;
 			}
 		}
 
@@ -114,9 +140,10 @@ namespace MSFSSystem
 							// =====================================================================================================================
 
 							std::wstring atype = config->ReadString(L"fltsim.0", L"ui_typerole", L"");
+							std::transform(atype.begin(), atype.end(), atype.begin(), ::tolower);
 
 							int aircraft_type = -1;
-							bool is_airliner = false;
+							bool is_airliner = false;							
 
 							for (int x = 0; x < 16; x++)
 							{
@@ -142,6 +169,16 @@ namespace MSFSSystem
 
 							// =====================================================================================================================
 
+							bool is_seaplane = false;
+
+							if (WindowsUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\runwaywater.flt") ||
+								WindowsUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\finalwater.flt"))
+							{
+								is_seaplane = true;
+							}
+
+							// =====================================================================================================================
+
 							Ini* confige = new Ini(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\flight_model.cfg");
 
 							int cruise = 0;
@@ -153,24 +190,31 @@ namespace MSFSSystem
 
 							delete confige;
 
+							// =====================================================================================================================
+
 							if (cruise != 0)
 							{
-								Aircraft a(Name, cruise, range, 0, AircraftConstants::MSFSVersion::All, Utility::GetAircraftTypeFromInt(aircraft_type), is_military, is_airliner);
+								if (aircraft_type == -1)
+								{
+									std::wcout << std::format(L" Unknown aircraft type \"{0}\" for \"{1}\". Will be added to file, user should edit.\n", atype, Name);
+								}
+
+								Aircraft a(Name, cruise, range, 0, AircraftConstants::MSFSVersion::All, Utility::GetAircraftTypeFromInt(aircraft_type), is_airliner, is_military, is_seaplane);
 
 								found_aircraft.push_back(a);
 							}
 							else
 							{
 								std::wcout << std::format(L" Ignored, \"{0}\", suspect not an aircraft. Cruise speed is set to zero.\n", Name);
-							}							
+							}			
 						}
-					}
-					else
-					{
-						std::wcout << std::format(L"\nCouldn't load file \"\\{0}\\aircraft.cfg\" :(\n", simobjects[t]);
 					}
 
 					delete config;
+				}
+				else
+				{
+					std::wcout << std::format(L"Couldn't find file \"\\{0}\\aircraft.cfg\" :(\n", simobjects[t]);
 				}
 			}
 		}
@@ -260,6 +304,18 @@ namespace MSFSSystem
 		{
 			std::wcout << L"Saving config file: " << file_name << L"\n\n";
 
+			ofile << Formatting::to_utf8(L"// {\n");
+			ofile << Formatting::to_utf8(L"// name=\n");
+			ofile << Formatting::to_utf8(L"// cruise=\n");
+			ofile << Formatting::to_utf8(L"// range=          { cannot be zero }\n");
+			ofile << Formatting::to_utf8(L"// availability=   { all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party (everything in custom_aircraft }\n");
+			ofile << Formatting::to_utf8(L"// type=           { must be one of these: 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon }\n");
+			ofile << Formatting::to_utf8(L"// military=0      { 1 = is military aircraft }\n");
+			ofile << Formatting::to_utf8(L"// airliner=0      { 1 = is airliner }\n");
+			ofile << Formatting::to_utf8(L"// seaplane=0      { 1 = is seaplane/float plane 0 = no }\n");
+			ofile << Formatting::to_utf8(L"// minrunway=0     { in feet, 0 = doesn't matter }\n");
+ 			ofile << Formatting::to_utf8(L"// }\n\n");
+
 			for (int t = 0; t < found_aircraft.size(); t++)
 			{
 				ofile << Formatting::to_utf8(L"{\n");
@@ -268,8 +324,9 @@ namespace MSFSSystem
 				ofile << Formatting::to_utf8(L"range=" + std::to_wstring(found_aircraft[t].Range) + L"\n");
 				ofile << Formatting::to_utf8(L"availability=99\n");
 				ofile << Formatting::to_utf8(L"type=" + std::to_wstring(Utility::GetAircraftTypeToConfigType(found_aircraft[t].Type)) + L"\n");
-				ofile << Formatting::to_utf8(L"military=" + std::to_wstring(found_aircraft[t].Military) + L"\n");
 				ofile << Formatting::to_utf8(L"airliner=" + std::to_wstring(found_aircraft[t].Airliner) + L"\n");
+				ofile << Formatting::to_utf8(L"military=" + std::to_wstring(found_aircraft[t].Military) + L"\n");
+				ofile << Formatting::to_utf8(L"seaplane=" + std::to_wstring(found_aircraft[t].Seaplane) + L"\n");
 				ofile << Formatting::to_utf8(L"minrunway=0\n");
 				ofile << Formatting::to_utf8(L"}\n\n");
 			}
@@ -342,5 +399,74 @@ namespace MSFSSystem
 
 			FindClose(search_handle);
 		}
+	}
+
+
+	// this gets the location of the install folder from either of two possible
+	// locations, depending on how MSFS2020 was installed
+	std::wstring GetCommunityFolderPath(bool community_folder)
+	{
+		std::wstring path = L"";
+		PWSTR path_tmp;
+
+		auto attempt_1 = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &path_tmp);
+
+		path = path_tmp;
+
+		if (WindowsUtility::FileExists(path + L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt"))
+		{
+			std::wcout << L"  Found file (Microsoft Store install): " << path << L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt\n";
+
+			return ExtractPathFromOptionFile(path + L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt", community_folder);
+		}
+
+		auto attempt_2 = SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &path_tmp);
+
+		path = path_tmp;
+
+		if (WindowsUtility::FileExists(path))
+		{
+			std::wcout << L"  Found file (Steam install): " << path << L"\\Microsoft Flight Simulator\\UserCfg.opt\n";
+
+			return ExtractPathFromOptionFile(path + L"\\Microsoft Flight Simulator\\UserCfg.opt", community_folder);
+		}
+
+		return L"";
+	}
+
+
+	// this gets the install root from the UserCfg.opt file, then adds the community location
+	std::wstring ExtractPathFromOptionFile(std::wstring path, bool community_folder)
+	{
+		std::wifstream file(path);
+
+		if (file)
+		{
+			std::wstring s = L"";
+			std::wstring path = L"";
+
+			while (std::getline(file, s))
+			{
+				auto a = s.find(L"InstalledPackagesPath");
+
+				if (a != std::wstring::npos)
+				{
+					if (community_folder)
+					{
+						path = StripFromJSON(L"InstalledPackagesPath:" + s.substr(a + 22)) + L"\\Community\\";
+					}
+					else
+					{
+						path = StripFromJSON(L"InstalledPackagesPath:" + s.substr(a + 22)) + L"\\Official\\OneStore\\";
+					}					
+				}
+			}
+
+			file.close();
+
+			return path;
+		}
+
+		return L"";
 	}
 }

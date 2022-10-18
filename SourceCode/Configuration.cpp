@@ -87,6 +87,7 @@ void Configuration::ShowConfiguration()
 	std::wcout << L"    Medium Airports  : " << Utility::BoolToYesNo(Airport.MediumAirports) << L"\n";
 	std::wcout << L"    Large Airports   : " << Utility::BoolToYesNo(Airport.LargeAirports) << L"\n";
 	std::wcout << L"    Heliports        : " << Utility::BoolToYesNo(Airport.Heliports) << L"\n";
+	std::wcout << L"    Seaplane bases   : " << Utility::BoolToYesNo(Airport.SeaplaneBases) << L"\n";
 
 	if (Airport.Continent == L"" && Airport.Country == L"" && Airport.Region == L"")
 	{
@@ -197,6 +198,11 @@ void Configuration::ShowConfiguration()
 			std::wcout << L"    Airliners        : Yes\n";
 			std::wcout << L"    Military         : Yes\n";
 			break;
+		case AircraftConstants::SpecialMode::Seaplanes:
+			std::wcout << L"    Aircraft Type    : Seaplanes only\n";
+			std::wcout << L"    Airliners        : No\n";
+			std::wcout << L"    Military         : Yes\n";
+			break;
 		}
 	}
 	else
@@ -212,6 +218,7 @@ void Configuration::ShowConfiguration()
 
 		std::wcout << L"    Airliners        : " << Utility::BoolToYesNo(Aircraft.Airliner) << L"\n";
 		std::wcout << L"    Military         : " << Utility::BoolToYesNo(Aircraft.Military) << L"\n";
+		std::wcout << L"    Seaplanes        : " << Utility::BoolToYesNo(Aircraft.Seaplane) << L"\n";
 	}
 
 	if (Aircraft.Version != AircraftConstants::MSFSVersion::All)
@@ -380,24 +387,28 @@ void Configuration::SetFromCommandLine()
 				Airport.MediumAirports = false;
 				Airport.LargeAirports = false;
 				Airport.Heliports = false;
+				Airport.SeaplaneBases = false;
 				break;
 			case ParameterOption::OnlyMedium:
 				Airport.SmallAirports = false;
 				Airport.MediumAirports = true;
 				Airport.LargeAirports = false;
 				Airport.Heliports = false;
+				Airport.SeaplaneBases = false;
 				break;
 			case ParameterOption::OnlyLarge:
 				Airport.SmallAirports = false;
 				Airport.MediumAirports = false;
 				Airport.LargeAirports = true;
 				Airport.Heliports = false;
+				Airport.SeaplaneBases = false;
 				break;
 			case ParameterOption::OnlyHeliports:
 				Airport.SmallAirports = false;
 				Airport.MediumAirports = false;
 				Airport.LargeAirports = false;
 				Airport.Heliports = true;
+				Airport.SeaplaneBases = false;
 				Aircraft.Type = AircraftConstants::AircraftTypeHeli;
 				break;
 			case ParameterOption::AToB:
@@ -564,6 +575,19 @@ void Configuration::SetFromCommandLine()
 
 				}
 				break;
+			case ParameterOption::Seaplanes:
+				Airport.SmallAirports = false;
+				Airport.MediumAirports = false;
+				Airport.LargeAirports = false;
+				Airport.Heliports = false;
+				Airport.SeaplaneBases = true;
+				Aircraft.Seaplane = true;
+
+				Aircraft.Special = AircraftConstants::SpecialMode::Seaplanes;
+				break;
+			case ParameterOption::Route:
+				HandleRoute(Parameters[p].property);
+				break;
 
 			default:
 				std::wcout << L" Warning, parameter " << Parameters[p].command << " was unhandled.\n";
@@ -668,20 +692,16 @@ void Configuration::HandleAircraftType(const std::wstring aircraft_type)
 // 0 degrees is west, 90 is north, etc.
 void Configuration::HandleBearing(const std::wstring input)
 {
-	std::wstring bearing(input);
-	std::transform(bearing.begin(), bearing.end(), bearing.begin(), ::toupper);
+	int d = Utility::GetDirectionFromBearing(input);
 
-	for (int t = 0; t < 16; t++)
+	if (d != Defaults::DefaultDirection)
 	{
-		if (bearing == Constants::CompassBearings[t])
-		{
-			Route.Direction = Constants::CompassDegrees[t];
-
-			return;
-		}
+		Route.Direction = d;
 	}
-
-	std::wcerr << std::format(L"Error, invalid bearing \"{0}\". Direction disabled.\n", bearing);
+	else
+	{
+		std::wcerr << std::format(L"Error, invalid bearing \"{0}\". Direction disabled.\n", input);
+	}
 }
 
 
@@ -874,32 +894,7 @@ void Configuration::HandleMSFSVersion(const std::wstring version)
 
 void Configuration::HandleRange(const std::wstring input)
 {
-	bool ConvertFromK = false;
-	std::wstring range = input;
-
-	if (range.back() == L'K' || range.back() == L'k')
-	{
-		ConvertFromK = true;
-
-		range = input.substr(0, input.length() - 1);
-	}
-
-	double Range = Defaults::DefaultRange;
-
-	try
-	{ 
-		Range = stod(range);
-
-		if (ConvertFromK)
-		{
-			// input in kilometers, convert to nm
-			Range = Range / 1.852;
-		}
-	}
-	catch (...)
-	{
-		std::wcerr << std::format(L"Error, invalid route range \"{0}\" nm. Using {1} (default).\n", range, Defaults::DefaultRange);
-	}
+	double Range = Utility::GetRange(input);
 
 	if (Range > 0)
 	{
@@ -907,8 +902,77 @@ void Configuration::HandleRange(const std::wstring input)
 	}
 	else
 	{
-		std::wcerr << std::format(L"Error, invalid route range \"{0}\" nm. Using {1} (default).\n", range, Defaults::DefaultRange);
+		std::wcerr << std::format(L"Error, invalid route range \"{0}\" nm. Using {1} (default).\n", input, Defaults::DefaultRange);
 	}
+}
+
+
+void Configuration::HandleRoute(const std::wstring input)
+{
+	std::wstring data = input + L':';
+
+	int parameter = 0;
+	std::wstring s = L"";
+	std::wstring start = L"";
+	double range = Defaults::DefaultRange;
+	int legs = 1;
+	int direction = Defaults::DefaultDirection;
+
+	for (int t = 0; t < data.length(); t++)
+	{
+		if (data[t] == L':')
+		{
+			switch (parameter)
+			{
+			case 0:
+				start = s;
+				break;
+			case 1:
+				if (s != L"")
+				{
+					range = Utility::GetRange(s);
+				}
+				break;
+			case 2:
+				if (s != L"")
+				{
+					legs = SafelyGetIntFromString(s, legs);
+				}
+				break;
+			case 3:
+				if (s != L"")
+				{
+					if (std::isalpha(s[0]))
+					{
+						int d = Utility::GetDirectionFromBearing(s);
+
+						if (d != Defaults::DefaultDirection)
+						{
+							direction = d;
+						}
+					}
+					else
+					{
+						direction = SafelyGetIntFromString(s, direction);
+					}
+				}
+				break;
+			}
+
+			parameter++;
+			s = L"";
+		}
+		else
+		{
+			s += data[t];
+		}
+	}
+
+	Route.AtoB = true;
+	Route.Direction = direction;
+	Route.Legs = legs;
+	Route.Range = range;
+	Route.StartAirportICAO = start;
 }
 
 
@@ -951,6 +1015,10 @@ void Configuration::HandleSpecial(const std::wstring input)
 	else if (input == L"turbos")
 	{
 		Aircraft.Special = AircraftConstants::SpecialMode::TurboProps;
+	}
+	else if (input == L"seaplanes")
+	{
+		Aircraft.Special = AircraftConstants::SpecialMode::Seaplanes;
 	}
 }
 
@@ -1511,6 +1579,9 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 			break;
 		case AircraftConstants::SpecialMode::TurboProps:
 			ofile << Formatting::to_utf8(L"Special=turbos\n");
+			break;
+		case AircraftConstants::SpecialMode::Seaplanes:
+			ofile << Formatting::to_utf8(L"Special=seaplanes\n");
 			break;
 		}
 

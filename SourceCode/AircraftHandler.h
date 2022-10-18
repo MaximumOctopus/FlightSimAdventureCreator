@@ -19,7 +19,7 @@
 #include "AircraftConstants.h"
 #include "Constants.h"
 #include "ConfigurationConstants.h"
-#include "Defults.h"
+#include "Defaults.h"
 
 
 struct AircraftLoadFilter {
@@ -28,8 +28,9 @@ struct AircraftLoadFilter {
 	int MaxSpeed = Defaults::DefaultMaxSpeed;		// maximum cruise speed required
 	int MinSpeed = 0;								// minimum cruise speed required
 
-	bool Airliner = true;
-	bool Military = true;	
+	bool Airliner = true;	
+	bool Military = true;
+	bool Seaplane = false;
 
 	AircraftConstants::SpecialMode Special = AircraftConstants::SpecialMode::None;		
 													// this is a setting that encapulates several settings in a single flag
@@ -50,7 +51,7 @@ class AircraftHandler {
 
 	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-	enum class RowType { Unknown = 0, SectionStart = 1, SectionEnd = 2, Name = 3, Cruise = 4, Range = 5, Availability = 6, Type = 7, Military = 8, AirLiner = 9, RunwayLength = 10 };
+	enum class RowType { Unknown = 0, SectionStart = 1, SectionEnd = 2, Name = 3, Cruise = 4, Range = 5, Availability = 6, Type = 7, AirLiner = 8, Military = 9, Seaplane = 10, RunwayLength = 11 };
 	enum class ProcessingMode { ReadyForSection = 0, SectionFound = 1 };
 
 	[[nodiscard]] bool LoadAircraft(const std::wstring);
@@ -66,7 +67,7 @@ public:
 
 	std::vector<Aircraft> AircraftList;
 
-	AircraftHandler(bool, bool, bool, int, bool, bool, int, int, AircraftConstants::MSFSVersion, AircraftConstants::SpecialMode);
+	AircraftHandler(bool, bool, bool, int, bool, bool, bool, int, int, AircraftConstants::MSFSVersion, AircraftConstants::SpecialMode);
 
 	Aircraft GetRandomAircraft();
 };

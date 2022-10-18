@@ -19,7 +19,7 @@
 #include "DateUtility.h"
 #include "Formatting.h"
 #include "MSFSFlightPlan.h"
-#include "RouteHandler.h"
+#include "RouteDisplay.h"
 #include "RunwayHandler.h"
 #include "TextItinerary.h"
 #include "Utility.h"
@@ -40,6 +40,7 @@ AirportHandler::AirportHandler(const std::wstring file_name)
     Filter.MediumAirports = true;
     Filter.SmallAirports = true;
     Filter.Heliports = true;
+    Filter.SeaplaneBase = true;
 
     Airports.reserve(30000);
 
@@ -80,6 +81,7 @@ AirportHandler::AirportHandler(bool silent, bool export_plan, bool export_text, 
     Filter.MediumAirports = airport_filter_data.MediumAirports;
     Filter.SmallAirports = airport_filter_data.SmallAirports;
     Filter.Heliports = airport_filter_data.Heliports;
+    Filter.SeaplaneBase = airport_filter_data.SeaplaneBases;
 
     if (Filter.LongitudeFrom < Filter.LongitudeTo)
     {
@@ -271,11 +273,11 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
 
     // if we have a start we search as normal, if we only have an end then we do the search as though
     // the end was our start location, then reverse the order :)
-    if (start_icao != L"" && end_icao == L"")
+    if (!start_icao.empty() && end_icao.empty())
     {
         TargetICAO = start_icao;
     }
-    else
+    else if (start_icao.empty() && !end_icao.empty())
     {
         TargetICAO = end_icao;
 
@@ -533,7 +535,7 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
 
         FinaliseMultiLegData();
 
-        RouteHandler::OutputMultiLegRoute(MultiLegAirports);
+        RouteDisplay::OutputMultiLegRoute(MultiLegAirports);
 
         HandleMultiLegExport();
 
@@ -607,7 +609,7 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 
         FinaliseMultiLegData();
 
-        RouteHandler::OutputMultiLegRoute(MultiLegAirports);
+        RouteDisplay::OutputMultiLegRoute(MultiLegAirports);
 
         HandleMultiLegExport();
 
@@ -1035,6 +1037,9 @@ AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row
     case AirportConstants::AirportType::Heliport:
         if (Filter.Heliports) return AirportConstants::AirportType::Heliport;
         break;
+    case AirportConstants::AirportType::SeaplaneBase:
+        if (Filter.SeaplaneBase) return AirportConstants::AirportType::SeaplaneBase;
+        break;
     }
         
     return AirportConstants::AirportType::None;
@@ -1096,11 +1101,11 @@ bool AirportHandler::Save(const std::wstring file_name, bool only_msfs_compatibl
     {
         if (only_msfs_compatible)
         {
-            std::wcout << L"Saving FCAS airport data (MSFS compatible only) to \"" << file_name << L"\"\n\n";
+            std::wcout << L"Saving FSAC airport data (MSFS compatible only) to \"" << file_name << L"\"\n\n";
         }
         else
         {
-            std::wcout << L"Saving FCAS airport data to \"" << file_name << L"\"\n\n";
+            std::wcout << L"Saving FSAC airport data to \"" << file_name << L"\"\n\n";
         }
 
         ofile << Formatting::to_utf8(L"//airport_id,ident,type,name,latitude_deg,longitude_deg,elevation_ft,iso_continent,iso_country,iso_region,municipality,continent,country,region,longest_runway_length,avgas_avail,jetfuel_avail,airport_use,runway_hard,runway_soft,runway_water,helipad,approach_VASI,approach_ALS,approach_ILS,msfs_compatible,msfs_addon") << "\n";
@@ -1147,7 +1152,7 @@ void AirportHandler::ListAirports()
 
         for (int t = 0; t < Airports.size(); t++)
         {
-            std::wcout << L"  " << Airports[t].Ident << L", " << Airports[t].Continent << L", " << Airports[t].Country << L", " << Airports[t].Region << L". " << Formatting::AddLeadingSpace(std::to_wstring(Airports[t].Elevation), 5) << L" ft. " << Airports[t].Name << L"\n";
+            std::wcout << L"  " << Formatting::AddTrailingSpace(Airports[t].Ident, 4) << L"   " << Airports[t].Continent << L", " << Airports[t].Country << L" (" << Formatting::AddTrailingSpace(Airports[t].Region, 6) << L") " << Formatting::AddLeadingSpace(std::to_wstring(Airports[t].Elevation), 5) << L" ft. " << Airports[t].Name << L"\n";
         }
 
         std::wcout << L"\n\n";

@@ -22,12 +22,16 @@
 
 namespace Utility
 {
-	[[nodiscard]] double AngleBetween(double lat1, double long1, double lat2, double long2);
+	[[nodiscard]] double AngleBetween(double, double, double, double);
 
 	[[nodiscard]] std::wstring DegreesToDMS(double, double);
 
 	[[nodiscard]] std::wstring GetContinentFromShortCode(const std::wstring);
 	[[nodiscard]] std::wstring GetCountryFromShortCode(const std::wstring);
+
+	[[nodiscard]] double GetRange(const std::wstring);
+
+	[[nodiscard]] double GetDirectionFromBearing(const std::wstring);
 
 	[[nodiscard]] std::wstring GetAircraftType(int);
 	[[nodiscard]] std::wstring GetAircraftType(AircraftConstants::AircraftType);

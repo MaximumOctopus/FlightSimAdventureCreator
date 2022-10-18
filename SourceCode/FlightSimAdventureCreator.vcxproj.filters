@@ -126,9 +126,6 @@
     <ClCompile Include="MSFSFlightPlan.cpp">
       <Filter>Source Files\Export</Filter>
     </ClCompile>
-    <ClCompile Include="RouteHandler.cpp">
-      <Filter>Source Files\Route</Filter>
-    </ClCompile>
     <ClCompile Include="Formatting.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
@@ -192,6 +189,9 @@
     <ClCompile Include="VersionCheck.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="RouteDisplay.cpp">
+      <Filter>Source Files\Route</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h">
@@ -214,9 +214,6 @@
     </ClInclude>
     <ClInclude Include="MSFSFlightPlan.h">
       <Filter>Header Files\Export</Filter>
-    </ClInclude>
-    <ClInclude Include="RouteHandler.h">
-      <Filter>Header Files\Route</Filter>
     </ClInclude>
     <ClInclude Include="Formatting.h">
       <Filter>Header Files\Utility</Filter>
@@ -284,9 +281,6 @@
     <ClInclude Include="Constants.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Defults.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="Locations.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
@@ -301,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="VersionCheck.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RouteDisplay.h">
+      <Filter>Header Files\Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Defaults.h">
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

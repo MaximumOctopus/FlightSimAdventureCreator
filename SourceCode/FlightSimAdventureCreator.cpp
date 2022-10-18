@@ -23,10 +23,9 @@
 #include "GlobalObjects.h"
 #include "Help.h"
 #include "JobHandler.h"
+#include "MSFSSystem.h"
 #include "Utility.h"
 #include "VersionCheck.h"
-
-#include "MSFSSystem.h"
 
 
 extern Configuration* GConfiguration;
@@ -178,6 +177,15 @@ int SpecialOptions(std::wstring first_argument)
     if (parameter == kGetVersion)
     {
         VersionCheck::IsNewVersion();
+
+        return 0;
+    }
+    else if (parameter == kCustomAircraftFile)
+    {
+        if (!MSFSSystem::CreateAircraftList(true))
+        {
+            std::wcout << L" Unable to create \"custom_aircraft.txt\" from community folder.\n";
+        }
 
         return 0;
     }

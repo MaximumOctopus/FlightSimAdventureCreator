@@ -15,7 +15,9 @@
 #include <string>
 #include <windows.h>
 
+#include "ConfigurationConstants.h"
 #include "Constants.h"
+#include "Defaults.h"
 #include "Locations.h"
 #include "Utility.h"
 
@@ -101,6 +103,56 @@ namespace Utility
 		}
 
 		return L"unknown";
+	}
+
+
+	double GetDirectionFromBearing(const std::wstring input)
+	{
+		std::wstring bearing(input);
+		std::transform(bearing.begin(), bearing.end(), bearing.begin(), ::toupper);
+
+		for (int t = 0; t < 16; t++)
+		{
+			if (bearing == Constants::CompassBearings[t])
+			{
+				return Constants::CompassDegrees[t];
+			}
+		}
+
+		return Defaults::DefaultDirection;
+	}
+
+
+	// allows for input of 500 (as nm) or 500k (kilometers)
+	double GetRange(const std::wstring input)
+	{
+		bool ConvertFromK = false;
+		std::wstring range = input;
+
+		if (range.back() == L'K' || range.back() == L'k')
+		{
+			ConvertFromK = true;
+
+			range = input.substr(0, input.length() - 1);
+		}
+
+		double Range = Defaults::DefaultRange;
+
+		try
+		{
+			Range = stod(range);
+
+			if (ConvertFromK)
+			{
+				// input in kilometers, convert to nm
+				Range = Range / 1.852;
+			}
+		}
+		catch (...)
+		{		
+		}
+
+		return Range;
 	}
 
 
@@ -316,11 +368,11 @@ namespace Utility
 		switch (type)
 		{
 		case AircraftConstants::AircraftType::Prop:
-		case AircraftConstants::AircraftType::TwinTurboProp:
+		case AircraftConstants::AircraftType::TwinProp:
 			time_reduced = (2 * legs * 6);
 			time_reduced_speed_modifier = 40;
 			break;
-		case AircraftConstants::AircraftType::TwinProp:
+		case AircraftConstants::AircraftType::TwinTurboProp:
 		case AircraftConstants::AircraftType::TurboProp:		
 			time_reduced = (2 * legs * 6);	
 			time_reduced_speed_modifier = 50;

@@ -13,7 +13,7 @@
 
 #include "ConfigurationConstants.h"
 #include "Constants.h"
-#include "Defults.h"
+#include "Defaults.h"
 #include "Help.h"
 
 
@@ -92,6 +92,12 @@ namespace Help
 		std::wcout << L"    /number:count             : create \"count\" routes (default is 1).\n";
 		std::wcout << L"    /simple:count             : set how many A->B, 2-leg only, routes are display (default is " << Defaults::DefaultShortRoutesToShow << L")\n";
 		std::wcout << "\n";
+		std::wcout << L"    /route:start_airport:range:legs:direction/bearing\n";
+		std::wcout << "\n";
+		std::wcout << L"                              : set several route settings within a single parameter.\n";
+		std::wcout << L"                              : Accepts a direction angle or compass bearing.\n";
+		std::wcout << L"                              : No setting is mandatory, just leave that bit blank. See manual for more details.\n";
+		std::wcout << "\n";
 		std::wcout << L"    /favourite                : pick a random airport from \"" << SystemConstants::FavouritesFileName << L"\".\n";
 		std::wcout << "\n";
 		std::wcout << L"    /useaircraftrange         : uses the randomly-selected aircraft range\n";
@@ -111,8 +117,8 @@ namespace Help
 		std::wcout << L"    /minspeed:speed           : minimum cruise speed in kts (default is 0 kts)\n";
 		std::wcout << "\n";
 		std::wcout << L"    /aircrafttype:type        : use only selected aircraft type:\n";
-		std::wcout << L"                                0 - props, 1 - jets, 2 - heli, 3 - glider\n";
-		std::wcout << L"                                4 - twin prop, 5 - turbo prop, 6 - twin turbo prop, 7 - balloon\n";
+		std::wcout << L"                                0 - props, 1 - jets, 2 - heli, 3 - glider, 4 - twin prop\n";
+		std::wcout << L"                                5 - turbo prop, 6 - twin turbo prop, 7 - balloon, 8 - seaplane\n";
 		std::wcout << L"    /noairliner               : ignore airliners\n";
 		std::wcout << L"    /nomilitary               : ignore military aircraft\n";
 		std::wcout << "\n";
@@ -130,6 +136,7 @@ namespace Help
 		std::wcout << "\n";
 		std::wcout << L"  miscellaneous options:\n\n";
 		std::wcout << L"    /q                        : will silence some output (full config details, and loaded data stats).\n";
+		std::wcout << L"    /fsacca                   : automatically generate the custom_aircraft.txt file. Edits will be lost.\n";
 		std::wcout << "\n";
 		std::wcout << L"  data analysis options (FSAC will exit after running these):\n\n";
 		std::wcout << L"    /findnearest:selection    : show all airports within range of the selection. must be an ICAO code.\n";

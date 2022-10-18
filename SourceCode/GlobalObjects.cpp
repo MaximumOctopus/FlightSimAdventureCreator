@@ -36,7 +36,7 @@ namespace GlobalObjects
 		{
 			GAircraftHandler = new AircraftHandler(GConfiguration->Meta.Silent,
 				GConfiguration->Aircraft.Default, GConfiguration->Aircraft.Custom,
-				GConfiguration->Aircraft.Type, GConfiguration->Aircraft.Airliner, GConfiguration->Aircraft.Military,
+				GConfiguration->Aircraft.Type, GConfiguration->Aircraft.Airliner, GConfiguration->Aircraft.Military, GConfiguration->Aircraft.Seaplane,
 				GConfiguration->Aircraft.MaxSpeed, GConfiguration->Aircraft.MinSpeed,
 				GConfiguration->Aircraft.Version, GConfiguration->Aircraft.Special);
 

@@ -18,7 +18,7 @@
 #include "AircraftConstants.h"
 #include "Constants.h"
 #include "ConfigurationConstants.h"
-#include "Defults.h"
+#include "Defaults.h"
 
 
 #pragma region CommandLineParameters
@@ -57,6 +57,7 @@ static const std::wstring kStartFromFavourite = L"/favourite";		// pick a random
 static const std::wstring kCount = L"/number";						// number of multi-leg routes to generate
 static const std::wstring kBearing = L"/bearing";					// set bearing to travel (with some margin of error)
 static const std::wstring kDirection = L"/direction";               // direction to travel (with some margin of error)
+static const std::wstring kRoute = L"/route";
 
 static const std::wstring kDay = L"/day";							// find airports currently in daylight
 static const std::wstring kNight = L"/night";						// find airports currently in night
@@ -74,6 +75,7 @@ static const std::wstring kAircraftJetAirlinerOnly = L"/ja";		// only jet airlin
 static const std::wstring kAircraftTwinsOnly = L"/twins";			// only twin props and twin turbo props (military and airliners allowed)
 static const std::wstring kAircraftPropsOnly = L"/props";			// only twin props and twin turbo props (military and airliners allowed)
 static const std::wstring kAircraftTurbosOnly = L"/turbos";			// only turbos and twin turbos (military and airliners allowed)
+static const std::wstring kAircraftSeaplanes = L"/seaplanes";		// only seaplanes and allows seaplane bases
 static const std::wstring kAircraftMaximumSpeed = L"/maxspeed";		// minimum cruise speed
 static const std::wstring kAircraftMinimumSpeed = L"/minspeed";		// minimum cruise speed
 static const std::wstring kAllowExcessRange = L"/allowexcessrange";	// if a route is longer than the max range of the aircraft it will fail, this bypass the checks
@@ -97,7 +99,7 @@ static const std::wstring kAddEndToFav = L"/aetf";                  // add endai
 static const std::wstring kHelp = L"/help";							// 
 static const std::wstring kHelpLazy = L"/?";						//
 
-static const std::wstring kCustomAircraftFile = L"/cca";			// creates custom_aircraft.txt from user's community folder
+static const std::wstring kCustomAircraftFile = L"/fsacca";			// creates custom_aircraft.txt from user's community folder
 
 static const std::wstring kFSACXAirports = L"/fsacxa";				// builds the fsac airports file file from two input files
 static const std::wstring kFSACXRunways  = L"/fsacxr";				// builds the fsac airports file file from two input files
@@ -115,11 +117,11 @@ enum class ParameterOption {
 	NoDefault = 40, NoCustom = 41, KeepTrying = 42, FindNearest = 43, Help = 44, SaveConfig = 45,
 	Day = 46, Night = 47, StartFromFavourite = 48, SimpleRouteCount = 49, Silent = 50, ListAirports = 51,
 	Time = 52, LatitudeMax = 53, LatitudeMin = 54, LongitudeMax = 55, LongitudeMin = 56,
-	AddStartToFav = 57, AddEndToFav = 58
+	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60
 };
 
 
-static const int kCommandListCount = 59;
+static const int kCommandListCount = 61;
 
 static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig, kElevation, kContinent, kCountry, kRegion, kNoSmallAiports, kNoMediumAiports, kNoLargeAiports,
 	kNoHeliports, kOnlySmallAiports, kOnlyMediumAiports, kOnlyLargeAiports, kOnlyHeliports, kAtoB, kLegs, kRange, kStartAirport, kEndAirport, kCount, kBearing,
@@ -129,7 +131,8 @@ static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig,
 	kMSFSPlanFile, kTextItinerary, kXPlaneFMSFile,
 	kNoDefaultAircraft, kNoCustomAircraft, kKeepTrying, kFindNearest, kHelp, kHelpLazy, kSaveConfig, 
 	kDay, kNight, kStartFromFavourite, kSimpleCount, kSilent, kListAirports,
-	kTime, kLatitudeMax, kLatitudeMin, kLongitudeMax, kLongitudeMin, kAddStartToFav, kAddEndToFav
+	kTime, kLatitudeMax, kLatitudeMin, kLongitudeMax, kLongitudeMin, kAddStartToFav, kAddEndToFav,
+	kAircraftSeaplanes, kRoute
 };
 
 
@@ -142,7 +145,7 @@ static const ParameterOption ParameterReference[kCommandListCount] = { Parameter
 	ParameterOption::NoDefault, ParameterOption::NoCustom, ParameterOption::KeepTrying, ParameterOption::FindNearest, ParameterOption::Help, ParameterOption::Help, ParameterOption::SaveConfig,
 	ParameterOption::Day, ParameterOption::Night, ParameterOption::StartFromFavourite, ParameterOption::SimpleRouteCount, ParameterOption::Silent, ParameterOption::ListAirports,
 	ParameterOption::Time,  ParameterOption::LatitudeMax, ParameterOption::LatitudeMin, ParameterOption::LongitudeMax, ParameterOption::LongitudeMin,
-	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav
+	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav, ParameterOption::Seaplanes, ParameterOption::Route
 };
 #pragma endregion
 
@@ -171,6 +174,7 @@ struct AircraftData {
 
 	bool Airliner = true;
 	bool Military = true;
+	bool Seaplane = true;
 
 	AircraftConstants::SpecialMode Special = AircraftConstants::SpecialMode::None;		// special options that combine other options in a cool way
 
@@ -187,6 +191,7 @@ struct AirportData {
 	bool MediumAirports = true;
 	bool LargeAirports = true;
 	bool Heliports = true;
+	bool SeaplaneBases = false;
 
 	std::wstring Continent = L"";					// ISO code
 	std::wstring Country = L"";						// ISO code https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -280,6 +285,7 @@ class Configuration
 	void HandleLatLong(const std::wstring, Constants::LatLongSelection);
 	void HandleMSFSVersion(const std::wstring);
 	void HandleRange(const std::wstring);
+	void HandleRoute(const std::wstring);
 	void HandleSimpleRouteCount(std::wstring);
 	void HandleSpecial(const std::wstring);
 	void HandleTime(const std::wstring);

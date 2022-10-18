@@ -159,7 +159,7 @@
     <ClCompile Include="NavAidsHandler.cpp" />
     <ClCompile Include="POI.cpp" />
     <ClCompile Include="POIHandler.cpp" />
-    <ClCompile Include="RouteHandler.cpp" />
+    <ClCompile Include="RouteDisplay.cpp" />
     <ClCompile Include="Runway.cpp" />
     <ClCompile Include="RunwayHandler.cpp" />
     <ClCompile Include="Stats.cpp" />
@@ -181,7 +181,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DateUtility.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Defults.h" />
+    <ClInclude Include="Defaults.h" />
     <ClInclude Include="FCASAirportData.h" />
     <ClInclude Include="Formatting.h" />
     <ClInclude Include="GlobalObjects.h" />
@@ -197,7 +197,7 @@
     <ClInclude Include="POI.h" />
     <ClInclude Include="POIHandler.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RouteHandler.h" />
+    <ClInclude Include="RouteDisplay.h" />
     <ClInclude Include="Runway.h" />
     <ClInclude Include="RunwayHandler.h" />
     <ClInclude Include="Stats.h" />

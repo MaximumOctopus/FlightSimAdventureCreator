@@ -28,7 +28,7 @@
 AircraftHandler* GAircraftHandler;
 
 
-AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom_aircraft, int type, bool include_airliners, bool include_military, 
+AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom_aircraft, int type, bool include_airliners, bool include_military, bool include_seaplanes,
     int max_speed, int min_speed, AircraftConstants::MSFSVersion version, AircraftConstants::SpecialMode special_mode)
 {
     Silent = silent;
@@ -44,13 +44,15 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
 
         LoadFilter.Airliner = include_airliners;
         LoadFilter.Military = include_military;
+        LoadFilter.Seaplane = include_seaplanes;
     }
     else if (special_mode == AircraftConstants::SpecialMode::JetAirliners)
     {
-        LoadFilter.Type = 1;
+        LoadFilter.Type = AircraftConstants::AircraftTypeJet;
 
         LoadFilter.Airliner = true;
         LoadFilter.Military = false;
+        LoadFilter.Seaplane = false;
     }
     else
     {
@@ -117,9 +119,10 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
         int RunwayLength = 0;
         AircraftConstants::MSFSVersion Availability = AircraftConstants::MSFSVersion::All;
         AircraftConstants::AircraftType Type = AircraftConstants::AircraftType::None;
-        bool Military = false;
         bool Airliner = false;
-
+        bool Military = false;
+        bool Seaplane = false;
+        
         std::wstring s;
 
         bool ShouldAdd = true;
@@ -198,6 +201,12 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                                     ShouldAdd = false;
                                 }
                                 break;
+                            case AircraftConstants::SpecialMode::Seaplanes:
+                                if (!Seaplane)
+                                {
+                                    ShouldAdd = false;
+                                }
+                                break;
                             }
 
                             // let's see if this aircraft is valid
@@ -218,7 +227,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                             //
                             if (ShouldAdd)
                             {
-                                Aircraft aircraft(Name, CruiseSpeed, Range, RunwayLength, Availability, Type, Military, Airliner);
+                                Aircraft aircraft(Name, CruiseSpeed, Range, RunwayLength, Availability, Type, Airliner, Military, Seaplane);
 
                                 AircraftList.push_back(aircraft);
                             }
@@ -402,7 +411,24 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                             std::wcout << std::format(L"\"type=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
+                    case RowType::AirLiner:
+                        if (mode == ProcessingMode::SectionFound)
+                        {
+                            Airliner = GetIntValueFromRow(s);
 
+                            if (!LoadFilter.Airliner)
+                            {
+                                if (Airliner)
+                                {
+                                    ShouldAdd = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            std::wcout << std::format(L"\"airliner=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+                        }
+                        break;
                     case RowType::Military:
                         if (mode == ProcessingMode::SectionFound)
                         {
@@ -421,15 +447,14 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                             std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
-
-                    case RowType::AirLiner:
+                    case RowType::Seaplane:
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            Airliner = GetIntValueFromRow(s);
+                            Seaplane = GetIntValueFromRow(s);
 
-                            if (!LoadFilter.Airliner)
+                            if (!LoadFilter.Seaplane)
                             {
-                                if (Airliner)
+                                if (Seaplane)
                                 {
                                     ShouldAdd = false;
                                 }
@@ -437,7 +462,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"airliner=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+                            std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
                     case RowType::RunwayLength:
@@ -499,14 +524,18 @@ AircraftHandler::RowType AircraftHandler::GetRowType(const std::wstring row)
     {
         return RowType::Type;
     }
+    else if (row.find(L"airliner=") != std::wstring::npos)
+    {
+        return RowType::AirLiner;
+    }	
     else if (row.find(L"military=") != std::wstring::npos)
     {
         return RowType::Military;
     }
-    else if (row.find(L"airliner=") != std::wstring::npos)
-    {
-        return RowType::AirLiner;
-    }
+    else if (row.find(L"seaplane=") != std::wstring::npos)
+	{
+		return RowType::Seaplane;
+	}	
     else if (row.find(L"minrunway=") != std::wstring::npos)
     {
         return RowType::RunwayLength;

@@ -16,7 +16,7 @@ namespace AircraftConstants
 {
 	enum class MSFSVersion { All = 0, DeluxeAbove = 1, PremiumAbove = 2 };
 	enum class AircraftType { None = 0, Prop = 1, Jet = 2, Helicopter = 3, Glider = 4, TwinProp = 5, TurboProp = 6, TwinTurboProp = 7, Balloon = 8 };
-	enum class SpecialMode { None = 0, GA = 1, JetAirliners = 2, Twins = 3, Props = 4, TurboProps = 5 };
+	enum class SpecialMode { None = 0, GA = 1, JetAirliners = 2, Twins = 3, Props = 4, TurboProps = 5, Seaplanes = 6 };
 
 	static const int AircraftTypeProp = 0;
 	static const int AircraftTypeJet = 1;

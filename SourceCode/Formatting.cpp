@@ -37,6 +37,26 @@ namespace Formatting
 	}
 
 
+	std::wstring AddTrailingSpace(std::wstring input, int length)
+	{
+		if (input.length() == length)
+		{
+			return input;
+		}
+		else if (input.length() < length)
+		{
+			for (auto t = input.length(); t < length; t++)
+			{
+				input += L' ';
+			}
+
+			return input;
+		}
+
+		return input;
+	}
+
+
     // utf8 output magic
     std::string to_utf8(const std::wstring& str)
     {

@@ -16,7 +16,7 @@
 
 namespace MSFSSystem
 {
-	[[nodiscard]] bool CreateAircraftList(const std::wstring);
+	[[nodiscard]] bool CreateAircraftList(bool);
 
 	bool ProcessContentsFolder(std::vector<Aircraft>&, const std::wstring);
 
@@ -28,4 +28,8 @@ namespace MSFSSystem
 	std::wstring GetFirstFolder(const std::wstring&);
 
 	void FindFolder(std::vector<std::wstring>&, const std::wstring&);
+
+	std::wstring GetCommunityFolderPath(bool);
+
+	std::wstring ExtractPathFromOptionFile(std::wstring, bool);
 }
