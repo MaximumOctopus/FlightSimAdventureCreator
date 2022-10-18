@@ -227,8 +227,11 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
 		SimpleRoute(TargetICAO, range, direction, keep_trying, reverse);
     }
     else
-    {
-        MultiLegRoute(TargetICAO, range, direction, legs, keep_trying, reverse);
+	{
+		for (int t = 0; t < simple_count; t++)
+		{
+			MultiLegRoute(TargetICAO, range, direction, legs, keep_trying, reverse);
+		}
     }
 }
 

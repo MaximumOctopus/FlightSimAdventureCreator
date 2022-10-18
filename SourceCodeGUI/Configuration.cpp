@@ -87,6 +87,23 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			aircraftlf.Seaplane = IntegerKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Aircraft", L"Version", 0);
+		if (config->LastKeyExist)
+		{
+			switch (IntegerKey)
+			{
+			case 0:
+				aircraftlf.Version = AircraftConstants::MSFSVersion::All;
+				break;
+			case 1:
+				aircraftlf.Version = AircraftConstants::MSFSVersion::DeluxeAbove;
+				break;
+			case 2:
+				aircraftlf.Version = AircraftConstants::MSFSVersion::PremiumAbove;
+				break;
+			}
+		}
+
 		// ============================================================================================
 		// == load from airport section ===============================================================
 		// ============================================================================================
@@ -348,6 +365,18 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"Airliner=" << aircraftlf.Airliner << "\n";
 		ofile << L"Military=" << aircraftlf.Military << "\n";
 		ofile << L"Seaplane=" << aircraftlf.Seaplane << "\n";
+
+		switch (aircraftlf.Version)
+		{
+		case AircraftConstants::MSFSVersion::All:
+			ofile << L"Version=0\n";
+			break;
+		case AircraftConstants::MSFSVersion::DeluxeAbove:
+			ofile << L"Version=1\n";
+			break;
+		case AircraftConstants::MSFSVersion::PremiumAbove:
+			ofile << L"Version=2\n";
+		}
 
 		ofile << L"\n[airport]\n";
 		ofile << L"Elevation=" << airportlf.MinimumElevation << "\n";

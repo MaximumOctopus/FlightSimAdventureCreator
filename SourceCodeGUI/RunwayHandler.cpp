@@ -23,13 +23,13 @@ RunwayHandler* GRunwayHandler;
 
 RunwayHandler::RunwayHandler(const std::wstring file_name)
 {
-    Runways.reserve(40000);
+	Runways.reserve(40000);
 
     Loaded = LoadRunways(file_name);
 
     if (!Loaded)
     {
-		LastError = L" Runway data file not found \"" << SystemConstants::RunwaysFileName << L"\". Try reinstalling or redownloading.";
+		LastError = L" Runway data file not found \"" + SystemConstants::RunwaysFileName + L"\". Try reinstalling or redownloading.";
 	}
 }
 

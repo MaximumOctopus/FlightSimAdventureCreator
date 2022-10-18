@@ -259,6 +259,19 @@ AircraftLoadFilter TForm1::BuildAircraftLoadFilterFromUI()
 	alf.MinSpeed = eMinSpeed->Text.ToIntDef(0);
 	alf.MaxSpeed = eMaxSpeed->Text.ToIntDef(0);
 
+	switch (cbMSFSVersion->ItemIndex)
+	{
+	case 0:
+		alf.Version = AircraftConstants::MSFSVersion::All;
+		break;
+	case 1:
+		alf.Version = AircraftConstants::MSFSVersion::DeluxeAbove;
+		break;
+	case 2:
+		alf.Version = AircraftConstants::MSFSVersion::PremiumAbove;
+        break;
+	}
+
 	return alf;
 }
 
@@ -564,6 +577,9 @@ void __fastcall TForm1::tbResetClick(TObject *Sender)
 
 void __fastcall TForm1::tbSaveClick(TObject *Sender)
 {
+	sdMain->Filter = "FSAC configuration files|*.config";
+    sdMain->DefaultExt = ".config";
+
 	AircraftLoadFilter aircraft_lf = BuildAircraftLoadFilterFromUI();
 	AirportLoadFilter airport_lf = BuildAirportLoadFilterFromUI();
 	RouteFilter rf = BuildRouteLoadFilterFromUI();
@@ -600,13 +616,13 @@ void __fastcall TForm1::tbOpenClick(TObject *Sender)
 
 void __fastcall TForm1::tbExportClick(TObject *Sender)
 {
-	GRouteHandler->ExportToMSFS();
+	GRouteHandler->ExportAllToMSFS();
 }
 
 
 void __fastcall TForm1::tbExportItineraryClick(TObject *Sender)
 {
-    GRouteHandler->ExportToItinerary();
+	GRouteHandler->ExportAllToItinerary();
 }
 
 
@@ -647,7 +663,7 @@ void TForm1::UpdateRouteDescription(int route_id)
 
 	Route r = GRouteHandler->Routes[route_id];
 
-	std::wstring output = L" Starting at: " + r.Airports[0].Ident + L" (" + r.Airports[0].Country + L", " + std::to_wstring(r.Airports[0].Angle) + L"°)";
+	std::wstring output = L" Starting at: " + r.Airports[0].Ident + L" (" + r.Airports[0].Country + L", " + std::to_wstring(r.Airports[1].Angle) + L"°)";
 
 	mMain->Lines->Add(output.c_str());
 
@@ -659,7 +675,7 @@ void TForm1::UpdateRouteDescription(int route_id)
 		}
 		else
 		{
-			output = Formatting::AddLeadingSpace(std::to_wstring((int)r.Airports[t].Distance), 7) + L"nm --> " + r.Airports[t].Ident + L" (" + r.Airports[t].Country + L", " + std::to_wstring(r.Airports[t].Angle) + L"°)";
+			output = Formatting::AddLeadingSpace(std::to_wstring((int)r.Airports[t].Distance), 7) + L"nm --> " + r.Airports[t].Ident + L" (" + r.Airports[t].Country + L", " + std::to_wstring(r.Airports[t + 1].Angle) + L"°)";
 		}
 
 		mMain->Lines->Add(output.c_str());
@@ -726,4 +742,40 @@ void TForm1::SetAircraftSelections(bool prop, bool jet, bool heli, bool glider, 
 void __fastcall TForm1::Airports1Click(TObject *Sender)
 {
 	frmAirportSearchDialog->ShowModal();
+}
+
+
+void __fastcall TForm1::bExportSelectedClick(TObject *Sender)
+{
+	if (sgRoutes->Selection.Top > 0 && GRouteHandler->Routes.size() != 0)
+	{
+		sdMain->Filter = "MSFS 2020 plan files|*.pln";
+		sdMain->DefaultExt = ".pln";
+		sdMain->FileName = GRouteHandler->Routes[sgRoutes->Selection.Top].GetMSFSFileName().c_str();
+
+		if (sdMain->Execute())
+		{
+			std::wstring file_name = sdMain->FileName.c_str();
+
+			GRouteHandler->ExportToMSFS(file_name, sgRoutes->Selection.Top);
+		}
+	}
+}
+
+
+void __fastcall TForm1::bExportSelectedTextClick(TObject *Sender)
+{
+	if (sgRoutes->Selection.Top > 0 && GRouteHandler->Routes.size() != 0)
+	{
+		sdMain->Filter = "Itinerary text files|*.txt";
+		sdMain->DefaultExt = ".txt";
+		sdMain->FileName = GRouteHandler->Routes[sgRoutes->Selection.Top].GetTextFileName().c_str();
+
+		if (sdMain->Execute())
+		{
+			std::wstring file_name = sdMain->FileName.c_str();
+
+			GRouteHandler->ExportToItinerary(file_name, sgRoutes->Selection.Top);
+		}
+	}
 }

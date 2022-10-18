@@ -33,4 +33,7 @@ public:
 	std::wstring Region = L"";
 
 	Route(std::wstring, int);
+
+	std::wstring GetMSFSFileName();
+	std::wstring GetTextFileName();
 };

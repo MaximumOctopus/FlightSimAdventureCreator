@@ -116,6 +116,23 @@ int AircraftHandler::Filter(AircraftLoadFilter alf)
 			add = false;
 		}
 
+		if (alf.Version != AircraftConstants::MSFSVersion::All)
+		{
+			switch (AircraftList[t].Availability)
+			{
+				case AircraftConstants::MSFSVersion::All:
+					break;
+				case AircraftConstants::MSFSVersion::DeluxeAbove:
+					if (alf.Version == AircraftConstants::MSFSVersion::PremiumAbove)
+					{
+						add = false;
+					}
+					break;
+				case AircraftConstants::MSFSVersion::PremiumAbove:
+					break;
+			}
+		}
+
 		if (add)
 		{
 			FilteredList.push_back(AircraftList[t]);

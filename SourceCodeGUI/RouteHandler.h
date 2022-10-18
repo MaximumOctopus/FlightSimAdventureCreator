@@ -53,8 +53,11 @@ public:
 
 	RouteHandler();
 
-	bool ExportToMSFS();
-	bool ExportToItinerary();
+	bool ExportAllToMSFS();
+	bool ExportAllToItinerary();
+
+	bool ExportToMSFS(const std::wstring, int);
+    bool ExportToItinerary(const std::wstring, int);
 
 	int SetRangeFromTime(int, int, int, AircraftConstants::AircraftType);
 

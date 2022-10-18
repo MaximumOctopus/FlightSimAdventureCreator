@@ -29,7 +29,19 @@ RouteHandler::RouteHandler()
 }
 
 
-bool RouteHandler::ExportToMSFS()
+bool RouteHandler::ExportToMSFS(const std::wstring file_name, int route_id)
+{
+	return MSFSFlightPlan::Export(Routes[route_id].Airports, file_name);
+}
+
+
+bool RouteHandler::ExportToItinerary(const std::wstring file_name, int route_id)
+{
+	return TextItinerary::Export(Routes[route_id].Airports, file_name);
+}
+
+
+bool RouteHandler::ExportAllToMSFS()
 {
 	if (Routes.size() != 0)
 	{
@@ -45,7 +57,7 @@ bool RouteHandler::ExportToMSFS()
 }
 
 
-bool RouteHandler::ExportToItinerary()
+bool RouteHandler::ExportAllToItinerary()
 {
 	if (Routes.size() != 0)
 	{

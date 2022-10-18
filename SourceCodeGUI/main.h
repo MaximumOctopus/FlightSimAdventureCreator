@@ -173,6 +173,10 @@ __published:	// IDE-managed Components
 	TRadioButton *rbDay;
 	TRadioButton *rbNight;
 	TEdit *eElevation;
+	TButton *bExportSelected;
+	TImageList *il16x16;
+	TComboBox *cbMSFSVersion;
+	TButton *bExportSelectedText;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
@@ -192,6 +196,8 @@ __published:	// IDE-managed Components
 	void __fastcall cbAircraftListChange(TObject *Sender);
 	void __fastcall miSetGAClick(TObject *Sender);
 	void __fastcall Airports1Click(TObject *Sender);
+	void __fastcall bExportSelectedClick(TObject *Sender);
+	void __fastcall bExportSelectedTextClick(TObject *Sender);
 
 private:	// User declarations
 
