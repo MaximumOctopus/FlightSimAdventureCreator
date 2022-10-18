@@ -1,4 +1,4 @@
-#  FlightSimulatorAdventureCreatorCLI v0.4, GUI v0.2 beta.
+#  FlightSimulatorAdventureCreator CLI v0.4, GUI v0.2 beta.
   (c) Paul Alan Freshney 2022 / paul@freshney.org
 ```
 Source code and latest data and exe files
