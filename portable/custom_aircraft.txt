@@ -9,7 +9,8 @@
 //range=           {in nautical miles}
 //availability=    {all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party}
 //type=            {0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon }
-//military=0       {0 = no, 1 = yes}   
 //airliner=0       {0 = no, 1 = yes}
+//military=0       {0 = no, 1 = yes}   
+//seaplane=0       {0 = no, 1 = yes}
 //minrunway=0      {in feet, 0 = doesn't matter)
 //}

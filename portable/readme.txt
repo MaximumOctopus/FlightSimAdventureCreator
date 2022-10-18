@@ -1,17 +1,20 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.3
+  Flight Simulator Adventure Creator 0.4
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
+	
+  Download the latest version from FlightSim.to
+    https://flightsim.to/file/41477/flight-simulator-adventure-creator
 
-  Source code and latest data and exe files
+  Source code, betas, and latest data files
     https://github.com/MaximumOctopus/FlightSimAdventureCreator
   
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 11th 2022
+  October 18th 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -21,7 +24,7 @@ This is an early beta version, there may be bugs. If you find one, or if you hav
 
 A powerful tool for creating random VFR routes for Flight Simulators (currently works best with MSFS 2020, but more will come online in future).
 
-This is a command-line tool, you'll need to use it from a Windows console. Navigate to the folder where it's installed (in Windows Explorer), click in the folder path area (so the entire folder path is highlighted, type "cmd", then press enter. You'll now have a new console windows set to the location of FCAS!
+This is a command-line tool, you'll need to use it from a Windows console. Navigate to the folder where it's installed (in Windows Explorer), click in the folder path area (so the entire folder path is highlighted, type "cmd", then press enter. You'll now have a new console window set to the location of FCAS!
 
 A GUI version is on my to-do list.
 
@@ -92,7 +95,7 @@ A route of 3 leg, where each leg is no more than 200 nm. Only jets, no airliners
  
   fsac /atob /legs:3 /range:200 /jet /noairliner /country:GB
   
-As above, but limit airports to Great Britian.
+As above, but limit airports to Great Britain.
 
 A complete list of ISO country codes can be found here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 
@@ -196,6 +199,7 @@ Internally, /night and /day set latitudefrom and latitudeto.
 List of files that come in the zip file:
 
     \Plans\                    all export flight plans will be saved in here
+    \Reports\                  all exported flight itinerary files will be saved in here
     config_GB_props.txt        an example config file that will find you a route in the UK
     config_KMIA_North.txt      an example config file, fly from North from Miami International
     config_readme.txt          details on how to edit config files, and creating your own
@@ -206,6 +210,7 @@ List of files that come in the zip file:
     FSAC.exe                   the application itself!
     jobs.txt                   contains everything the application needs to generate jobs for your next flight
     readme.txt                 this file
+    readme_gui.txt             the readme for the GUI version
     runways.csv                runway data (latest version can be found at ourairports.com/data)
 
 ====================================================================================================================================
@@ -240,7 +245,7 @@ If you have the time, then you would help everyone by going over to ourairports.
 
 To-do list (in no particular order):
 
-A proper manual.
+Windows GUI version. It's in development, should be available before the end of October.
 
 Fixing the UTF8 import of airport names.
 
@@ -261,8 +266,6 @@ Multi-language support.
 Support for X-Plane 11/12. Their flight plan file format seems very simple, if anyone can test this for me please get in touch.
 (Export option exists in code, needs testing)
  
-GUI version. (should be available late 2022 or early 2023)
-
 Support for IFR flying.
 
 (if you dive in to the code you'll see that some of these have been started, so they aren't that far away from being released)
@@ -271,6 +274,9 @@ Support for IFR flying.
 ====================================================================================================================================
 
 Written in C++ 20 with Visual Studio 2022. This application is open source, code link at the top of the page.
+
+While most of the code between the command-line and GUI versions is identical, there are enough differences (due to the different C++
+targets and functionality) that the sources should be considered separate. 
 
 ====================================================================================================================================
 ====================================================================================================================================
@@ -291,6 +297,15 @@ All of my software is free and open source; please consider donating to a local 
 ====================================================================================================================================
 
 Release History
+
+0.4 / October 18th 2022
+
+Added: custom_aircraft.txt creation option :)
+Added: 22 seaplane bases
+Added: Seaplane option
+Added: Full PDF manual (it took ages to make, please read it!)
+
+Fixed: A couple of minor issues.
 
 0.3 / October 11th 2022
 
