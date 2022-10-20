@@ -245,8 +245,6 @@ If you have the time, then you would help everyone by going over to ourairports.
 
 To-do list (in no particular order):
 
-Windows GUI version. It's in development, should be available before the end of October.
-
 Fixing the UTF8 import of airport names.
 
 Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
@@ -267,6 +265,8 @@ Support for X-Plane 11/12. Their flight plan file format seems very simple, if a
 (Export option exists in code, needs testing)
  
 Support for IFR flying.
+
+Mac OSX version.
 
 (if you dive in to the code you'll see that some of these have been started, so they aren't that far away from being released)
 
