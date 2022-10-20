@@ -1,13 +1,13 @@
 //
-// FlightSimAdventureCreator 1.0 (GUI Version)
+// FlightSimAdventureCreator 1.0
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-//
+// 
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-//
-//
+// 
+// 
 
 #pragma once
 
@@ -18,9 +18,9 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.2 (debug)";
+	static const std::wstring FSACVersion = L"0.4 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.2";
+	static const std::wstring FSACVersion = L"0.4";
 	#endif
 
 	static const std::wstring FSACDate = L"October 18th 2022";
