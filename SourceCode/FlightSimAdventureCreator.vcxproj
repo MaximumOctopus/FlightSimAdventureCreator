@@ -166,7 +166,7 @@
     <ClCompile Include="TextItinerary.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="VersionCheck.cpp" />
-    <ClCompile Include="WindowsUtility.cpp" />
+    <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="XPlaneFlightPlan.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +204,7 @@
     <ClInclude Include="TextItinerary.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="VersionCheck.h" />
-    <ClInclude Include="WindowsUtility.h" />
+    <ClInclude Include="FileUtility.h" />
     <ClInclude Include="XPlaneFlightPlan.h" />
   </ItemGroup>
   <ItemGroup>

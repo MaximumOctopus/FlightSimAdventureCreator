@@ -63,7 +63,7 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
     {
         if (!LoadAircraft(SystemConstants::DefaultAircraft))
         {
-            std::wcout << L" Aircraft data file not found \"" << SystemConstants::DefaultAircraft << L"\".\n";
+            std::wcout << std::format(L"    Aircraft data file not found \"{0}\".\n", SystemConstants::DefaultAircraft);
         }
         else
         {
@@ -75,7 +75,7 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
     {
         if (!LoadAircraft(SystemConstants::CustomAircraft))
         {
-            std::wcout << L" Aircraft data file not found \"" << SystemConstants::CustomAircraft << L"\".\n";
+            std::wcout << std::format(L"    Aircraft data file not found \"{0}\".\n    This file can be created using: FSAC /fsacca\n", SystemConstants::CustomAircraft);
         }
         else
         {
@@ -85,7 +85,7 @@ AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom
 
     if (Loaded && !Silent)
     {
-        std::wcout << "  Loaded " << AircraftList.size() << " aircraft.\n";
+        std::wcout << std::format(L"  Loaded {0} aircraft.\n", AircraftList.size());
     }
 }
 
@@ -150,7 +150,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            std::wcout << L"\"{\" identifier found when expecting L\"}\". " << file_name << L" @ line " << line << "\n";
+                            std::wcout << std::format(L"\"{{\" identifier found when expecting L\"}}\". {0} @ line {1}\n", file_name, line);
                         }
 
                         mode = ProcessingMode::SectionFound;

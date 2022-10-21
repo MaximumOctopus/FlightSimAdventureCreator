@@ -25,9 +25,9 @@ namespace MSFSSystem
 
 	bool SaveCustomAircraftFile(std::vector<Aircraft>&, const std::wstring);
 
-	std::wstring GetFirstFolder(const std::wstring&);
+	std::wstring GetFirstFolder(const std::wstring);
 
-	void FindFolder(std::vector<std::wstring>&, const std::wstring&);
+	void FindFolder(std::vector<std::wstring>&, const std::wstring);
 
 	std::wstring GetCommunityFolderPath(bool);
 

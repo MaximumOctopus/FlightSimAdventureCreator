@@ -11,9 +11,7 @@
 
 #include <filesystem>
 #include <iostream>
-#include <ShlObj.h>  
 #include <string>
-#include <windows.h>
 
 #include "ConfigurationConstants.h"
 #include "Constants.h"
