@@ -144,6 +144,10 @@ struct AirportSearchFilter
 	bool SmallAirports = false;		// "small_airport" in fcas.csv
 	bool Heliports = false;			// "heliport" in fcas.csv
 	bool SeaplaneBases = false;		// "seaplane_base" in fcas.csv
+
+	bool WithinRange = false;
+	int Range = 100;
+	std::wstring Airport = L"";     // icao
 };
 
 
@@ -204,6 +208,10 @@ public:
 	Airport GetAirport(int);
 
 	int GetIndexFromICAO(const std::wstring);
+	int GetIndexFromICAOFullList(const std::wstring);
+	bool IsValidAirport(const std::wstring);
+
+	bool IsAirportInFilteredList(const std::wstring);
 
 	void GetRoute(const std::wstring, const std::wstring, double, double, int, int, bool);
 

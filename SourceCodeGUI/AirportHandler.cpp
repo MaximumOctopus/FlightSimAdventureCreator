@@ -31,6 +31,9 @@ extern RouteHandler* GRouteHandler;
 extern RunwayHandler* GRunwayHandler;
 
 
+bool sortBySize(const Airport &lhs, const Airport &rhs) { return lhs.Distance < rhs.Distance; }
+
+
 AirportHandler::AirportHandler()
 {
 	Airports.reserve(30000);
@@ -189,8 +192,11 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
 	GRouteHandler->Routes.clear();
 
     if (start_icao != L"" && end_icao != L"")
-    {
-		StartToFinish(start_icao, end_icao, range, legs, keep_trying);
+	{
+		for (int t = 0; t < simple_count; t++)
+		{
+			StartToFinish(start_icao, end_icao, range, legs, keep_trying);
+        }
 
         return;
     }
@@ -554,8 +560,10 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 
 		Route route(MultiLegAirports.front().Ident + L" to " + MultiLegAirports.back().Ident, MultiLegAirports.front().Distance);
 
-		route.Airports.push_back(MultiLegAirports.front());
-		route.Airports.push_back(MultiLegAirports.back());
+		for (int t = 0; t < MultiLegAirports.size(); t++)
+		{
+			route.Airports.push_back(MultiLegAirports[t]);
+		}
 
 		route.Continent = MultiLegAirports.front().Continent;
 		route.Country = MultiLegAirports.front().Country;
@@ -629,19 +637,75 @@ void AirportHandler::HandleMultiLegExport()
 int AirportHandler::GetIndexFromICAO(const std::wstring icao)
 {
 	for (int t = 0; t < FilteredList.size(); t++)
-    {
+	{
 		if (FilteredList[t].Ident == icao)
-        {
-            return t;
-        }
-    }
+		{
+			return t;
+		}
+	}
 
-    return kRandomAirport;
+	return kRandomAirport;
 }
 
 
+int AirportHandler::GetIndexFromICAOFullList(const std::wstring icao)
+{
+	for (int t = 0; t < Airports.size(); t++)
+	{
+		if (Airports[t].Ident == icao)
+		{
+			return t;
+		}
+	}
+
+	return kRandomAirport;
+}
+
+
+bool AirportHandler::IsAirportInFilteredList(const std::wstring icao)
+{
+	for (int t = 0; t < FilteredList.size(); t++)
+	{
+		if (FilteredList[t].Ident == icao)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+bool AirportHandler::IsValidAirport(const std::wstring icao)
+{
+	for (int t = 0; t < Airports.size(); t++)
+	{
+		if (Airports[t].Ident == icao)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+// airport parameter must already be checked as valid
 int AirportHandler::Search(AirportSearchFilter asf)
 {
+	double longitude = 0;
+	double latitude = 0;
+	int distance = 0;
+
+	if (asf.WithinRange)
+	{
+		Airport a = Airports[GetIndexFromICAOFullList(asf.Airport)];
+
+		longitude = a.LongitudeR;
+		latitude = a.LatitudeR;
+	}
+
+
 	SearchResults.clear();
 
 	for (int t = 0; t < Airports.size(); t++)
@@ -656,7 +720,7 @@ int AirportHandler::Search(AirportSearchFilter asf)
 			}
 		}
 
-		if (asf.Country != L"")
+		if (add && asf.Country != L"")
 		{
 			if (asf.Country != Airports[t].Country)
 			{
@@ -664,7 +728,7 @@ int AirportHandler::Search(AirportSearchFilter asf)
 			}
 		}
 
-		if (asf.SearchText != L"")
+		if (add && asf.SearchText != L"")
 		{
 			if (Airports[t].Name.find(asf.SearchText) == std::wstring::npos)
 			{
@@ -706,9 +770,24 @@ int AirportHandler::Search(AirportSearchFilter asf)
 			break;
 		}
 
+		if (add && asf.WithinRange)
+		{
+			distance = DistanceBetween(latitude, longitude, Airports[t].LatitudeR, Airports[t].LongitudeR);
+
+			if (distance > asf.Range)
+			{
+				add = false;
+			}
+		}
+
 		if (add)
 		{
 			SearchResults.push_back(Airports[t]);
+
+			if (asf.WithinRange)
+			{
+                SearchResults.back().Distance = distance;
+            }
 
 			if (SearchResults.size() == 500)
 			{
@@ -716,6 +795,11 @@ int AirportHandler::Search(AirportSearchFilter asf)
             }
 		}
 	}
+
+	if (asf.WithinRange && SearchResults.size() != 0)
+	{
+		std::sort(SearchResults.begin(), SearchResults.end(), sortBySize);
+    }
 
 	return SearchResults.size();
 }

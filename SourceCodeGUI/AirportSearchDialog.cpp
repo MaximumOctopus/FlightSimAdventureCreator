@@ -42,6 +42,9 @@ void __fastcall TfrmAirportSearchDialog::FormCreate(TObject *Sender)
 	sgResults->Cells[6][0] = L"Lat";
 	sgResults->Cells[7][0] = L"Long";
 	sgResults->Cells[8][0] = L"Type";
+	sgResults->Cells[9][0] = L"";
+
+	sgResults->ColAlignments[9] = taRightJustify;
 
 	cbContinent->Items->Add(L"All");
 
@@ -88,6 +91,27 @@ void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 	asf.Heliports = cbHeliports->Checked;
 	asf.SeaplaneBases = cbSeaplaneBases->Checked;
 
+	asf.WithinRange = cbWithinRange->Checked;
+
+	if (asf.WithinRange)
+	{
+		asf.Range = eRange->Text.ToIntDef(100);
+		asf.Airport = eICAO->Text.c_str();
+
+		asf.WithinRange = GAirportHandler->IsValidAirport(asf.Airport);
+
+		if (asf.WithinRange)
+		{
+			sgResults->Cells[9][0] = "nm";
+		}
+		else
+		{
+            sgResults->Cells[9][0] = "";
+		}
+
+		cbWithinRange->Checked = asf.WithinRange;
+    }
+
 	int count = GAirportHandler->Search(asf);
 
 	if (count != 0)
@@ -105,6 +129,11 @@ void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 			sgResults->Cells[6][t + 1] = GAirportHandler->SearchResults[t].Latitude.c_str();
 			sgResults->Cells[7][t + 1] = GAirportHandler->SearchResults[t].Longitude.c_str();
 			sgResults->Cells[8][t + 1] = Utility::GetAirportTypeDisplay(GAirportHandler->SearchResults[t].Type).c_str();
+
+			if (asf.WithinRange)
+			{
+				sgResults->Cells[9][t + 1] = GAirportHandler->SearchResults[t].Distance;
+			}
         }
 	}
 	else
@@ -120,6 +149,7 @@ void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 		sgResults->Cells[6][1] = "";
 		sgResults->Cells[7][1] = "";
 		sgResults->Cells[8][1] = "";
+		sgResults->Cells[9][1] = "";
 	}
 
 	std::wstring status = L"Found " + std::to_wstring(count) + L" matching airports.";

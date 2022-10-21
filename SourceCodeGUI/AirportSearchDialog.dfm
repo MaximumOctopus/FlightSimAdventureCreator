@@ -24,7 +24,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Width = 1225
     Height = 73
     Anchors = [akLeft, akTop, akRight]
-    Caption = 'Stats'
+    Caption = 'Search Options'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -32,10 +32,9 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 1135
     object Label1: TLabel
-      Left = 256
-      Top = 16
+      Left = 264
+      Top = 15
       Width = 47
       Height = 13
       Caption = 'Continent'
@@ -47,8 +46,8 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 423
-      Top = 16
+      Left = 351
+      Top = 15
       Width = 39
       Height = 13
       Caption = 'Country'
@@ -59,9 +58,69 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       Font.Style = []
       ParentFont = False
     end
+    object Bevel1: TBevel
+      Left = 847
+      Top = 16
+      Width = 4
+      Height = 50
+      Shape = bsLeftLine
+    end
+    object Label4: TLabel
+      Left = 903
+      Top = 37
+      Width = 30
+      Height = 13
+      Caption = 'nm of '
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 985
+      Top = 37
+      Width = 69
+      Height = 13
+      Caption = '(airport ICAO)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Bevel2: TBevel
+      Left = 541
+      Top = 16
+      Width = 4
+      Height = 50
+      Shape = bsLeftLine
+    end
+    object Bevel3: TBevel
+      Left = 254
+      Top = 16
+      Width = 4
+      Height = 50
+      Shape = bsLeftLine
+    end
+    object Label3: TLabel
+      Left = 103
+      Top = 15
+      Width = 22
+      Height = 13
+      Caption = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object eSearch: TEdit
-      Left = 16
-      Top = 35
+      Left = 103
+      Top = 34
       Width = 145
       Height = 21
       Font.Charset = DEFAULT_CHARSET
@@ -74,10 +133,10 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       OnKeyPress = eSearchKeyPress
     end
     object bSearch: TButton
-      Left = 167
-      Top = 33
+      Left = 11
+      Top = 29
       Width = 75
-      Height = 25
+      Height = 32
       Caption = 'Search'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -89,9 +148,9 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       OnClick = bSearchClick
     end
     object cbContinent: TComboBox
-      Left = 256
-      Top = 35
-      Width = 145
+      Left = 264
+      Top = 34
+      Width = 73
       Height = 21
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
@@ -103,9 +162,9 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 2
     end
     object cbCountry: TComboBox
-      Left = 423
-      Top = 35
-      Width = 145
+      Left = 351
+      Top = 34
+      Width = 178
       Height = 21
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
@@ -117,7 +176,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 3
     end
     object cbLargeAirports: TCheckBox
-      Left = 807
+      Left = 751
       Top = 14
       Width = 90
       Height = 17
@@ -133,7 +192,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 4
     end
     object cbHeliports: TCheckBox
-      Left = 607
+      Left = 551
       Top = 37
       Width = 90
       Height = 17
@@ -149,7 +208,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 5
     end
     object cbSeaplaneBases: TCheckBox
-      Left = 703
+      Left = 647
       Top = 37
       Width = 90
       Height = 17
@@ -165,7 +224,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 6
     end
     object cbSmallAirports: TCheckBox
-      Left = 607
+      Left = 551
       Top = 14
       Width = 90
       Height = 17
@@ -181,7 +240,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       TabOrder = 7
     end
     object cbMediumAirports: TCheckBox
-      Left = 703
+      Left = 647
       Top = 14
       Width = 90
       Height = 17
@@ -196,6 +255,53 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       State = cbChecked
       TabOrder = 8
     end
+    object eRange: TEdit
+      Left = 857
+      Top = 34
+      Width = 40
+      Height = 21
+      Alignment = taRightJustify
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      Text = '100'
+      OnKeyPress = eSearchKeyPress
+    end
+    object eICAO: TEdit
+      Left = 939
+      Top = 34
+      Width = 40
+      Height = 21
+      Alignment = taRightJustify
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 10
+      OnKeyPress = eSearchKeyPress
+    end
+    object cbWithinRange: TCheckBox
+      Left = 857
+      Top = 14
+      Width = 90
+      Height = 17
+      Caption = 'Within range of'
+      Checked = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 11
+    end
   end
   object sgResults: TStringGrid
     Left = 8
@@ -203,7 +309,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Width = 1225
     Height = 495
     Anchors = [akLeft, akTop, akRight, akBottom]
-    ColCount = 9
+    ColCount = 10
     FixedCols = 0
     TabOrder = 1
     ColWidths = (
@@ -215,7 +321,8 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
       64
       123
       124
-      95)
+      95
+      64)
   end
   object sbSearch: TStatusBar
     Left = 0
@@ -224,8 +331,5 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitLeft = 464
-    ExplicitTop = 592
-    ExplicitWidth = 0
   end
 end

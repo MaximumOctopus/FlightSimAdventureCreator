@@ -15,6 +15,7 @@
 
 #include "About.h"
 #include "AirportSearchDialog.h"
+#include "Favourites.h"
 
 #include "AircraftConstants.h"
 #include "DateUtility.h"
@@ -25,6 +26,7 @@
 #include "main.h"
 #include "MSFSSystem.h"
 #include "RouteHandler.h"
+#include "RunwayHandler.h"
 #include "Utility.h"
 
 #pragma package(smart_init)
@@ -35,6 +37,7 @@ extern AircraftHandler* GAircraftHandler;
 extern AirportHandler* GAirportHandler;
 extern Configuration* GConfiguration;
 extern RouteHandler* GRouteHandler;
+extern RunwayHandler* GRunwayHandler;
 
 
 TForm1 *Form1;
@@ -56,13 +59,7 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 
 	if (GlobalObjects::CreateGlobalObjects())
 	{
-		sgRoutes->ColAlignments[4] = taRightJustify;
-
-		sgRoutes->Cells[0][0] = L"Route";
-		sgRoutes->Cells[1][0] = L"Cntnt";
-		sgRoutes->Cells[2][0] = L"Cntry";
-		sgRoutes->Cells[3][0] = L"Rgn";
-		sgRoutes->Cells[4][0] = L"Length";
+		InitialGUISetup();
 
 		ResetGUI();
 
@@ -70,9 +67,16 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 
 		UpdateCountryList();
 	}
+	else
+	{
+		std::wstring e = GAirportHandler->GetLastError() + L"..." + GRunwayHandler->GetLastError().c_str();
+
+		sbMain->SimpleText = e.c_str();
+	}
 
 	lStatsAircraft->Caption = System::Sysutils::IntToStr((int)GAircraftHandler->AircraftList.size());
 	lStatsAirport->Caption = System::Sysutils::IntToStr((int)GAirportHandler->Airports.size());
+	lStatsRunways->Caption = System::Sysutils::IntToStr((int)GRunwayHandler->Runways.size());
 }
 
 
@@ -162,6 +166,7 @@ void TForm1::BuildGUIFrom(AircraftLoadFilter& aclf, AirportLoadFilter& aplf, Rou
 	eEndAirportICAO->Text = rf.EndAirportICAO.c_str();
 
 	cbStartFromFavourite->Checked = rf.StartFromFavourite;
+	cbEndAtFavourite->Checked = rf.EndAtFavourite;
 
 	cbUseAircraftRange->Checked = rf.UseAircraftRange;
 	eAircraftRangeModifier->Text = rf.AircraftRangeModifier;
@@ -171,8 +176,16 @@ void TForm1::BuildGUIFrom(AircraftLoadFilter& aclf, AirportLoadFilter& aplf, Rou
 }
 
 
-void TForm1::UpdateGUI()
+void TForm1::InitialGUISetup()
 {
+	sgRoutes->ColAlignments[4] = taRightJustify;
+
+	sgRoutes->Cells[0][0] = L"Route";
+	sgRoutes->Cells[1][0] = L"Cntnt";
+	sgRoutes->Cells[2][0] = L"Cntry";
+	sgRoutes->Cells[3][0] = L"Rgn";
+	sgRoutes->Cells[4][0] = L"Length";
+
 	for (int t = 0; t < 16; t++)
 	{
 		cbBearing->Items->Add(Constants::CompassBearings[t].c_str());
@@ -195,22 +208,31 @@ void TForm1::ResetGUI()
 
 void __fastcall TForm1::bUpdateAircraftClick(TObject *Sender)
 {
-	AircraftLoadFilter alf = BuildAircraftLoadFilterFromUI();
-
-	int count = GAircraftHandler->Filter(alf);
-
-	if (count != 0)
+	if (bLockAircraft->Tag == 0)
 	{
-		UpdateAircraftList();
+		sbMain->SimpleText = "Updating aircraft selection...";
+
+        AircraftDetailsHaveChanged = false;
+
+		AircraftLoadFilter alf = BuildAircraftLoadFilterFromUI();
+
+		int count = GAircraftHandler->Filter(alf);
+
+		if (count != 0)
+		{
+			UpdateAircraftList();
+		}
+		else
+		{
+			cbAircraftList->Clear();
+
+			lAircraftStats->Caption = "";
+		}
+
+		gbAircraft->Caption = "Aircraft (" + System::Sysutils::IntToStr((int)GAircraftHandler->FilteredList.size()) + " selected)";
+
+        sbMain->SimpleText = "";
 	}
-	else
-	{
-		cbAircraftList->Clear();
-
-		lAircraftStats->Caption = "";
-    }
-
-	gbAircraft->Caption = "Aircraft (" + System::Sysutils::IntToStr((int)GAircraftHandler->FilteredList.size()) + " selected)";
 }
 
 
@@ -231,11 +253,15 @@ void TForm1::UpdateAircraftList()
 
 void __fastcall TForm1::bUpdateAirportsClick(TObject *Sender)
 {
+	sbMain->SimpleText = "Updating airport selection...";
+
 	AirportLoadFilter alf = BuildAirportLoadFilterFromUI();
 
 	int count = GAirportHandler->Filter(alf);
 
 	gbAirports->Caption = "Airports (" + System::Sysutils::IntToStr((int)GAirportHandler->FilteredList.size()) + " selected)";
+
+    sbMain->SimpleText = "";
 }
 
 
@@ -282,13 +308,13 @@ AirportLoadFilter TForm1::BuildAirportLoadFilterFromUI()
 
 	alf.FilterContinent = cbContinentFilter->Checked;
 
-	if (cbContinentAF->Checked) alf.Continents[0] = true;
-	if (cbContinentAN->Checked) alf.Continents[1] = true;
-	if (cbContinentAS->Checked) alf.Continents[2] = true;
-	if (cbContinentEU->Checked) alf.Continents[3] = true;
-	if (cbContinentNA->Checked) alf.Continents[4] = true;
-	if (cbContinentOC->Checked) alf.Continents[5] = true;
-	if (cbContinentSA->Checked) alf.Continents[6] = true;
+	alf.Continents[0] = cbContinentAF->Checked;
+	alf.Continents[1] = cbContinentAN->Checked;
+	alf.Continents[2] = cbContinentAS->Checked;
+	alf.Continents[3] = cbContinentEU->Checked;
+	alf.Continents[4] = cbContinentNA->Checked;
+	alf.Continents[5] = cbContinentOC->Checked;
+	alf.Continents[6] = cbContinentSA->Checked;
 
 	alf.FilterCountry = cbCountryFilter->Checked;
 	if (cbCountryList->ItemIndex != -1)
@@ -391,19 +417,64 @@ void __fastcall TForm1::bGenerateClick(TObject *Sender)
 {
 	if (GAircraftHandler->FilteredList.size() != 0 && GAirportHandler->FilteredList.size() != 0)
 	{
-		GenerateRoutes();
+		bool can_continue = true;
 
-		UpdateRouteList();
+		if (!eStartAirportICAO->Text.IsEmpty)
+		{
+			if (!GAirportHandler->IsValidAirport(eStartAirportICAO->Text.c_str()))
+			{
+				Application->MessageBox(L"Start airport ICAO is invalid.", L"Route Generation", MB_OK);
+
+				can_continue = false;
+			}
+		}
+
+		if (!eStartAirportICAO->Text.IsEmpty)
+		{
+			if (!GAirportHandler->IsValidAirport(eStartAirportICAO->Text.c_str()))
+			{
+				Application->MessageBox(L"End airport ICAO is invalid.", L"Route Generation", MB_OK);
+
+				can_continue = false;
+			}
+		}
+
+		if (can_continue)
+		{
+			if (AirportDetailsHaveChanged)
+			{
+				bUpdateAirportsClick(nullptr);
+			}
+
+			if (AircraftDetailsHaveChanged)
+			{
+				bUpdateAircraftClick(nullptr);
+			}
+
+			GenerateRoutes();
+
+			if (!UpdateRouteList())
+			{
+                sbMain->SimpleText = "No routes could be generated with selected locations and route parameters";
+            }
+		}
 	}
+	else
+	{
+	    sbMain->SimpleText = "Can't generate route, not enough airports or aircraft!";
+    }
 }
 
 
 void TForm1::GenerateRoutes()
 {
-    double RouteDirection = DataDefaults::Direction; // to do; all these need setting if UI says so / not default value
+	sbMain->SimpleText = "Generating random routes...";
+
+	double RouteDirection = DataDefaults::Direction; // to do; all these need setting if UI says so / not default value
 	double RouteRange = eRange->Text.ToDouble();
 	int RouteLegs = eLegs->Text.ToInt();
 	int RouteCount = eCount->Text.ToIntDef(1);
+	int FlightTime = 0;
 
 	if (cbUseDirection->Checked)
 	{
@@ -428,12 +499,7 @@ void TForm1::GenerateRoutes()
 	{
 		double d = GAirportHandler->DistanceBetweenTwoAirports(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str());
 
-		if (RouteLegs != 1 && RouteRange != DataDefaults::Range)
-		{
-			//std::wcout << L"  Setting start and end aiports is not compatible with setting legs and range (can't have both!). Using range.\n\n";
-		}
-
-		if (RouteRange != DataDefaults::Range)
+		if (rbStartEndRange->Checked)
 		{
 			RouteLegs = (d / RouteRange) + 1;
 		}
@@ -441,15 +507,22 @@ void TForm1::GenerateRoutes()
         {
 			RouteRange = d / RouteLegs;
 		}
-
-		//std::wcout << std::format(L"  Set range/legs based on distance {0:.1f} from {1} to {2}. Range {3} nm; Legs {4}.\n\n", d, GConfiguration->Route.StartAirportICAO, GConfiguration->Route.EndAirportICAO, GConfiguration->Route.Range, GConfiguration->Route.Legs);
 	}
 
-	int random_aircraft = rand() % cbAircraftList->Items->Count;
-	cbAircraftList->ItemIndex = random_aircraft;
-    cbAircraftListChange(nullptr);
+	// =========================================================================
 
-	Aircraft aircraft = GAircraftHandler->AircraftList[random_aircraft];
+	int selected_aircraft = cbAircraftList->ItemIndex;
+
+	if (bLockAircraft->Tag == 0)
+	{
+		selected_aircraft = rand() % cbAircraftList->Items->Count;
+		cbAircraftList->ItemIndex = selected_aircraft;
+		cbAircraftListChange(nullptr);
+	}
+
+	Aircraft aircraft = GAircraftHandler->AircraftList[selected_aircraft];
+
+    // =========================================================================
 
   //  std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
 
@@ -462,6 +535,8 @@ void TForm1::GenerateRoutes()
 			if (new_range != -1)
 			{
 				RouteRange = new_range;
+
+				FlightTime = eFlightTime->Text.ToIntDef(0);
 			}
 
 			//std::wcout << std::format(L"  Set range to {0} nm, based on {1} min flight time.\n", GConfiguration->Route.Range, GConfiguration->Route.RequestedFlightTime);
@@ -497,11 +572,15 @@ void TForm1::GenerateRoutes()
 
 	//std::wcout << std::format(L"  Max. range (per leg): {0:.1f} nm; legs: {1}", range_per_leg, GConfiguration->Route.Legs) << L"\n\n";
 
+	BuildRouteDescription(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), range_per_leg, RouteDirection, RouteLegs, RouteCount,	FlightTime, cbKeepTrying->Checked);
+
 	GAirportHandler->GetRoute(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), range_per_leg, RouteDirection, RouteLegs, RouteCount,	cbKeepTrying->Checked);
+
+	sbMain->SimpleText = "Finished generating routes.";
 }
 
 
-void TForm1::UpdateRouteList()
+bool TForm1::UpdateRouteList()
 {
 	if (GRouteHandler->Routes.size() != 0)
 	{
@@ -519,7 +598,72 @@ void TForm1::UpdateRouteList()
 
 			sgRoutes->Cells[4][t + 1] = d.c_str();
 		}
+
+		return true;
 	}
+	else
+	{
+		sgRoutes->RowCount = 2;
+
+		sgRoutes->Cells[0][1] = "No routes could be generated :(";
+
+		sgRoutes->Cells[1][1] = "";
+		sgRoutes->Cells[2][1] = "";
+		sgRoutes->Cells[3][1] = "";
+
+		sgRoutes->Cells[4][1] = "";
+    }
+
+    return false;
+}
+
+
+void TForm1::BuildRouteDescription(const std::wstring start_icao, const std::wstring end_icao, double range, double direction, int legs, int simple_count, int flight_time, bool keep_trying)
+{
+	std::wstring RouteDescription = L"";
+
+	if (start_icao == L"")
+	{
+		RouteDescription = L"Random -> ";
+	}
+	else
+	{
+		RouteDescription = start_icao + L" -> ";
+	}
+
+	if (end_icao == L"")
+	{
+		RouteDescription += L"Random; ";
+	}
+	else
+	{
+		RouteDescription += end_icao + L"; ";
+	}
+
+	if (flight_time == 0)
+	{
+		RouteDescription += std::to_wstring(range) + L" nm; ";
+	}
+	else
+	{
+		RouteDescription += std::to_wstring(range) + L" nm (flight time " + std::to_wstring(flight_time) + L" mins); ";
+    }
+
+	if (direction != -1)
+	{
+		RouteDescription += L"@ " + std::to_wstring(direction) + L"°; ";
+	}
+
+	RouteDescription += std::to_wstring(legs) + L" legs; ";
+
+	RouteDescription += std::to_wstring(simple_count) + L" routes; ";
+
+	if (keep_trying)
+	{
+        RouteDescription += L" keep trying (<21 times); ";
+    }
+
+	mRouteDebug->Text = RouteDescription.c_str();
 }
 
 
@@ -538,6 +682,16 @@ void __fastcall TForm1::cbLatLongFilterClick(TObject *Sender)
 			cbLatLongFilter->Checked = false;
 		}
 	}
+
+ 	eLatFrom->Enabled = cbLatLongFilter->Checked;
+	eLatTo->Enabled = cbLatLongFilter->Checked;
+	eLongFrom->Enabled = cbLatLongFilter->Checked;
+	eLongTo->Enabled = cbLatLongFilter->Checked;
+
+	rbDay->Enabled = cbTimeOfDay->Checked;
+	rbNight->Enabled = cbTimeOfDay->Checked;
+
+    AirportDetailsHaveChanged = true;
 }
 
 
@@ -562,13 +716,27 @@ void __fastcall TForm1::cbContinentFilterClick(TObject *Sender)
 			cbCountryFilter->Checked = false;
 			break;
 		}
+
+		cbContinentAF->Enabled = cbContinentFilter->Checked;
+		cbContinentAN->Enabled = cbContinentFilter->Checked;
+		cbContinentAS->Enabled = cbContinentFilter->Checked;
+		cbContinentEU->Enabled = cbContinentFilter->Checked;
+		cbContinentNA->Enabled = cbContinentFilter->Checked;
+		cbContinentOC->Enabled = cbContinentFilter->Checked;
+		cbContinentSA->Enabled = cbContinentFilter->Checked;
+
+		cbCountryList->Enabled = cbCountryFilter->Checked;
+
+		eRegionICO->Enabled = cbRegionFilter->Checked;
 	}
+
+    AirportDetailsHaveChanged = true;
 }
 
 
 void __fastcall TForm1::tbResetClick(TObject *Sender)
 {
-	if (Application->MessageBox(L"hello", L"Are you sure?", MB_OKCANCEL) == IDOK)
+	if (Application->MessageBox(L"This will reset all parameters to their defaults.", L"Reset Parameters?", MB_OKCANCEL) == IDOK)
 	{
 		ResetGUI();
 	}
@@ -628,7 +796,7 @@ void __fastcall TForm1::tbExportItineraryClick(TObject *Sender)
 
 void __fastcall TForm1::Createcustomaircrafttxt1Click(TObject *Sender)
 {
-	if (Application->MessageBox(L"hello", L"Are you sure?", MB_OKCANCEL) == IDOK)
+	if (Application->MessageBox(L"This will overwrite the existing file, all edits will be lost.", L"Create new 'custom_aircraft.txt'?", MB_OKCANCEL) == IDOK)
 	{
 		if (MSFSSystem::CreateAircraftList(true))
 		{
@@ -650,7 +818,7 @@ void __fastcall TForm1::About1Click(TObject *Sender)
 
 void __fastcall TForm1::sgRoutesClick(TObject *Sender)
 {
-	if (sgRoutes->Selection.Top > 0)
+	if (sgRoutes->Selection.Top > 0 && GRouteHandler->Routes.size() != 0)
 	{
 		UpdateRouteDescription(sgRoutes->Selection.Top - 1);
 	}
@@ -778,4 +946,64 @@ void __fastcall TForm1::bExportSelectedTextClick(TObject *Sender)
 			GRouteHandler->ExportToItinerary(file_name, sgRoutes->Selection.Top);
 		}
 	}
+}
+
+
+void __fastcall TForm1::Favourites1Click(TObject *Sender)
+{
+	frmFavourites->ShowModal();
+}
+
+
+void __fastcall TForm1::bLockAircraftClick(TObject *Sender)
+{
+	TButton *button = (TButton*)Sender;
+
+	if (button->Tag == 0)
+	{
+		button->Tag = 1;
+		button->ImageIndex = 3;
+	}
+	else
+	{
+		button->Tag = 0;
+		button->ImageIndex = 2;
+    }
+}
+
+
+void __fastcall TForm1::bRandomAircraftClick(TObject *Sender)
+{
+	if (cbAircraftList->Items->Count != 0 && bLockAircraft->Tag == 0)
+	{
+		cbAircraftList->ItemIndex = rand() % cbAircraftList->Items->Count;
+		cbAircraftListChange(nullptr);
+    }
+}
+
+
+void __fastcall TForm1::cbAircraftTypePropsClick(TObject *Sender)
+{
+	AircraftDetailsHaveChanged = true;
+}
+
+
+void __fastcall TForm1::cbContinentAFClick(TObject *Sender)
+{
+	AirportDetailsHaveChanged = true;
+}
+
+
+void __fastcall TForm1::cbUseFlightTimeClick(TObject *Sender)
+{
+	eFlightTime->Enabled = cbUseFlightTime->Checked;
+	eRange->Enabled = !cbUseFlightTime->Checked;
+}
+
+
+void __fastcall TForm1::cbUseDirectionClick(TObject *Sender)
+{
+	eDirection->Enabled = cbUseDirection->Checked;
+	cbBearing->Enabled = cbUseDirection->Checked;
+	bSetFromBearing->Enabled = cbUseDirection->Checked;
 }

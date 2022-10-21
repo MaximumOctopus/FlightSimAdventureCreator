@@ -33,7 +33,6 @@
 class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
-	TGroupBox *gbAircraft;
 	TGroupBox *GroupBox3;
 	TToolBar *ToolBar1;
 	TToolButton *tbSave;
@@ -43,26 +42,7 @@ __published:	// IDE-managed Components
 	TMenuItem *File2;
 	TMenuItem *Exit1;
 	TMenuItem *Exit2;
-	TCheckBox *cbAircraftTypeProps;
-	TCheckBox *cbAircraftTypeTwinProps;
-	TCheckBox *cbAircraftTypeTurboProps;
-	TCheckBox *cbAircraftTypeHelicopter;
-	TCheckBox *cbAircraftTypeGlider;
-	TCheckBox *cbAircraftTypeAirliners;
-	TCheckBox *cbAircraftTypeMilitary;
-	TCheckBox *cbAircraftTypeTwinTurboProps;
-	TCheckBox *cbAircraftTypeJet;
-	TCheckBox *cbAircraftTypeBalloon;
-	TComboBox *cbAircraftList;
-	TButton *bUpdateAircraft;
-	TCheckBox *cbAircraftTypeSeaplanes;
 	TStatusBar *sbMain;
-	TEdit *eMinSpeed;
-	TEdit *eMaxSpeed;
-	TLabel *lMinSpeed;
-	TLabel *Label1;
-	TLabel *Label2;
-	TLabel *Label3;
 	TImageList *ImageList1;
 	TToolButton *ToolButton3;
 	TLabel *Label4;
@@ -85,8 +65,6 @@ __published:	// IDE-managed Components
 	TButton *bSetFromBearing;
 	TToolButton *tbReset;
 	TBevel *Bevel7;
-	TBevel *Bevel8;
-	TEdit *eAircraftRangeModifier;
 	TCheckBox *cbAllowExcessRange;
 	TToolButton *ToolButton1;
 	TEdit *eCount;
@@ -109,7 +87,6 @@ __published:	// IDE-managed Components
 	TLabel *Label19;
 	TMemo *mMain;
 	TToolButton *ToolButton2;
-	TLabel *lAircraftStats;
 	TGroupBox *GroupBox1;
 	TButton *bGenerate;
 	TCheckBox *cbKeepTrying;
@@ -130,8 +107,6 @@ __published:	// IDE-managed Components
 	TMenuItem *Searcg1;
 	TMenuItem *Airports1;
 	TCheckBox *cbEndAtFavourite;
-	TLabel *Label25;
-	TLabel *Label26;
 	TGroupBox *gbAirports;
 	TBevel *Bevel5;
 	TBevel *Bevel4;
@@ -143,8 +118,6 @@ __published:	// IDE-managed Components
 	TBevel *Bevel2;
 	TBevel *Bevel3;
 	TBevel *Bevel6;
-	TLabel *Label18;
-	TLabel *Label20;
 	TLabel *Label24;
 	TButton *bUpdateAirports;
 	TCheckBox *cbContinentAF;
@@ -172,11 +145,52 @@ __published:	// IDE-managed Components
 	TCheckBox *cbTimeOfDay;
 	TRadioButton *rbDay;
 	TRadioButton *rbNight;
-	TEdit *eElevation;
 	TButton *bExportSelected;
 	TImageList *il16x16;
-	TComboBox *cbMSFSVersion;
 	TButton *bExportSelectedText;
+	TLabel *Label27;
+	TLabel *Label28;
+	TLabel *lStatsRunways;
+	TLabel *Label30;
+	TMenuItem *N1;
+	TMenuItem *Favourites1;
+	TMemo *mRouteDebug;
+	TBevel *Bevel13;
+	TLabel *Label18;
+	TEdit *eElevation;
+	TLabel *Label20;
+	TRadioButton *rbStartEndLegs;
+	TRadioButton *rbStartEndRange;
+	TGroupBox *gbAircraft;
+	TBevel *Bevel12;
+	TLabel *lMinSpeed;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TBevel *Bevel8;
+	TLabel *lAircraftStats;
+	TLabel *Label26;
+	TLabel *Label25;
+	TEdit *eMinSpeed;
+	TCheckBox *cbAircraftTypeProps;
+	TCheckBox *cbAircraftTypeTwinProps;
+	TCheckBox *cbAircraftTypeTurboProps;
+	TCheckBox *cbAircraftTypeHelicopter;
+	TCheckBox *cbAircraftTypeGlider;
+	TCheckBox *cbAircraftTypeAirliners;
+	TCheckBox *cbAircraftTypeMilitary;
+	TCheckBox *cbAircraftTypeTwinTurboProps;
+	TCheckBox *cbAircraftTypeJet;
+	TCheckBox *cbAircraftTypeBalloon;
+	TComboBox *cbAircraftList;
+	TButton *bUpdateAircraft;
+	TCheckBox *cbAircraftTypeSeaplanes;
+	TEdit *eMaxSpeed;
+	TComboBox *cbMSFSVersion;
+	TEdit *eAircraftRangeModifier;
+	TButton *bRandomAircraft;
+	TButton *bLockAircraft;
+	TLabel *Label29;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
@@ -198,15 +212,27 @@ __published:	// IDE-managed Components
 	void __fastcall Airports1Click(TObject *Sender);
 	void __fastcall bExportSelectedClick(TObject *Sender);
 	void __fastcall bExportSelectedTextClick(TObject *Sender);
+	void __fastcall Favourites1Click(TObject *Sender);
+	void __fastcall bLockAircraftClick(TObject *Sender);
+	void __fastcall bRandomAircraftClick(TObject *Sender);
+	void __fastcall cbAircraftTypePropsClick(TObject *Sender);
+	void __fastcall cbContinentAFClick(TObject *Sender);
+	void __fastcall cbUseFlightTimeClick(TObject *Sender);
+	void __fastcall cbUseDirectionClick(TObject *Sender);
 
 private:	// User declarations
 
+	bool AircraftDetailsHaveChanged = false;
+	bool AirportDetailsHaveChanged = false;
+
 	void BuildGUIFrom(AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
-	void UpdateGUI();
+	void InitialGUISetup();
 	void ResetGUI();
 
 	void GenerateRoutes();
-	void UpdateRouteList();
+	bool UpdateRouteList();
+
+	void BuildRouteDescription(const std::wstring, const std::wstring, double, double, int, int, int, bool);
 
 	void UpdateAircraftList();
 

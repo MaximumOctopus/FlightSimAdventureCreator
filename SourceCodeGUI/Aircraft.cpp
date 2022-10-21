@@ -39,5 +39,22 @@ Aircraft::Aircraft(const std::wstring name, int speed, int range, int runway_len
 
 std::wstring Aircraft::ShowStats()
 {
-	return Utility::GetAircraftType(Type) + L", " + std::to_wstring(CruiseSpeed) + L" kts, " + std::to_wstring(Range) + L" nm";
+	std::wstring d = L";";
+
+	if (Airliner)
+	{
+		d += L" airliner;";
+	}
+
+	if (Military)
+	{
+		d += L" military;";
+	}
+
+	if (Seaplane)
+	{
+		d += L" seaplane;";
+	}
+
+	return Utility::GetAircraftType(Type) + L", " + std::to_wstring(CruiseSpeed) + L" kts, " + std::to_wstring(Range) + L" nm" + d;
 }

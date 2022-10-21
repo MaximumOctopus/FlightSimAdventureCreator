@@ -34,6 +34,14 @@ Configuration::Configuration()
     }
 }
 
+Configuration::~Configuration()
+{
+	if (ShouldSaveFavourites)
+	{
+        SaveFavourites();
+    }
+}
+
 
 bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
 {
@@ -477,6 +485,10 @@ bool Configuration::SaveFavourites()
 
 	if (file)
 	{
+		file << L"//  list of your favourite airports, one ICAO airport code per line\n";
+		file << L"//  if you edit this file then please keep a backup, future updates will overwrite this file!\n";
+		file << L"//\n";
+
 		for (int t = 0; t < Favourites.size(); t++)
 		{
 			file << Favourites[t] << "\n";
@@ -489,25 +501,6 @@ bool Configuration::SaveFavourites()
 	else
 	{
 		LastError = L"Couldn't locate \"" + SystemConstants::FavouritesFileName + L"\" :(\n";
-	}
-
-	return false;
-}
-
-
-bool Configuration::AddToFavourite(const std::wstring icao)
-{
-	if (icao != L"")
-	{
-		std::ofstream ofile(SystemConstants::FavouritesFileName, std::ios::app);
-
-		if (ofile)
-		{
-			ofile << Formatting::to_utf8(icao + L"\n");
-			ofile.close();
-
-			return true;
-		}
 	}
 
 	return false;
@@ -528,4 +521,10 @@ std::wstring Configuration::GetRandomFavourite()
 std::wstring Configuration::GetLastError()
 {
 	return LastError;
+}
+
+
+void Configuration::FavouritesHaveChanged()
+{
+	ShouldSaveFavourites = true;
 }

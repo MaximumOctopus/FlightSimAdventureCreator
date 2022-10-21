@@ -1,17 +1,15 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
 #include <algorithm>
-#include <codecvt>
-#include <format>
 #include <fstream>
 #include <iostream>
 #include <locale>
@@ -20,86 +18,128 @@
 #include "AircraftHandler.h"
 #include "Constants.h"
 
-#ifdef _DEBUG
-#include "Debug.h"
-#endif
-
 
 AircraftHandler* GAircraftHandler;
 
 
-AircraftHandler::AircraftHandler(bool silent, bool default_aircraft, bool custom_aircraft, int type, bool include_airliners, bool include_military, bool include_seaplanes,
-    int max_speed, int min_speed, AircraftConstants::MSFSVersion version, AircraftConstants::SpecialMode special_mode)
+bool sortByPath(const Aircraft& lhs, const Aircraft& rhs)
 {
-    Silent = silent;
+	std::wstring l = lhs.Name;
+	std::wstring r = rhs.Name;
 
-    LoadFilter.MaxSpeed = max_speed;
-    LoadFilter.MinSpeed = min_speed;
+	std::transform(l.begin(), l.end(), l.begin(), ::tolower);
+	std::transform(r.begin(), r.end(), r.begin(), ::tolower);
 
-    LoadFilter.Version = version;
+	int c = l.compare(r);
 
-    if (special_mode == AircraftConstants::SpecialMode::None)
-    {
-        LoadFilter.Type = type;
+	if (c <= 0)
+	{
+		return true;
+	}
 
-        LoadFilter.Airliner = include_airliners;
-        LoadFilter.Military = include_military;
-        LoadFilter.Seaplane = include_seaplanes;
-    }
-    else if (special_mode == AircraftConstants::SpecialMode::JetAirliners)
-    {
-        LoadFilter.Type = AircraftConstants::AircraftTypeJet;
+    return false;
+}
 
-        LoadFilter.Airliner = true;
-        LoadFilter.Military = false;
-        LoadFilter.Seaplane = false;
-    }
-    else
-    {
-        LoadFilter.Special = special_mode;
-    }
 
-    if (default_aircraft)
-    {
-        if (!LoadAircraft(SystemConstants::DefaultAircraft))
-        {
-            std::wcout << std::format(L"    Aircraft data file not found \"{0}\".\n", SystemConstants::DefaultAircraft);
-        }
-        else
-        {
-            Loaded = true;
-        }
-    }
+AircraftHandler::AircraftHandler()
+{
+	if (!LoadAircraft(SystemConstants::DefaultAircraft))
+	{
+		LastError = L" Aircraft data file not found \"" + SystemConstants::DefaultAircraft + L"\".";
+	}
+	else
+	{
+		Loaded = true;
+	}
 
-    if (custom_aircraft)
-    {
-        if (!LoadAircraft(SystemConstants::CustomAircraft))
-        {
-            std::wcout << std::format(L"    Aircraft data file not found \"{0}\".\n    This file can be created using: FSAC /fsacca\n", SystemConstants::CustomAircraft);
-        }
-        else
-        {
-            Loaded = true;
-        }
-    }
+	if (!LoadAircraft(SystemConstants::CustomAircraft))
+	{
+	   LastError = L" Aircraft data file not found \"" + SystemConstants::CustomAircraft + L"\".";
+	}
+	else
+	{
+		Loaded = true;
+	}
 
-    if (Loaded && !Silent)
-    {
-        std::wcout << std::format(L"  Loaded {0} aircraft.\n", AircraftList.size());
-    }
+	std::sort(AircraftList.begin(), AircraftList.end(), sortByPath);
 }
 
 
 Aircraft AircraftHandler::GetRandomAircraft()
 {
-    if (AircraftList.size() != 0)
+	if (AircraftList.size() != 0)
     {
         int a = rand() % AircraftList.size();
 
-        return AircraftList[a];
+		return AircraftList[a];
     }
 
-    return Aircraft();
+	return Aircraft();
+}
+
+
+int AircraftHandler::Filter(AircraftLoadFilter alf)
+{
+	FilteredList.clear();
+
+	for (int t = 0; t < AircraftList.size(); t++)
+	{
+		bool add = true;
+
+		if (!alf.Types[AircraftList[t].TypeAsInt])
+		{
+			add = false;
+		}
+
+		if (!alf.Airliner && AircraftList[t].Airliner)
+		{
+			add = false;
+		}
+
+		if (!alf.Military && AircraftList[t].Military)
+		{
+			add = false;
+		}
+
+		if (!alf.Seaplane && AircraftList[t].Seaplane)
+		{
+			add = false;
+		}
+
+		if (AircraftList[t].CruiseSpeed > alf.MaxSpeed)
+		{
+			add = false;
+		}
+
+        if (AircraftList[t].CruiseSpeed < alf.MinSpeed)
+		{
+			add = false;
+		}
+
+		if (alf.Version != AircraftConstants::MSFSVersion::All)
+		{
+			switch (AircraftList[t].Availability)
+			{
+				case AircraftConstants::MSFSVersion::All:
+					break;
+				case AircraftConstants::MSFSVersion::DeluxeAbove:
+					if (alf.Version == AircraftConstants::MSFSVersion::PremiumAbove)
+					{
+						add = false;
+					}
+					break;
+				case AircraftConstants::MSFSVersion::PremiumAbove:
+					break;
+			}
+		}
+
+		if (add)
+		{
+			FilteredList.push_back(AircraftList[t]);
+        }
+	}
+
+	return FilteredList.size();
 }
 
 
@@ -107,165 +147,105 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 {
     std::wifstream file(file_name);
 
-    //file.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>));
-
-    if (file)
+	if (file)
     {
-        ProcessingMode mode = ProcessingMode::ReadyForSection;
+		ProcessingMode mode = ProcessingMode::ReadyForSection;
 
-        std::wstring Name = L"";
+		std::wstring Name = L"";
         int CruiseSpeed = 0;
         int Range = 0;
-        int RunwayLength = 0;
-        AircraftConstants::MSFSVersion Availability = AircraftConstants::MSFSVersion::All;
-        AircraftConstants::AircraftType Type = AircraftConstants::AircraftType::None;
-        bool Airliner = false;
-        bool Military = false;
-        bool Seaplane = false;
-        
-        std::wstring s;
+		int RunwayLength = 0;
+		AircraftConstants::MSFSVersion Availability = AircraftConstants::MSFSVersion::All;
+		AircraftConstants::AircraftType Type = AircraftConstants::AircraftType::None;
+		bool Airliner = false;
+		bool Military = false;
+		bool Seaplane = false;
 
-        bool ShouldAdd = true;
+		bool ShouldAdd = true;
 
-        int line = 1;
+		std::wstring s;
 
-        while (std::getline(file, s))
-        {
-            if (s != L"")
-            {
+		int line = 1;
+
+		while (std::getline(file, s))
+		{
+			if (s != L"")
+			{
                 if (s[0] == L'/' || s[1] == L';')
-                {
+				{
                     // comment, do nothing
-                }
+				}
                 else
-                {
+				{
                     RowType current = GetRowType(s);
 
                     switch (current)
-                    {
+					{
                     case RowType::Unknown:
-                        break;
+						break;
 
-                    case RowType::SectionStart:
+					case RowType::SectionStart:
 
-                        if (mode == ProcessingMode::SectionFound)
+						if (mode == ProcessingMode::SectionFound)
                         {
-                            std::wcout << std::format(L"\"{{\" identifier found when expecting L\"}}\". {0} @ line {1}\n", file_name, line);
+						 //   std::wcout << L"\"{\" identifier found when expecting L\"}\". " << file_name << L" @ line " << line << "\n";
                         }
 
                         mode = ProcessingMode::SectionFound;
-                        break;
+						break;
 
-                    case RowType::SectionEnd:
+					case RowType::SectionEnd:
                     {
-                        if (mode == ProcessingMode::SectionFound)
-                        {
-                            switch (LoadFilter.Special)
-                            {
-                            case AircraftConstants::SpecialMode::GA:
-                            {
-                                if (Type != AircraftConstants::AircraftType::Prop && Type != AircraftConstants::AircraftType::TwinProp && 
-                                    Type != AircraftConstants::AircraftType::TurboProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
-                                {
-                                    ShouldAdd = false;
-                                }
+						if (mode == ProcessingMode::SectionFound)
+						{
+							if (Range <= 0)
+							{
+							  //  std::wcout << std::format(L"    Aircraft error, invalid range specified {0} @ line {1}", Range, line) << "\n";
 
-                                if (Military) ShouldAdd = false;
-                                if (Airliner) ShouldAdd = false;
+								ShouldAdd = false;
+							}
 
-                                break;
-                            }
-                            case AircraftConstants::SpecialMode::JetAirliners:
-                            {
-                                if (Type != AircraftConstants::AircraftType::Jet && Airliner != true)
-                                {
-                                    ShouldAdd = false;
-                                }
-                                break;
-                            }
-                            case AircraftConstants::SpecialMode::Twins:
-                                if (Type != AircraftConstants::AircraftType::TwinProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
-                                {
-                                    ShouldAdd = false;
-                                }
-                                break;
-                            case AircraftConstants::SpecialMode::Props:
-                                if (Type != AircraftConstants::AircraftType::Prop && Type != AircraftConstants::AircraftType::TwinProp)
-                                {
-                                    ShouldAdd = false;
-                                }
-                                break;
-                            case AircraftConstants::SpecialMode::TurboProps:
-                                if (Type != AircraftConstants::AircraftType::TurboProp && Type != AircraftConstants::AircraftType::TwinTurboProp)
-                                {
-                                    ShouldAdd = false;
-                                }
-                                break;
-                            case AircraftConstants::SpecialMode::Seaplanes:
-                                if (!Seaplane)
-                                {
-                                    ShouldAdd = false;
-                                }
-                                break;
-                            }
+							//
+							if (ShouldAdd)
+							{
+								Aircraft aircraft(Name, CruiseSpeed, Range, RunwayLength, Availability, Type, Airliner, Military, Seaplane);
 
-                            // let's see if this aircraft is valid
-                            if (Type == AircraftConstants::AircraftType::None)
-                            {
-                                std::wcout << std::format(L"    Aircraft error, invalid type specified (None) @ line {0}", line) << "\n";
+								AircraftList.push_back(aircraft);
+							}
+							else
+							{
+  //								FSACDebug::Output(L"Rejected " + Name);
+							}
+						}
+						else
+						{
+						  //  std::wcout << std::format(L"\"}}\" identifier found when expecting \"{{\". {0} @ line {1}", file_name, line) << "\n";
+						}
 
-                                ShouldAdd = false;
-                            }
+						Name = L"";
+						CruiseSpeed = 0;
+						Range = 0;
+						RunwayLength = 0;
+						Availability = AircraftConstants::MSFSVersion::All;
+						Type = AircraftConstants::AircraftType::None;
+						Airliner = false;
+						Seaplane = false;
+						Military = false;
 
-                            if (Range <= 0)
-                            {
-                                std::wcout << std::format(L"    Aircraft error, invalid range specified {0} @ line {1}", Range, line) << "\n";
+						mode = ProcessingMode::ReadyForSection;
 
-                                ShouldAdd = false;
-                            }
-
-                            //
-                            if (ShouldAdd)
-                            {
-                                Aircraft aircraft(Name, CruiseSpeed, Range, RunwayLength, Availability, Type, Airliner, Military, Seaplane);
-
-                                AircraftList.push_back(aircraft);
-                            }
-                            else
-                            {
-                                #ifdef _DEBUG
-                                FSACDebug::Output(L"Rejected " + Name);
-                                #endif                      
-                            }
-                        }
-                        else
-                        {
-                            std::wcout << std::format(L"\"}}\" identifier found when expecting \"{{\". {0} @ line {1}", file_name, line) << "\n";
-                        }
-
-                        Name = L"";
-                        CruiseSpeed = 0;
-                        Range = 0;
-                        RunwayLength = 0;
-                        Availability = AircraftConstants::MSFSVersion::All;
-                        Type = AircraftConstants::AircraftType::None;
-                        Military = false;
-                        Airliner = false;
-
-                        mode = ProcessingMode::ReadyForSection;
-
-                        ShouldAdd = true;
+						ShouldAdd = true;
 
                         break;
                     }
-                    case RowType::Name:
+					case RowType::Name:
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            Name = GetStringValueFromRow(s);
+							Name = GetStringValueFromRow(s);
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"name=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"name=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
 
@@ -276,26 +256,19 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                             if (c != -1)
                             {
-                                if (c < LoadFilter.MaxSpeed && c > LoadFilter.MinSpeed)
-                                {
-                                    CruiseSpeed = c;
-                                }
-                                else
-                                {
-                                    ShouldAdd = false;
-                                }
+								CruiseSpeed = c;
                             }
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"cruise=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"cruise=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
 
                     case RowType::Range:
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            int r = GetIntValueFromRow(s);
+							int r = GetIntValueFromRow(s);
 
                             if (r > 0)
                             {
@@ -304,7 +277,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"range=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+							//std::wcout << std::format(L"\"range=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
 
@@ -343,12 +316,12 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                             }
                             else
                             {
-                                std::wcout << std::format(L"\"availability=\" identifier invalid (should be {0}-{1}). {2} @ line {3}", AircraftConstants::MSFSVersionMin, AircraftConstants::MSFSVersionMax, file_name, line) << "\n";
+							   // std::wcout << std::format(L"\"availability=\" identifier invalid (should be {0}-{1}). {2} @ line {3}", AircraftConstants::MSFSVersionMin, AircraftConstants::MSFSVersionMax, file_name, line) << "\n";
                             }
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"availability=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						  //  std::wcout << std::format(L"\"availability=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
 
@@ -359,17 +332,9 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                             if (t >= AircraftConstants::AircraftTypeMin && t <= AircraftConstants::AircraftTypeMax)
                             {
-                                TypeCount[t]++;
+								TypeCount[t]++;
 
-                                if (LoadFilter.Type != -1)
-                                {
-                                    if (t != LoadFilter.Type)
-                                    {
-                                        ShouldAdd = false;
-                                    }
-                                }
-
-                                switch (t)
+								switch (t)
                                 {
                                 case 0:
                                     Type = AircraftConstants::AircraftType::Prop;
@@ -408,61 +373,37 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"type=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"type=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
                     case RowType::AirLiner:
                         if (mode == ProcessingMode::SectionFound)
                         {
                             Airliner = GetIntValueFromRow(s);
-
-                            if (!LoadFilter.Airliner)
-                            {
-                                if (Airliner)
-                                {
-                                    ShouldAdd = false;
-                                }
-                            }
-                        }
+						}
                         else
                         {
-                            std::wcout << std::format(L"\"airliner=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"airliner=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
                     case RowType::Military:
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            Military = GetIntValueFromRow(s);
-
-                            if (!LoadFilter.Military)
-                            {
-                                if (Military)
-                                {
-                                    ShouldAdd = false;
-                                }
-                            }
-                        }
+							Military = GetIntValueFromRow(s);
+						}
                         else
                         {
-                            std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
                     case RowType::Seaplane:
                         if (mode == ProcessingMode::SectionFound)
                         {
-                            Seaplane = GetIntValueFromRow(s);
-
-                            if (!LoadFilter.Seaplane)
-                            {
-                                if (Seaplane)
-                                {
-                                    ShouldAdd = false;
-                                }
-                            }
+							Seaplane = GetIntValueFromRow(s);
                         }
                         else
                         {
-                            std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
+						   // std::wcout << std::format(L"\"military=\" identifier found in invalid location. {0} @ line {1}", file_name, line) << "\n";
                         }
                         break;
                     case RowType::RunwayLength:
@@ -470,7 +411,7 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                         int r = GetIntValueFromRow(s);
 
                         if (r >= 0)
-                        {
+						{
                             RunwayLength = r;
                         }
 
@@ -523,19 +464,19 @@ AircraftHandler::RowType AircraftHandler::GetRowType(const std::wstring row)
     else if (row.find(L"type=") != std::wstring::npos)
     {
         return RowType::Type;
-    }
+	}
     else if (row.find(L"airliner=") != std::wstring::npos)
     {
         return RowType::AirLiner;
-    }	
-    else if (row.find(L"military=") != std::wstring::npos)
-    {
-        return RowType::Military;
-    }
+	}
+	else if (row.find(L"military=") != std::wstring::npos)
+	{
+		return RowType::Military;
+	}
     else if (row.find(L"seaplane=") != std::wstring::npos)
 	{
 		return RowType::Seaplane;
-	}	
+	}
     else if (row.find(L"minrunway=") != std::wstring::npos)
     {
         return RowType::RunwayLength;
@@ -551,7 +492,7 @@ std::wstring AircraftHandler::GetStringValueFromRow(const std::wstring row)
 
     if (pos != std::wstring::npos)
     {
-        return row.substr(pos + 1);
+		return row.substr(pos + 1);
     }
 
     return L"unknown";
@@ -577,4 +518,10 @@ int AircraftHandler::GetIntValueFromRow(const std::wstring row)
     }
 
     return -1;
+}
+
+
+std::wstring AircraftHandler::GetLastError()
+{
+    return LastError;
 }

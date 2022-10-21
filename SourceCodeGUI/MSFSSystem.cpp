@@ -1,35 +1,34 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
 // https://docs.flightsimulator.com/html/Content_Configuration/SimObjects/Aircraft_SimO/aircraft_cfg.htm
 // https://docs.flightsimulator.com/html/Content_Configuration/SimObjects/Aircraft_SimO/flight_model_cfg.htm
 // https://www.fsdeveloper.com/forum/threads/auto-detect-msfs-2020-community-path.449293/
 
 #include <algorithm>
-#include <filesystem>
-#include <format>
 #include <fstream>
 #include <iostream>
 #include <shlobj.h>
 #include <string>
 #include <vector>
+#include <Windows.h>
 
 #include "Aircraft.h"
 #include "AircraftConstants.h"
 #include "Constants.h"
-#include "FileUtility.h"
 #include "Formatting.h"
 #include "Ini.h"
 #include "MSFSSystem.h"
 #include "Utility.h"
+#include "WindowsUtility.h"
 
 
 // name=				; aircraft.cfg, [fltsim.x] ui_manufacturer and ui_type (unless localised, see code below)
@@ -94,9 +93,9 @@ namespace MSFSSystem
 
 					SaveCustomAircraftFile(aircraft, FileName);
 				}
-
-				return true;
 			}
+
+            return true;
 		}
 
 		return false;
@@ -113,7 +112,7 @@ namespace MSFSSystem
 		{
 			for (int t = 0; t < simobjects.size(); t++)
 			{
-				if (FileUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\aircraft.cfg"))
+				if (WindowsUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\aircraft.cfg"))
 				{
 					Ini* config = new Ini(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\aircraft.cfg");
 
@@ -171,8 +170,8 @@ namespace MSFSSystem
 
 							bool is_seaplane = false;
 
-							if (FileUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\runwaywater.flt") ||
-								FileUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\finalwater.flt"))
+							if (WindowsUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\runwaywater.flt") ||
+								WindowsUtility::FileExists(folder + L"\\SimObjects\\Airplanes\\" + simobjects[t] + L"\\finalwater.flt"))
 							{
 								is_seaplane = true;
 							}
@@ -196,7 +195,7 @@ namespace MSFSSystem
 							{
 								if (aircraft_type == -1)
 								{
-									std::wcout << std::format(L" Unknown aircraft type \"{0}\" for \"{1}\". Will be added to file, user should edit.\n", atype, Name);
+									//std::wcout << std::format(L" Unknown aircraft type \"{0}\" for \"{1}\". Will be added to file, user should edit.\n", atype, Name);
 								}
 
 								Aircraft a(Name, cruise, range, 0, AircraftConstants::MSFSVersion::All, Utility::GetAircraftTypeFromInt(aircraft_type), is_airliner, is_military, is_seaplane);
@@ -205,7 +204,7 @@ namespace MSFSSystem
 							}
 							else
 							{
-								std::wcout << std::format(L" Ignored, \"{0}\", suspect not an aircraft. Cruise speed is set to zero.\n", Name);
+								//std::wcout << std::format(L" Ignored, \"{0}\", suspect not an aircraft. Cruise speed is set to zero.\n", Name);
 							}			
 						}
 					}
@@ -214,7 +213,7 @@ namespace MSFSSystem
 				}
 				else
 				{
-					std::wcout << std::format(L"Couldn't find file \"\\{0}\\aircraft.cfg\" :(\n", simobjects[t]);
+					//std::wcout << std::format(L"Couldn't find file \"\\{0}\\aircraft.cfg\" :(\n", simobjects[t]);
 				}
 			}
 		}
@@ -344,28 +343,60 @@ namespace MSFSSystem
 	}
 
 
-	std::wstring GetFirstFolder(const std::wstring location)
+	std::wstring GetFirstFolder(const std::wstring& location)
 	{
-		if (std::filesystem::exists(location))
+		std::wstring tmp = location + L"*";
+		std::wstring first_folder = L"";
+
+		WIN32_FIND_DATAW file;
+
+		HANDLE search_handle = FindFirstFileW(tmp.c_str(), &file);
+
+		if (search_handle != INVALID_HANDLE_VALUE)
 		{
-			for (auto const& dir_entry : std::filesystem::directory_iterator{ location })
+			do
 			{
-				return dir_entry.path().filename();
-			}
+				if (file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				{
+					if ((!lstrcmpW(file.cFileName, L".")) || (!lstrcmpW(file.cFileName, L"..")))
+						continue;
+
+					first_folder = file.cFileName;
+					break;
+				}
+
+			} while (FindNextFileW(search_handle, &file));
+
+			FindClose(search_handle);
 		}
 
-		return L"";
+		return first_folder;
 	}
 
 
-	void FindFolder(std::vector<std::wstring>& folders, const std::wstring location)
+	void FindFolder(std::vector<std::wstring>& folders, const std::wstring& location)
 	{
-		if (std::filesystem::exists(location))
+		std::wstring tmp = location + L"*";
+
+		WIN32_FIND_DATAW file;
+
+		HANDLE search_handle = FindFirstFileW(tmp.c_str(), &file);
+
+		if (search_handle != INVALID_HANDLE_VALUE)
 		{
-			for (auto const& dir_entry : std::filesystem::directory_iterator{ location })
+			do
 			{
-				folders.push_back(dir_entry.path().filename());
-			}
+				if (file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				{
+					if ((!lstrcmpW(file.cFileName, L".")) || (!lstrcmpW(file.cFileName, L"..")))
+						continue;
+
+					folders.push_back(file.cFileName);
+				}
+
+			} while (FindNextFileW(search_handle, &file));
+
+			FindClose(search_handle);
 		}
 	}
 
@@ -381,7 +412,7 @@ namespace MSFSSystem
 
 		path = path_tmp;
 
-		if (FileUtility::FileExists(path + L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt"))
+		if (WindowsUtility::FileExists(path + L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt"))
 		{
 			std::wcout << L"  Found file (Microsoft Store install): " << path << L"\\Packages\\Microsoft.FlightSimulator_8wekyb3d8bbwe\\LocalCache\\UserCfg.opt\n";
 
@@ -392,7 +423,7 @@ namespace MSFSSystem
 
 		path = path_tmp;
 
-		if (FileUtility::FileExists(path))
+		if (WindowsUtility::FileExists(path))
 		{
 			std::wcout << L"  Found file (Steam install): " << path << L"\\Microsoft Flight Simulator\\UserCfg.opt\n";
 
@@ -403,8 +434,7 @@ namespace MSFSSystem
 	}
 
 
-	// this gets the add-on folder; either the official marketplace folder,
-	// or the user's own (community) folder
+	// this gets the install root from the UserCfg.opt file, then adds the community location
 	std::wstring ExtractPathFromOptionFile(std::wstring path, bool community_folder)
 	{
 		std::wifstream file(path);

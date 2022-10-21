@@ -23,6 +23,7 @@
 
 class Configuration
 {
+	bool ShouldSaveFavourites = false;
 	std::wstring LastError = L"";
 
 	bool LoadFavourites();
@@ -33,13 +34,14 @@ public:
 	std::vector<std::wstring> Favourites;
 
 	Configuration();
+    ~Configuration();
 
     std::wstring GetLastError();
-
-	[[nodiscard]] bool AddToFavourite(const std::wstring);
 
 	[[nodiscard]] bool LoadConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 	[[nodiscard]] bool SaveConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 
-    std::wstring GetRandomFavourite();
+	std::wstring GetRandomFavourite();
+
+	void FavouritesHaveChanged();
 };

@@ -1,13 +1,13 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
 #pragma once
 
@@ -18,12 +18,12 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.4 (debug)";
+	static const std::wstring FSACVersion = L"0.2.1 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.4";
+	static const std::wstring FSACVersion = L"0.2.1";
 	#endif
 
-	static const std::wstring FSACDate = L"October 18th 2022";
+	static const std::wstring FSACDate = L"October 21st 2022";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";

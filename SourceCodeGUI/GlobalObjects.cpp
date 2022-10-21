@@ -43,10 +43,7 @@ namespace GlobalObjects
 
 		   //	GJobHandler = new JobHandler(GConfiguration->Meta.Silent);
 
-		  //	return GAirportHandler->Loaded && GRunwayHandler->Loaded;
-	   //	}
-
-		return true;
+		return GAirportHandler->Loaded && GRunwayHandler->Loaded;
 	}
 
 

@@ -1,17 +1,19 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
 // (c) Paul Alan Freshney 2022
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
 #include <filesystem>
 #include <iostream>
+#include <ShlObj.h>  
 #include <string>
+#include <windows.h>
 
 #include "ConfigurationConstants.h"
 #include "Constants.h"
@@ -26,10 +28,10 @@ namespace Utility
 	// incoming parameters MUST be in radians
 	double AngleBetween(double lat1, double long1, double lat2, double long2)
 	{
-		double x = cos(lat2) * sin(long2 - long1);
-		double y = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(long2 - long1);
+		double x = std::cos(lat2) * std::sin(long2 - long1);
+		double y = std::cos(lat1) * std::sin(lat2) - std::sin(lat1) * std::cos(lat2) * std::cos(long2 - long1);
 
-		double beta = atan2(x, y) * (180.0 / 3.14159265358979323846); // radians to degrees
+		double beta = std::atan2(x, y) * (180.0 / 3.14159265358979323846); // radians to degrees
 
 		if (beta < 0) beta += 360;
 
@@ -59,7 +61,7 @@ namespace Utility
 			output += L"S";
 		}
 
-		output += std::to_wstring(abs(degree_lat)) + L"° " + std::to_wstring(abs(minutes_lat)) + L"' " + std::to_wstring(abs(seconds_lat)) + L"\", ";
+		output += std::to_wstring(std::abs(degree_lat)) + L"° " + std::to_wstring(std::abs(minutes_lat)) + L"' " + std::to_wstring(std::abs(seconds_lat)) + L"\", ";
 
 		if (degree_lon >= 0)
 		{
@@ -90,17 +92,45 @@ namespace Utility
 	}
 
 
+	int GetContinentFromShortCodeAsInt(const std::wstring continent)
+	{
+		for (int t = 0; t < Location::ContinentCount; t++)
+		{
+			if (Location::ContinentShort[t] == continent)
+			{
+				return t;
+			}
+		}
+
+		return 0;       // error to do
+    }
+
+
 	std::wstring GetCountryFromShortCode(const std::wstring iso_code)
 	{
 		for (int t = 0; t < Location::ISOCountriesCount; t++)
 		{
-			if (Location::ISOCountries[t][0] == iso_code)
+			if (Location::ISOCountriesOrdered[t][1] == iso_code)
 			{
-				return Location::ISOCountries[t][1];
+				return Location::ISOCountriesOrdered[t][0];
 			}
 		}
 
 		return L"unknown";
+	}
+
+
+	int GetCountryFromShortCodeAsInt(const std::wstring iso_code)
+	{
+		for (int t = 0; t < Location::ISOCountriesCount; t++)
+		{
+			if (Location::ISOCountriesOrdered[t][1] == iso_code)
+			{
+				return t;
+			}
+		}
+
+		return -1;
 	}
 
 
@@ -117,7 +147,7 @@ namespace Utility
 			}
 		}
 
-		return Defaults::DefaultDirection;
+		return DataDefaults::Direction;
 	}
 
 
@@ -134,7 +164,7 @@ namespace Utility
 			range = input.substr(0, input.length() - 1);
 		}
 
-		double Range = Defaults::DefaultRange;
+		double Range = DataDefaults::Range;
 
 		try
 		{
@@ -174,6 +204,8 @@ namespace Utility
 			return L"Twin turbo prop";
 		case 7:
 			return L"Balloon";
+		case 8:
+			return L"Seaplane";
 		}
 
 		return L"unknown!";
@@ -258,6 +290,32 @@ namespace Utility
 
 		return AircraftConstants::AircraftType::None;
 	}
+
+
+	int GetAircraftTypeAsInt(AircraftConstants::AircraftType type)
+	{
+		switch (type)
+		{
+		case AircraftConstants::AircraftType::Prop:
+			return 0;
+		case AircraftConstants::AircraftType::Jet:
+			return 1;
+		case AircraftConstants::AircraftType::Helicopter:
+			return 2;
+		case AircraftConstants::AircraftType::Glider:
+			return 3;
+		case AircraftConstants::AircraftType::TwinProp:
+			return 4;
+		case AircraftConstants::AircraftType::TurboProp:
+			return 5;
+		case AircraftConstants::AircraftType::TwinTurboProp:
+			return 6;
+		case AircraftConstants::AircraftType::Balloon:
+			return 7;
+		}
+
+		return -1;
+    }
 
 
 	std::wstring GetAirportType(AirportConstants::AirportType type)
