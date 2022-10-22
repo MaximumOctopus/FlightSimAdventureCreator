@@ -28,6 +28,7 @@
 #include "RouteHandler.h"
 #include "RunwayHandler.h"
 #include "Utility.h"
+#include "WindowsUtility.h"
 
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -72,11 +73,17 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 		std::wstring e = GAirportHandler->GetLastError() + L"..." + GRunwayHandler->GetLastError().c_str();
 
 		sbMain->SimpleText = e.c_str();
+
+        bGenerate->Enabled = false;
 	}
 
 	lStatsAircraft->Caption = System::Sysutils::IntToStr((int)GAircraftHandler->AircraftList.size());
 	lStatsAirport->Caption = System::Sysutils::IntToStr((int)GAirportHandler->Airports.size());
 	lStatsRunways->Caption = System::Sysutils::IntToStr((int)GRunwayHandler->Runways.size());
+
+	SetLabelStatus(GAircraftHandler->AircraftList.size(), lStatsAircraft);
+	SetLabelStatus(GAirportHandler->Airports.size(), lStatsAirport);
+	SetLabelStatus(GRunwayHandler->Runways.size(), lStatsRunways);
 }
 
 
@@ -149,6 +156,31 @@ void TForm1::BuildGUIFrom(AircraftLoadFilter& aclf, AirportLoadFilter& aplf, Rou
 	rbDay->Checked = aplf.Day;
 	rbNight->Checked = aplf.Night;
 
+	if (cbContinentFilter->Checked)
+	{
+		cbContinentFilterClick(cbContinentFilter);
+	}
+
+	if (cbCountryFilter->Checked)
+	{
+		cbContinentFilterClick(cbCountryFilter);
+	}
+
+	if (cbRegionFilter->Checked)
+	{
+		cbContinentFilterClick(cbRegionFilter);
+	}
+
+	if (cbLatLongFilter->Checked)
+	{
+		cbLatLongFilterClick(cbLatLongFilter);
+	}
+
+	if (cbTimeOfDay->Checked)
+	{
+		cbLatLongFilterClick(cbTimeOfDay);
+    }
+
     bUpdateAirportsClick(nullptr);
 
 	// ============================================================================================
@@ -173,6 +205,24 @@ void TForm1::BuildGUIFrom(AircraftLoadFilter& aclf, AirportLoadFilter& aplf, Rou
 
 	cbUseFlightTime->Checked = rf.UseFlightTime;
 	eFlightTime->Text = rf.FlightTime;
+
+	if (rf.StartEndUseLegs)
+	{
+		rbStartEndLegs->Checked = true;
+	}
+	else
+	{
+		rbStartEndRange->Checked = true;
+	}
+
+	cbUseFlightTimeClick(nullptr);
+	cbUseDirectionClick(nullptr);
+
+	// ============================================================================================
+	// == other ===================================================================================
+	// ============================================================================================
+
+	cbKeepTrying->Checked = rf.KeepTrying;
 }
 
 
@@ -202,6 +252,18 @@ void TForm1::ResetGUI()
 	RouteFilter rf;
 
 	BuildGUIFrom(aclf, aplf, rf);
+}
+
+
+void TForm1::SetLabelStatus(int test_value, TLabel *label)
+{
+	if (test_value == 0)
+	{
+		TLabel *l = (TLabel*)label;
+
+		l->Font->Color = clRed;
+		l->Font->Style = l->Font->Style << fsBold;
+    }
 }
 #pragma end_region
 
@@ -323,7 +385,7 @@ AirportLoadFilter TForm1::BuildAirportLoadFilterFromUI()
 	}
 
 	alf.FilterRegion = cbRegionFilter->Checked;
-	alf.Region = eRegionICO->Text.c_str();
+	alf.Region = eRegionICO->Text.UpperCase().c_str();
 
 	alf.FilterLatLong = cbLatLongFilter->Checked;
 
@@ -389,6 +451,15 @@ RouteFilter TForm1::BuildRouteLoadFilterFromUI()
 
 	rf.UseFlightTime = cbUseFlightTime->Checked;
 	rf.FlightTime = eFlightTime->Text.ToIntDef(0);
+
+	if (rf.FlightTime == 0)
+	{
+		rf.UseFlightTime = false;
+	}
+
+	rf.StartEndUseLegs = rbStartEndLegs->Checked;
+
+	rf.KeepTrying = cbKeepTrying->Checked;
 
 	return rf;
 }
@@ -642,11 +713,11 @@ void TForm1::BuildRouteDescription(const std::wstring start_icao, const std::wst
 
 	if (flight_time == 0)
 	{
-		RouteDescription += std::to_wstring(range) + L" nm; ";
+		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm; ";
 	}
 	else
 	{
-		RouteDescription += std::to_wstring(range) + L" nm (flight time " + std::to_wstring(flight_time) + L" mins); ";
+		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm (flight time " + std::to_wstring(flight_time) + L" mins); ";
     }
 
 	if (direction != -1)
@@ -654,9 +725,16 @@ void TForm1::BuildRouteDescription(const std::wstring start_icao, const std::wst
 		RouteDescription += L"@ " + std::to_wstring(direction) + L"°; ";
 	}
 
-	RouteDescription += std::to_wstring(legs) + L" legs; ";
+	RouteDescription += std::to_wstring(legs) + L" leg(s); ";
 
-	RouteDescription += std::to_wstring(simple_count) + L" routes; ";
+	if (legs == 1)
+	{
+		RouteDescription += std::to_wstring(simple_count) + L" routes (max.); ";
+	}
+	else
+	{
+		RouteDescription += std::to_wstring(simple_count) + L" routes; ";
+	}
 
 	if (keep_trying)
 	{
@@ -884,6 +962,12 @@ void __fastcall TForm1::miSetGAClick(TObject *Sender)
 		case 5:
 			SetAircraftSelections(false, false, false, false, false, false, false, false, true, false, true);
 			break;
+		case 6:
+			SetAircraftSelections(false, true, false, false, false, false, false, false, false, true, false);
+			break;
+		case 7:
+			SetAircraftSelections(true, false, false, false, true, true, true, false, false, true, false);
+			break;
 	}
 
     bUpdateAircraftClick(nullptr);
@@ -1006,4 +1090,85 @@ void __fastcall TForm1::cbUseDirectionClick(TObject *Sender)
 	eDirection->Enabled = cbUseDirection->Checked;
 	cbBearing->Enabled = cbUseDirection->Checked;
 	bSetFromBearing->Enabled = cbUseDirection->Checked;
+}
+
+
+// used by MinSpeed, Range, FlightTime, Legs, and RouteCount
+void __fastcall TForm1::eLegsExit(TObject *Sender)
+{
+	TEdit *edit = (TEdit*)Sender;
+
+	int i = edit->Text.ToIntDef(0);
+
+	if (i < 1)
+	{
+		edit->Text = "1";
+	}
+}
+
+
+// ensures user sets elevation to a sensible value
+void __fastcall TForm1::eElevationExit(TObject *Sender)
+{
+	TEdit *edit = (TEdit*)Sender;
+
+	int i = edit->Text.ToIntDef(-3000);
+
+	if (i < -2000)
+	{
+		edit->Text = "-2000";
+	}
+}
+
+
+// handles edit boxes that require percent values 0-100
+void __fastcall TForm1::eAircraftRangeModifierExit(TObject *Sender)
+{
+	TEdit *edit = (TEdit*)Sender;
+
+	int i = edit->Text.ToIntDef(-1);
+
+	if (i < 0)
+	{
+		edit->Text = "0";
+	}
+
+	if (i > 100)
+	{
+		edit->Text = "100";
+	}
+}
+
+
+void __fastcall TForm1::Label31Click(TObject *Sender)
+{
+	WindowsUtility::OpenWebsite(L"https://en.wikipedia.org/wiki/ISO_3166-2");
+}
+
+
+void __fastcall TForm1::bOpenStartMapClick(TObject *Sender)
+{
+	if (sgRoutes->Selection.Top > 0 && GRouteHandler->Routes.size() != 0)
+	{
+		Airport start = GRouteHandler->Routes[sgRoutes->Selection.Top - 1].Airports.front();
+
+		WindowsUtility::OpenWebsite(L"https://maps.google.com/?q=" + start.Latitude + L"," + start.Longitude);
+	}
+}
+
+
+void __fastcall TForm1::bOpenEndMapClick(TObject *Sender)
+{
+	if (sgRoutes->Selection.Top > 0 && GRouteHandler->Routes.size() != 0)
+	{
+		Airport end = GRouteHandler->Routes[sgRoutes->Selection.Top - 1].Airports.back();
+
+		WindowsUtility::OpenWebsite(L"https://maps.google.com/?q=" + end.Latitude + L"," + end.Longitude);
+	}
+}
+
+
+void __fastcall TForm1::miShowTooltipsClick(TObject *Sender)
+{
+    ShowHint = miShowTooltips->Checked;
 }

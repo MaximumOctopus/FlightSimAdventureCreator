@@ -18,17 +18,17 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.2.1 (debug)";
+	static const std::wstring FSACVersion = L"0.2.2 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.2.1";
+	static const std::wstring FSACVersion = L"0.2.2";
 	#endif
 
-	static const std::wstring FSACDate = L"October 21st 2022";
+	static const std::wstring FSACDate = L"October 22nd 2022";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";
 
-	static const std::wstring AirportsFileName = L"fcas.csv";				// yes this is a typo! too scared to change it now
+	static const std::wstring AirportsFileName = L"fsac.csv";
 	static const std::wstring RunwaysFileName = L"runways.csv";
 	static const std::wstring POIFileName = L".csv";						// to do
 	static const std::wstring NavAidsFileName = L".csv";					// to do

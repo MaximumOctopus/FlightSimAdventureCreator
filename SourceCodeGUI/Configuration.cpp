@@ -333,10 +333,22 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			rf.FlightTime = IntegerKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Route", L"StartEndUseLegs", 1);
+		if (config->LastKeyExist)
+		{
+			rf.StartEndUseLegs = IntegerKey;
+        }
+
 		IntegerKey = config->ReadInteger(L"Route", L"SimpleRouteCount", 1);
 		if (config->LastKeyExist)
 		{
 			rf.SimpleRouteCount = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"KeepTrying", 0);
+		if (config->LastKeyExist)
+		{
+			rf.KeepTrying = IntegerKey;
 		}
 
 		return true;
@@ -430,7 +442,10 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"AircraftRangeModifier=" << rf.AircraftRangeModifier << "\n";
 		ofile << L"UseFlightTime=" << rf.UseFlightTime  << "\n";
 		ofile << L"FlightTime=" << rf.FlightTime << "\n";
+		ofile << L"StartEndUseLegs=" << rf.StartEndUseLegs << "\n";
 		ofile << L"SimpleRouteCount=" << rf.SimpleRouteCount << "\n";
+
+        ofile << L"KeepTrying=" << rf.KeepTrying << "\n";
 
         ofile << "\n";
 

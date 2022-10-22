@@ -25,7 +25,7 @@ struct AircraftLoadFilter {
 	bool Types[8] = { true, true, true, true, true, true, true, true };
 
 	int MaxSpeed = DataDefaults::MaxSpeed;		// maximum cruise speed required
-	int MinSpeed = 0;									// minimum cruise speed required
+	int MinSpeed = 1;							// minimum cruise speed required
 
 	bool Airliner = true;
 	bool Military = true;

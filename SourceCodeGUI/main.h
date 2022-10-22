@@ -191,6 +191,15 @@ __published:	// IDE-managed Components
 	TButton *bRandomAircraft;
 	TButton *bLockAircraft;
 	TLabel *Label29;
+	TMenuItem *N2;
+	TMenuItem *Militaryjets1;
+	TMenuItem *Militarypropsturbo1;
+	TLabel *Label31;
+	TButton *bOpenStartMap;
+	TButton *bOpenEndMap;
+	TLabel *Label32;
+	TMenuItem *N3;
+	TMenuItem *miShowTooltips;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
@@ -219,6 +228,13 @@ __published:	// IDE-managed Components
 	void __fastcall cbContinentAFClick(TObject *Sender);
 	void __fastcall cbUseFlightTimeClick(TObject *Sender);
 	void __fastcall cbUseDirectionClick(TObject *Sender);
+	void __fastcall eLegsExit(TObject *Sender);
+	void __fastcall eElevationExit(TObject *Sender);
+	void __fastcall eAircraftRangeModifierExit(TObject *Sender);
+	void __fastcall Label31Click(TObject *Sender);
+	void __fastcall bOpenStartMapClick(TObject *Sender);
+	void __fastcall bOpenEndMapClick(TObject *Sender);
+	void __fastcall miShowTooltipsClick(TObject *Sender);
 
 private:	// User declarations
 
@@ -228,6 +244,7 @@ private:	// User declarations
 	void BuildGUIFrom(AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 	void InitialGUISetup();
 	void ResetGUI();
+    void SetLabelStatus(int, TLabel *label);
 
 	void GenerateRoutes();
 	bool UpdateRouteList();
