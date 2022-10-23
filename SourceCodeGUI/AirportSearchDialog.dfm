@@ -312,6 +312,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     ColCount = 10
     FixedCols = 0
     TabOrder = 1
+    OnDblClick = sgResultsDblClick
     ColWidths = (
       50
       39

@@ -21,6 +21,12 @@
 #include "RouteHandler.h"
 
 
+struct SystemSettings
+{
+	bool ShowToolTips = true;
+};
+
+
 class Configuration
 {
 	bool ShouldSaveFavourites = false;
@@ -29,14 +35,19 @@ class Configuration
 	bool LoadFavourites();
 	bool SaveFavourites();
 
+	[[nodiscard]] bool LoadSystem();
+	bool SaveSystem();
+
 public:
+
+	SystemSettings System;
 
 	std::vector<std::wstring> Favourites;
 
 	Configuration();
-    ~Configuration();
+	~Configuration();
 
-    std::wstring GetLastError();
+	std::wstring GetLastError();
 
 	[[nodiscard]] bool LoadConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 	[[nodiscard]] bool SaveConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);

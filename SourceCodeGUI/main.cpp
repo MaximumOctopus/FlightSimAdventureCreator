@@ -242,6 +242,9 @@ void TForm1::InitialGUISetup()
 	}
 
 	cbBearing->ItemIndex = 0;
+
+	ShowHint = GConfiguration->System.ShowToolTips;
+	miShowTooltips->Checked = ShowHint;
 }
 
 
@@ -486,6 +489,22 @@ void __fastcall TForm1::bSetFromBearingClick(TObject *Sender)
 
 void __fastcall TForm1::bGenerateClick(TObject *Sender)
 {
+	if (!cbContinentFilter->Checked && !cbCountryFilter->Checked && !cbRegionFilter->Checked && !cbLatLongFilter->Checked && !cbTimeOfDay->Checked)
+	{
+		Application->MessageBox(L"At least one airport location or area must be selected!", L"Route Generation", MB_OK);
+
+		return;
+	}
+
+	if (!cbLargeAirports->Checked && !cbMediumAirports->Checked && !cbSmallAirports->Checked && !cbHeliports->Checked && !cbSeaplaneBases->Checked)
+	{
+		Application->MessageBox(L"At least one airport type must be selected!", L"Route Generation", MB_OK);
+
+		return;
+    }
+
+	// =========================================================================
+
 	if (GAircraftHandler->FilteredList.size() != 0 && GAirportHandler->FilteredList.size() != 0)
 	{
 		bool can_continue = true;
@@ -512,6 +531,8 @@ void __fastcall TForm1::bGenerateClick(TObject *Sender)
 
 		if (can_continue)
 		{
+			bGenerate->Enabled = false;
+
 			if (AirportDetailsHaveChanged)
 			{
 				bUpdateAirportsClick(nullptr);
@@ -526,8 +547,10 @@ void __fastcall TForm1::bGenerateClick(TObject *Sender)
 
 			if (!UpdateRouteList())
 			{
-                sbMain->SimpleText = "No routes could be generated with selected locations and route parameters";
-            }
+				sbMain->SimpleText = "No routes could be generated with selected locations and route parameters :(";
+			}
+
+            bGenerate->Enabled = true;
 		}
 	}
 	else
@@ -631,13 +654,13 @@ void TForm1::GenerateRoutes()
 		{
 			//std::wcout << L" User range (per leg) is greater than aircraft range, using aircraft range!\n";
 
-		   //	range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
+			range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
 		}
 		else if (potential_route_length > usable_aircraft_range && !cbAllowExcessRange->Checked)
 		{
 			//std::wcout << L" User range too large for aircraft and leg count, using aircraft range!\n";
 
-		   //	range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
+			range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
         }
 	}
 
@@ -1170,5 +1193,7 @@ void __fastcall TForm1::bOpenEndMapClick(TObject *Sender)
 
 void __fastcall TForm1::miShowTooltipsClick(TObject *Sender)
 {
-    ShowHint = miShowTooltips->Checked;
+	ShowHint = miShowTooltips->Checked;
+
+	GConfiguration->System.ShowToolTips = miShowTooltips->Checked;
 }

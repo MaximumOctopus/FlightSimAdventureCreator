@@ -16,6 +16,7 @@
 #include "AirportSearchDialog.h"
 #include "Locations.h"
 #include "Utility.h"
+#include "WindowsUtility.h"
 
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -164,5 +165,16 @@ void __fastcall TfrmAirportSearchDialog::eSearchKeyPress(TObject *Sender, System
 	if (Key == VK_RETURN)
 	{
         bSearchClick(nullptr);
+	}
+}
+
+
+void __fastcall TfrmAirportSearchDialog::sgResultsDblClick(TObject *Sender)
+{
+	if (sgResults->Selection.Top > 0 && GAirportHandler->SearchResults.size() != 0)
+	{
+		Airport start = GAirportHandler->SearchResults[sgResults->Selection.Top - 1];
+
+		WindowsUtility::OpenWebsite(L"https://maps.google.com/?q=" + start.Latitude + L"," + start.Longitude);
 	}
 }

@@ -31,6 +31,11 @@ Configuration::Configuration()
 {
 	if (!LoadFavourites())
 	{
+	}
+
+	if (!LoadSystem())
+	{
+
     }
 }
 
@@ -39,7 +44,9 @@ Configuration::~Configuration()
 	if (ShouldSaveFavourites)
 	{
         SaveFavourites();
-    }
+	}
+
+	SaveSystem();
 }
 
 
@@ -352,7 +359,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 		}
 
 		return true;
-    }
+	}
 
 	return false; // to do
 }
@@ -445,9 +452,55 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"StartEndUseLegs=" << rf.StartEndUseLegs << "\n";
 		ofile << L"SimpleRouteCount=" << rf.SimpleRouteCount << "\n";
 
-        ofile << L"KeepTrying=" << rf.KeepTrying << "\n";
+		ofile << L"KeepTrying=" << rf.KeepTrying << "\n";
 
-        ofile << "\n";
+		ofile << "\n";
+
+		ofile.close();
+
+		return true;
+	}
+
+	return false; // to do
+}
+
+
+bool Configuration::LoadSystem()
+{
+	Ini* config = new Ini(SystemConstants::ConfigFileName);
+
+	if (config->Loaded)
+	{
+		int IntegerKey = 0;
+		std::wstring StringKey = L"";
+
+		IntegerKey = config->ReadInteger(L"System", L"ShowToolTips", 1);
+		if (config->LastKeyExist)
+		{
+			System.ShowToolTips = IntegerKey;
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+
+bool Configuration::SaveSystem()
+{
+	std::wofstream ofile(SystemConstants::ConfigFileName);
+
+	if (ofile)
+	{
+		ofile << L"// ===============================================================================\n";
+		ofile << L"// Config created: " + DateUtility::DateTime(kDisplayModeConsole) + L"\n";
+		ofile << L"// ===============================================================================\n\n";
+
+		ofile << L"[System]\n";
+		ofile << L"ShowToolTips=" << System.ShowToolTips << "\n";
+
+		ofile << "\n";
 
 		ofile.close();
 

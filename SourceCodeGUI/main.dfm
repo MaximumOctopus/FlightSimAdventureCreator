@@ -1072,6 +1072,7 @@ object Form1: TForm1
       'route in the table above will show details '
       'of the route in this box...')
     ParentFont = False
+    ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 3
   end
@@ -1646,7 +1647,7 @@ object Form1: TForm1
       OnChange = cbContinentAFClick
     end
     object cbLargeAirports: TCheckBox
-      Left = 31
+      Left = 47
       Top = 394
       Width = 90
       Height = 17
@@ -1663,7 +1664,7 @@ object Form1: TForm1
       OnClick = cbContinentAFClick
     end
     object cbMediumAirports: TCheckBox
-      Left = 127
+      Left = 143
       Top = 394
       Width = 90
       Height = 17
@@ -1680,7 +1681,7 @@ object Form1: TForm1
       OnClick = cbContinentAFClick
     end
     object cbSmallAirports: TCheckBox
-      Left = 239
+      Left = 255
       Top = 394
       Width = 90
       Height = 17
@@ -1697,7 +1698,7 @@ object Form1: TForm1
       OnClick = cbContinentAFClick
     end
     object cbHeliports: TCheckBox
-      Left = 31
+      Left = 47
       Top = 417
       Width = 90
       Height = 17
@@ -1714,7 +1715,7 @@ object Form1: TForm1
       OnClick = cbContinentAFClick
     end
     object cbSeaplaneBases: TCheckBox
-      Left = 127
+      Left = 143
       Top = 417
       Width = 90
       Height = 17
@@ -1780,7 +1781,7 @@ object Form1: TForm1
     end
     object cbTimeOfDay: TCheckBox
       Tag = 1
-      Left = 31
+      Left = 29
       Top = 349
       Width = 74
       Height = 17

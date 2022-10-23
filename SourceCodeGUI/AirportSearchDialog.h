@@ -49,6 +49,7 @@ __published:	// IDE-managed Components
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall bSearchClick(TObject *Sender);
 	void __fastcall eSearchKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall sgResultsDblClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TfrmAirportSearchDialog(TComponent* Owner);

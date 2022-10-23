@@ -23,7 +23,9 @@ namespace SystemConstants
 	static const std::wstring FSACVersion = L"0.2.2";
 	#endif
 
-	static const std::wstring FSACDate = L"October 22nd 2022";
+	static const std::wstring FSACDate = L"October 23rd 2022";
+
+    static const std::wstring ConfigFileName = L"fsac.data";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";
