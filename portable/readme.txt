@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.4
+  Flight Simulator Adventure Creator 0.4.1
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 18th 2022
+  October 233rd 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -200,13 +200,11 @@ List of files that come in the zip file:
 
     \Plans\                    all export flight plans will be saved in here
     \Reports\                  all exported flight itinerary files will be saved in here
-    config_GB_props.txt        an example config file that will find you a route in the UK
-    config_KMIA_North.txt      an example config file, fly from North from Miami International
     config_readme.txt          details on how to edit config files, and creating your own
     custom_aircraft.txt        a list of third party aircraft you own. editing instructions can be found inside
     default_aircraft.txt       a list of every aircraft that comes with MSFS and its various versions
     favourites.txt             store a list of your favourite airports (the ICAO code) in here
-    fcas.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
+    fsac.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
     FSAC.exe                   the application itself!
     jobs.txt                   contains everything the application needs to generate jobs for your next flight
     readme.txt                 this file
@@ -297,6 +295,12 @@ All of my software is free and open source; please consider donating to a local 
 ====================================================================================================================================
 
 Release History
+
+0.4.1 / October 23rd 2022
+
+Fixed: FCAS.csv renamed to FSAC.csv ;)
+
+A few minor tweaks.
 
 0.4 / October 18th 2022
 

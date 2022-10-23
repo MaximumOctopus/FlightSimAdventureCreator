@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.2 GUI Version
+  Flight Simulator Adventure Creator 0.2.2 GUI Version
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 18th 2022
+  October 23rd 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -46,7 +46,7 @@ List of files that come in the zip file:
     custom_aircraft.txt        a list of third party aircraft you own. editing instructions can be found inside
     default_aircraft.txt       a list of every aircraft that comes with MSFS and its various versions
     favourites.txt             store a list of your favourite airports (the ICAO code) in here
-    fcas.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
+    fsac.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
     FSAC.exe                   command-line version
     FSAC_GUI.exe               the GUI version
     jobs.txt                   contains everything the application needs to generate jobs for your next flight
@@ -135,7 +135,7 @@ All of my software is free and open source; please consider donating to a local 
 
 Release History
 
-0.2 / October 18th 2022
+0.2.2 / October 23rd 2022
 
 First official release.
 
