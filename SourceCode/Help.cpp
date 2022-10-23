@@ -90,7 +90,7 @@ namespace Help
 		std::wcout << L"    /startairport:ICAO        : start random route from here.\n";
 		std::wcout << L"    /endairport:ICAO          : end route here.\n";
 		std::wcout << L"    /number:count             : create \"count\" routes (default is 1).\n";
-		std::wcout << L"    /simple:count             : set how many A->B, 2-leg only, routes are display (default is " << Defaults::DefaultShortRoutesToShow << L")\n";
+		std::wcout << L"    /simple:count             : set how many A->B, 1-leg only, routes are display (default is " << Defaults::DefaultShortRoutesToShow << L")\n";
 		std::wcout << "\n";
 		std::wcout << L"    /route:start_airport:range:legs:direction/bearing\n";
 		std::wcout << "\n";
