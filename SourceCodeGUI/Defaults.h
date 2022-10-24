@@ -14,7 +14,7 @@
 
 namespace DataDefaults
 {
-	static const int ACPC = 75;					// % modifier of aircraft range to get leg range
+	static const int AircraftRangePC = 75;					// % modifier of aircraft range to get leg range
 	static const int Range = 100;				// nautical miles
 	static const int MaxSpeed = 9999;			// kts
 

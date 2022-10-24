@@ -638,7 +638,7 @@ void TForm1::GenerateRoutes()
 	}
 
 	double potential_route_length = RouteRange * (double)RouteLegs;
-	double usable_aircraft_range = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100));
+	double usable_aircraft_range = (double)aircraft.Range * ((double)eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC) / 100);
 	double range_per_leg = RouteRange;
 
 	//std::wcout << std::format(L"   Potential route length : {0:.1f} nm", potential_route_length) << L"\n";
@@ -646,21 +646,27 @@ void TForm1::GenerateRoutes()
 
 	if (cbUseAircraftRange->Checked)
 	{
-		range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
+		range_per_leg = ((double)aircraft.Range * ((double)eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC) / 100)) / (double)RouteLegs;
 	}
-    else
-    {
+	else
+	{
         if (range_per_leg > usable_aircraft_range)
 		{
 			//std::wcout << L" User range (per leg) is greater than aircraft range, using aircraft range!\n";
 
-			range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
+			range_per_leg = ((double)aircraft.Range * ((double)eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC) / 100)) / (double)RouteLegs;
+
+						Caption = usable_aircraft_range;
+
 		}
 		else if (potential_route_length > usable_aircraft_range && !cbAllowExcessRange->Checked)
 		{
 			//std::wcout << L" User range too large for aircraft and leg count, using aircraft range!\n";
 
-			range_per_leg = ((double)aircraft.Range * (eAircraftRangeModifier->Text.ToIntDef(DataDefaults::RangeModifier) / 100)) / (double)RouteLegs;
+			range_per_leg = ((double)aircraft.Range * ((double)eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC) / 100)) / (double)RouteLegs;
+
+						Caption = "here2";
+
         }
 	}
 

@@ -18,12 +18,12 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.2.2 (debug)";
+	static const std::wstring FSACVersion = L"0.2.2x (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.2.2";
+	static const std::wstring FSACVersion = L"0.2.2x";
 	#endif
 
-	static const std::wstring FSACDate = L"October 23rd 2022";
+	static const std::wstring FSACDate = L"October 24th 2022";
 
     static const std::wstring ConfigFileName = L"fsac.data";
 

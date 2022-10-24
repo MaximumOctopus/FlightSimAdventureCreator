@@ -35,7 +35,7 @@ struct RouteFilter
 	bool EndAtFavourite = false;
 
 	bool UseAircraftRange = false;
-	double AircraftRangeModifier = DataDefaults::ACPC;
+	double AircraftRangeModifier = DataDefaults::AircraftRangePC;
 
 	bool UseFlightTime = false;
 	int FlightTime = DataDefaults::FlightTime;
