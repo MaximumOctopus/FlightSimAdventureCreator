@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.2.2 GUI Version
+  Flight Simulator Adventure Creator 0.2.3 GUI Version
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 23rd 2022
+  October 30th 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -46,7 +46,7 @@ List of files that come in the zip file:
     custom_aircraft.txt        a list of third party aircraft you own. editing instructions can be found inside
     default_aircraft.txt       a list of every aircraft that comes with MSFS and its various versions
     favourites.txt             store a list of your favourite airports (the ICAO code) in here
-    fsac.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
+    fcas.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
     FSAC.exe                   command-line version
     FSAC_GUI.exe               the GUI version
     jobs.txt                   contains everything the application needs to generate jobs for your next flight
@@ -135,7 +135,22 @@ All of my software is free and open source; please consider donating to a local 
 
 Release History
 
-0.2.2 / October 23rd 2022
+0.2.3 / October 30th 2022
+
+Added: PDF manual (these take a lot of time to make, so please read it :)
+Added: Popup menu to Start and End Airport edit boxes. Right mouse button to open a menu, and click Select to open an airport search
+       window where you can find a Start and End airport.
+Added: "Home airport", this can be used in the Start and End airport edit boxes
+Added: A popup menu for easy access to regions for several popular/large countries
+Added: distance between start and end airports (if set manually) 	  
+Added: Validity checks on direction value
+Added: Popup menu for selecting distance angle or bearing (removed the dropdown and Set button)
+
+Fixed: Airport search is now case-insensitive
+
+Fixed a few minor issues.
+
+0.2.1 / October 18th 2022
 
 First official release.
 
