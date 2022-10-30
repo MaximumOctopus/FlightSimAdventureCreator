@@ -4375,59 +4375,59 @@ object frmAbout: TfrmAbout
   end
   object Label3: TLabel
     Left = 40
-    Top = 128
-    Width = 33
+    Top = 104
+    Width = 38
     Height = 13
     Caption = 'Coding'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label4: TLabel
     Left = 40
-    Top = 147
-    Width = 88
+    Top = 123
+    Width = 104
     Height = 13
     Caption = 'Development Cats'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label5: TLabel
     Left = 40
-    Top = 188
-    Width = 43
+    Top = 164
+    Width = 50
     Height = 13
     Caption = 'App Icon'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label6: TLabel
     Left = 40
-    Top = 207
-    Width = 47
+    Top = 183
+    Width = 55
     Height = 13
     Caption = 'GUI Icons'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label7: TLabel
     Left = 160
-    Top = 128
+    Top = 104
     Width = 78
     Height = 13
     Caption = 'Paul A Freshney'
@@ -4440,7 +4440,7 @@ object frmAbout: TfrmAbout
   end
   object Label8: TLabel
     Left = 160
-    Top = 147
+    Top = 123
     Width = 168
     Height = 13
     Cursor = crHandPoint
@@ -4455,7 +4455,7 @@ object frmAbout: TfrmAbout
   end
   object Label9: TLabel
     Left = 161
-    Top = 226
+    Top = 202
     Width = 189
     Height = 13
     Caption = 'Brian Bernacki for his MSFS airport data'
@@ -4468,47 +4468,47 @@ object frmAbout: TfrmAbout
   end
   object Label10: TLabel
     Left = 40
-    Top = 226
-    Width = 34
+    Top = 202
+    Width = 41
     Height = 13
     Caption = 'Thanks'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label11: TLabel
     Left = 41
-    Top = 292
-    Width = 59
+    Top = 268
+    Width = 69
     Height = 13
     Caption = 'Source code'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label12: TLabel
     Left = 41
-    Top = 316
-    Width = 68
+    Top = 292
+    Width = 81
     Height = 13
     Caption = 'Latest version'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label2: TLabel
     Tag = 4
     Left = 161
-    Top = 292
+    Top = 268
     Width = 312
     Height = 13
     Cursor = crHandPoint
@@ -4524,11 +4524,13 @@ object frmAbout: TfrmAbout
   object Label13: TLabel
     Tag = 5
     Left = 161
-    Top = 316
-    Width = 59
+    Top = 292
+    Width = 310
     Height = 13
     Cursor = crHandPoint
-    Caption = 'Source code'
+    Caption = 
+      'https://flightsim.to/file/41477/flight-simulator-adventure-creat' +
+      'or'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clPurple
     Font.Height = -11
@@ -4540,7 +4542,7 @@ object frmAbout: TfrmAbout
   object Label14: TLabel
     Tag = 2
     Left = 161
-    Top = 188
+    Top = 164
     Width = 107
     Height = 13
     Cursor = crHandPoint
@@ -4556,7 +4558,7 @@ object frmAbout: TfrmAbout
   object Label15: TLabel
     Tag = 3
     Left = 160
-    Top = 207
+    Top = 183
     Width = 403
     Height = 13
     Cursor = crHandPoint
@@ -4573,21 +4575,21 @@ object frmAbout: TfrmAbout
   end
   object Label16: TLabel
     Left = 40
-    Top = 169
-    Width = 23
+    Top = 145
+    Width = 27
     Height = 13
     Caption = 'Data'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label17: TLabel
     Tag = 1
     Left = 160
-    Top = 169
+    Top = 145
     Width = 108
     Height = 13
     Cursor = crHandPoint
@@ -4602,10 +4604,36 @@ object frmAbout: TfrmAbout
   end
   object Label18: TLabel
     Left = 160
-    Top = 245
+    Top = 221
     Width = 98
     Height = 13
     Caption = 'r/MicrosoftFlightSim/'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label19: TLabel
+    Left = 161
+    Top = 341
+    Width = 200
+    Height = 13
+    Caption = 'CLI version: C++ 20 in Visual Studio 2022'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label20: TLabel
+    Left = 161
+    Top = 360
+    Width = 289
+    Height = 13
+    Caption = 'GUI version: C++ 17 in C++ Builder 10.4 Community Edition'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11

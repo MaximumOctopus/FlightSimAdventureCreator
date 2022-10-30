@@ -64,7 +64,7 @@ object frmFavourites: TfrmFavourites
       TabOrder = 3
     end
   end
-  object Button1: TButton
+  object bCancel: TButton
     Left = 142
     Top = 336
     Width = 75
@@ -74,7 +74,7 @@ object frmFavourites: TfrmFavourites
     ModalResult = 2
     TabOrder = 1
   end
-  object Button2: TButton
+  object bOK: TButton
     Left = 61
     Top = 336
     Width = 75
@@ -83,7 +83,7 @@ object frmFavourites: TfrmFavourites
     Caption = 'OK'
     ModalResult = 1
     TabOrder = 2
-    OnClick = Button2Click
+    OnClick = bOKClick
   end
   object ImageList1: TImageList
     Left = 136

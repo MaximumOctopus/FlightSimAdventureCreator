@@ -53,7 +53,7 @@ void __fastcall TfrmAbout::Label2Click(TObject *Sender)
 			link = L"https://github.com/MaximumOctopus/FlightSimAdventureCreator";
 			break;
 		case 5:
-			link = L"";
+			link = L"https://flightsim.to/file/41477/flight-simulator-adventure-creator";
 			break;
     }
 

@@ -471,37 +471,4 @@ namespace Utility
 
 		return angle;
 	}
-
-
-	// this function replicates the functionality of the long/lat processing
-	// it's not used in production, it's an easier-to-test version
-	// function takes longitude or latitude values, they work the same way
-	#ifdef _DEBUG
-	bool IsWithinLongLat(double value, double range_from, double range_to)
-	{
-		bool inverse = false;
-
-		if (range_from < range_to)
-		{
-			inverse = true;
-		}
-
-		if (inverse)
-		{
-			if (value > range_from && value < range_to)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (value > range_from || value < range_to)
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-	#endif
 }

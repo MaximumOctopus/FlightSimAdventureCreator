@@ -95,3 +95,67 @@ int RouteHandler::SetRangeFromTime(int flight_time, int legs, int speed, Aircraf
 
 	return -1;
 }
+
+
+std::wstring RouteHandler::BuildRouteDescription(const std::wstring start_icao, const std::wstring end_icao, bool start_favourite, bool end_favourite, double range, double direction, int legs, int simple_count, int flight_time, bool keep_trying)
+{
+	std::wstring RouteDescription = L"";
+
+	if (start_favourite)
+	{
+		RouteDescription = L"Favourite -> ";
+	}
+	else if (start_icao == L"")
+	{
+		RouteDescription = L"Random -> ";
+	}
+	else
+	{
+		RouteDescription = start_icao + L" -> ";
+	}
+
+	if (end_favourite)
+	{
+		RouteDescription = L"Favourite; ";
+	}
+	else if (end_icao == L"")
+	{
+		RouteDescription += L"Random; ";
+	}
+	else
+	{
+		RouteDescription += end_icao + L"; ";
+	}
+
+	if (flight_time == 0)
+	{
+		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm; ";
+	}
+	else
+	{
+		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm (flight time " + std::to_wstring(flight_time) + L" mins); ";
+    }
+
+	if (direction != -1)
+	{
+		RouteDescription += L"@ " + std::to_wstring(direction) + L"°; ";
+	}
+
+	RouteDescription += std::to_wstring(legs) + L" leg(s); ";
+
+	if (legs == 1)
+	{
+		RouteDescription += std::to_wstring(simple_count) + L" routes (max.); ";
+	}
+	else
+	{
+		RouteDescription += std::to_wstring(simple_count) + L" routes; ";
+	}
+
+	if (keep_trying)
+	{
+        RouteDescription += L" keep trying (<21 times); ";
+    }
+
+	return RouteDescription;
+}

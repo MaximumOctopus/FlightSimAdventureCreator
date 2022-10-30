@@ -9,6 +9,7 @@
 //
 //
 
+#include <algorithm>
 #include <vcl.h>
 #pragma hdrstop
 
@@ -39,7 +40,7 @@ void __fastcall TfrmAirportSearchDialog::FormCreate(TObject *Sender)
 	sgResults->Cells[2][0] = L"Name";
 	sgResults->Cells[3][0] = L"Cntnt";
 	sgResults->Cells[4][0] = L"Cntry";
-	sgResults->Cells[5][0] = L"Rgn";
+	sgResults->Cells[5][0] =  L"Region";
 	sgResults->Cells[6][0] = L"Lat";
 	sgResults->Cells[7][0] = L"Long";
 	sgResults->Cells[8][0] = L"Type";
@@ -67,6 +68,12 @@ void __fastcall TfrmAirportSearchDialog::FormCreate(TObject *Sender)
 }
 
 
+void __fastcall TfrmAirportSearchDialog::FormShow(TObject *Sender)
+{
+	SelectedICAO = L"";
+}
+
+
 void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 {
 	AirportSearchFilter asf;
@@ -74,6 +81,8 @@ void __fastcall TfrmAirportSearchDialog::bSearchClick(TObject *Sender)
 	if (eSearch->Text != "")
 	{
 		asf.SearchText = eSearch->Text.c_str();
+
+		std::transform(asf.SearchText.begin(), asf.SearchText.end(), asf.SearchText.begin(), ::tolower);
 	}
 
 	if (cbContinent->ItemIndex > 0)
@@ -177,4 +186,21 @@ void __fastcall TfrmAirportSearchDialog::sgResultsDblClick(TObject *Sender)
 
 		WindowsUtility::OpenWebsite(L"https://maps.google.com/?q=" + start.Latitude + L"," + start.Longitude);
 	}
+}
+
+
+void __fastcall TfrmAirportSearchDialog::bSelectClick(TObject *Sender)
+{
+	if (sgResults->Selection.Top > 0 && GAirportHandler->SearchResults.size() != 0)
+	{
+		SelectedICAO = GAirportHandler->SearchResults[sgResults->Selection.Top - 1].Ident;
+
+		ModalResult = mrOk;
+    }
+}
+
+
+void TfrmAirportSearchDialog::SetSelectionMode(bool mode)
+{
+	bSelect->Visible = mode;
 }

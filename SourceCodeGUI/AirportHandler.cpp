@@ -69,7 +69,7 @@ Airport AirportHandler::GetAirport(int airport_index)
 
 double AirportHandler::DistanceBetweenTwoAirports(const std::wstring icao_from, const  std::wstring icao_to)
 {
-    int from_index = GetIndexFromICAO(icao_from);
+	int from_index = GetIndexFromICAO(icao_from);
     int to_index = GetIndexFromICAO(icao_to);
 
     if (from_index != -1 && to_index != -1)
@@ -78,7 +78,7 @@ double AirportHandler::DistanceBetweenTwoAirports(const std::wstring icao_from, 
                                Airports[to_index].LatitudeR, Airports[to_index].LongitudeR);
     }
 
-    return 0;
+	return -1;
 }
 
 
@@ -705,7 +705,6 @@ int AirportHandler::Search(AirportSearchFilter asf)
 		latitude = a.LatitudeR;
 	}
 
-
 	SearchResults.clear();
 
 	for (int t = 0; t < Airports.size(); t++)
@@ -730,7 +729,10 @@ int AirportHandler::Search(AirportSearchFilter asf)
 
 		if (add && asf.SearchText != L"")
 		{
-			if (Airports[t].Name.find(asf.SearchText) == std::wstring::npos)
+			std::wstring name = Airports[t].Name;
+			std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+
+			if (name.find(asf.SearchText) == std::wstring::npos)
 			{
 				add = false;
 			}

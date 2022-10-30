@@ -11,7 +11,9 @@
 
 #include <algorithm>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include "Configuration.h"
@@ -228,18 +230,6 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			airportlf.LongitudeTo = stod(StringKey);
 		}
 
-		IntegerKey = config->ReadInteger(L"Airport", L"LongitudeFilter", 1);
-		if (config->LastKeyExist)
-		{
-			airportlf.LongitudeFilter = IntegerKey;
-		}
-
-		IntegerKey = config->ReadInteger(L"Airport", L"LatitudeFilter", 1);
-		if (config->LastKeyExist)
-		{
-			airportlf.LatitudeFilter = IntegerKey;
-		}
-
 		IntegerKey = config->ReadInteger(L"Airport", L"UseTimeOfDay", 1);
 		if (config->LastKeyExist)
 		{
@@ -429,8 +419,6 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"LatitudeTo=" << airportlf.LatitudeTo << "\n";
 		ofile << L"LongitudeFrom=" << airportlf.LongitudeFrom << "\n";
 		ofile << L"LongitudeTo=" << airportlf.LongitudeTo << "\n";
-		ofile << L"LongitudeFilter=" << airportlf.LongitudeFilter << "\n";
-		ofile << L"LatitudeFilter=" << airportlf.LatitudeFilter << "\n";
 		ofile << L"UseTimeOfDay=" << airportlf.UseTimeOfDay << "\n";
 		ofile << L"Day=" << airportlf.Day << "\n";
 		ofile << L"Night=" << airportlf.Night << "\n";
@@ -465,6 +453,134 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 }
 
 
+std::wstring Configuration::GenerateConfigCode(AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+{
+	unsigned short int Ax = 0;
+	unsigned short int Bx = 0;
+	unsigned short int Cx = 0;
+	unsigned short int Dx = 0;
+	unsigned short int Ex = 0;
+	unsigned short int Fx = 0;
+	unsigned short int Gx = 0;
+	unsigned short int Hx = 0;
+
+	for (int t = 0; t < 8; t++)
+	{
+		if (aircraftlf.Types[t])
+			Ax += (1 << t);
+    }
+
+	if (aircraftlf.Airliner)
+		Ax += (1 << 8);
+
+	if (aircraftlf.Military)
+		Ax += (1 << 9);
+
+	if (aircraftlf.Seaplane)
+		Ax += (1 << 10);
+
+	switch (aircraftlf.Version)
+	{
+	case AircraftConstants::MSFSVersion::All:
+		break;
+	case AircraftConstants::MSFSVersion::DeluxeAbove:
+		Ax += (1 << 11);
+		break;
+	case AircraftConstants::MSFSVersion::PremiumAbove:
+		Ax += (1 << 12);
+	}
+
+   //			ofile << L"MinSpeed=" << aircraftlf.MinSpeed << "\n";
+   //		ofile << L"MaxSpeed=" << aircraftlf.MaxSpeed << "\n";
+
+	for (int t = 0; t < 7; t++)
+	{
+		if (airportlf.Continents[t])
+			Bx += (1 << t);
+	}
+
+	if (airportlf.FilterContinent)	Bx += (1 << 7);
+	if (airportlf.FilterCountry) 	Bx += (1 << 8);
+	if (airportlf.FilterRegion) 	Bx += (1 << 9);
+	if (airportlf.FilterLatLong)	Bx += (1 << 10);
+	if (airportlf.LargeAirports) 	Bx += (1 << 11);
+	if (airportlf.MediumAirports) 	Bx += (1 << 12);
+	if (airportlf.SmallAirports)	Bx += (1 << 13);
+	if (airportlf.Heliports) 		Bx += (1 << 14);
+	if (airportlf.SeaplaneBases) 	Bx += (1 << 15);
+
+	Cx = Utility::GetCountryFromShortCodeAsInt(airportlf.Country);
+
+	if (airportlf.UseTimeOfDay) 	Dx += (1 << 0);
+	if (airportlf.Day) 				Dx += (1 << 1);
+	if (airportlf.Night) 			Dx += (1 << 2);
+
+	if (rf.UseDirection) 			Dx += (1 << 3);
+	if (rf.StartFromFavourite) 		Dx += (1 << 4);
+	if (rf.EndAtFavourite) 			Dx += (1 << 5);
+	if (rf.UseAircraftRange) 		Dx += (1 << 6);
+	if (rf.UseFlightTime) 			Dx += (1 << 7);
+	if (rf.KeepTrying) 				Dx += (1 << 8);
+	if (rf.StartEndUseLegs) 	   	Dx += (1 << 9);
+
+	Cx += rf.Legs << 8;
+
+	Ex = rf.Range;
+
+	Fx = rf.Count;
+	Fx += (static_cast<int>(rf.AircraftRangeModifier) << 8);
+
+	Gx += rf.Direction;
+
+	Hx = rf.FlightTime;
+
+	std::wostringstream s;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Ax;// << Bx << Cx << Dx << Ex << Fx << Gx << Hx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Bx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Cx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Dx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Ex;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Fx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Gx;
+	s << std::setfill(L'0') << std::setw(4) << std::hex << Hx;
+
+	std::wstring r = s.str();
+
+	std::transform(r.begin(), r.end(), r.begin(), ::toupper);
+
+	if (rf.StartAirportICAO != L"")	r += rf.StartAirportICAO;
+	if (rf.EndAirportICAO != L"") 	r += rf.EndAirportICAO;
+
+	if (airportlf.FilterRegion)		r += airportlf.Region;
+
+
+	return r;
+
+
+//		ofile << L"LatitudeFrom=" << airportlf.LatitudeFrom << "\n";
+//		ofile << L"LatitudeTo=" << airportlf.LatitudeTo << "\n";
+//		ofile << L"LongitudeFrom=" << airportlf.LongitudeFrom << "\n";
+//		ofile << L"LongitudeTo=" << airportlf.LongitudeTo << "\n";
+
+//		ofile << L"Elevation=" << airportlf.MinimumElevation << "\n";
+}
+
+
+std::wstring Configuration::DecodeConfigCode(std::wstring code, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+{
+	unsigned short int Ax = stoi(code.substr( 0, 4), 0, 16);
+	unsigned short int Bx = stoi(code.substr( 4, 4), 0, 16);
+	unsigned short int Cx = stoi(code.substr( 8, 4), 0, 16);
+	unsigned short int Dx = stoi(code.substr(12, 4), 0, 16);
+	unsigned short int Ex = stoi(code.substr(16, 4), 0, 16);
+	unsigned short int Fx = stoi(code.substr(20, 4), 0, 16);
+	unsigned short int Gx = stoi(code.substr(24, 4), 0, 16);
+	unsigned short int Hx = stoi(code.substr(28, 4), 0, 16);
+
+	return L"";
+}
+
+
 bool Configuration::LoadSystem()
 {
 	Ini* config = new Ini(SystemConstants::ConfigFileName);
@@ -478,6 +594,18 @@ bool Configuration::LoadSystem()
 		if (config->LastKeyExist)
 		{
 			System.ShowToolTips = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"System", L"RoutesGenerated", 1);
+		if (config->LastKeyExist)
+		{
+			System.RoutesGenerated = IntegerKey;
+		}
+
+		StringKey = config->ReadString(L"System", L"HomeAirport", L"");
+		if (config->LastKeyExist)
+		{
+			System.HomeAirport = StringKey;
 		}
 
 		return true;
@@ -499,6 +627,8 @@ bool Configuration::SaveSystem()
 
 		ofile << L"[System]\n";
 		ofile << L"ShowToolTips=" << System.ShowToolTips << "\n";
+		ofile << L"RoutesGenerated=" << System.RoutesGenerated << "\n";
+		ofile << L"HomeAirport=" << System.HomeAirport << "\n";
 
 		ofile << "\n";
 

@@ -24,6 +24,9 @@
 struct SystemSettings
 {
 	bool ShowToolTips = true;
+	int RoutesGenerated = 0;
+
+    std::wstring HomeAirport = L"";
 };
 
 
@@ -51,6 +54,9 @@ public:
 
 	[[nodiscard]] bool LoadConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 	[[nodiscard]] bool SaveConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
+
+	[[nodiscard]] std::wstring GenerateConfigCode(AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
+	[[nodiscard]] std::wstring DecodeConfigCode(std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
 
 	std::wstring GetRandomFavourite();
 

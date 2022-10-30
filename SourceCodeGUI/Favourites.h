@@ -29,11 +29,11 @@ __published:	// IDE-managed Components
 	TButton *bAdd;
 	TButton *bDelete;
 	TEdit *eICAO;
-	TButton *Button1;
-	TButton *Button2;
+	TButton *bCancel;
+	TButton *bOK;
 	void __fastcall bAddClick(TObject *Sender);
 	void __fastcall bDeleteClick(TObject *Sender);
-	void __fastcall Button2Click(TObject *Sender);
+	void __fastcall bOKClick(TObject *Sender);
 private:	// User declarations
 
     bool ModifiedFavourites = false;

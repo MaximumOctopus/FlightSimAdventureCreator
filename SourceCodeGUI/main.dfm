@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Hint = 'generate random routes!'
-  BorderStyle = bsSingle
+  BorderStyle = bsDialog
   Caption = 'Form1'
   ClientHeight = 751
   ClientWidth = 1217
@@ -33,24 +33,47 @@ object Form1: TForm1
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label32: TLabel
-    Left = 1061
+  object Image1: TImage
+    Left = 1090
     Top = 154
-    Width = 19
-    Height = 13
-    Caption = '-->'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
+    Width = 16
+    Height = 16
+    AutoSize = True
+    Picture.Data = {
+      07544269746D617036030000424D360300000000000036000000280000001000
+      000010000000010018000000000000030000120B0000120B0000000000000000
+      0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFCFCFCD4D4D4FF00FFFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      F8F8F81010106C6C6CFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFDBDBDB000000757575FF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FFFF00FFFF00FF222222888888FF00FF6666666767676666666666666767
+      676666666666666666666666666666666767676767677E7E7E5D5D5D0000007F
+      7F7F666666666666676767666666666666666666676767666666666666676767
+      6767676666667E7E7E5C5C5C0000007F7F7FFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF212121888888FF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FFDADADA000000757575FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFF8F8F80F0F0F6B6B6BFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FCFCFCD4D4D4FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+      00FF}
+    Transparent = True
   end
   object gbAircraft: TGroupBox
     Left = 8
     Top = 47
     Width = 375
-    Height = 346
+    Height = 329
     Caption = 'Aircraft'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -216,6 +239,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 1
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeTurboProps: TCheckBox
       Left = 29
@@ -232,6 +256,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 2
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeHelicopter: TCheckBox
       Left = 159
@@ -248,6 +273,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 3
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeGlider: TCheckBox
       Left = 159
@@ -264,6 +290,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 4
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeAirliners: TCheckBox
       Left = 262
@@ -280,6 +307,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 5
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeMilitary: TCheckBox
       Left = 262
@@ -296,6 +324,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 6
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeTwinTurboProps: TCheckBox
       Left = 29
@@ -312,6 +341,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 7
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeJet: TCheckBox
       Left = 159
@@ -328,6 +358,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 8
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeBalloon: TCheckBox
       Left = 159
@@ -344,6 +375,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 9
+      OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftList: TComboBox
       Left = 17
@@ -362,7 +394,7 @@ object Form1: TForm1
     end
     object bUpdateAircraft: TButton
       Left = 286
-      Top = 309
+      Top = 295
       Width = 75
       Height = 25
       Caption = 'Refresh'
@@ -390,6 +422,7 @@ object Form1: TForm1
       ParentFont = False
       State = cbChecked
       TabOrder = 12
+      OnClick = cbAircraftTypePropsClick
     end
     object eMaxSpeed: TEdit
       Left = 90
@@ -449,7 +482,7 @@ object Form1: TForm1
     end
     object bRandomAircraft: TButton
       Left = 245
-      Top = 309
+      Top = 295
       Width = 23
       Height = 25
       Hint = 'pick a random aircraft'
@@ -460,7 +493,7 @@ object Form1: TForm1
     end
     object bLockAircraft: TButton
       Left = 17
-      Top = 309
+      Top = 295
       Width = 23
       Height = 25
       Hint = 'lock the selected aircraft'
@@ -473,9 +506,9 @@ object Form1: TForm1
   end
   object GroupBox3: TGroupBox
     Left = 8
-    Top = 408
+    Top = 382
     Width = 375
-    Height = 318
+    Height = 344
     Caption = 'Route'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -486,7 +519,7 @@ object Form1: TForm1
     TabOrder = 0
     object Bevel10: TBevel
       Left = 15
-      Top = 183
+      Top = 207
       Width = 346
       Height = 63
       Shape = bsFrame
@@ -496,7 +529,7 @@ object Form1: TForm1
       Left = 15
       Top = 87
       Width = 346
-      Height = 90
+      Height = 114
       Shape = bsFrame
       Style = bsRaised
     end
@@ -510,7 +543,7 @@ object Form1: TForm1
     end
     object Label4: TLabel
       Left = 34
-      Top = 194
+      Top = 218
       Width = 22
       Height = 13
       Caption = 'Legs'
@@ -526,6 +559,7 @@ object Form1: TForm1
       Top = 27
       Width = 31
       Height = 13
+      Hint = 'the maximum distance between legs'
       Caption = 'Range'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -621,7 +655,7 @@ object Form1: TForm1
     end
     object Label17: TLabel
       Left = 34
-      Top = 221
+      Top = 245
       Width = 59
       Height = 13
       Caption = 'Route count'
@@ -634,29 +668,15 @@ object Form1: TForm1
     end
     object Bevel11: TBevel
       Left = 15
-      Top = 252
+      Top = 276
       Width = 346
       Height = 43
       Shape = bsFrame
       Style = bsRaised
     end
-    object Label27: TLabel
-      Left = 180
-      Top = 221
-      Width = 101
-      Height = 13
-      Alignment = taRightJustify
-      Caption = '(multi-leg, and A->B)'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label28: TLabel
-      Left = 152
-      Top = 266
+      Left = 151
+      Top = 290
       Width = 5
       Height = 13
       Alignment = taRightJustify
@@ -669,11 +689,11 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label29: TLabel
-      Left = 35
+      Left = 34
       Top = 153
-      Width = 172
+      Width = 174
       Height = 13
-      Caption = 'When start and end set, use which:'
+      Caption = 'When Start and End set, use which?'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -681,11 +701,38 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
+    object lDistanceStartEnd: TLabel
+      Left = 34
+      Top = 178
+      Width = 12
+      Height = 13
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label32: TLabel
+      Left = 180
+      Top = 290
+      Width = 167
+      Height = 13
+      Caption = '10'#176' margin applied when searching'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object eLegs: TEdit
       Left = 109
-      Top = 191
+      Top = 215
       Width = 36
       Height = 21
+      Hint = 'number of legs of your journey'
       Alignment = taRightJustify
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -703,6 +750,7 @@ object Form1: TForm1
       Top = 24
       Width = 36
       Height = 21
+      Hint = 'the maximum distance between legs'
       Alignment = taRightJustify
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -712,7 +760,7 @@ object Form1: TForm1
       NumbersOnly = True
       ParentFont = False
       TabOrder = 1
-      Text = '99999'
+      Text = '100'
       OnExit = eLegsExit
     end
     object eStartAirportICAO: TEdit
@@ -726,7 +774,9 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      PopupMenu = puSelectICAO
       TabOrder = 2
+      OnExit = eEndAirportICAOExit
     end
     object eEndAirportICAO: TEdit
       Left = 109
@@ -739,7 +789,9 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      PopupMenu = puSelectICAO
       TabOrder = 3
+      OnExit = eEndAirportICAOExit
     end
     object cbUseAircraftRange: TCheckBox
       Left = 216
@@ -761,9 +813,9 @@ object Form1: TForm1
     object cbStartFromFavourite: TCheckBox
       Left = 216
       Top = 97
-      Width = 114
+      Width = 142
       Height = 17
-      Caption = 'Start from favourite'
+      Caption = 'Start at random favourite'
       Checked = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -776,7 +828,7 @@ object Form1: TForm1
     end
     object cbUseDirection: TCheckBox
       Left = 34
-      Top = 265
+      Top = 289
       Width = 69
       Height = 17
       Caption = 'Direction'
@@ -791,9 +843,10 @@ object Form1: TForm1
     end
     object eDirection: TEdit
       Left = 109
-      Top = 263
+      Top = 287
       Width = 36
       Height = 21
+      Hint = 'fly the generated routes in this direction'
       Alignment = taRightJustify
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
@@ -802,40 +855,10 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      PopupMenu = puDirection
       TabOrder = 7
       Text = '0'
-    end
-    object cbBearing: TComboBox
-      Left = 180
-      Top = 264
-      Width = 59
-      Height = 21
-      Style = csDropDownList
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 8
-    end
-    object bSetFromBearing: TButton
-      Left = 245
-      Top = 263
-      Width = 33
-      Height = 25
-      Hint = 'set direction to the selected bearing'
-      Caption = 'Set'
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 9
-      OnClick = bSetFromBearingClick
+      OnExit = eDirectionExit
     end
     object cbAllowExcessRange: TCheckBox
       Left = 216
@@ -852,13 +875,14 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 10
+      TabOrder = 8
     end
     object eCount: TEdit
       Left = 109
-      Top = 218
+      Top = 242
       Width = 36
       Height = 21
+      Hint = 'generate this many random routes'
       Alignment = taRightJustify
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -867,7 +891,7 @@ object Form1: TForm1
       Font.Style = []
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 11
+      TabOrder = 9
       Text = '0'
       OnExit = eLegsExit
     end
@@ -876,6 +900,9 @@ object Form1: TForm1
       Top = 51
       Width = 36
       Height = 21
+      Hint = 
+        'calculate the distance between legs bsaed on aircraft flight tim' +
+        'e'
       Alignment = taRightJustify
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
@@ -885,7 +912,7 @@ object Form1: TForm1
       Font.Style = []
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 10
       Text = '60'
       OnExit = eLegsExit
     end
@@ -901,15 +928,15 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 13
+      TabOrder = 11
       OnClick = cbUseFlightTimeClick
     end
     object cbEndAtFavourite: TCheckBox
       Left = 216
       Top = 124
-      Width = 114
+      Width = 142
       Height = 17
-      Caption = 'End at favourite'
+      Caption = 'End at random favourite'
       Checked = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -918,7 +945,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 14
+      TabOrder = 12
     end
     object rbStartEndLegs: TRadioButton
       Left = 215
@@ -933,7 +960,7 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 15
+      TabOrder = 13
       TabStop = True
       OnClick = cbContinentAFClick
     end
@@ -949,7 +976,7 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 16
+      TabOrder = 14
       OnClick = cbContinentAFClick
     end
   end
@@ -1025,6 +1052,13 @@ object Form1: TForm1
       Caption = 'ToolButton2'
       ImageIndex = 5
       Style = tbsSeparator
+    end
+    object tbCodeTest: TToolButton
+      Left = 219
+      Top = 0
+      Caption = 'tbCodeTest'
+      Visible = False
+      OnClick = tbCodeTestClick
     end
   end
   object sbMain: TStatusBar
@@ -1311,7 +1345,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
-    object Label8: TLabel
+    object labellongto: TLabel
       Left = 205
       Top = 295
       Width = 10
@@ -1375,7 +1409,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label20: TLabel
-      Left = 146
+      Left = 151
       Top = 462
       Width = 12
       Height = 13
@@ -1388,7 +1422,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label31: TLabel
-      Left = 144
+      Left = 168
       Top = 189
       Width = 207
       Height = 13
@@ -1568,6 +1602,7 @@ object Form1: TForm1
       OnChange = cbContinentAFClick
     end
     object cbLatLongFilter: TCheckBox
+      Tag = 3
       Left = 29
       Top = 236
       Width = 114
@@ -1580,7 +1615,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 10
-      OnClick = cbLatLongFilterClick
+      OnClick = cbContinentFilterClick
     end
     object eLatTo: TEdit
       Left = 221
@@ -1767,7 +1802,7 @@ object Form1: TForm1
     object eRegionICO: TEdit
       Left = 86
       Top = 186
-      Width = 43
+      Width = 59
       Height = 21
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
@@ -1776,6 +1811,7 @@ object Form1: TForm1
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      PopupMenu = puRegionSelect
       TabOrder = 22
       OnChange = cbContinentAFClick
     end
@@ -1793,7 +1829,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 23
-      OnClick = cbLatLongFilterClick
+      OnClick = cbTimeOfDayClick
     end
     object rbDay: TRadioButton
       Left = 128
@@ -1832,7 +1868,7 @@ object Form1: TForm1
     object eElevation: TEdit
       Left = 104
       Top = 459
-      Width = 36
+      Width = 41
       Height = 21
       Alignment = taRightJustify
       Font.Charset = DEFAULT_CHARSET
@@ -1846,6 +1882,20 @@ object Form1: TForm1
       Text = '-2000'
       OnChange = cbContinentAFClick
       OnExit = eElevationExit
+    end
+    object eMagicCode: TEdit
+      Left = 16
+      Top = 539
+      Width = 290
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 27
+      Visible = False
     end
   end
   object bExportSelected: TButton
@@ -1903,7 +1953,7 @@ object Form1: TForm1
     TabOrder = 9
   end
   object bOpenStartMap: TButton
-    Left = 1032
+    Left = 1062
     Top = 152
     Width = 25
     Height = 18
@@ -1921,7 +1971,7 @@ object Form1: TForm1
     OnClick = bOpenStartMapClick
   end
   object bOpenEndMap: TButton
-    Left = 1084
+    Left = 1110
     Top = 152
     Width = 25
     Height = 18
@@ -1939,8 +1989,8 @@ object Form1: TForm1
     OnClick = bOpenEndMapClick
   end
   object MainMenu1: TMainMenu
-    Left = 944
-    Top = 4
+    Left = 392
+    Top = 65532
     object File1: TMenuItem
       Caption = 'File'
       object File2: TMenuItem
@@ -2042,8 +2092,8 @@ object Form1: TForm1
   object ImageList1: TImageList
     Height = 32
     Width = 32
-    Left = 976
-    Top = 4
+    Left = 872
+    Top = 65532
     Bitmap = {
       494C010106000800040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
@@ -3110,15 +3160,16 @@ object Form1: TForm1
   end
   object sdMain: TSaveDialog
     Filter = 'FSAC configuration files|*.config'
-    Left = 1152
+    Left = 1072
   end
   object odMain: TOpenDialog
     Filter = 'FSAC configuration files|*.config'
-    Left = 1104
+    Left = 1032
+    Top = 65528
   end
   object il16x16: TImageList
-    Left = 1032
-    Top = 4
+    Left = 928
+    Top = 65532
     Bitmap = {
       494C010106000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
@@ -3390,5 +3441,812 @@ object Form1: TForm1
       0C3F8003FFC7E3C7F87F8003E7C7E3C7F87F8007E3C7E3C7F8FF800FF3CFF3CF
       FFFF801FF00FF00FFFFF803FF81FF81F00000000000000000000000000000000
       000000000000}
+  end
+  object puSelectICAO: TPopupMenu
+    OnPopup = puSelectICAOPopup
+    Left = 608
+    object PopupMenu11: TMenuItem
+      Caption = 'Select ICAO'
+      Enabled = False
+    end
+    object N4: TMenuItem
+      Caption = '-'
+    end
+    object Select1: TMenuItem
+      Caption = 'Search...'
+      OnClick = Select1Click
+    end
+    object N5: TMenuItem
+      Caption = '-'
+    end
+    object miUseHomeAirport: TMenuItem
+      Caption = 'Use Home airport'
+      OnClick = miUseHomeAirportClick
+    end
+    object SetasHomeairport1: TMenuItem
+      Caption = 'Set as Home airport'
+      OnClick = SetasHomeairport1Click
+    end
+    object N7: TMenuItem
+      Caption = '-'
+    end
+    object N8: TMenuItem
+      Caption = 'Clear'
+      OnClick = N8Click
+    end
+  end
+  object puRegionSelect: TPopupMenu
+    Left = 528
+    object Australia1: TMenuItem
+      Caption = 'Australia'
+      object NewSouthWales1: TMenuItem
+        Tag = 55
+        Caption = 'New South Wales'
+        OnClick = England1Click
+      end
+      object NewSouthWales2: TMenuItem
+        Tag = 56
+        Caption = 'Queensland'
+        OnClick = England1Click
+      end
+      object SouthAustralia1: TMenuItem
+        Tag = 57
+        Caption = 'South Australia'
+        OnClick = England1Click
+      end
+      object SouthAustralia2: TMenuItem
+        Tag = 58
+        Caption = 'Tasmania'
+        OnClick = England1Click
+      end
+      object Vistoria1: TMenuItem
+        Tag = 59
+        Caption = 'Vistoria'
+        OnClick = England1Click
+      end
+      object Vistoria2: TMenuItem
+        Tag = 60
+        Caption = 'Western Australia'
+        OnClick = England1Click
+      end
+    end
+    object Canada1: TMenuItem
+      Caption = 'Canada'
+      object Alberta1: TMenuItem
+        Tag = 61
+        Caption = 'Alberta'
+        OnClick = England1Click
+      end
+      object Alberta2: TMenuItem
+        Tag = 62
+        Caption = 'British Columbia'
+        OnClick = England1Click
+      end
+      object Manitoba1: TMenuItem
+        Tag = 63
+        Caption = 'Manitoba'
+        OnClick = England1Click
+      end
+      object Manitoba2: TMenuItem
+        Tag = 64
+        Caption = 'New Brunswick'
+        OnClick = England1Click
+      end
+      object NewfoundlandandLabrador1: TMenuItem
+        Tag = 65
+        Caption = 'Newfoundland and Labrador'
+        OnClick = England1Click
+      end
+      object NewfoundlandandLabrador2: TMenuItem
+        Tag = 66
+        Caption = 'Nova Scotia'
+        OnClick = England1Click
+      end
+      object Ontario1: TMenuItem
+        Tag = 67
+        Caption = 'Ontario'
+        OnClick = England1Click
+      end
+      object PrinceEdwardIsland1: TMenuItem
+        Tag = 68
+        Caption = 'Prince Edward Island'
+        OnClick = England1Click
+      end
+      object Quebec1: TMenuItem
+        Tag = 69
+        Caption = 'Quebec'
+        OnClick = England1Click
+      end
+      object Quebec2: TMenuItem
+        Tag = 70
+        Caption = 'Saskatchewan'
+        OnClick = England1Click
+      end
+      object N6: TMenuItem
+        Caption = '-'
+      end
+      object NorthwestTerritories1: TMenuItem
+        Tag = 71
+        Caption = 'Northwest Territories'
+        OnClick = England1Click
+      end
+      object NorthwestTerritories2: TMenuItem
+        Tag = 72
+        Caption = 'Nunavut'
+        OnClick = England1Click
+      end
+      object Ontario2: TMenuItem
+        Tag = 73
+        Caption = 'Yukon'
+        OnClick = England1Click
+      end
+    end
+    object France1: TMenuItem
+      Caption = 'France'
+      object Ain1: TMenuItem
+        Tag = 90
+        Caption = 'Auvergne-Rh'#244'ne-Alpes'
+        OnClick = England1Click
+      end
+      object Ain2: TMenuItem
+        Tag = 91
+        Caption = 'Bourgogne-Franche-Comt'#233
+        OnClick = England1Click
+      end
+      object Bretagne1: TMenuItem
+        Tag = 92
+        Caption = 'Bretagne'
+        OnClick = England1Click
+      end
+      object CentreValdeLoire1: TMenuItem
+        Tag = 93
+        Caption = 'Centre-Val de Loire'
+        OnClick = England1Click
+      end
+      object Corse1: TMenuItem
+        Tag = 94
+        Caption = 'Corse'
+        OnClick = England1Click
+      end
+      object Corse2: TMenuItem
+        Tag = 95
+        Caption = 'Grand-Est'
+        OnClick = England1Click
+      end
+      object HautsdeFrance1: TMenuItem
+        Tag = 96
+        Caption = 'Hauts-de-France'
+        OnClick = England1Click
+      end
+      object HautsdeFrance2: TMenuItem
+        Tag = 97
+        Caption = #206'le-de-France'
+        OnClick = England1Click
+      end
+      object Normandie1: TMenuItem
+        Tag = 98
+        Caption = 'Normandie'
+        OnClick = England1Click
+      end
+      object Normandie2: TMenuItem
+        Tag = 99
+        Caption = 'Nouvelle-Aquitaine'
+        OnClick = England1Click
+      end
+      object Occitanie1: TMenuItem
+        Tag = 100
+        Caption = 'Occitanie'
+        OnClick = England1Click
+      end
+      object Occitanie2: TMenuItem
+        Tag = 101
+        Caption = 'Pays-de-la-Loire'
+        OnClick = England1Click
+      end
+      object ProvenceAlpesCtedAzur1: TMenuItem
+        Tag = 102
+        Caption = 'Provence-Alpes-C'#244'te-d'#8217'Azur'
+        OnClick = England1Click
+      end
+    end
+    object NewZealand1: TMenuItem
+      Caption = 'New Zealand'
+      object Auckland1: TMenuItem
+        Tag = 74
+        Caption = 'Auckland'
+        OnClick = England1Click
+      end
+      object Auckland2: TMenuItem
+        Tag = 75
+        Caption = 'Bay of Plenty'
+        OnClick = England1Click
+      end
+      object Canterbury1: TMenuItem
+        Tag = 76
+        Caption = 'Canterbury'
+        OnClick = England1Click
+      end
+      object Canterbury2: TMenuItem
+        Tag = 77
+        Caption = 'Gisborne'
+        OnClick = England1Click
+      end
+      object HawkesBay1: TMenuItem
+        Tag = 78
+        Caption = 'Hawke'#39's Bay'
+        OnClick = England1Click
+      end
+      object HawkesBay2: TMenuItem
+        Tag = 79
+        Caption = 'Marlborough'
+        OnClick = England1Click
+      end
+      object ManawatuWanganui1: TMenuItem
+        Tag = 80
+        Caption = 'Manawatu-Wanganui'
+        OnClick = England1Click
+      end
+      object ManawatuWanganui2: TMenuItem
+        Tag = 81
+        Caption = 'Nelson'
+        OnClick = England1Click
+      end
+      object Northland1: TMenuItem
+        Tag = 82
+        Caption = 'Northland'
+        OnClick = England1Click
+      end
+      object Northland2: TMenuItem
+        Tag = 83
+        Caption = 'Otago'
+        OnClick = England1Click
+      end
+      object Southland1: TMenuItem
+        Tag = 84
+        Caption = 'Southland'
+        OnClick = England1Click
+      end
+      object Southland2: TMenuItem
+        Tag = 85
+        Caption = 'Tasman'
+        OnClick = England1Click
+      end
+      object aranaki1: TMenuItem
+        Tag = 86
+        Caption = 'Taranaki'
+        OnClick = England1Click
+      end
+      object aranaki2: TMenuItem
+        Tag = 87
+        Caption = 'Waikato'
+        OnClick = England1Click
+      end
+      object Wellington1: TMenuItem
+        Tag = 88
+        Caption = 'Wellington'
+        OnClick = England1Click
+      end
+      object Wellington2: TMenuItem
+        Tag = 89
+        Caption = 'West Coast'
+        OnClick = England1Click
+      end
+    end
+    object Spain1: TMenuItem
+      Caption = 'Spain'
+      object Andaluca1: TMenuItem
+        Tag = 103
+        Caption = 'Andaluc'#237'a'
+        OnClick = England1Click
+      end
+      object Andaluca2: TMenuItem
+        Tag = 104
+        Caption = 'Arag'#243'n'
+        OnClick = England1Click
+      end
+      object AsturiasPrincipadode1: TMenuItem
+        Tag = 105
+        Caption = 'Asturias, Principado de'
+        OnClick = England1Click
+      end
+      object AsturiasPrincipadode2: TMenuItem
+        Tag = 106
+        Caption = 'Canarias'
+        OnClick = England1Click
+      end
+      object Cantabria1: TMenuItem
+        Tag = 107
+        Caption = 'Cantabria'
+        OnClick = England1Click
+      end
+      object Cantabria2: TMenuItem
+        Tag = 108
+        Caption = 'Castilla y Le'#243'n'
+        OnClick = England1Click
+      end
+      object CastillaLaMancha1: TMenuItem
+        Tag = 109
+        Caption = 'Castilla-La Mancha'
+        OnClick = England1Click
+      end
+      object CatalunyacaCatalua1: TMenuItem
+        Tag = 110
+        Caption = 'Catalunya [Catalu'#241'a]'
+        OnClick = England1Click
+      end
+      object CatalunyacaCatalua2: TMenuItem
+        Tag = 111
+        Caption = 'Ceuta'
+        OnClick = England1Click
+      end
+      object Extremadura1: TMenuItem
+        Tag = 112
+        Caption = 'Extremadura'
+        OnClick = England1Click
+      end
+      object Extremadura2: TMenuItem
+        Tag = 113
+        Caption = 'Galicia [Galicia]'
+        OnClick = England1Click
+      end
+      object llesBalearscaIslasBaleares1: TMenuItem
+        Tag = 114
+        Caption = 'lles Balears [Islas Baleares]'
+        OnClick = England1Click
+      end
+      object llesBalearscaIslasBaleares2: TMenuItem
+        Tag = 115
+        Caption = 'La Rioja'
+        OnClick = England1Click
+      end
+      object MadridComunidadde1: TMenuItem
+        Tag = 116
+        Caption = 'Madrid, Comunidad de'
+        OnClick = England1Click
+      end
+      object MadridComunidadde2: TMenuItem
+        Tag = 117
+        Caption = 'Melilla'
+        OnClick = England1Click
+      end
+      object MurciaReginde1: TMenuItem
+        Tag = 118
+        Caption = 'Murcia, Regi'#243'n de'
+        OnClick = England1Click
+      end
+      object MurciaReginde2: TMenuItem
+        Tag = 119
+        Caption = 'Navarra, Comunidad Foral de'
+        OnClick = England1Click
+      end
+      object asVasco1: TMenuItem
+        Tag = 120
+        Caption = 'Pa'#237's Vasco'
+        OnClick = England1Click
+      end
+      object ValencianaComunitat1: TMenuItem
+        Tag = 121
+        Caption = 'Valenciana, Comunitat'
+        OnClick = England1Click
+      end
+    end
+    object UnitedKingdom1: TMenuItem
+      Caption = 'United Kingdom'
+      object England1: TMenuItem
+        Caption = 'England'
+        OnClick = England1Click
+      end
+      object NorthernIreland1: TMenuItem
+        Tag = 1
+        Caption = 'Northern Ireland'
+        OnClick = England1Click
+      end
+      object England2: TMenuItem
+        Tag = 2
+        Caption = 'Scotland'
+        OnClick = England1Click
+      end
+      object NorthernIreland2: TMenuItem
+        Tag = 3
+        Caption = 'Wales'
+        OnClick = England1Click
+      end
+    end
+    object UnitedStatesofAmerica1: TMenuItem
+      Tag = 60
+      Caption = 'United States of America'
+      object Alabama1: TMenuItem
+        Tag = 4
+        Caption = 'Alabama'
+        OnClick = England1Click
+      end
+      object Alabama2: TMenuItem
+        Tag = 5
+        Caption = 'Alaska'
+        OnClick = England1Click
+      end
+      object Arizona1: TMenuItem
+        Tag = 6
+        Caption = 'Arizona'
+        OnClick = England1Click
+      end
+      object Arizona2: TMenuItem
+        Tag = 7
+        Caption = 'Arkansas'
+        OnClick = England1Click
+      end
+      object California1: TMenuItem
+        Tag = 8
+        Caption = 'California'
+        OnClick = England1Click
+      end
+      object California2: TMenuItem
+        Tag = 9
+        Caption = 'Colorado'
+        OnClick = England1Click
+      end
+      object Connecticut1: TMenuItem
+        Tag = 10
+        Caption = 'Connecticut'
+        OnClick = England1Click
+      end
+      object Connecticut2: TMenuItem
+        Tag = 11
+        Caption = 'Delaware'
+        OnClick = England1Click
+      end
+      object Florida1: TMenuItem
+        Tag = 12
+        Caption = 'Florida'
+        OnClick = England1Click
+      end
+      object Florida2: TMenuItem
+        Tag = 13
+        Caption = 'Georgia'
+        OnClick = England1Click
+      end
+      object Hawaii1: TMenuItem
+        Tag = 14
+        Caption = 'Hawaii'
+        OnClick = England1Click
+      end
+      object Hawaii2: TMenuItem
+        Tag = 15
+        Caption = 'Idaho'
+        OnClick = England1Click
+      end
+      object Illinois1: TMenuItem
+        Tag = 16
+        Caption = 'Illinois'
+        OnClick = England1Click
+      end
+      object Illinois2: TMenuItem
+        Tag = 17
+        Caption = 'Indiana'
+        OnClick = England1Click
+      end
+      object Iowa1: TMenuItem
+        Tag = 18
+        Caption = 'Iowa'
+        OnClick = England1Click
+      end
+      object Iowa2: TMenuItem
+        Tag = 19
+        Caption = 'Kansas'
+        OnClick = England1Click
+      end
+      object Kentucky1: TMenuItem
+        Tag = 20
+        Caption = 'Kentucky'
+        OnClick = England1Click
+      end
+      object Kentucky2: TMenuItem
+        Tag = 21
+        Caption = 'Louisiana'
+        OnClick = England1Click
+      end
+      object Maine1: TMenuItem
+        Tag = 22
+        Caption = 'Maine'
+        OnClick = England1Click
+      end
+      object Maine2: TMenuItem
+        Tag = 23
+        Caption = 'Maryland'
+        OnClick = England1Click
+      end
+      object Massachusetts1: TMenuItem
+        Tag = 24
+        Caption = 'Massachusetts'
+        OnClick = England1Click
+      end
+      object Massachusetts2: TMenuItem
+        Tag = 25
+        Caption = 'Michigan'
+        OnClick = England1Click
+      end
+      object Minnesota1: TMenuItem
+        Tag = 26
+        Caption = 'Minnesota'
+        OnClick = England1Click
+      end
+      object Minnesota2: TMenuItem
+        Tag = 27
+        Caption = 'Mississippi'
+        OnClick = England1Click
+      end
+      object Missouri1: TMenuItem
+        Tag = 28
+        Caption = 'Missouri'
+        OnClick = England1Click
+      end
+      object Missouri2: TMenuItem
+        Tag = 29
+        Caption = 'Montana'
+        OnClick = England1Click
+      end
+      object Nebraska1: TMenuItem
+        Tag = 30
+        Caption = 'Nebraska'
+        OnClick = England1Click
+      end
+      object Nevada1: TMenuItem
+        Tag = 31
+        Caption = 'Nevada'
+        OnClick = England1Click
+      end
+      object Nebraska2: TMenuItem
+        Tag = 32
+        Caption = 'New Hampshire'
+        OnClick = England1Click
+      end
+      object NewJersey1: TMenuItem
+        Tag = 33
+        Caption = 'New Jersey'
+        OnClick = England1Click
+      end
+      object NewJersey2: TMenuItem
+        Tag = 34
+        Caption = 'New Mexico'
+        OnClick = England1Click
+      end
+      object NewYork1: TMenuItem
+        Tag = 35
+        Caption = 'New York'
+        OnClick = England1Click
+      end
+      object NewYork2: TMenuItem
+        Tag = 36
+        Caption = 'North Carolina'
+        OnClick = England1Click
+      end
+      object NorthDakota1: TMenuItem
+        Tag = 37
+        Caption = 'North Dakota'
+        OnClick = England1Click
+      end
+      object NorthDakota2: TMenuItem
+        Tag = 38
+        Caption = 'Ohio'
+        OnClick = England1Click
+      end
+      object Oklahoma1: TMenuItem
+        Tag = 39
+        Caption = 'Oklahoma'
+        OnClick = England1Click
+      end
+      object Oklahoma2: TMenuItem
+        Tag = 40
+        Caption = 'Oregon'
+        OnClick = England1Click
+      end
+      object Pennsylvania1: TMenuItem
+        Tag = 41
+        Caption = 'Pennsylvania'
+        OnClick = England1Click
+      end
+      object Pennsylvania2: TMenuItem
+        Tag = 42
+        Caption = 'Rhode Island'
+        OnClick = England1Click
+      end
+      object SouthCarolina1: TMenuItem
+        Tag = 43
+        Caption = 'South Carolina'
+        OnClick = England1Click
+      end
+      object SouthCarolina2: TMenuItem
+        Tag = 44
+        Caption = 'South Dakota'
+        OnClick = England1Click
+      end
+      object ennessee1: TMenuItem
+        Tag = 45
+        Caption = 'Tennessee'
+        OnClick = England1Click
+      end
+      object ennessee2: TMenuItem
+        Tag = 46
+        Caption = 'Texas'
+        OnClick = England1Click
+      end
+      object Utah1: TMenuItem
+        Tag = 47
+        Caption = 'Utah'
+        OnClick = England1Click
+      end
+      object Utah2: TMenuItem
+        Tag = 48
+        Caption = 'Vermont'
+        OnClick = England1Click
+      end
+      object Virginia1: TMenuItem
+        Tag = 49
+        Caption = 'Virginia'
+        OnClick = England1Click
+      end
+      object Virginia2: TMenuItem
+        Tag = 50
+        Caption = 'Washington'
+        OnClick = England1Click
+      end
+      object WestVirginia1: TMenuItem
+        Tag = 51
+        Caption = 'West Virginia'
+        OnClick = England1Click
+      end
+      object WestVirginia2: TMenuItem
+        Tag = 52
+        Caption = 'Wisconsin'
+        OnClick = England1Click
+      end
+      object Wyoming1: TMenuItem
+        Tag = 53
+        Caption = 'Wyoming'
+        OnClick = England1Click
+      end
+      object Wyoming2: TMenuItem
+        Caption = '-'
+      end
+      object DisctrictofColumbia1: TMenuItem
+        Tag = 54
+        Caption = 'Disctrict of Columbia'
+        OnClick = England1Click
+      end
+    end
+  end
+  object puDirection: TPopupMenu
+    Left = 688
+    object SetDirection1: TMenuItem
+      Caption = 'Set Direction'
+      Enabled = False
+    end
+    object SetDirection2: TMenuItem
+      Caption = '-'
+    end
+    object Fromangle1: TMenuItem
+      Caption = 'From angle'
+      object N01: TMenuItem
+        Caption = '0'#176
+        OnClick = N9Click
+      end
+      object N02: TMenuItem
+        Tag = 2
+        Caption = '45'#176
+        OnClick = N9Click
+      end
+      object N901: TMenuItem
+        Tag = 4
+        Caption = '90'#176
+        OnClick = N9Click
+      end
+      object N902: TMenuItem
+        Tag = 6
+        Caption = '135'#176
+        OnClick = N9Click
+      end
+      object N1801: TMenuItem
+        Tag = 8
+        Caption = '180'#176
+        OnClick = N9Click
+      end
+      object N1802: TMenuItem
+        Tag = 10
+        Caption = '225'#176
+        OnClick = N9Click
+      end
+      object N2701: TMenuItem
+        Tag = 12
+        Caption = '270'#176
+        OnClick = N9Click
+      end
+      object N2702: TMenuItem
+        Tag = 14
+        Caption = '315'#176
+        OnClick = N9Click
+      end
+    end
+    object Frombearing1: TMenuItem
+      Caption = 'From bearing'
+      object N9: TMenuItem
+        Caption = 'N'
+        OnClick = N9Click
+      end
+      object N10: TMenuItem
+        Tag = 1
+        Caption = 'NNE'
+        OnClick = N9Click
+      end
+      object NE1: TMenuItem
+        Tag = 2
+        Caption = 'NE'
+        OnClick = N9Click
+      end
+      object NE2: TMenuItem
+        Tag = 3
+        Caption = 'ENE'
+        OnClick = N9Click
+      end
+      object E1: TMenuItem
+        Tag = 4
+        Caption = 'E'
+        OnClick = N9Click
+      end
+      object E2: TMenuItem
+        Tag = 5
+        Caption = 'ESE'
+        OnClick = N9Click
+      end
+      object SE1: TMenuItem
+        Tag = 6
+        Caption = 'SE'
+        OnClick = N9Click
+      end
+      object SE2: TMenuItem
+        Tag = 7
+        Caption = 'SSE'
+        OnClick = N9Click
+      end
+      object S1: TMenuItem
+        Tag = 8
+        Caption = 'S'
+        OnClick = N9Click
+      end
+      object S2: TMenuItem
+        Tag = 9
+        Caption = 'SSW'
+        OnClick = N9Click
+      end
+      object SW1: TMenuItem
+        Tag = 10
+        Caption = 'SW'
+        OnClick = N9Click
+      end
+      object SW2: TMenuItem
+        Tag = 11
+        Caption = 'WSW'
+        OnClick = N9Click
+      end
+      object W1: TMenuItem
+        Tag = 12
+        Caption = 'W'
+        OnClick = N9Click
+      end
+      object W2: TMenuItem
+        Tag = 13
+        Caption = 'WNW'
+        OnClick = N9Click
+      end
+      object NW1: TMenuItem
+        Tag = 14
+        Caption = 'NW'
+        OnClick = N9Click
+      end
+      object NW2: TMenuItem
+        Tag = 15
+        Caption = 'NNW'
+        OnClick = N9Click
+      end
+    end
   end
 end

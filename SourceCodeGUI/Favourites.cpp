@@ -35,32 +35,29 @@ __fastcall TfrmFavourites::TfrmFavourites(TComponent* Owner)
 
 void __fastcall TfrmFavourites::bAddClick(TObject *Sender)
 {
-	if (lbFavourites->Items->Count != 0)
+	bool found = false;
+	std::wstring new_airport = eICAO->Text.c_str();
+
+	std::transform(new_airport.begin(), new_airport.end(), new_airport.begin(), ::toupper);
+
+	for (int t = 0; t < lbFavourites->Items->Count; t++)
 	{
-		bool found = false;
-		std::wstring new_airport = eICAO->Text.c_str();
-
-		std::transform(new_airport.begin(), new_airport.end(), new_airport.begin(), ::toupper);
-
-		for (int t = 0; t < lbFavourites->Items->Count; t++)
+		if (new_airport == lbFavourites->Items->Strings[t].c_str())
 		{
-			if (new_airport == lbFavourites->Items->Strings[t].c_str())
-			{
-				found = true;
-				break;
-			}
+			found = true;
+			break;
 		}
+	}
 
-		if (!found)
-		{
-			lbFavourites->Items->Add(new_airport.c_str());
+	if (!found)
+	{
+		lbFavourites->Items->Add(new_airport.c_str());
 
-			ModifiedFavourites = true;
-		}
-		else
-		{
-			Application->MessageBox(L"Specified airport ICAO is already in favourites!", L"Favourites", MB_OK);
-		}
+		ModifiedFavourites = true;
+	}
+	else
+	{
+		Application->MessageBox(L"Specified airport ICAO is already in favourites!", L"Favourites", MB_OK);
 	}
 }
 
@@ -76,15 +73,22 @@ void __fastcall TfrmFavourites::bDeleteClick(TObject *Sender)
 }
 
 
-void __fastcall TfrmFavourites::Button2Click(TObject *Sender)
+void __fastcall TfrmFavourites::bOKClick(TObject *Sender)
 {
 	if (ModifiedFavourites)
 	{
+		Caption = "a";
+
 		GConfiguration->Favourites.clear();
+
+		Caption = "b";
+
 
 		for (int t = 0; t < lbFavourites->Items->Count; t++)
 		{
-			GConfiguration->Favourites.push_back(lbFavourites->Items[t].Text.c_str());
+			Caption = t;
+
+			GConfiguration->Favourites.push_back(lbFavourites->Items->Strings[t].c_str());
 		}
 
         GConfiguration->FavouritesHaveChanged();

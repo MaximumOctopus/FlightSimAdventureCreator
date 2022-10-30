@@ -66,4 +66,6 @@ public:
 	int SetRangeFromTime(int, int, int, AircraftConstants::AircraftType);
 
 	void Add(Route);
+
+	std::wstring BuildRouteDescription(const std::wstring, const std::wstring, bool, bool, double, double, int, int, int, bool);
 };
