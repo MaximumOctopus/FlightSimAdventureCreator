@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.2.3 GUI Version
+  Flight Simulator Adventure Creator 0.2.4 GUI Version
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 30th 2022
+  November 17th 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -134,6 +134,16 @@ All of my software is free and open source; please consider donating to a local 
 ====================================================================================================================================
 
 Release History
+
+0.2.4 / November 17th 2022
+
+Added: New aircraft from the 40th anniversary update
+Added: Three new options to the Aircraft->Set menu: Airliners (props), Helis, Gliders
+Added: Icon, to match console version
+Added: Brazil to the Region popup menu
+
+Fixed: Aircraft selection logic (for military/seaplane/airliners)
+Fixed: A bug where the aircraft used for route generation is not the one selected :(
 
 0.2.3 / October 30th 2022
 

@@ -1,5 +1,6 @@
 ﻿// these represent the aircraft found in MSFS 2020 (free aircraft based on version)
 // unless I've made an error, I wouldn't alter these values... but you can, of course!
+// November 17th 2022
 //
 //{
 //name=
@@ -13,6 +14,17 @@
 //minrunway=0 		{ in feet, 0 = doesn't matter }
 //}
 
+{
+name=Airbus A310
+cruise=455
+range=6350
+availability=0
+type=1
+military=0
+airliner=1
+seaplane=0
+minrunway=0
+}
 
 {
 name=Airbus A320neo
@@ -80,6 +92,18 @@ cruise=244
 range=1806
 availability=0
 type=6
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Bell 407
+cruise=100
+range=300
+availability=0
+type=2
 military=0
 airliner=0
 seaplane=0
@@ -255,6 +279,30 @@ minrunway=0
 }
 
 {
+name=DG Aviation DG-1001E neo
+cruise=145
+range=1000
+availability=0
+type=3
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=DG Aviation LS8-18
+cruise=150
+range=1000
+availability=0
+type=3
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
 name=Diamond DA40 NG
 cruise=125
 range=940
@@ -303,6 +351,18 @@ minrunway=0
 }
 
 {
+name=Douglas DC-3 classic
+cruise=184
+range=2300
+availability=0
+type=4
+military=0
+airliner=1
+seaplane=0
+minrunway=0
+}
+
+{
 name=EXTRA 330LT
 cruise=150
 range=600
@@ -320,6 +380,30 @@ cruise=120
 range=780
 availability=0
 type=0
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Grumman G-21A Goose
+cruise=140
+range=298
+availability=0
+type=4
+military=0
+airliner=1
+seaplane=1
+minrunway=0
+}
+
+{
+name=Guimbal Cabri G2
+cruise=100
+range=400
+availability=0
+type=2
 military=0
 airliner=0
 seaplane=0
@@ -395,6 +479,42 @@ type=0
 military=0
 airliner=0
 seaplane=0
+minrunway=0
+}
+
+{
+name=Ryan NYP Spirit of St. Louis
+cruise=95
+range=3563
+availability=0
+type=0
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Viking Air Limited DHC-2 Beaver
+cruise=109
+range=395
+availability=0
+type=0
+military=0
+airliner=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Viking Air Limited DHC-2 Beaver Amphibious
+cruise=109
+range=395
+availability=0
+type=0
+military=0
+airliner=0
+seaplane=1
 minrunway=0
 }
 
