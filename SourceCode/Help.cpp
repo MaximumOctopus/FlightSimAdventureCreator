@@ -96,7 +96,7 @@ namespace Help
 		std::wcout << "\n";
 		std::wcout << L"                              : set several route settings within a single parameter.\n";
 		std::wcout << L"                              : Accepts a direction angle or compass bearing.\n";
-		std::wcout << L"                              : No setting is mandatory, just leave that bit blank. See manual for more details.\n";
+		std::wcout << L"                              : No option is mandatory, just leave that bit blank. See manual for more details.\n";
 		std::wcout << "\n";
 		std::wcout << L"    /favourite                : pick a random airport from \"" << SystemConstants::FavouritesFileName << L"\".\n";
 		std::wcout << "\n";
