@@ -2,7 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Hint = 'generate random routes!'
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Form1'
   ClientHeight = 751
   ClientWidth = 1217
@@ -189,6 +190,13 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
+    object Bevel14: TBevel
+      Left = 238
+      Top = 33
+      Width = 18
+      Height = 86
+      Shape = bsLeftLine
+    end
     object eMinSpeed: TEdit
       Left = 90
       Top = 159
@@ -259,9 +267,9 @@ object Form1: TForm1
       OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeHelicopter: TCheckBox
-      Left = 159
+      Left = 148
       Top = 56
-      Width = 97
+      Width = 80
       Height = 17
       Caption = 'Helicopter'
       Checked = True
@@ -276,9 +284,9 @@ object Form1: TForm1
       OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeGlider: TCheckBox
-      Left = 159
+      Left = 148
       Top = 102
-      Width = 97
+      Width = 80
       Height = 17
       Caption = 'Glider'
       Checked = True
@@ -344,9 +352,9 @@ object Form1: TForm1
       OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeJet: TCheckBox
-      Left = 159
+      Left = 148
       Top = 33
-      Width = 97
+      Width = 80
       Height = 17
       Caption = 'Jet'
       Checked = True
@@ -361,9 +369,9 @@ object Form1: TForm1
       OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftTypeBalloon: TCheckBox
-      Left = 159
+      Left = 148
       Top = 79
-      Width = 97
+      Width = 80
       Height = 17
       Caption = 'Balloon'
       Checked = True
@@ -2014,13 +2022,28 @@ object Form1: TForm1
       Caption = 'Aircraft'
       object Set1: TMenuItem
         Caption = 'Set'
+        object GA2: TMenuItem
+          Tag = 1
+          Caption = 'Airliners (Jet)'
+          OnClick = miSetGAClick
+        end
+        object AirlinersPropTurbo1: TMenuItem
+          Tag = 10
+          Caption = 'Airliners (Prop/Turbo)'
+          OnClick = miSetGAClick
+        end
         object miSetGA: TMenuItem
           Caption = 'GA'
           OnClick = miSetGAClick
         end
-        object GA2: TMenuItem
-          Tag = 1
-          Caption = 'Jet Airliners'
+        object Gliders1: TMenuItem
+          Tag = 8
+          Caption = 'Gliders'
+          OnClick = miSetGAClick
+        end
+        object Helicopters1: TMenuItem
+          Tag = 9
+          Caption = 'Helicopters'
           OnClick = miSetGAClick
         end
         object Props1: TMenuItem
@@ -3507,6 +3530,139 @@ object Form1: TForm1
       object Vistoria2: TMenuItem
         Tag = 60
         Caption = 'Western Australia'
+        OnClick = England1Click
+      end
+    end
+    object Brazil1: TMenuItem
+      Caption = 'Brazil'
+      object N11: TMenuItem
+        Tag = 122
+        Caption = 'Acre'
+        OnClick = England1Click
+      end
+      object Alagoas1: TMenuItem
+        Tag = 123
+        Caption = 'Alagoas'
+        OnClick = England1Click
+      end
+      object Alagoas2: TMenuItem
+        Tag = 124
+        Caption = 'Amap'#225
+        OnClick = England1Click
+      end
+      object Amazonas1: TMenuItem
+        Tag = 125
+        Caption = 'Amazonas'
+        OnClick = England1Click
+      end
+      object Amazonas2: TMenuItem
+        Tag = 126
+        Caption = 'Bahia'
+        OnClick = England1Click
+      end
+      object Cear1: TMenuItem
+        Tag = 127
+        Caption = 'Cear'#225
+        OnClick = England1Click
+      end
+      object Cear2: TMenuItem
+        Tag = 128
+        Caption = 'Esp'#237'rito Santo'
+        OnClick = England1Click
+      end
+      object Gois1: TMenuItem
+        Tag = 129
+        Caption = 'Goi'#225's'
+        OnClick = England1Click
+      end
+      object Maranho1: TMenuItem
+        Tag = 130
+        Caption = 'Maranh'#227'o'
+        OnClick = England1Click
+      end
+      object MatoGrosso1: TMenuItem
+        Tag = 131
+        Caption = 'Mato Grosso'
+        OnClick = England1Click
+      end
+      object MatoGrossodoSul1: TMenuItem
+        Tag = 132
+        Caption = 'Mato Grosso do Sul'
+        OnClick = England1Click
+      end
+      object MinasGerais1: TMenuItem
+        Tag = 133
+        Caption = 'Minas Gerais'
+        OnClick = England1Click
+      end
+      object Par1: TMenuItem
+        Tag = 134
+        Caption = 'Par'#225
+        OnClick = England1Click
+      end
+      object Paraba1: TMenuItem
+        Tag = 135
+        Caption = 'Para'#237'ba'
+        OnClick = England1Click
+      end
+      object Paran1: TMenuItem
+        Tag = 136
+        Caption = 'Paran'#225
+        OnClick = England1Click
+      end
+      object Pernambuco1: TMenuItem
+        Tag = 137
+        Caption = 'Pernambuco'
+        OnClick = England1Click
+      end
+      object Piau1: TMenuItem
+        Tag = 138
+        Caption = 'Piau'#237
+        OnClick = England1Click
+      end
+      object RiodeJaneiro1: TMenuItem
+        Tag = 139
+        Caption = 'Rio de Janeiro'
+        OnClick = England1Click
+      end
+      object RioGrandedoNorte1: TMenuItem
+        Tag = 140
+        Caption = 'Rio Grande do Norte'
+        OnClick = England1Click
+      end
+      object RioGrandedoSul1: TMenuItem
+        Tag = 141
+        Caption = 'Rio Grande do Sul'
+        OnClick = England1Click
+      end
+      object Rondnia1: TMenuItem
+        Tag = 142
+        Caption = 'Rond'#244'nia'
+        OnClick = England1Click
+      end
+      object Roraima1: TMenuItem
+        Tag = 143
+        Caption = 'Roraima'
+        OnClick = England1Click
+      end
+      object SantaCatarina1: TMenuItem
+        Tag = 144
+        Caption = 'Santa Catarina'
+        OnClick = England1Click
+      end
+      object SoPaulo1: TMenuItem
+        Tag = 145
+        Caption = 'S'#227'o Paulo'
+        OnClick = England1Click
+      end
+      object Sergipe1: TMenuItem
+        Tag = 146
+        Caption = 'Sergipe'
+        OnClick = England1Click
+      end
+      object ocantins1: TMenuItem
+        Tag = 147
+        Caption = 'Tocantins'
         OnClick = England1Click
       end
     end

@@ -619,7 +619,7 @@ void TForm1::GenerateRoutes()
 		cbAircraftListChange(nullptr);
 	}
 
-	Aircraft aircraft = GAircraftHandler->AircraftList[selected_aircraft];
+	Aircraft aircraft = GAircraftHandler->FilteredList[selected_aircraft];
 
     // =========================================================================
 
@@ -672,7 +672,8 @@ void TForm1::GenerateRoutes()
 	//std::wcout << std::format(L"  Max. range (per leg): {0:.1f} nm; legs: {1}", range_per_leg, GConfiguration->Route.Legs) << L"\n\n";
 
 	mRouteDebug->Text = GRouteHandler->BuildRouteDescription(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), cbStartFromFavourite->Checked, cbEndAtFavourite->Checked,
-		range_per_leg, RouteDirection, RouteLegs, RouteCount,	FlightTime, cbKeepTrying->Checked).c_str();
+		range_per_leg, RouteDirection, RouteLegs, RouteCount, FlightTime, cbKeepTrying->Checked,
+		cbUseAircraftRange->Checked, aircraft.Range, eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC)).c_str();
 
 	GAirportHandler->GetRoute(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), range_per_leg, RouteDirection, RouteLegs, RouteCount,	cbKeepTrying->Checked);
 
@@ -928,6 +929,15 @@ void __fastcall TForm1::miSetGAClick(TObject *Sender)
 			break;
 		case 7:
 			SetAircraftSelections(true, false, false, false, true, true, true, false, false, true, false);
+			break;
+		case 8:
+			SetAircraftSelections(false, false, false, true, false, false, false, false, false, false, false);
+			break;
+		case 9:
+			SetAircraftSelections(false, false, true, false, false, false, false, false, false, true, false);
+			break;
+		case 10:
+			SetAircraftSelections(true, false, false, false, true, true, true, false, true, false, false);
 			break;
 	}
 
@@ -1279,3 +1289,4 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 
 	eDirection->Text = Constants::CompassDegrees[mi->Tag];
 }
+

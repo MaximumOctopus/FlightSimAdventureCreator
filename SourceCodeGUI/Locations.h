@@ -23,7 +23,7 @@ namespace Location
 	static const std::wstring ContinentShort[ContinentCount] = { L"AF", L"AN", L"AS", L"EU", L"NA", L"OC", L"SA" };
 
 	static const int ISOCountriesCount = 249;
-	static const int ISRegionsCount = 122;
+	static const int ISRegionsCount = 148;
 
 #pragma region Countries
 	static const std::wstring ISOCountriesOrdered[ISOCountriesCount][2] =
@@ -281,25 +281,31 @@ namespace Location
 #pragma region Regions
 static const std::wstring ISORegions[ISRegionsCount] =
 {
-	L"GB-ENG", L"GB-NIR", L"GB-SCT", L"GB-WLS",
+	L"GB-ENG", L"GB-NIR", L"GB-SCT", L"GB-WLS", // 0 - 3
 
-	L"US-AL", L"US-AK", L"US-AZ", L"US-AR", L"US-CA", L"US-CO", L"US-CT", L"US-DE", L"US-FL", L"US-GA",
+	L"US-AL", L"US-AK", L"US-AZ", L"US-AR", L"US-CA", L"US-CO", L"US-CT", L"US-DE", L"US-FL", L"US-GA", // 4 - 54
 	L"US-HI", L"US-ID", L"US-IL", L"US-IN", L"US-IA", L"US-KS", L"US-KY", L"US-LA", L"US-ME", L"US-MD",
 	L"US-MA", L"US-MI", L"US-MN", L"US-MS", L"US-MO", L"US-MT", L"US-NE", L"US-NV", L"US-NH", L"US-NJ",
 	L"US-NM", L"US-NY", L"US-NC", L"US-ND", L"US-OH", L"US-OK", L"US-OR", L"US-PA", L"US-RI", L"US-SC",
 	L"US-SD", L"US-TN", L"US-TX", L"US-UT", L"US-VT", L"US-VA", L"US-WA", L"US-WV", L"US-WI", L"US-WY",
 	L"US-DC",
 
-	L"AU-NSW", L"AU-QLD", L"AU-SA", L"AU-TAS", L"AU-VIC", L"AU-WA",
+	L"AU-NSW", L"AU-QLD", L"AU-SA", L"AU-TAS", L"AU-VIC", L"AU-WA", // 55 - 60
 
-	L"CA-AB", L"CA-BC", L"CA-MB", L"CA-NB", L"CA-NL", L"CA-NS", L"CA-ON", L"CA-PE", L"CA-QC", L"CA-SK", L"CA-NT", L"CA-NU", L"CA-YT",
+	L"CA-AB", L"CA-BC", L"CA-MB", L"CA-NB", L"CA-NL", L"CA-NS", L"CA-ON", L"CA-PE", L"CA-QC", L"CA-SK", L"CA-NT", L"CA-NU", L"CA-YT", // 61 - 73
 
-	L"NZ-AUK", L"NZ-BOP", L"NZ-CAN", L"NZ-GIS", L"NZ-HKB", L"NZ-MBH", L"NZ-MWT", L"NZ-NSN", L"NZ-NTL", L"NZ-OTA", L"NZ-STL", L"NZ-TAS", L"NZ-TKI", L"NZ-WKO", L"NZ-WGN", L"NZ-WTC"
+	L"NZ-AUK", L"NZ-BOP", L"NZ-CAN", L"NZ-GIS", L"NZ-HKB", L"NZ-MBH", L"NZ-MWT", L"NZ-NSN", L"NZ-NTL", L"NZ-OTA",   // 74 - 89
+	L"NZ-STL", L"NZ-TAS", L"NZ-TKI", L"NZ-WKO", L"NZ-WGN", L"NZ-WTC",
 
-	L"FR-ARA", L"FR-BFC", L"FR-BRE", L"FR-CVL", L"FR-20R", L"FR-GES", L"FR-HDF", L"FR-IDF", L"FR-NOR", L"FR-NAQ", L"FR-OCC", L"FR-PDL", L"FR-PAC",
+	L"FR-ARA", L"FR-BFC", L"FR-BRE", L"FR-CVL", L"FR-20R", L"FR-GES", L"FR-HDF", L"FR-IDF", L"FR-NOR", L"FR-NAQ",  // 90 - 102
+	L"FR-OCC", L"FR-PDL", L"FR-PAC",
 
-	L"ES-AN", L"ES-AR", L"ES-AS", L"ES-CN", L"ES-CB", L"ES-CL", L"ES-CM", L"ES-CT", L"ES-CE", L"ES-EX", L"ES-GA", L"ES-IB", L"ES-RI", L"ES-MD", L"ES-ML", L"ES-MC", L"ES-NC", L"ES-PV", L"ES-VC"
+	L"ES-AN", L"ES-AR", L"ES-AS", L"ES-CN", L"ES-CB", L"ES-CL", L"ES-CM", L"ES-CT", L"ES-CE", L"ES-EX", // 103 - 121
+	L"ES-GA", L"ES-IB", L"ES-RI", L"ES-MD", L"ES-ML", L"ES-MC", L"ES-NC", L"ES-PV", L"ES-VC",
 
+	L"BR-AC", L"BR-AL", L"BR-AP", L"BR-AM", L"BR-BA", L"BR-CE", L"BR-ES", L"BR-GO", L"BR-MA", L"BR-MT", // 122 - 147
+	L"BR-MS", L"BR-MG", L"BR-PA", L"BR-PB", L"BR-PR", L"BR-PE", L"BR-PI", L"BR-RJ", L"BR-RN", L"BR-RS",
+	L"BR-RO", L"BR-RR", L"BR-SC", L"BR-SP", L"BR-SE", L"BR-TO",
 };
 
 #pragma end_region

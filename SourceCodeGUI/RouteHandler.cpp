@@ -97,7 +97,8 @@ int RouteHandler::SetRangeFromTime(int flight_time, int legs, int speed, Aircraf
 }
 
 
-std::wstring RouteHandler::BuildRouteDescription(const std::wstring start_icao, const std::wstring end_icao, bool start_favourite, bool end_favourite, double range, double direction, int legs, int simple_count, int flight_time, bool keep_trying)
+std::wstring RouteHandler::BuildRouteDescription(const std::wstring start_icao, const std::wstring end_icao, bool start_favourite, bool end_favourite, double range, double direction, int legs, int simple_count, int flight_time, bool keep_trying,
+	bool use_aircraft_range, int aircraft_range, int aircraft_range_modifier)
 {
 	std::wstring RouteDescription = L"";
 
@@ -129,7 +130,14 @@ std::wstring RouteHandler::BuildRouteDescription(const std::wstring start_icao, 
 
 	if (flight_time == 0)
 	{
-		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm; ";
+		RouteDescription += std::to_wstring(static_cast<int>(range)) + L" nm";
+
+		if (use_aircraft_range)
+		{
+			 RouteDescription += L" (based on aircraft range, " + std::to_wstring(aircraft_range) + L" nm @ " + std::to_wstring(aircraft_range_modifier) + L"%)";
+		}
+
+		RouteDescription += L";";
 	}
 	else
 	{

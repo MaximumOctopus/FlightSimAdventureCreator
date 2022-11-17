@@ -67,5 +67,6 @@ public:
 
 	void Add(Route);
 
-	std::wstring BuildRouteDescription(const std::wstring, const std::wstring, bool, bool, double, double, int, int, int, bool);
+	std::wstring BuildRouteDescription(const std::wstring, const std::wstring, bool, bool, double, double, int, int, int, bool,
+										bool, int, int);
 };

@@ -1,0 +1,468 @@
+// {
+// name=
+// cruise=
+// range=          { cannot be zero }
+// availability=   { all = 0, deluxe edition = 1, 2 = premium deluxe, 99 = third party (everything in custom_aircraft }
+// type=           { must be one of these: 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon }
+// military=0      { 1 = is military aircraft }
+// airliner=0      { 1 = is airliner }
+// seaplane=0      { 1 = is seaplane/float plane 0 = no }
+// minrunway=0     { in feet, 0 = doesn't matter }
+// }
+
+{
+name=A1R Design Bureau / Ryan ST-A Special
+cruise=120
+range=290
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Bombardier / CRJ1000
+cruise=473
+range=1622
+availability=99
+type=1
+airliner=1
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Bombardier / CRJ550ER
+cruise=473
+range=1000
+availability=99
+type=1
+airliner=1
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Bombardier / CRJ700ER
+cruise=473
+range=1400
+availability=99
+type=1
+airliner=1
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Bombardier / CRJ900
+cruise=473
+range=1550
+availability=99
+type=1
+airliner=1
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Britten Norman / BN2 Islander CARGO
+cruise=150
+range=800
+availability=99
+type=4
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Britten Norman / BN2 Islander Long Nose
+cruise=150
+range=800
+availability=99
+type=4
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Britten Norman / BN2 Maritime Defender
+cruise=150
+range=800
+availability=99
+type=4
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Britten Norman / BN2 Defender
+cruise=150
+range=800
+availability=99
+type=4
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Britten Norman / BN2 Islander
+cruise=150
+range=800
+availability=99
+type=4
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=DC Designs / Stearman
+cruise=96
+range=325
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=DC Designs / Stearman
+cruise=120
+range=325
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Progressive Aerodyne Inc. / Searey Elite
+cruise=80
+range=430
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=1
+minrunway=0
+}
+
+{
+name=Gee Bee / R3 Special
+cruise=200
+range=1000
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Airbus / H135 High Skids
+cruise=137
+range=343
+availability=99
+type=2
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Airbus / H135
+cruise=137
+range=343
+availability=99
+type=2
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Airbus Helicopters / ACH145 Luxury
+cruise=137
+range=343
+availability=99
+type=2
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Airbus Helicopters / H145 Civilian
+cruise=137
+range=343
+availability=99
+type=2
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Airbus Helicopters / H145M Military
+cruise=137
+range=343
+availability=99
+type=2
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Leonardo / M-346
+cruise=395
+range=1380
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Aermacchi / MB-339A
+cruise=250
+range=950
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Aermacchi / MB-339A MLU
+cruise=250
+range=950
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Aermacchi / MB-339PAN
+cruise=250
+range=950
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=SC Designs / F16C Fighting Falcon
+cruise=590
+range=1283
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=SC Designs / F16D Fighting Falcon
+cruise=590
+range=1283
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=SC Designs / F16I Fighting Falcon Israel
+cruise=590
+range=1283
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Just Flight / Hawk T1
+cruise=420
+range=697
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Just Flight / PA28 Arrow III
+cruise=135
+range=697
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Just Flight / PA28 Turbo Arrow III
+cruise=172
+range=780
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Just Flight / PA28 Turbo Arrow IV
+cruise=172
+range=780
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Just Flight / PA28 Warrior II
+cruise=111
+range=637
+availability=99
+type=0
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Milviz / 310R
+cruise=171
+range=1283
+availability=99
+type=4
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Milviz / FG-1D Corsair
+cruise=160
+range=965
+availability=99
+type=-1
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Caproni-Vizzola / C-22J Ventura
+cruise=220
+range=650
+availability=99
+type=1
+airliner=0
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=Boeing / 737-600
+cruise=452
+range=2935
+availability=99
+type=1
+airliner=1
+military=0
+seaplane=0
+minrunway=0
+}
+
+{
+name=SIM SKUNK WORKS F-104G / SINGLE SEATER
+cruise=450
+range=950
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=SIM SKUNK WORKS TF-104G / TRAINER TWIN SEAT
+cruise=450
+range=950
+availability=99
+type=1
+airliner=0
+military=1
+seaplane=0
+minrunway=0
+}
+
+{
+name=Daher / Kodiak 100 Amphibian
+cruise=162
+range=1132
+availability=99
+type=5
+airliner=0
+military=0
+seaplane=1
+minrunway=0
+}
+
