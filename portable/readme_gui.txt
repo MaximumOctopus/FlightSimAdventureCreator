@@ -1,7 +1,7 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.2.4 GUI Version
-  (c) Paul Alan Freshney 2022
+  Flight Simulator Adventure Creator 0.3 GUI Version
+  (c) Paul Alan Freshney 2022-2023
 
     paul@freshney.org
 	
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  November 17th 2022
+  January 24th 2023
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -69,9 +69,9 @@ I can't vouch for the accuracy of this data (whether the airports that are tagge
 
 This means that there is still a very small chance that it might generate a random route to a destination that doesn't exist in MSFS2020. This is not great, but there's nothing I can do about that right now. The lack of definitive MSFS airport list is always going to be an issue (unless I've missed it, in which case please send me an email!). However, I think thanks to Brian's work this is likely not the problem it could have been.
 
-If you find an airport that exists in MSFS but doesn't appear in the fcas.csv airports file then please let me know!
+If you find an airport that exists in MSFS but doesn't appear in the fsac.csv airports file then please let me know!
 
-Theoretically there's a 34% chance that any given airport in MSFS will be missing from the FCAS data. I suspect it's not quite that simple, with most of the missing airports clustered in specific regions. However, in half an hour or so my friend and I found ten airports not in the FSAC list (and they were all in central England, but mostly very small grass strips). 
+Theoretically there's a 34% chance that any given airport in MSFS will be missing from the FSAC data. I suspect it's not quite that simple, with most of the missing airports clustered in specific regions. However, in half an hour or so my friend and I found ten airports not in the FSAC list (and they were all in central England, but mostly very small grass strips). 
 
 Some airports do not have corresponding runway information. If you get an error like this:
 
@@ -88,7 +88,7 @@ To-do list (in no particular order):
 
 Fixing the UTF8 import of airport names.
 
-Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
+Adding more valid MSFS aiports (if you find one that's not in the fsac list, then please tell me!).
 
 Adding points of interest (POIs) to routes. 
 Adding NavAids (VOR, DME, etc.).
@@ -135,15 +135,11 @@ All of my software is free and open source; please consider donating to a local 
 
 Release History
 
-0.2.4 / November 17th 2022
+0.3.0 / January 24th 2023
 
-Added: New aircraft from the 40th anniversary update
-Added: Three new options to the Aircraft->Set menu: Airliners (props), Helis, Gliders
-Added: Icon, to match console version
-Added: Brazil to the Region popup menu
-
-Fixed: Aircraft selection logic (for military/seaplane/airliners)
-Fixed: A bug where the aircraft used for route generation is not the one selected :(
+Added: Hand-crafted airports to Start Airport and End Airport popup menu selector
+Added: Distance calculator to the Tools menu 
+       (calculates the distance between any two airports)
 
 0.2.3 / October 30th 2022
 

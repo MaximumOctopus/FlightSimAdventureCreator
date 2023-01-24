@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.5
+  Flight Simulator Adventure Creator 0.4.2
   (c) Paul Alan Freshney 2022
 
     paul@freshney.org
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  November 17th 2022
+  October 18th 2022
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -247,7 +247,7 @@ To-do list (in no particular order):
 
 Fixing the UTF8 import of airport names.
 
-Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
+Adding more valid MSFS aiports (if you find one that's not in the fsac list, then please tell me!).
 
 Adding points of interest (POIs) to routes. 
 Adding NavAids (VOR, DME, etc.).
@@ -299,7 +299,7 @@ All of my software is free and open source; please consider donating to a local 
 Release History
 
 
-0.5 / November 17th 2022
+0.5 / November
 
 Added: /route switch which allows for several of the most common parameters to be entered
        in a single command. All parameters are optional.
