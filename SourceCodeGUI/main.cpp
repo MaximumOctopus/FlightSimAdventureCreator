@@ -15,6 +15,7 @@
 
 #include "About.h"
 #include "AirportSearchDialog.h"
+#include "Distance.h"
 #include "Favourites.h"
 
 #include "AircraftConstants.h"
@@ -181,7 +182,11 @@ void TForm1::BuildGUIFrom(AircraftLoadFilter& aclf, AirportLoadFilter& aplf, Rou
 		cbTimeOfDayClick(cbTimeOfDay);
     }
 
-    bUpdateAirportsClick(nullptr);
+	std::wstring eminmax = L"(range: " + std::to_wstring(GAirportHandler->Stats.ElevationLowest) + L" ft to " + std::to_wstring(GAirportHandler->Stats.ElevationHighest) + L" ft)";
+
+	lElevationRange->Caption = eminmax.c_str();
+
+	bUpdateAirportsClick(nullptr);
 
 	// ============================================================================================
 	// == build route section =====================================================================
@@ -230,7 +235,7 @@ void TForm1::InitialGUISetup()
 {
 	#ifdef _DEBUG
 	tbCodeTest->Visible = true;
-    eMagicCode->Text = true;
+    eMagicCode->Visible = true;
 	#endif
 
 	sgRoutes->ColAlignments[4] = taRightJustify;
@@ -622,8 +627,6 @@ void TForm1::GenerateRoutes()
 	Aircraft aircraft = GAircraftHandler->FilteredList[selected_aircraft];
 
     // =========================================================================
-
-  //  std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
 
 	if (cbUseFlightTime->Checked)
 	{
@@ -1223,8 +1226,8 @@ void __fastcall TForm1::eEndAirportICAOExit(TObject *Sender)
 		}
 		else
 		{
-            lDistanceStartEnd->Caption = "(journey not possible with current airport settings)";
-        }
+			lDistanceStartEnd->Caption = "(journey not possible with current airport settings)";
+		}
 	}
 	else
 	{
@@ -1252,7 +1255,7 @@ void __fastcall TForm1::SetasHomeairport1Click(TObject *Sender)
 	TPopupMenu *pm = (TPopupMenu*)mi->GetParentMenu();
 	TEdit *edit = (TEdit*)pm->PopupComponent;
 
-	if (edit->Text != "")
+	if (!edit->Text.IsEmpty())
 	{
 		GConfiguration->System.HomeAirport = edit->Text.c_str();
 	}
@@ -1290,3 +1293,24 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 	eDirection->Text = Constants::CompassDegrees[mi->Tag];
 }
 
+void __fastcall TForm1::DistancefromAtoB1Click(TObject *Sender)
+{
+	frmDistanceCalc->ShowModal();
+}
+
+void __fastcall TForm1::BarraAirport1Click(TObject *Sender)
+{
+	TMenuItem *mi = (TMenuItem*)Sender;
+	TPopupMenu *pm = (TPopupMenu*)mi->GetParentMenu();
+	TEdit *edit = (TEdit*)pm->PopupComponent;
+
+	if (mi->Tag < Location::HandCraftedICAOCount)
+	{
+     	edit->Text = Location::HandCraftedICAO[mi->Tag].c_str();
+
+		if (!edit->Text.IsEmpty())
+		{
+			eEndAirportICAOExit(nullptr);
+		}
+	}
+}

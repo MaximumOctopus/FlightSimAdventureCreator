@@ -17,6 +17,7 @@ USEFORM("main.cpp", Form1);
 USEFORM("AirportSearchDialog.cpp", frmAirportSearchDialog);
 USEFORM("About.cpp", frmAbout);
 USEFORM("Favourites.cpp", frmFavourites);
+USEFORM("Distance.cpp", frmDistanceCalc);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -28,6 +29,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TfrmAirportSearchDialog), &frmAirportSearchDialog);
 		Application->CreateForm(__classid(TfrmAbout), &frmAbout);
 		Application->CreateForm(__classid(TfrmFavourites), &frmFavourites);
+		Application->CreateForm(__classid(TfrmDistanceCalc), &frmDistanceCalc);
 		Application->Run();
 	}
 	catch (Exception &exception)

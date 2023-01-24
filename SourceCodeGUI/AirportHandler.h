@@ -172,7 +172,6 @@ class AirportHandler
 	bool ExportTextReport = false;
 
 	AirportRouteGeneration Generation;
-	AirportStats Stats;
 
 	[[nodiscard]] bool LoadAirports(const std::wstring);
 	bool ImportFromRow(const std::wstring);
@@ -199,6 +198,8 @@ public:
 	std::vector<Airport> Airports;
 	std::vector<Airport> FilteredList;
 	std::vector<Airport> SearchResults;
+
+	AirportStats Stats;
 
 	AirportHandler();
 

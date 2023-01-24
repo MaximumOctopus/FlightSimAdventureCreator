@@ -25,6 +25,58 @@ namespace Location
 	static const int ISOCountriesCount = 249;
 	static const int ISRegionsCount = 148;
 
+#pragma region Hand-Crafted
+
+	static const int HandCraftedICAOCount = 99;
+
+	static const std::wstring HandCraftedICAO[] = {
+	L"LOWI", L"LOWK",                    				// austria
+	L"YMBT", L"YLRE", L"YPBO", L"YSHL", L"YSSY",        // australia
+	L"TFFJ",                                            // belgium
+	L"VQPR",                                            // bhutan
+	L"SBGL",                                            // brazil
+	L"CYBD", L"CYTZ", L"CYCG", L"CYDA", L"CYDF",        // canada
+	L"CYFB", L"CZST",
+	L"MRSN",                                            // costa rica
+	L"EKRN",                                            // denmark
+	L"SEQM",                                            // ecuador
+	L"HECA",                                            // egypa
+	L"EFVA",                                            // finland
+	L"LFPG", L"LFLJ", L"LFHM", L"LFMN",                 // france
+	L"EDDF", L"EDVK", L"EDDP", L"EDHL",                 // germany
+	L"EDJA", L"EDDS",
+	L"LXGB",                                            // gibraltar
+	L"EGPR", L"EGLL", L"EGHC", L"EGGP", L"EGCB",        // great britain
+	L"EG78",
+	L"MHTG",                                            // honduras
+	L"VHHX",                                            // hong kong
+	L"BIIS",                                            // iceland
+	L"WX53",                                            // indonesia
+	L"EIDL",                                            // ireland
+	L"LIPB", L"LICJ", L"LILO", L"LIRJ",                 // italy
+	L"RJTH", L"RJTT", L"ROKR", L"RJCK", L"RJFU",        // japan
+	L"RORS", L"RJX8",
+	L"EHAM", L"TNCS", L"EHRD",                          // netherlands
+	L"VNLK",                                            // nepal
+	L"NZQN",                                            // new zealand
+	L"SPGL",                                            // peru
+	L"LPMA", L"LPFR", L"LPPI",                          // portugal
+	L"TNCM",                                            // saint martin
+	L"FACT",                                            // south africa
+	L"LECO", L"LEMD", L"LESU",                          // spain
+	L"ENSB",                                            // svalbard
+	L"ESSA",                                            // sweden
+	L"LSZA", L"LSZO", L"LSZR", L"LSZH",                 // switzerland
+	L"HUEN",                                            // uganda
+	L"OMDB",                                            // uae
+	L"KASE", L"KBID", L"KAVX", L"KDFW", L"KDEN",        // usa
+	L"KFFA", L"KFHR", L"KATL", L"KJFK", L"KTVL",
+	L"KLAX", L"KNKX", L"KCGX", L"KORD", L"KMCO",
+	L"KCOF", L"KSFO", L"KSEA", L"KSEZ", L"KSWF",
+	L"KTEX", L"PAVD"
+	};
+#pragma end_region
+
 #pragma region Countries
 	static const std::wstring ISOCountriesOrdered[ISOCountriesCount][2] =
 	{ { L"Afghanistan", L"AF" },
