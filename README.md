@@ -63,13 +63,11 @@ Known issues:
 
 Non-latin characters are mangled when the data file is loaded. It won't affect your enjoyment of this product. The joys of C++'s not-that-great-UTF8-handling. It's high on the to-do list.
 
-While the ability to narrow down starting location (continent, country, region) is quite powerful, it may not offer the level of granularity that some might require. For instance, you can't currently set two countries (eg Spain and France, that might get you a nice flight across the Pyrenees or the Bay of Biscay). An EndAirport is coming in the next update. More control over available airport locations will come very soon. However, you could set the start airport to Bilbao (LEBB) and a direction of north east (NE) (/atob /startairport:LEBB /bearing:NE /range:150), and see what happens (hint, it'll probably get you what you want!).
+While the ability to narrow down starting location (continent, country, region) is quite powerful, it may not offer the level of granularity that some might require. For instance, you can't currently set two countries (eg Spain and France, that might get you a nice flight across the Pyrenees or the Bay of Biscay). More control over available airport locations will come very soon. However, you could set the start airport to Bilbao (LEBB) and a direction of north east (NE) (/atob /startairport:LEBB /bearing:NE /range:150), and see what happens (hint, it'll probably get you what you want!).
 
 The data available from ourairports.com is larger than the number of valid airports in MSFS 2020. There is no definitive list of MSFS airports, but Brian Bernacki (many thanks) has done a lot of work to get a substantial amount of those airports listed. The data file for FSAC has around 23000 airports, which is sizeable percentage of those advertised to exist in the sim (around 35000). This file is a combination of ourairports.com data and cross-referenced against data created by Brian.
 
 I can't vouch for the accuracy of this data (whether the airports that are tagged as being valid in MSFS do indeed exist in MSFS), but from the testing I've done so far it does seem highly accurate. It likely means some airports that exist in MSFS are missing, but this is much better than my original plan, which would have only given us around 5000 airports (with some of those most definitely not appearing in MSFS).
-
-This means that there is still a very small chance that it might generate a random route to a destination that doesn't exist in MSFS2020. This is not great, but there's nothing I can do about that right now. The lack of definitive MSFS airport list is always going to be an issue (unless I've missed it, in which case please send me an email!). However, I think thanks to Brian's work this is likely not the problem it could have been.
 
 If you find an airport that exists in MSFS but doesn't appear in the fcas.csv airports file then please let me know!
 
@@ -93,13 +91,9 @@ Fixing the UTF8 import of airport names.
 
 Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
 
-Route generation based on flight time (eg /time:60 to get an hour's flight)
-
 Adding points of interest (POIs) to routes. 
 
 Optimising performance of route generation.
-
-Automatic creation of custom_aircraft.txt by reading from the community folder.
 
 More route customisation options.
 
