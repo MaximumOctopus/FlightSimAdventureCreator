@@ -59,6 +59,7 @@ static const std::wstring kCount = L"/number";						// number of multi-leg route
 static const std::wstring kBearing = L"/bearing";					// set bearing to travel (with some margin of error)
 static const std::wstring kDirection = L"/direction";               // direction to travel (with some margin of error)
 static const std::wstring kRoute = L"/route";
+static const std::wstring kExtraDetail = L"/extra";					// extra detail for console output
 
 static const std::wstring kInternal = L"/internal";
 static const std::wstring kExternal = L"/external";
@@ -123,11 +124,12 @@ enum class ParameterOption {
 	NoDefault = 40, NoCustom = 41, KeepTrying = 42, FindNearest = 43, Help = 44, SaveConfig = 45,
 	Day = 46, Night = 47, StartFromFavourite = 48, SimpleRouteCount = 49, Silent = 50, ListAirports = 51,
 	Time = 52, LatitudeMax = 53, LatitudeMin = 54, LongitudeMax = 55, LongitudeMin = 56,
-	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60, RealWorld = 61, Internal = 62, External = 63, Airline = 64
+	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60, RealWorld = 61, Internal = 62, External = 63, Airline = 64,
+	ExtraDetail = 65
 };
 
 
-static const int kCommandListCount = 65;
+static const int kCommandListCount = 66;
 
 static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig, kElevation, kContinent, kCountry, kRegion, kNoSmallAiports, kNoMediumAiports, kNoLargeAiports,
 	kNoHeliports, kOnlySmallAiports, kOnlyMediumAiports, kOnlyLargeAiports, kOnlyHeliports, kAtoB, kLegs, kRange, kStartAirport, kEndAirport, kCount, kBearing,
@@ -139,7 +141,8 @@ static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig,
 	kDay, kNight, kStartFromFavourite, kSimpleCount, kSilent, kListAirports,
 	kTime, kLatitudeMax, kLatitudeMin, kLongitudeMax, kLongitudeMin, kAddStartToFav, kAddEndToFav,
 	kAircraftSeaplanes, kRoute,
-	kRealWorld, kInternal, kExternal, kAirline
+	kRealWorld, kInternal, kExternal, kAirline,
+	kExtraDetail
 };
 
 
@@ -153,7 +156,8 @@ static const ParameterOption ParameterReference[kCommandListCount] = { Parameter
 	ParameterOption::Day, ParameterOption::Night, ParameterOption::StartFromFavourite, ParameterOption::SimpleRouteCount, ParameterOption::Silent, ParameterOption::ListAirports,
 	ParameterOption::Time,  ParameterOption::LatitudeMax, ParameterOption::LatitudeMin, ParameterOption::LongitudeMax, ParameterOption::LongitudeMin,
 	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav, ParameterOption::Seaplanes, ParameterOption::Route,
-	ParameterOption::RealWorld, ParameterOption::Internal, ParameterOption::External, ParameterOption::Airline
+	ParameterOption::RealWorld, ParameterOption::Internal, ParameterOption::External, ParameterOption::Airline,
+	ParameterOption::ExtraDetail
 };
 #pragma endregion
 
@@ -267,6 +271,7 @@ struct MetaData {
 	std::wstring SaveFileName = L"";
 	bool ShowConfig = false;
 	bool Silent = false;
+	bool ExtraDetail = false;
 
 	bool OnlyNeedAirports = false;					// used to stop aircraft, runways, and jobs loading if they're not needed.
 };

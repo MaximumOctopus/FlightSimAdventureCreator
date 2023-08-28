@@ -31,8 +31,11 @@ RouteHandler* GRouteHandler;
 extern AirportHandler* GAirportHandler;
 
 
-RouteHandler::RouteHandler(const std::wstring file_name, bool _ExportMSFSPlan, bool _ExportTextReport)
+RouteHandler::RouteHandler(const std::wstring file_name, bool _Silent, bool _ExtraDetail, bool _ExportMSFSPlan, bool _ExportTextReport)
 {
+	Silent = _Silent;
+	ExtraDetail = _ExtraDetail;
+
 	ExportMSFSPlan = _ExportMSFSPlan;
 	ExportTextReport = _ExportTextReport;
 
@@ -121,7 +124,7 @@ int RouteHandler::TryGenerateRoutes(RouteFilter& rf)
 
 		if (rf.SpecificAirline)                                           		// airline
 		{
-			if (Routes[Route].Airline != rf.Airline)
+			if (Routes[Route].Airline.find(rf.Airline) != 0)
 			{
 				cancontinue = false;
             }
@@ -181,38 +184,7 @@ int RouteHandler::TryGenerateRoutes(RouteFilter& rf)
 
 		if (found)
 		{
-			std::wcout << L"\n == Route #" << GeneratedRoutes + 1 << " =======================================================\n\n";
-
-			Airports.clear();
-
-			Airports.push_back(GAirportHandler->GetAirport(AirportFrom));
-			Airports.push_back(GAirportHandler->GetAirport(AirportTo));
-
-			Airports.back().Distance = GAirportHandler->DistanceBetweenTwoAirports(Airports.front().Ident, Airports.back().Ident);
-
-			Airports.front().Angle = Utility::AngleBetween(Airports.front().LatitudeR, Airports.front().LongitudeR,
-				Airports.back().LatitudeR, Airports.back().LongitudeR);
-
-			std::wcout << L"   " << std::format(L"{0} --> {1}, {2} ({3:.1f} nm), @ {4:.1f}°\n", Airports.front().Ident, Airports.back().Ident, Airports.back().Country, Airports.back().Distance, Airports.front().Angle);
-
-			if (ExportMSFSPlan || ExportTextReport)
-			{
-				if (ExportMSFSPlan)
-				{
-					if (!MSFSFlightPlan::Export(Airports, L"Plans\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln"))
-					{
-						std::wcout << L"\n\nError saving plan file :( \n";
-					}
-				}
-
-				if (ExportTextReport)
-				{
-					if (!TextItinerary::Export(Airports, L"Reports\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
-					{
-						std::wcout << L"\n\nError saving text file :( \n";
-					}
-				}
-			}
+			RouteFound(GeneratedRoutes, Route, AirportFrom, AirportTo);
 
 			GeneratedRoutes++;
 
@@ -245,7 +217,7 @@ int RouteHandler::TryGenerateRoutesNoAirport(RouteFilter& rf)
 
 		if (rf.SpecificAirline)                                           		// airline
 		{
-			if (Routes[Route].Airline != rf.Airline)
+			if (Routes[Route].Airline.find(rf.Airline) != 0)
 			{
 				cancontinue = false;
             }
@@ -284,38 +256,7 @@ int RouteHandler::TryGenerateRoutesNoAirport(RouteFilter& rf)
 
 		if (found)
 		{
-			std::wcout << L"\n == Route #" << GeneratedRoutes + 1 << " =======================================================\n\n";
-
-			Airports.clear();
-
-			Airports.push_back(GAirportHandler->GetAirport(AirportFrom));
-			Airports.push_back(GAirportHandler->GetAirport(AirportTo));
-
-			Airports.back().Distance = GAirportHandler->DistanceBetweenTwoAirports(Airports.front().Ident, Airports.back().Ident);
-
-			Airports.front().Angle = Utility::AngleBetween(Airports.front().LatitudeR, Airports.front().LongitudeR,
-														   Airports.back().LatitudeR, Airports.back().LongitudeR);
-
-			std::wcout << L"   " << std::format(L"{0} --> {1}, {2} ({3:.1f} nm), @ {4:.1f}°\n", Airports.front().Ident, Airports.back().Ident, Airports.back().Country, Airports.back().Distance, Airports.front().Angle);
-
-			if (ExportMSFSPlan || ExportTextReport)
-			{
-				if (ExportMSFSPlan)
-				{
-					if (!MSFSFlightPlan::Export(Airports, L"Plans\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln"))
-					{
-						std::wcout << L"\n\nError saving plan file :( \n";
-					}
-				}
-
-				if (ExportTextReport)
-				{
-					if (!TextItinerary::Export(Airports, L"Reports\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
-					{
-						std::wcout << L"\n\nError saving text file :( \n";
-					}
-				}
-			}
+			RouteFound(GeneratedRoutes, Route, AirportFrom, AirportTo);
 
 			GeneratedRoutes++;
 
@@ -329,6 +270,48 @@ int RouteHandler::TryGenerateRoutesNoAirport(RouteFilter& rf)
 	}
 
 	return GeneratedRoutes;
+}
+
+
+void RouteHandler::RouteFound(int routeid, int routeindex, int from, int to)
+{
+	std::wcout << L"\n == Route #" << routeid << " =======================================================\n\n";
+
+	Airports.clear();
+
+	Airports.push_back(GAirportHandler->GetAirport(from));
+	Airports.push_back(GAirportHandler->GetAirport(to));
+
+	Airports.back().Distance = GAirportHandler->DistanceBetweenTwoAirports(Airports.front().Ident, Airports.back().Ident);
+
+	Airports.front().Angle = Utility::AngleBetween(Airports.front().LatitudeR, Airports.front().LongitudeR,
+		Airports.back().LatitudeR, Airports.back().LongitudeR);
+
+	std::wcout << L"   " << std::format(L"{0} --> {1}, {2} ({3:.1f} nm), @ {4:.1f}°; {5}\n", Airports.front().Ident, Airports.back().Ident, Airports.back().Country, Airports.back().Distance, Airports.front().Angle, Routes[routeindex].Airline);
+
+	if (ExtraDetail)
+	{
+		std::wcout << L"   " << Airports.front().Name << L" --> " << Airports.back().Name << L"\n";
+	}
+
+	if (ExportMSFSPlan || ExportTextReport)
+	{
+		if (ExportMSFSPlan)
+		{
+			if (!MSFSFlightPlan::Export(Airports, L"Plans\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln"))
+			{
+				std::wcout << L"\n\nError saving plan file :( \n";
+			}
+		}
+
+		if (ExportTextReport)
+		{
+			if (!TextItinerary::Export(Airports, L"Reports\\" + Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt"))
+			{
+				std::wcout << L"\n\nError saving text file :( \n";
+			}
+		}
+	}
 }
 
 
@@ -368,6 +351,11 @@ bool RouteHandler::LoadRoutes(const std::wstring file_name)
 		}
 
         Stats.Average = static_cast<int>((double)Stats.Total / (double)Routes.size());
+
+		if (!Silent)
+		{
+			std::wcout << "  Loaded " << count << " routes.\n";
+		}
 
 		file.close();
     }
@@ -516,6 +504,11 @@ bool RouteHandler::LoadFromCache(const std::wstring file_name)
 			}
 		}
 
+		if (!Silent)
+		{
+			std::wcout << "    Loaded " << FromCache.size() << " start airports.\n";
+		}
+
 		file.close();
 	}
 	else
@@ -543,6 +536,11 @@ bool RouteHandler::LoadToCache(const std::wstring file_name)
 			{
 				ToCache.push_back(s);
 			}
+		}
+
+		if (!Silent)
+		{
+			std::wcout << "    Loaded " << ToCache.size() << " destination airports.\n";
 		}
 
 		file.close();

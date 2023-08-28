@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 // 
@@ -14,14 +14,16 @@
 #include "AirportHandler.h"
 #include "GlobalObjects.h"
 #include "JobHandler.h"
+#include "RouteHandler.h"
 #include "RunwayHandler.h"
 
 
-extern Configuration* GConfiguration;
 extern AircraftHandler* GAircraftHandler;
 extern AirportHandler* GAirportHandler;
-extern RunwayHandler* GRunwayHandler;
+extern Configuration* GConfiguration;
 extern JobHandler* GJobHandler;
+extern RouteHandler* GRouteHandler;
+extern RunwayHandler* GRunwayHandler;
 
 
 namespace GlobalObjects
@@ -44,12 +46,14 @@ namespace GlobalObjects
 
 			GJobHandler = new JobHandler(GConfiguration->Meta.Silent);
 
-			return GAirportHandler->Loaded && GRunwayHandler->Loaded;
-		}
+			if (GConfiguration->Route.RealWorld)
+			{
+				GRouteHandler = new RouteHandler(SystemConstants::RoutesFileName, 
+					GConfiguration->Meta.Silent, GConfiguration->Meta.ExtraDetail,
+					GConfiguration->Export.MSFS, GConfiguration->Export.Text);
+			}
 
-		if (GConfiguration->Route.RealWorld)
-		{
-			
+			return GAirportHandler->Loaded && GRunwayHandler->Loaded;
 		}
 
 		return GAirportHandler->Loaded;
@@ -58,6 +62,11 @@ namespace GlobalObjects
 
 	void FreeGlobalObjects()
 	{
+		if (GRouteHandler != nullptr)
+		{
+			delete GRouteHandler;
+		}
+
 		if (GJobHandler != nullptr)
 		{
 			delete GJobHandler;

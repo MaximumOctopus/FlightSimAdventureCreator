@@ -81,6 +81,12 @@ namespace Help
 		std::wcout << L"    /night                    : select from airports where it's currently dark\n";
 		std::wcout << "\n";
 		std::wcout << L"  the following options dictate route generation:\n\n";
+		std::wcout << L"    /real                     : enable real-world route generation\n";
+		std::wcout << L"    /internal                 : routes within the same country\n";
+		std::wcout << L"    /external                 : routes where start and end are in different countries\n";
+		std::wcout << L"    /airline:name             : routes travelled by a specific airline";
+		std::wcout << L"                                only the first few characters are required: eg /airline:Brit\n";
+		std::wcout << "\n";
 		std::wcout << L"    /atob                     : enable route generation\n";
 		std::wcout << L"    /legs:number              : number of legs (airports to visit)\n";
 		std::wcout << L"    /range:distance           : maximum distance between legs (in nm)\n";

@@ -76,11 +76,16 @@ class RouteHandler
 
 	std::vector<Airport> Airports;
 
+	bool Silent = false;
+	bool ExtraDetail = false;
+
 	bool ExportMSFSPlan = false;
 	bool ExportTextReport = false;
 
 	int TryGenerateRoutes(RouteFilter&);
 	int TryGenerateRoutesNoAirport(RouteFilter&);
+
+	void RouteFound(int, int, int, int);
 
 	[[nodiscard]] bool LoadRoutes(const std::wstring);
 	[[nodiscard]] bool LoadFromCache(const std::wstring);
@@ -99,7 +104,7 @@ public:
 	std::vector<std::wstring> ToCache;
     std::vector<std::wstring> Airlines;
 
-	RouteHandler(const std::wstring, bool, bool);
+	RouteHandler(const std::wstring, bool,  bool, bool, bool);
 
 	int GenerateRoutes(RouteFilter&);
 

@@ -239,7 +239,7 @@ void Configuration::ShowConfiguration()
 
 	if (Route.RealWorld)
 	{
-		std::wcout << L"    Route generation : Real-world routes)\n";
+		std::wcout << L"    Route generation : Real-world routes\n";
 
 		if (Route.Airline != L"")
 		{
@@ -631,6 +631,10 @@ void Configuration::SetFromCommandLine()
 				break;
 			case ParameterOption::Airline:
 				Route.Airline = Parameters[p].property;
+				break;
+
+			case ParameterOption::ExtraDetail:
+				Meta.ExtraDetail = true;
 				break;
 
 			default:
@@ -1448,6 +1452,30 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 				
 		// == load from route section =================================================================
 
+		IntegerKey = config->ReadInteger(L"Route", L"RealWorld", 0);
+		if (config->LastKeyExist)
+		{
+			Route.RealWorld = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"Internal", 0);
+		if (config->LastKeyExist)
+		{
+			Route.InternalOnly = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"External", 0);
+		if (config->LastKeyExist)
+		{
+			Route.ExternalOnly = IntegerKey;
+		}
+
+		StringKey = config->ReadString(L"Route", L"Airline", L"");
+		if (config->LastKeyExist)
+		{
+			Route.Airline = IntegerKey;
+		}
+
 		IntegerKey = config->ReadInteger(L"Route", L"atob", 0);
 		if (config->LastKeyExist)
 		{
@@ -1544,6 +1572,14 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 		if (config->LastKeyExist)
 		{
 			Export.XPlane = IntegerKey;
+		}
+
+		// ============================================================================================
+
+		IntegerKey = config->ReadInteger(L"Meta", L"ExtraDetail", 0);
+		if (config->LastKeyExist)
+		{
+			Meta.ExtraDetail = IntegerKey;
 		}
 
 		// ============================================================================================
@@ -1675,8 +1711,13 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 
 		ofile << Formatting::to_utf8(L"[Route]\n");
 
-		if (Route.AtoB != 0)										ofile << Formatting::to_utf8(L"atob=1\n");
-		if (Route.Range != DataDefaults::Range)							ofile << Formatting::to_utf8(L"Range=" + std::to_wstring(static_cast<int>(Route.Range)) + L"\n");
+		if (Route.RealWorld)										ofile << Formatting::to_utf8(L"RealWorld=1\n");
+		if (Route.InternalOnly)										ofile << Formatting::to_utf8(L"Internal=1\n");
+		if (Route.ExternalOnly)										ofile << Formatting::to_utf8(L"External=1\n");
+		if (Route.Airline != L"")									ofile << Formatting::to_utf8(L"Airline=" + Route.Airline + L"\n");
+
+		if (Route.AtoB)												ofile << Formatting::to_utf8(L"atob=1\n");
+		if (Route.Range != DataDefaults::Range)						ofile << Formatting::to_utf8(L"Range=" + std::to_wstring(static_cast<int>(Route.Range)) + L"\n");
 		if (Route.Legs != 1)										ofile << Formatting::to_utf8(L"Legs=" + std::to_wstring(Route.Legs) + L"\n");
 		if (Route.Count != 1)										ofile << Formatting::to_utf8(L"Number=" + std::to_wstring(Route.Count) + L"\n");
 		if (Route.Direction != -1)									ofile << Formatting::to_utf8(L"Direction=" + std::to_wstring(Route.Direction) + L"\n");
@@ -1694,9 +1735,15 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 
 		ofile << Formatting::to_utf8(L"[Export]\n");
 
-		if (!Export.MSFS)											ofile << Formatting::to_utf8(L"MSFS=1\n");
-		if (!Export.Text)											ofile << Formatting::to_utf8(L"Text=1\n");
-		if (!Export.XPlane)											ofile << Formatting::to_utf8(L"XPlane=1\n");
+		if (Export.MSFS)											ofile << Formatting::to_utf8(L"MSFS=1\n");
+		if (Export.Text)											ofile << Formatting::to_utf8(L"Text=1\n");
+		if (Export.XPlane)											ofile << Formatting::to_utf8(L"XPlane=1\n");
+
+		// == meta ====================================================================================
+
+		ofile << Formatting::to_utf8(L"[Meta]\n");
+
+		if (Meta.ExtraDetail)										ofile << Formatting::to_utf8(L"ExtraDetail=1\n");
 
 		ofile.close();
 
