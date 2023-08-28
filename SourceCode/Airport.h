@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 // 
@@ -19,7 +19,7 @@
 
 struct RunwayData
 {
-	std::wstring Name = L"";				// eg 26L
+	std::wstring Name = L"";		// eg 26L
 	int Length = 0;					// in feet
 	std::wstring Surface = L"";
 };
@@ -33,6 +33,7 @@ public:
 	RunwayData Runway;
 
 	std::wstring Ident = L"";				// ICAO code
+	std::wstring IATA = L"";				// IATA code
 	AirportConstants::AirportType Type = AirportConstants::AirportType::None;
 	std::wstring Name = L"";
 	int Elevation = 0;						// in feet
@@ -54,7 +55,12 @@ public:
 
 	Airport();
 
-	Airport(const std::wstring, AirportConstants::AirportType, const std::wstring, int, const std::wstring, const std::wstring, const std::wstring, const  std::wstring, const std::wstring, bool);
+	Airport(const std::wstring, AirportConstants::AirportType, const std::wstring, int, const std::wstring, const std::wstring, 
+		const std::wstring, const  std::wstring, const std::wstring, 
+		const std::wstring,
+		bool);
+
+	std::wstring Angle1p();
 
 	// if runway is 26L then returns 26
 	std::wstring RunwayNumber();

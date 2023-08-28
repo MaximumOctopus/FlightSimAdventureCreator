@@ -100,6 +100,12 @@
     <Filter Include="Source Files\NavAids">
       <UniqueIdentifier>{854dcc92-74f5-4ae1-a1eb-c207091e8751}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Airline">
+      <UniqueIdentifier>{d0237705-9c97-48f8-be79-d7f411d80a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Airline">
+      <UniqueIdentifier>{5abb5824-92ee-439a-bcf7-1ae8ed77e9d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlightSimAdventureCreator.cpp">
@@ -192,6 +198,18 @@
     <ClCompile Include="RouteDisplay.cpp">
       <Filter>Source Files\Route</Filter>
     </ClCompile>
+    <ClCompile Include="Route.cpp">
+      <Filter>Source Files\Route</Filter>
+    </ClCompile>
+    <ClCompile Include="RouteHandler.cpp">
+      <Filter>Source Files\Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Airline.cpp">
+      <Filter>Source Files\Airline</Filter>
+    </ClCompile>
+    <ClCompile Include="AirlineHandler.cpp">
+      <Filter>Source Files\Airline</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h">
@@ -236,7 +254,7 @@
     <ClInclude Include="POIHandler.h">
       <Filter>Header Files\POI</Filter>
     </ClInclude>
-    <ClInclude Include="FCASAirportData.h">
+    <ClInclude Include="FSACAirportData.h">
       <Filter>Header Files\Export</Filter>
     </ClInclude>
     <ClInclude Include="TextItinerary.h">
@@ -301,6 +319,18 @@
     </ClInclude>
     <ClInclude Include="Defaults.h">
       <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>Header Files\Route</Filter>
+    </ClInclude>
+    <ClInclude Include="RouteHandler.h">
+      <Filter>Header Files\Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Airline.h">
+      <Filter>Header Files\Airline</Filter>
+    </ClInclude>
+    <ClInclude Include="AirlineHandler.h">
+      <Filter>Header Files\Airline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,11 +19,12 @@
 #include "AirportHandler.h"
 #include "Configuration.h"
 #include "Constants.h"
-#include "FCASAirportData.h"
+#include "FSACAirportData.h"
 #include "GlobalObjects.h"
 #include "Help.h"
 #include "JobHandler.h"
 #include "MSFSSystem.h"
+#include "RouteHandler.h"
 #include "Utility.h"
 #include "VersionCheck.h"
 
@@ -32,6 +33,7 @@ extern Configuration* GConfiguration;
 extern AircraftHandler* GAircraftHandler;
 extern AirportHandler* GAirportHandler;
 extern JobHandler* GJobHandler;
+extern RouteHandler* GRouteHandler;
 
 
 bool RunHelperFunctions()
@@ -76,7 +78,72 @@ void GenerateAircraftAndLocation()
 }
 
 
-// this is a bit messy and needs refactoring to do
+void GenerateRealWorldRoutes()
+{
+    //sbMain->SimpleText = "Generating random routes...";
+
+    // =========================================================================
+    Aircraft aircraft = GAircraftHandler->GetRandomAircraft();
+
+    std::wcout << L"  " << aircraft.Show() << "\n";
+    std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
+    // =========================================================================
+
+    RouteFilter rf;
+
+    double range = GConfiguration->Route.Range;
+
+    if (GConfiguration->Route.RequestedFlightTime != 0)
+    {
+        if (GConfiguration->SetRangeFromTime(aircraft.CruiseSpeed, aircraft.Type))
+        {
+            std::wcout << std::format(L"  Set range to {0} nm, based on {1} min flight time.\n", GConfiguration->Route.Range, GConfiguration->Route.RequestedFlightTime);
+
+            range = GConfiguration->Route.Range;
+        }
+    }
+    else if (GConfiguration->Route.UseAircraftRange)
+    {
+        range = ((double)aircraft.Range * (GConfiguration->Route.AircraftRangePercent / 100));
+    }
+
+    rf.Distance = range;
+    rf.DistanceMin = rf.Distance * 0.90;
+    rf.DistanceMax = rf.Distance * 1.10;
+
+    if (GConfiguration->Route.StartAirportICAO != L"")
+    {
+        rf.DirectionFrom = true;
+        rf.ICAO = GConfiguration->Route.StartAirportICAO;
+    }
+    else if (GConfiguration->Route.EndAirportICAO != L"")
+    {
+        rf.DirectionFrom = false;
+        rf.ICAO = GConfiguration->Route.EndAirportICAO;
+    }
+
+    if (GConfiguration->Route.Airline != L"")
+    {
+        rf.SpecificAirline = true;
+        rf.Airline = GConfiguration->Route.Airline;
+    }
+
+    rf.RouteCount = GConfiguration->Route.Count;
+
+    rf.KeepTrying = GConfiguration->Airport.KeepTrying;
+    rf.InternalOnly = GConfiguration->Route.InternalOnly;
+    rf.ExternalOnly = GConfiguration->Route.ExternalOnly;
+
+    GRouteHandler->GenerateRoutes(rf);
+
+    //	std::wstring s = std::to_wstring(rf.Distance) + L" " + std::to_wstring(rf.DistanceMin) + L" " + std::to_wstring(rf.DistanceMax);
+    //    Caption = s.c_str();
+
+    //sbMain->SimpleText = "Finished generating routes.";
+}
+
+
+// this is a bit messy and needs refactoring, to do
 void GenerateUserRoutes(int route)
 {
     if (GConfiguration->Route.Count != 1)
@@ -88,12 +155,12 @@ void GenerateUserRoutes(int route)
     {
         double d = GAirportHandler->DistanceBetweenTwoAirports(GConfiguration->Route.StartAirportICAO, GConfiguration->Route.EndAirportICAO);
 
-        if (GConfiguration->Route.Legs != 1 && GConfiguration->Route.Range != Defaults::DefaultRange)
+        if (GConfiguration->Route.Legs != 1 && GConfiguration->Route.Range != DataDefaults::Range)
         {
             std::wcout << L"  Setting start and end aiports is not compatible with setting legs and range (can't have both!). Using range.\n\n";
         }
 
-        if (GConfiguration->Route.Range != Defaults::DefaultRange)
+        if (GConfiguration->Route.Range != DataDefaults::Range)
         {
             GConfiguration->Route.Legs = (d / GConfiguration->Route.Range) + 1;
         }
@@ -172,6 +239,12 @@ int SpecialOptions(std::wstring first_argument)
 
         return 0;
     }
+    if (parameter == kFSACXRoutes)
+    {
+        FSACAirportData::ExportRoutes();
+
+        return 0;
+    }
     #endif
 
     if (parameter == kGetVersion)
@@ -241,7 +314,11 @@ int wmain(int argc, wchar_t* argv[])
 
         if (!user_just_wanted_analysis)
         {
-            if (GConfiguration->Route.AtoB)
+            if (GConfiguration->Route.RealWorld)
+            {
+                GenerateRealWorldRoutes();
+            }
+            else if (GConfiguration->Route.AtoB)
             {
                 for (int t = 0; t < GConfiguration->Route.Count; t++)
                 {

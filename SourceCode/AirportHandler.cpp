@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 // 
@@ -40,7 +40,7 @@ AirportHandler::AirportHandler(const std::wstring file_name)
     Filter.MediumAirports = true;
     Filter.SmallAirports = true;
     Filter.Heliports = true;
-    Filter.SeaplaneBase = true;
+    Filter.SeaplaneBases = true;
 
     Airports.reserve(30000);
 
@@ -81,7 +81,7 @@ AirportHandler::AirportHandler(bool silent, bool export_plan, bool export_text, 
     Filter.MediumAirports = airport_filter_data.MediumAirports;
     Filter.SmallAirports = airport_filter_data.SmallAirports;
     Filter.Heliports = airport_filter_data.Heliports;
-    Filter.SeaplaneBase = airport_filter_data.SeaplaneBases;
+    Filter.SeaplaneBases = airport_filter_data.SeaplaneBases;
 
     if (Filter.LongitudeFrom < Filter.LongitudeTo)
     {
@@ -154,10 +154,10 @@ double AirportHandler::DistanceBetweenTwoAirports(const std::wstring icao_from, 
 // long and lat must already be converted to radians
 double AirportHandler::DistanceBetween(double lat1, double long1, double lat2, double long2)
 {
-    long double deltalong = long2 - long1;
-    long double deltalat = lat2 - lat1;
+    long double deltalong = (long double)long2 - (long double)long1;
+    long double deltalat = (long double)lat2 - (long double)lat1;
 
-    long double distance = pow(sin(deltalat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(deltalong / 2), 2);
+    long double distance = pow(sin(deltalat / 2), 2) + cos((long double)lat1) * cos(lat2) * pow(sin(deltalong / 2), 2);
 
     distance = 2 * asin(sqrt(distance));
 
@@ -282,7 +282,7 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
         TargetICAO = end_icao;
 
         // so we'll do the route in reverse, so we need to reverse the required angle of flight
-        if (direction != Defaults::DefaultDirection)
+        if (direction != DataDefaults::Direction)
         {
             direction = Utility::ReverseAngle(direction);
         }
@@ -313,7 +313,7 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
     int Attempt = 0;
     int TargetAirport = kRandomAirport;
     int Retries = 0;
-    double DirectionMarginOfError = Defaults::DefaultDirectionMargin;
+    double DirectionMarginOfError = DataDefaults::DirectionMargin;
 
     if (airport_icao != L"")
     {
@@ -448,7 +448,7 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
     int Attempt = 0;
     int TargetAirport = kRandomAirport;
     int Retries = 0;
-    double DirectionMarginOfError = Defaults::DefaultDirectionMargin;
+    double DirectionMarginOfError = DataDefaults::DirectionMargin;
 
     if (airport_icao != L"")
     {
@@ -554,7 +554,7 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
     int MaximumAttempts = Generation.MaximumAttempts;
     int Attempt = 0;
 
-    double DirectionMarginOfError = Defaults::DefaultDirectionMargin;
+    double DirectionMarginOfError = DataDefaults::DirectionMargin;
     int StartAirport;
     int EndAirport;
 
@@ -672,6 +672,20 @@ void AirportHandler::HandleMultiLegExport()
 }
 
 
+int AirportHandler::GetIndexFromIATA(const std::wstring iata)
+{
+    for (int t = 0; t < Airports.size(); t++)
+    {
+        if (Airports[t].IATA == iata)
+        {
+            return t;
+        }
+    }
+
+    return kRandomAirport;
+}
+
+
 int AirportHandler::GetIndexFromICAO(const std::wstring icao)
 {
     for (int t = 0; t < Airports.size(); t++)
@@ -690,6 +704,7 @@ int AirportHandler::GetIndexFromICAO(const std::wstring icao)
 void AirportHandler::ImportedDataCheck()
 {
     int NoICAO = 0;
+    int NoIATA = 0;
     int NoName = 0;
     int NoType = 0;
     int NoLat = 0;
@@ -703,6 +718,10 @@ void AirportHandler::ImportedDataCheck()
         if (Airports[t].Ident == L"")
         {
             NoICAO++;
+        }
+        if (Airports[t].IATA == L"")
+        {
+            NoIATA++;
         }
         if (Airports[t].Name == L"")
         {
@@ -734,7 +753,8 @@ void AirportHandler::ImportedDataCheck()
         }
     }
 
-    std::wcout << std::format(L"    NoICAO: {0}; NoName: {1}; NoType: {2}; NoLat: {3}; NoLong: {4}; NoCont: {5}; NoCountry: {6}; NoReg: {7}; Lo: {8} ft; Hi: {9} ft.\n", NoICAO, NoName, NoType, NoLat, NoLong, NoContinent, NoCountry, NoRegion, Stats.ElevationLowest, Stats.ElevationHighest);
+    std::wcout << std::format(L"    NoICAO : {0}; NoIATA : {1}; NoName: {2}; NoType : {3}\n", NoICAO, NoIATA, NoName, NoType);
+    std::wcout << std::format(L"    NoLat : {0}; NoLong : {1}; NoCont : {2}; NoCountry : {3}; NoReg : {4}; Lo : {5} ft; Hi : {6} ft.\n", NoLat, NoLong, NoContinent, NoCountry, NoRegion, Stats.ElevationLowest, Stats.ElevationHighest);
 }
 #endif
 
@@ -804,6 +824,7 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
         std::wstring Country = L"";
         std::wstring Continent = L"";
         std::wstring Region = L"";
+        std::wstring IATA = L"";
         bool MSFSCompatible = false;
 
         std::wstring field = L"";
@@ -826,6 +847,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 
                     if (Type == AirportConstants::AirportType::None)
                     {
+                        #ifdef _DEBUG
+                       // std::wcout << field << L"\n";
+                        #endif
+
                         return false;
                     }
 
@@ -847,6 +872,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         }
                         catch (...)
                         {
+                            #ifdef _DEBUG       
+                            std::wcout << L"lat convert " << field << L"\n";
+                            #endif
+
                             return false;
                         }
 
@@ -854,6 +883,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         {
                             if (l > Filter.LatitudeFrom && l < Filter.LatitudeTo)
                             {
+#ifdef _DEBUG       
+                                std::wcout << L"lat " << field << L"\n";
+#endif
+
                                 return false;
                             }
                         }
@@ -861,6 +894,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         {
                             if (l > Filter.LatitudeFrom || l < Filter.LatitudeTo)
                             {
+                                #ifdef _DEBUG       
+                                std::wcout << L"lat from " << field << L"\n";
+                                #endif
+
                                 return false;
                             }
                         }
@@ -880,6 +917,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         }
                         catch (...)
                         {
+                            #ifdef _DEBUG
+                            std::wcout << L" longconvert " << field << L"\n";
+                            #endif
+
                             return false;
                         }
 
@@ -887,6 +928,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         {
                             if (l > Filter.LongitudeFrom && l < Filter.LongitudeTo)
                             {
+                                #ifdef _DEBUG       
+                                std::wcout << L" Long " << field << L"\n";
+                                #endif
+
                                 return false;
                             }
                         }
@@ -894,6 +939,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                         {
                             if (l > Filter.LongitudeFrom || l < Filter.LongitudeTo)
                             {
+                                #ifdef _DEBUG       
+                                std::wcout << L" long from " << field << L"\n";
+                                #endif
+
                                 return false;
                             }
                         }
@@ -913,6 +962,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 
                     if (Elevation < Filter.MinimumElevation)
                     {
+                        #ifdef _DEBUG
+                        std::wcout << L"ME = " << Filter.MinimumElevation << L"; input = " << field << L"\n";
+                        #endif
+
                         return false;
                     }
 
@@ -935,6 +988,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                     {
                         if (Continent != Filter.Continent)
                         {
+                            #ifdef _DEBUG       
+                            std::wcout << L"continent = " << field << L"\n";
+                            #endif
+
                             return false;
                         }
                     }
@@ -945,8 +1002,12 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 
                     if (Filter.Country != L"")
                     {
-                        if (Country != Filter.Country)
+                        if (Country != Filter.Country)                       
                         {
+                            #ifdef _DEBUG       
+                            std::wcout << L" country " << field << L"\n";
+                            #endif
+
                             return false;
                         }
                     }
@@ -959,11 +1020,19 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
                     {
                         if (Region != Filter.Region)
                         {
+                            #ifdef _DEBUG       
+                            std::wcout << L"region: " << field << L"\n";
+                            #endif
+
                             return false;
                         }
                     }
 
                     break;
+                case kAFieldIATA:
+                    IATA = field;
+                    break;
+
                 case kAFieldMSFSCompatible:
                     if (field == L"1")
                     {
@@ -1010,7 +1079,7 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
             break;
         }
 
-        Airport airport(Ident, Type, Name, Elevation, Latitude, Longitude, Country, Continent, Region, MSFSCompatible);
+        Airport airport(Ident, Type, Name, Elevation, Latitude, Longitude, Country, Continent, Region, IATA, MSFSCompatible);
 
         Airports.push_back(airport);
 
@@ -1038,10 +1107,10 @@ AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row
         if (Filter.Heliports) return AirportConstants::AirportType::Heliport;
         break;
     case AirportConstants::AirportType::SeaplaneBase:
-        if (Filter.SeaplaneBase) return AirportConstants::AirportType::SeaplaneBase;
+        if (Filter.SeaplaneBases) return AirportConstants::AirportType::SeaplaneBase;
         break;
     }
-        
+
     return AirportConstants::AirportType::None;
 }
 
@@ -1108,7 +1177,7 @@ bool AirportHandler::Save(const std::wstring file_name, bool only_msfs_compatibl
             std::wcout << L"Saving FSAC airport data to \"" << file_name << L"\"\n\n";
         }
 
-        ofile << Formatting::to_utf8(L"//airport_id,ident,type,name,latitude_deg,longitude_deg,elevation_ft,iso_continent,iso_country,iso_region,municipality,continent,country,region,longest_runway_length,avgas_avail,jetfuel_avail,airport_use,runway_hard,runway_soft,runway_water,helipad,approach_VASI,approach_ALS,approach_ILS,msfs_compatible,msfs_addon") << "\n";
+        ofile << Formatting::to_utf8(L"//airport_id,ident,type,name,latitude_deg,longitude_deg,elevation_ft,iso_continent,iso_country,iso_region,unused,unused,unused,iata,unused,unused,unused,unused,unused,unused,unused,unused,unused,unused,unused,msfs_compatible,msfs_addon") << "\n";
 
         for (int t = 0; t < Airports.size(); t++)
         {
@@ -1125,9 +1194,11 @@ bool AirportHandler::Save(const std::wstring file_name, bool only_msfs_compatibl
                 output += Airports[t].Continent + L",";
                 output += Airports[t].Country + L",";
                 output += Airports[t].Region + L",";
+                output += L",,,";
+                output += Airports[t].IATA + L",";
 
                 // these are currently not used ;)
-                output += L",,,,,,,,,,,,,,,";
+                output += L",,,,,,,,,,,";
 
                 output += std::to_wstring(Airports[t].MSFSCompatible);
 

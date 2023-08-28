@@ -18,17 +18,21 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.5 (debug)";
+	static const std::wstring FSACVersion = L"0.6 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.5";
+	static const std::wstring FSACVersion = L"0.6";
 	#endif
 
-	static const std::wstring FSACDate = L"November 17th 2022";
+	static const std::wstring FSACDate = L"August 28th 2023";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";
 
-	static const std::wstring AirportsFileName = L"fsac.csv";
+	static const std::wstring AirlineFileName = L"fsacairlines.csv";
+	static const std::wstring AirportsFileName = L"fsac.csv";	
+	static const std::wstring RoutesFileName = L"routes.csv";
+	static const std::wstring RoutesFromCacheFileName = L"routes_fromcache.csv";
+	static const std::wstring RoutesToCacheFileName = L"routes_tocache.csv";
 	static const std::wstring RunwaysFileName = L"runways.csv";
 	static const std::wstring POIFileName = L".csv";						// to do
 	static const std::wstring NavAidsFileName = L".csv";					// to do
@@ -38,4 +42,9 @@ namespace SystemConstants
 
 	static const std::wstring FavouritesFileName = L"favourites.txt";
 	static const std::wstring JobsFileName = L"jobs.txt";
+
+	static const std::wstring RouteFileList = L"routes_list.csv";
+
+	static const std::wstring RawAirlineFileName = L"airlines.csv";
+	static const std::wstring RawRoutes = L"routes_import.csv";				// 
 }

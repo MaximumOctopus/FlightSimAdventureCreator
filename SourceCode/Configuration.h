@@ -48,6 +48,7 @@ static const std::wstring kOnlyLargeAiports = L"/onlylarge";		// only large airp
 static const std::wstring kOnlyHeliports = L"/onlyheliports";       // only heliports, switches aircraft type to helicopters
 
 static const std::wstring kAtoB = L"/atob";							// activate route generation
+static const std::wstring kRealWorld = L"/real";					// search real-world routes
 static const std::wstring kSimpleCount = L"/simple";				// how many of the simple routes to display
 static const std::wstring kLegs = L"/legs";							// number of legs per route (default is 1)
 static const std::wstring kRange = L"/range";						// set maximum leg distance nm
@@ -58,6 +59,10 @@ static const std::wstring kCount = L"/number";						// number of multi-leg route
 static const std::wstring kBearing = L"/bearing";					// set bearing to travel (with some margin of error)
 static const std::wstring kDirection = L"/direction";               // direction to travel (with some margin of error)
 static const std::wstring kRoute = L"/route";
+
+static const std::wstring kInternal = L"/internal";
+static const std::wstring kExternal = L"/external";
+static const std::wstring kAirline = L"/airline";
 
 static const std::wstring kDay = L"/day";							// find airports currently in daylight
 static const std::wstring kNight = L"/night";						// find airports currently in night
@@ -103,6 +108,7 @@ static const std::wstring kCustomAircraftFile = L"/fsacca";			// creates custom_
 
 static const std::wstring kFSACXAirports = L"/fsacxa";				// builds the fsac airports file file from two input files
 static const std::wstring kFSACXRunways  = L"/fsacxr";				// builds the fsac airports file file from two input files
+static const std::wstring kFSACXRoutes   = L"/fsacxf";
 
 static const std::wstring kGetVersion = L"/version";
 
@@ -117,11 +123,11 @@ enum class ParameterOption {
 	NoDefault = 40, NoCustom = 41, KeepTrying = 42, FindNearest = 43, Help = 44, SaveConfig = 45,
 	Day = 46, Night = 47, StartFromFavourite = 48, SimpleRouteCount = 49, Silent = 50, ListAirports = 51,
 	Time = 52, LatitudeMax = 53, LatitudeMin = 54, LongitudeMax = 55, LongitudeMin = 56,
-	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60
+	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60, RealWorld = 61, Internal = 62, External = 63, Airline = 64
 };
 
 
-static const int kCommandListCount = 61;
+static const int kCommandListCount = 65;
 
 static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig, kElevation, kContinent, kCountry, kRegion, kNoSmallAiports, kNoMediumAiports, kNoLargeAiports,
 	kNoHeliports, kOnlySmallAiports, kOnlyMediumAiports, kOnlyLargeAiports, kOnlyHeliports, kAtoB, kLegs, kRange, kStartAirport, kEndAirport, kCount, kBearing,
@@ -132,7 +138,8 @@ static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig,
 	kNoDefaultAircraft, kNoCustomAircraft, kKeepTrying, kFindNearest, kHelp, kHelpLazy, kSaveConfig, 
 	kDay, kNight, kStartFromFavourite, kSimpleCount, kSilent, kListAirports,
 	kTime, kLatitudeMax, kLatitudeMin, kLongitudeMax, kLongitudeMin, kAddStartToFav, kAddEndToFav,
-	kAircraftSeaplanes, kRoute
+	kAircraftSeaplanes, kRoute,
+	kRealWorld, kInternal, kExternal, kAirline
 };
 
 
@@ -145,7 +152,8 @@ static const ParameterOption ParameterReference[kCommandListCount] = { Parameter
 	ParameterOption::NoDefault, ParameterOption::NoCustom, ParameterOption::KeepTrying, ParameterOption::FindNearest, ParameterOption::Help, ParameterOption::Help, ParameterOption::SaveConfig,
 	ParameterOption::Day, ParameterOption::Night, ParameterOption::StartFromFavourite, ParameterOption::SimpleRouteCount, ParameterOption::Silent, ParameterOption::ListAirports,
 	ParameterOption::Time,  ParameterOption::LatitudeMax, ParameterOption::LatitudeMin, ParameterOption::LongitudeMax, ParameterOption::LongitudeMin,
-	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav, ParameterOption::Seaplanes, ParameterOption::Route
+	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav, ParameterOption::Seaplanes, ParameterOption::Route,
+	ParameterOption::RealWorld, ParameterOption::Internal, ParameterOption::External, ParameterOption::Airline
 };
 #pragma endregion
 
@@ -168,7 +176,7 @@ struct AircraftData {
 	bool Custom = true;								// custom_aircraft.txt
 
 	int MinSpeed = 0;								// minimum cruise speed
-	int MaxSpeed = Defaults::DefaultMaxSpeed;		// maximum cruise speed
+	int MaxSpeed = DataDefaults::MaxSpeed;				// maximum cruise speed
 
 	int Type = -1;									// 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo props, 6 = twin turbo props
 
@@ -213,29 +221,37 @@ struct AirportData {
 };
 
 
-struct ExportData {
+struct ExportData 
+{
 	bool MSFS = false;
 	bool Text = false;
 	bool XPlane = false;
 };
 
 
-struct RouteData {
+struct RouteData 
+{
 	bool AtoB = false;								// route generation on (true) or off
 	bool AtoBAutomatic = false;						// if it appears the user has forgotten to add /atob then FSAC will add it automagically
+	bool RealWorld = false;							// selects from the ~60000 real world routes
 
-	double Range = Defaults::DefaultRange;			// nautical miles
+	bool InternalOnly = false;						// used by realworld routes
+	bool ExternalOnly = false;						// used by realworld routes
+
+	double Range = DataDefaults::Range;				// nautical miles
 	int Legs = 1;
 	int Count = 1;									// how many multi-leg routes to generate
-	double Direction = Defaults::DefaultDirection;		// travel direction, +20 degrees on each side
+	double Direction = DataDefaults::Direction;		// travel direction, +20 degrees on each side
 	std::wstring StartAirportICAO = L"";			// start journey at specified airport
 	std::wstring EndAirportICAO = L"";				// end journey at specified airport
+
+	std::wstring Airline = L"";						// only routes run by specified airline
 
 	bool StartFromFavourite = false;				// will pick a random airport from Favourites.txt
 
 	bool UseAircraftRange = false;
 
-	double AircraftRangePercent = Defaults::DefaultACPC;	// % modifier to apply to aircraft range to get usable range
+	double AircraftRangePercent = DataDefaults::AircraftRangePC;	// % modifier to apply to aircraft range to get usable range
 
 	int SimpleRouteCount = -1;						// no need to set a default, -1 will tell the airporthandler to use its default
 

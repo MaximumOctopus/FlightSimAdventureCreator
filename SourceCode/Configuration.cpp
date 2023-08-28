@@ -207,7 +207,7 @@ void Configuration::ShowConfiguration()
 	}
 	else
 	{
-		if (Aircraft.Type != Defaults::DefaultAircraftSelection)
+		if (Aircraft.Type != DataDefaults::AircraftSelection)
 		{
 			std::wcout << L"    Aircraft Type    : " << Utility::GetAircraftType(Aircraft.Type) << L"\n";
 		}
@@ -237,7 +237,38 @@ void Configuration::ShowConfiguration()
 
 	// == route =======================================================================================
 
-	if (Route.AtoB)
+	if (Route.RealWorld)
+	{
+		std::wcout << L"    Route generation : Real-world routes)\n";
+
+		if (Route.Airline != L"")
+		{
+			std::wcout << L"    Airline          : " << Route.Airline << L"\n";
+		}
+
+		if (Route.RequestedFlightTime != 0)
+		{
+			std::wcout << L"    Range            : set from flight time (" << Route.RequestedFlightTime << L" mins. (+/- " << DataDefaults::RangeModifier << L"%)\n";
+		}
+		else
+		{
+			std::wcout << L"    Range            : " << Route.Range << L" nm (+/- " << DataDefaults::RangeModifier << L"%)\n";
+		}
+
+		if (Route.InternalOnly)
+		{
+			std::wcout << L"    Route boundary   : Internal flights only\n";
+		}
+		else if (Route.ExternalOnly)
+		{
+			std::wcout << L"    Route boundary   : External flights only\n";
+		}
+		else
+		{
+			std::wcout << L"    Route boundary   : None\n";
+		}
+	}
+	else if (Route.AtoB)
 	{
 		if (Route.AtoBAutomatic)
 		{
@@ -246,18 +277,18 @@ void Configuration::ShowConfiguration()
 
 		if (Route.RequestedFlightTime != 0)
 		{
-			std::wcout << L"    Range            : set from flight time (" << Route.RequestedFlightTime << L" mins. (+/- " << Defaults::DefaultRangeModifier << L"%)\n";
+			std::wcout << L"    Range            : set from flight time (" << Route.RequestedFlightTime << L" mins. (+/- " << DataDefaults::RangeModifier << L"%)\n";
 		}
 		else
 		{
-			std::wcout << L"    Range            : " << Route.Range << L" nm (+/- " << Defaults::DefaultRangeModifier << L"%)\n";
+			std::wcout << L"    Range            : " << Route.Range << L" nm (+/- " << DataDefaults::RangeModifier << L"%)\n";
 		}		
 
 		std::wcout << L"    Legs             : " << Route.Legs << L"\n";
 
-		if (Route.Direction != Defaults::DefaultDirection)
+		if (Route.Direction != DataDefaults::Direction)
 		{
-			std::wcout << L"    Direction        : " << Route.Direction << L"° (+- " << Defaults::DefaultDirectionMargin << L"°)\n";
+			std::wcout << L"    Direction        : " << Route.Direction << L"° (+- " << DataDefaults::DirectionMargin << L"°)\n";
 		}
 		else
 		{
@@ -589,6 +620,19 @@ void Configuration::SetFromCommandLine()
 				HandleRoute(Parameters[p].property);
 				break;
 
+			case ParameterOption::RealWorld:
+				Route.RealWorld = true;
+				break;
+			case ParameterOption::Internal:
+				Route.InternalOnly = true;
+				break;
+			case ParameterOption::External:
+				Route.ExternalOnly = true;
+				break;
+			case ParameterOption::Airline:
+				Route.Airline = Parameters[p].property;
+				break;
+
 			default:
 				std::wcout << L" Warning, parameter " << Parameters[p].command << " was unhandled.\n";
 			}
@@ -610,7 +654,7 @@ void Configuration::SetFromCommandLine()
 		if (!Route.AtoB)
 		{
 			// the user has likely wanted a route but forgotten the /atob parameter
-			if (Route.Range != Defaults::DefaultRange || Route.StartAirportICAO != L"" || Route.EndAirportICAO != L"" || Route.Direction != -1 || Route.Legs != 1)
+			if (Route.Range != DataDefaults::Range || Route.StartAirportICAO != L"" || Route.EndAirportICAO != L"" || Route.Direction != -1 || Route.Legs != 1)
 			{
 				Route.AtoB = true;
 				Route.AtoBAutomatic = true;
@@ -622,7 +666,7 @@ void Configuration::SetFromCommandLine()
 
 void Configuration::HandleAircraftMaxSpeed(const std::wstring speed)
 {
-	int Speed = SafelyGetIntFromString(speed, Defaults::DefaultMaxSpeed);
+	int Speed = SafelyGetIntFromString(speed, DataDefaults::MaxSpeed);
 
 	if (Speed > 0)
 	{
@@ -630,7 +674,7 @@ void Configuration::HandleAircraftMaxSpeed(const std::wstring speed)
 	}
 	else
 	{
-		std::wcerr << std::format(L"Error, invalid aircraft maximum speed \"{0}\". Using {1} (default).\n", speed, Defaults::DefaultMaxSpeed);
+		std::wcerr << std::format(L"Error, invalid aircraft maximum speed \"{0}\". Using {1} (default).\n", speed, DataDefaults::MaxSpeed);
 	}
 }
 
@@ -652,7 +696,7 @@ void Configuration::HandleAircraftMinSpeed(const std::wstring speed)
 
 void Configuration::HandleAircraftRangePercent(const std::wstring range_percent)
 {
-	double RangePC = Defaults::DefaultACPC;
+	double RangePC = DataDefaults::AircraftRangePC;
 
 	try
 	{
@@ -660,7 +704,7 @@ void Configuration::HandleAircraftRangePercent(const std::wstring range_percent)
 	}
 	catch (...)
 	{
-		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
+		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, DataDefaults::AircraftRangePC);
 	}
 
 	if (RangePC > 0)
@@ -669,14 +713,14 @@ void Configuration::HandleAircraftRangePercent(const std::wstring range_percent)
 	}
 	else
 	{
-		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, Defaults::DefaultACPC);
+		std::wcerr << std::format(L"Error, invalid aircraft range percent \"{0}\". Using {1} (default).\n", range_percent, DataDefaults::AircraftRangePC);
 	}
 }
 
 
 void Configuration::HandleAircraftType(const std::wstring aircraft_type)
 {
-	int Type = SafelyGetIntFromString(aircraft_type, Defaults::DefaultAircraftSelection);
+	int Type = SafelyGetIntFromString(aircraft_type, DataDefaults::AircraftSelection);
 
 	if (Type >= AircraftConstants::AircraftTypeMin && Type <= AircraftConstants::AircraftTypeMax)
 	{
@@ -694,7 +738,7 @@ void Configuration::HandleBearing(const std::wstring input)
 {
 	int d = Utility::GetDirectionFromBearing(input);
 
-	if (d != Defaults::DefaultDirection)
+	if (d != DataDefaults::Direction)
 	{
 		Route.Direction = d;
 	}
@@ -780,7 +824,7 @@ void Configuration::HandleDirection(const std::wstring angle)
 {
 	if (angle != L"-1")
 	{
-		double Direction = Defaults::DefaultDirection;
+		double Direction = DataDefaults::Direction;
 
 		try
 		{
@@ -902,7 +946,7 @@ void Configuration::HandleRange(const std::wstring input)
 	}
 	else
 	{
-		std::wcerr << std::format(L"Error, invalid route range \"{0}\" nm. Using {1} (default).\n", input, Defaults::DefaultRange);
+		std::wcerr << std::format(L"Error, invalid route range \"{0}\" nm. Using {1} (default).\n", input, DataDefaults::Range);
 	}
 }
 
@@ -914,9 +958,9 @@ void Configuration::HandleRoute(const std::wstring input)
 	int parameter = 0;
 	std::wstring s = L"";
 	std::wstring start = L"";
-	double range = Defaults::DefaultRange;
+	double range = DataDefaults::Range;
 	int legs = 1;
-	int direction = Defaults::DefaultDirection;
+	int direction = DataDefaults::Direction;
 
 	for (int t = 0; t < data.length(); t++)
 	{
@@ -946,7 +990,7 @@ void Configuration::HandleRoute(const std::wstring input)
 					{
 						int d = Utility::GetDirectionFromBearing(s);
 
-						if (d != Defaults::DefaultDirection)
+						if (d != DataDefaults::Direction)
 						{
 							direction = d;
 						}
@@ -986,7 +1030,7 @@ void Configuration::HandleSimpleRouteCount(const std::wstring input)
 	}	
 	else
 	{
-		std::wcerr << std::format(L"Error, invalid simple route count \"{0}\". Using {1} (default).\n", input, Defaults::DefaultShortRoutesToShow);
+		std::wcerr << std::format(L"Error, invalid simple route count \"{0}\". Using {1} (default).\n", input, DataDefaults::ShortRoutesToShow);
 	}
 }
 
@@ -1254,13 +1298,13 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Aircraft.Custom = IntegerKey;
 		}
 
-		StringKey = config->ReadString(L"Aircraft", L"Type", std::to_wstring(Defaults::DefaultAircraftSelection));
+		StringKey = config->ReadString(L"Aircraft", L"Type", std::to_wstring(DataDefaults::AircraftSelection));
 		if (config->LastKeyExist)
 		{
 			HandleAircraftType(StringKey);
 		}
 
-		StringKey = config->ReadString(L"Aircraft", L"MaxSpeed", std::to_wstring(Defaults::DefaultMaxSpeed));
+		StringKey = config->ReadString(L"Aircraft", L"MaxSpeed", std::to_wstring(DataDefaults::MaxSpeed));
 		if (config->LastKeyExist)
 		{
 			HandleAircraftMaxSpeed(StringKey);
@@ -1410,7 +1454,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Route.AtoB = IntegerKey;
 		}
 
-		StringKey = config->ReadString(L"Route", L"Range", std::to_wstring(Defaults::DefaultRange));
+		StringKey = config->ReadString(L"Route", L"Range", std::to_wstring(DataDefaults::Range));
 		if (config->LastKeyExist)
 		{
 			HandleRange(StringKey);
@@ -1470,7 +1514,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Route.RequestedFlightTime = IntegerKey;
 		}
 
-		IntegerKey = config->ReadInteger(L"Route", L"AircraftRangePercent", Defaults::DefaultACPC);
+		IntegerKey = config->ReadInteger(L"Route", L"AircraftRangePercent", DataDefaults::AircraftRangePC);
 		if (config->LastKeyExist)
 		{
 			Route.AircraftRangePercent = IntegerKey;
@@ -1557,8 +1601,8 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 
 		if (!Aircraft.Default)										ofile << Formatting::to_utf8(L"Default=0\n");
 		if (!Aircraft.Custom)										ofile << Formatting::to_utf8(L"Custom=0\n");
-		if (Aircraft.Type != Defaults::DefaultAircraftSelection)	ofile << Formatting::to_utf8(L"Type=" + std::to_wstring(Aircraft.Type) + L"\n");
-		if (Aircraft.MaxSpeed != Defaults::DefaultMaxSpeed)			ofile << Formatting::to_utf8(L"MaxSpeed=" + std::to_wstring(Aircraft.MaxSpeed) + L"\n");
+		if (Aircraft.Type != DataDefaults::AircraftSelection)		ofile << Formatting::to_utf8(L"Type=" + std::to_wstring(Aircraft.Type) + L"\n");
+		if (Aircraft.MaxSpeed != DataDefaults::MaxSpeed)			ofile << Formatting::to_utf8(L"MaxSpeed=" + std::to_wstring(Aircraft.MaxSpeed) + L"\n");
 		if (Aircraft.MinSpeed != 0)									ofile << Formatting::to_utf8(L"MinSpeed=" + std::to_wstring(Aircraft.MinSpeed) + L"\n");
 		if (Aircraft.Airliner != 1)									ofile << Formatting::to_utf8(L"Airliner=0\n");
 		if (Aircraft.Military != 1)									ofile << Formatting::to_utf8(L"Military=0\n");
@@ -1632,7 +1676,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 		ofile << Formatting::to_utf8(L"[Route]\n");
 
 		if (Route.AtoB != 0)										ofile << Formatting::to_utf8(L"atob=1\n");
-		if (Route.Range != Defaults::DefaultRange)					ofile << Formatting::to_utf8(L"Range=" + std::to_wstring(static_cast<int>(Route.Range)) + L"\n");
+		if (Route.Range != DataDefaults::Range)							ofile << Formatting::to_utf8(L"Range=" + std::to_wstring(static_cast<int>(Route.Range)) + L"\n");
 		if (Route.Legs != 1)										ofile << Formatting::to_utf8(L"Legs=" + std::to_wstring(Route.Legs) + L"\n");
 		if (Route.Count != 1)										ofile << Formatting::to_utf8(L"Number=" + std::to_wstring(Route.Count) + L"\n");
 		if (Route.Direction != -1)									ofile << Formatting::to_utf8(L"Direction=" + std::to_wstring(Route.Direction) + L"\n");
@@ -1640,7 +1684,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 		if (Route.EndAirportICAO != L"")							ofile << Formatting::to_utf8(L"EndAirport=" + Route.EndAirportICAO + L"\n");
 		if (Route.UseAircraftRange != 0)							ofile << Formatting::to_utf8(L"UseAircraftRange=1\n");
 		if (Route.RequestedFlightTime != 0)							ofile << Formatting::to_utf8(L"Time=" + std::to_wstring(Route.RequestedFlightTime) + L"\n");
-		if (Route.AircraftRangePercent != Defaults::DefaultACPC)	ofile << Formatting::to_utf8(L"AircraftRangePercent=" + std::to_wstring(Route.AircraftRangePercent) + L"\n");
+		if (Route.AircraftRangePercent != DataDefaults::AircraftRangePC)ofile << Formatting::to_utf8(L"AircraftRangePercent=" + std::to_wstring(Route.AircraftRangePercent) + L"\n");
 		if (Route.StartFromFavourite != 0)                          ofile << Formatting::to_utf8(L"StartFromFavourite=1");
 		if (Route.SimpleRouteCount != -1)                           ofile << Formatting::to_utf8(L"SimpleRouteCount=" + std::to_wstring(Route.SimpleRouteCount) + L"\n");
 

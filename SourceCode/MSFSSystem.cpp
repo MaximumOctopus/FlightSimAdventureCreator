@@ -305,6 +305,8 @@ namespace MSFSSystem
 			std::wcout << L"Saving config file: " << file_name << L"\n\n";
 
 			ofile << Formatting::to_utf8(L"// {\n");
+			ofile << Formatting::to_utf8(L"// found " + std::to_wstring(found_aircraft.size()) + L" aircraft.\n");
+			ofile << Formatting::to_utf8(L"// \n");
 			ofile << Formatting::to_utf8(L"// name=\n");
 			ofile << Formatting::to_utf8(L"// cruise=\n");
 			ofile << Formatting::to_utf8(L"// range=          { cannot be zero }\n");

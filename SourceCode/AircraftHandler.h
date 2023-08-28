@@ -22,10 +22,11 @@
 #include "Defaults.h"
 
 
-struct AircraftLoadFilter {
-	int Type = Defaults::DefaultAircraftSelection;	// 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon
+struct AircraftLoadFilter
+{
+	int Type = DataDefaults::AircraftSelection;	        // 0 = prop, 1 = jet, 2 = heli, 3 = glider, 4 = twin prop, 5 = turbo prop, 6 = twin turbo prop, 7 = balloon
 
-	int MaxSpeed = Defaults::DefaultMaxSpeed;		// maximum cruise speed required
+	int MaxSpeed = DataDefaults::MaxSpeed;		        // maximum cruise speed required
 	int MinSpeed = 0;								// minimum cruise speed required
 
 	bool Airliner = true;	

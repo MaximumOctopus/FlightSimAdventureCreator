@@ -117,7 +117,7 @@ namespace Utility
 			}
 		}
 
-		return Defaults::DefaultDirection;
+		return DataDefaults::Direction;
 	}
 
 
@@ -134,7 +134,7 @@ namespace Utility
 			range = input.substr(0, input.length() - 1);
 		}
 
-		double Range = Defaults::DefaultRange;
+		double Range = DataDefaults::Range;
 
 		try
 		{

@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 // 
@@ -23,6 +23,7 @@ namespace Help
 	{
 		std::wcout << L"\n  FlightSimAdventureCreator " << SystemConstants::FSACVersion << L", " << SystemConstants::FSACDate << L" :: paul@freshney.org\n\n";
 	}
+
 
 	void Commands()
 	{
@@ -54,8 +55,8 @@ namespace Help
 	    std::wcout << L"                                  see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n";
 		std::wcout << L"    /region:selection         : select a specific region of a country\n";
 		std::wcout << L"                                  https://en.wikipedia.org/wiki/ISO_3166-2 (links to available codes for each location)\n";
-		std::wcout << L"    /direction:angle          : set the direction to fly (with " << Defaults::DefaultDirectionMargin << L" degrees added on either side)\n";
-		std::wcout << L"    /bearing:compass 		  : set the direction to fly (with " << Defaults::DefaultDirectionMargin << L" degrees added on either side)\n";
+		std::wcout << L"    /direction:angle          : set the direction to fly (with " << DataDefaults::DirectionMargin << L" degrees added on either side)\n";
+		std::wcout << L"    /bearing:compass 		  : set the direction to fly (with " << DataDefaults::DirectionMargin << L" degrees added on either side)\n";
 		std::wcout << L"                                  N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW \n";
 		std::wcout << "\n";
 		std::wcout << L"    /latfrom:latitude         : from -> to, should go clockwise around the earth (as seen from the North Pole).\n";
@@ -90,7 +91,7 @@ namespace Help
 		std::wcout << L"    /startairport:ICAO        : start random route from here.\n";
 		std::wcout << L"    /endairport:ICAO          : end route here.\n";
 		std::wcout << L"    /number:count             : create \"count\" routes (default is 1).\n";
-		std::wcout << L"    /simple:count             : set how many A->B, 1-leg only, routes are display (default is " << Defaults::DefaultShortRoutesToShow << L")\n";
+		std::wcout << L"    /simple:count             : set how many A->B, 1-leg only, routes are display (default is " << DataDefaults::ShortRoutesToShow << L")\n";
 		std::wcout << "\n";
 		std::wcout << L"    /route:start_airport:range:legs:direction/bearing\n";
 		std::wcout << "\n";
@@ -101,8 +102,8 @@ namespace Help
 		std::wcout << L"    /favourite                : pick a random airport from \"" << SystemConstants::FavouritesFileName << L"\".\n";
 		std::wcout << "\n";
 		std::wcout << L"    /useaircraftrange         : uses the randomly-selected aircraft range\n";
-		std::wcout << L"                                for leg distance (uses, default " << Defaults::DefaultACPC << L"% of this value)\n";
-		std::wcout << L"    /aircraftrange:percent    : change the default " << Defaults::DefaultACPC << L"% to a new value, 1 - 100\n";
+		std::wcout << L"                                for leg distance (uses, default " << DataDefaults::AircraftRangePC << L"% of this value)\n";
+		std::wcout << L"    /aircraftrange:percent    : change the default " << DataDefaults::AircraftRangePC << L"% to a new value, 1 - 100\n";
 		std::wcout << "\n";
 		std::wcout << L"    /allowexcessrange         : allow routes longer than the selected aircraft's maximum range.\n";
 		std::wcout << L"                                by default, the maximum leg length will be adjusted to fit.\n";
@@ -113,7 +114,7 @@ namespace Help
 		std::wcout << L"    /msfsversion:version      : import based on which version of MSFS they are available in:\n";
 		std::wcout << L"                                0 - all (including third party), 1 - deluxe, 2 - premium deluxe\n";
 		std::wcout << "\n";
-		std::wcout << L"    /maxspeed:speed           : maximum cruise speed in kts (default is " << Defaults::DefaultMaxSpeed << L" kts)\n";
+		std::wcout << L"    /maxspeed:speed           : maximum cruise speed in kts (default is " << DataDefaults::MaxSpeed << L" kts)\n";
 		std::wcout << L"    /minspeed:speed           : minimum cruise speed in kts (default is 0 kts)\n";
 		std::wcout << "\n";
 		std::wcout << L"    /aircrafttype:type        : use only selected aircraft type:\n";
@@ -147,6 +148,7 @@ namespace Help
 		std::wcout << L"                                MSFS compatibily data to create fsac.csv. Read the source code\n";
 		std::wcout << L"                                before trying to use this one :) (FSACAirportData.cpp)\n";
 		std::wcout << L"    /fsacxr                   : builds runway data.\n";
+		std::wcout << L"    /fsacxf                   : builds route data using routes.dat (from openflights.org).\n";
 		std::wcout << "\n";
 		#endif
 	}

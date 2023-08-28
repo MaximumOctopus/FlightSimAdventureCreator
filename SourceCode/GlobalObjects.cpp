@@ -47,6 +47,11 @@ namespace GlobalObjects
 			return GAirportHandler->Loaded && GRunwayHandler->Loaded;
 		}
 
+		if (GConfiguration->Route.RealWorld)
+		{
+			
+		}
+
 		return GAirportHandler->Loaded;
 	}
 
