@@ -1,7 +1,7 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.4.2
-  (c) Paul Alan Freshney 2022
+  Flight Simulator Adventure Creator 0.6
+  (c) Paul Alan Freshney 2023
 
     paul@freshney.org
 	
@@ -14,7 +14,7 @@
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
 	
-  October 18th 2022
+  August 28th 2023
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -247,13 +247,10 @@ To-do list (in no particular order):
 
 Fixing the UTF8 import of airport names.
 
-Adding more valid MSFS aiports (if you find one that's not in the fsac list, then please tell me!).
+Adding more valid MSFS aiports (if you find one that's not in the fcas list, then please tell me!).
 
 Adding points of interest (POIs) to routes. 
 Adding NavAids (VOR, DME, etc.).
-
-Automatic creation of custom_aircraft.txt by reading from the community folder.
-(This works, but I'm having trouble finding a reliable way to locate the community folder.)
 
 More route customisation options.
 
@@ -265,8 +262,6 @@ Support for X-Plane 11/12. Their flight plan file format seems very simple, if a
 (Export option exists in code, needs testing)
  
 Support for IFR flying.
-
-Mac OSX version.
 
 (if you dive in to the code you'll see that some of these have been started, so they aren't that far away from being released)
 
@@ -285,7 +280,8 @@ targets and functionality) that the sources should be considered separate.
 
    All coding       : Paul A Freshney
    Development Cats : Rutherford, Freeman, and Maxwell
-   Data             : Our Airports (ourairports.com)
+   Airport data     : Our Airports (ourairports.com)
+   Routes           : Open Flights (https://openflights.org)   
    Icon             : https://icon-icons.com
    Thanks           : Brian Bernacki for his MSFS airport data                      
                       r/MicrosoftFlightSim/
@@ -298,8 +294,12 @@ All of my software is free and open source; please consider donating to a local 
 
 Release History
 
+0.6 / August 28th 2023
 
-0.5 / November
+Added: Real-world route generation
+Added: "real-world route file" processing code (to build the final route files used by the CLI and GUI versions).
+
+0.5 / November 17th 2022
 
 Added: /route switch which allows for several of the most common parameters to be entered
        in a single command. All parameters are optional.

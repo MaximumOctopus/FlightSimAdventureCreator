@@ -1,6 +1,6 @@
 ====================================================================================================================================
 ====================================================================================================================================
-  Flight Simulator Adventure Creator 0.3 GUI Version
+  Flight Simulator Adventure Creator 0.4 GUI Version
   (c) Paul Alan Freshney 2022-2023
 
     paul@freshney.org
@@ -13,8 +13,11 @@
   
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
+
+  Uses route data from Open Flights (many thanks, indeed)
+    https://openflights.org/
 	
-  January 24th 2023
+  August 28th 2023
 ====================================================================================================================================
 ====================================================================================================================================
 
@@ -77,7 +80,7 @@ Some airports do not have corresponding runway information. If you get an error 
 
  "Couldn't get a runway for airport "ICAO" (exported files may not work correctly)"
 
-Then it's possible the MSFS plan files won't work correctly, as they need a departure runway.
+Then it's possible the MSFS plan files won't work correctly, as they appear to need a departure runway.
 
 If you have the time, then you would help everyone by going over to ourairports.com and adding a runway to this target airport (it's usually possible to find this information online without too much trouble). Their runway data file is updated daily.
 
@@ -121,7 +124,8 @@ targets and functionality) that the sources should be considered separate.
 
    All coding       : Paul A Freshney
    Development Cats : Rutherford, Freeman, and Maxwell
-   Data             : Our Airports (ourairports.com)
+   Airport data     : Our Airports (ourairports.com)
+   Routes           : Open Flights (https://openflights.org)
    Icon             : https://icon-icons.com
    GUI Icons        : https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-ui-symbol-font
    Thanks           : Brian Bernacki for his MSFS airport data                      
@@ -134,6 +138,22 @@ All of my software is free and open source; please consider donating to a local 
 ====================================================================================================================================
 
 Release History
+
+0.4.0 / August 2023
+
+Added: Random real-world route option (currently beta)
+       Nearly 60000 real-world routes. Not completly up-to-date, but I think they're new enough to be a useful addition.
+       I'll be adding more real-world routes over the coming months
+Added: Route browser (search for the real-world route database with a variety of parameters to tweak the results)
+Added: Improved icons and several GUI improvements, incl:
+       edit boxes, where appropriate, are locked to either numbers or uppercase
+       added the ability to reset either aircraft, airports, or route settings without affecting the other two
+Added: Several World Updates's worth of hand-crafted airports to the start and end airport popup menus
+Added: Stats pages. Click on airport, aircraft, and routes in the top right stats panel for a number of interesting statistics
+Added: Generate routes by filtering on maximum altitude
+Added: Popup menus on both sets of longitude and latitude input boxes. allows easy selection of useful longitudes and latitudes
+Added: Popup menus on range and "aircraft excess range" edit boxes with several quickly-selectable options
+Added: Save search results to a csv files
 
 0.3.0 / January 24th 2023
 
