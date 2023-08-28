@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -257,6 +257,9 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
                             if (c != -1)
                             {
 								CruiseSpeed = c;
+
+								if (CruiseSpeed != 0 && CruiseSpeed < Stats.LowestCruise) Stats.LowestCruise = CruiseSpeed;
+                                if (CruiseSpeed > Stats.HighestCruise) Stats.HighestCruise = CruiseSpeed;
                             }
                         }
                         else
@@ -272,7 +275,10 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                             if (r > 0)
                             {
-                                Range = r;
+								Range = r;
+
+								if (Range < Stats.LowestRange) Stats.LowestRange = Range;
+								if (Range > Stats.HighestRange) Stats.HighestRange = Range;
                             }
                         }
                         else
@@ -332,41 +338,41 @@ bool AircraftHandler::LoadAircraft(const std::wstring file_name)
 
                             if (t >= AircraftConstants::AircraftTypeMin && t <= AircraftConstants::AircraftTypeMax)
                             {
-								TypeCount[t]++;
+								//TypeCount[t]++;
 
 								switch (t)
                                 {
                                 case 0:
                                     Type = AircraftConstants::AircraftType::Prop;
-                                    TypeCount[AircraftConstants::AircraftTypeProp]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeProp]++;
                                     break;
-                                case 1:
+								case 1:
                                     Type = AircraftConstants::AircraftType::Jet;
-                                    TypeCount[AircraftConstants::AircraftTypeJet]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeJet]++;
                                     break;
                                 case 2:
                                     Type = AircraftConstants::AircraftType::Helicopter;
-                                    TypeCount[AircraftConstants::AircraftTypeHeli]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeHeli]++;
                                     break;
                                 case 3:
                                     Type = AircraftConstants::AircraftType::Glider;
-                                    TypeCount[AircraftConstants::AircraftTypeGlider]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeGlider]++;
                                     break;
                                 case 4:
                                     Type = AircraftConstants::AircraftType::TwinProp;
-                                    TypeCount[AircraftConstants::AircraftTypeTwinProp]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeTwinProp]++;
                                     break;
                                 case 5:
                                     Type = AircraftConstants::AircraftType::TurboProp;
-                                    TypeCount[AircraftConstants::AircraftTypeTurboProp]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeTurboProp]++;
                                     break;
                                 case 6:
                                     Type = AircraftConstants::AircraftType::TwinTurboProp;
-                                    TypeCount[AircraftConstants::AircraftTypeTwinTurboProp]++;
+									Stats.TypeCount[AircraftConstants::AircraftTypeTwinTurboProp]++;
                                     break;
                                 case 7:
                                     Type = AircraftConstants::AircraftType::Balloon;
-                                    TypeCount[AircraftConstants::AircraftTypeBalloon]++;
+                                    Stats.TypeCount[AircraftConstants::AircraftTypeBalloon]++;
                                     break;
                                 }
                             }

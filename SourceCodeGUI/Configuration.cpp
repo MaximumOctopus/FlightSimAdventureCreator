@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023
 //
 // paul@freshney.org
 //
@@ -52,7 +52,7 @@ Configuration::~Configuration()
 }
 
 
-bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, FlightFilter& rf)
 {
 	Ini* config = new Ini(file_name);
 
@@ -138,6 +138,12 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 		if (config->LastKeyExist)
 		{
 			airportlf.MinimumElevation = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Airport", L"MaxElevation", false);
+		if (config->LastKeyExist)
+		{
+			airportlf.MaximumElevation = IntegerKey;
 		}
 
 		IntegerKey = config->ReadInteger(L"Airport", L"FilterContinent", false);
@@ -355,7 +361,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 }
 
 
-bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, FlightFilter& rf)
 {
 	std::wofstream ofile(file_name);
 
@@ -397,6 +403,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 
 		ofile << L"\n[airport]\n";
 		ofile << L"Elevation=" << airportlf.MinimumElevation << "\n";
+		ofile << L"MaxElevation=" << airportlf.MaximumElevation << "\n";
 		ofile << L"Continent0=" << airportlf.Continents[0] << "\n";
 		ofile << L"Continent1=" << airportlf.Continents[1] << "\n";
 		ofile << L"Continent2=" << airportlf.Continents[2] << "\n";
@@ -453,7 +460,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 }
 
 
-std::wstring Configuration::GenerateConfigCode(AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+std::wstring Configuration::GenerateConfigCode(AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, FlightFilter& rf)
 {
 	unsigned short int Ax = 0;
 	unsigned short int Bx = 0;
@@ -566,7 +573,7 @@ std::wstring Configuration::GenerateConfigCode(AircraftLoadFilter& aircraftlf, A
 }
 
 
-std::wstring Configuration::DecodeConfigCode(std::wstring code, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, RouteFilter& rf)
+std::wstring Configuration::DecodeConfigCode(std::wstring code, AircraftLoadFilter& aircraftlf, AirportLoadFilter& airportlf, FlightFilter& rf)
 {
 	unsigned short int Ax = stoi(code.substr( 0, 4), 0, 16);
 	unsigned short int Bx = stoi(code.substr( 4, 4), 0, 16);

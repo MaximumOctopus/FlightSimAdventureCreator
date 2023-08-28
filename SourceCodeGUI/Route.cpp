@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -9,24 +9,35 @@
 //
 //
 
-#include "DateUtility.h"
+#pragma once
+
+
+#include <string>
+
 #include "Route.h"
 
 
-Route::Route(std::wstring name, int distance)
+Route::Route(const std::wstring _FromIATA, const std::wstring _ToIATA, const std::wstring _FromICAO, const std::wstring _ToICAO,
+	const std::wstring _Airline,
+	const std::wstring _Equipment, double _Distance,
+	const std::wstring _FromCountry, const std::wstring _FromContinent, const std::wstring _FromRegion,
+	const std::wstring _ToCountry, const std::wstring _ToContinent, const std::wstring _ToRegion)
 {
-	Name = name;
-	Distance = distance;
-}
+	FromIATA = _FromIATA;
+	ToIATA = _ToIATA;
+	
+	FromICAO = _FromICAO;
+	ToICAO = _ToICAO;
+	
+	Airline = _Airline;
+	Equipment = _Equipment;
+	Distance = _Distance;
+	
+	FromCountry = _FromCountry;
+	FromContinent = _FromContinent;
+	FromRegion = _FromRegion;
 
-
-std::wstring Route::GetMSFSFileName()
-{
-	return Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".pln";
-}
-
-
-std::wstring Route::GetTextFileName()
-{
-	return Airports.front().Ident + L"_to_" + Airports.back().Ident + L"_" + DateUtility::DateTime(kDisplayModeFile) + L".txt";
+	ToCountry = _ToCountry;
+	ToContinent = _ToContinent;
+	ToRegion = _ToRegion;
 }

@@ -33,29 +33,7 @@ void __fastcall TfrmAbout::Label2Click(TObject *Sender)
 {
 	TLabel *label = (TLabel*)Sender;
 
-	std::wstring link = L"";
-
-	switch (label->Tag)
-	{
-		case 0:
-			link = L"";
-			break;
-		case 1:
-			link = L"http://ourairports.com";
-			break;
-		case 2:
-			link = L"https://icon-icons.com";
-			break;
-		case 3:
-			link = L"https://learn.microsoft.com/en-us/windows/apps/design/style/segoe-ui-symbol-font";
-			break;
-		case 4:
-			link = L"https://github.com/MaximumOctopus/FlightSimAdventureCreator";
-			break;
-		case 5:
-			link = L"https://flightsim.to/file/41477/flight-simulator-adventure-creator";
-			break;
-    }
+	std::wstring link = label->Caption.c_str();
 
 	WindowsUtility::OpenWebsite(link);
 }

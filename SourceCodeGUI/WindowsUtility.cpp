@@ -9,7 +9,6 @@
 //
 //
 
-#include <shellapi.h>
 #include <ShlObj.h>
 #include <string>
 #include <windows.h>

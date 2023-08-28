@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -18,20 +18,25 @@
 #include "DateUtility.h"
 #include "Defaults.h"
 #include "Formatting.h"
+#include "Locations.h"
 #include "MSFSFlightPlan.h"
-#include "Route.h"
-#include "RouteHandler.h"
+#include "Flight.h"
+#include "FlightHandler.h"
 #include "RunwayHandler.h"
 #include "TextItinerary.h"
 #include "Utility.h"
 
 
 AirportHandler* GAirportHandler;
-extern RouteHandler* GRouteHandler;
+extern FlightHandler* GFlightHandler;
 extern RunwayHandler* GRunwayHandler;
 
 
 bool sortBySize(const Airport &lhs, const Airport &rhs) { return lhs.Distance < rhs.Distance; }
+
+bool sortByICAO(const Airport &lhs, const Airport &rhs) { return lhs.Ident < rhs.Ident; }
+
+bool BinaryICAO(Airport lhs, Airport rhs) { return (lhs.Ident < rhs.Ident); }
 
 
 AirportHandler::AirportHandler()
@@ -107,7 +112,7 @@ void AirportHandler::CalculateDistances(double range, double origin_lat, double 
     double range_min = range * 0.9;
     double range_max = range * 1.1;
 
-	RouteCache.clear();
+	FlightCache.clear();
 
 	for (int t = 0; t < FilteredList.size(); t++)
     {
@@ -115,7 +120,7 @@ void AirportHandler::CalculateDistances(double range, double origin_lat, double 
 
 		if (FilteredList[t].Distance < range_max && FilteredList[t].Distance > range_min && FilteredList[t].Distance != 0)
         {
-            RouteCache.push_back(FilteredList[t]);
+			FlightCache.push_back(FilteredList[t]);
         }
     }
 }
@@ -133,7 +138,7 @@ void AirportHandler::CalculateDistances(double range, double direction, double d
     if (angle_min < 0) angle_min += 360;
     if (angle_max > 359) angle_max -= 360;
 
-    RouteCache.clear();
+	FlightCache.clear();
 
 	for (int t = 0; t < FilteredList.size(); t++)
     {
@@ -162,7 +167,7 @@ void AirportHandler::CalculateDistances(double range, double direction, double d
         {
 			FilteredList[t].Angle = angle;
 
-			RouteCache.push_back(FilteredList[t]);
+			FlightCache.push_back(FilteredList[t]);
         }
     }
 }
@@ -171,7 +176,7 @@ void AirportHandler::CalculateDistances(double range, double direction, double d
 // calculates the distance from each airport to the origin
 void AirportHandler::CalculateDistancesNoMinimum(double range, double origin_lat, double origin_long)
 {
-    RouteCache.clear();
+	FlightCache.clear();
 
 	for (int t = 0; t < FilteredList.size(); t++)
     {
@@ -179,7 +184,7 @@ void AirportHandler::CalculateDistancesNoMinimum(double range, double origin_lat
 
 		if (FilteredList[t].Distance < range && FilteredList[t].Distance != 0)
 		{
-			RouteCache.push_back(FilteredList[t]);
+			FlightCache.push_back(FilteredList[t]);
         }
     }
 }
@@ -187,26 +192,26 @@ void AirportHandler::CalculateDistancesNoMinimum(double range, double origin_lat
 
 void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring end_icao, double range, double direction, int legs, int simple_count, bool keep_trying)
 {
-	RouteCache.clear();
+	FlightCache.clear();
 
-	GRouteHandler->Routes.clear();
+	GFlightHandler->Flights.clear();
 
-    if (start_icao != L"" && end_icao != L"")
+	if (start_icao != L"" && end_icao != L"")
 	{
 		for (int t = 0; t < simple_count; t++)
 		{
 			StartToFinish(start_icao, end_icao, range, legs, keep_trying);
-        }
+		}
 
-        return;
-    }
+		return;
+	}
 
-    std::wstring TargetICAO = L"";
-    bool reverse = false;
+	std::wstring TargetICAO = L"";
+	bool reverse = false;
 
-    // if we have a start we search as normal, if we only have an end then we do the search as though
+	// if we have a start we search as normal, if we only have an end then we do the search as though
     // the end was our start location, then reverse the order :)
-    if (!start_icao.empty() && end_icao.empty())
+	if (!start_icao.empty() && end_icao.empty())
     {
         TargetICAO = start_icao;
     }
@@ -276,7 +281,7 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                 CalculateDistances(range, origin.LatitudeR, origin.LongitudeR);
             }
 
-            if (RouteCache.size() != 0)
+			if (FlightCache.size() != 0)
             {
                 Runway runway = GRunwayHandler->GetRandom(origin.Ident);
                 
@@ -286,24 +291,24 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 
                 int OutputCount = Generation.ShortRouteCount;
 
-                if (RouteCache.size() < Generation.ShortRouteCount)
+				if (FlightCache.size() < Generation.ShortRouteCount)
                 {
-                    OutputCount = RouteCache.size();
+					OutputCount = FlightCache.size();
                 }
 
                 for (int t = 0; t < OutputCount; t++)
                 {
                     SingleLegAirports.clear();
 
-                    Runway runway = GRunwayHandler->GetRandom(RouteCache[t].Ident);
+					Runway runway = GRunwayHandler->GetRandom(FlightCache[t].Ident);
 
-                    RouteCache[t].Runway.Name = runway.Name;
-                    RouteCache[t].Runway.Length = runway.Length;
-                    RouteCache[t].Runway.Surface = runway.SurfaceType;
+					FlightCache[t].Runway.Name = runway.Name;
+					FlightCache[t].Runway.Length = runway.Length;
+					FlightCache[t].Runway.Surface = runway.SurfaceType;
 
                     if (reverse)
                     {
-                        SingleLegAirports.push_back(RouteCache[t]);
+						SingleLegAirports.push_back(FlightCache[t]);
                         SingleLegAirports.push_back(origin);
 
                         SingleLegAirports.back().Distance = SingleLegAirports.front().Distance;
@@ -312,7 +317,7 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 					else
                     {
                         SingleLegAirports.push_back(origin);
-                        SingleLegAirports.push_back(RouteCache[t]);
+						SingleLegAirports.push_back(FlightCache[t]);
 
 						SingleLegAirports.front().Distance = SingleLegAirports.back().Distance;
                     }
@@ -322,16 +327,16 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 
 					// == add route to list =========================================================================
 
-					Route route(SingleLegAirports.front().Ident + L" to " + SingleLegAirports.back().Ident, SingleLegAirports.front().Distance);
+					Flight flight(SingleLegAirports.front().Ident + L" to " + SingleLegAirports.back().Ident, SingleLegAirports.front().Distance);
 
-					route.Airports.push_back(SingleLegAirports.front());
-					route.Airports.push_back(SingleLegAirports.back());
+					flight.Airports.push_back(SingleLegAirports.front());
+					flight.Airports.push_back(SingleLegAirports.back());
 
-					route.Continent = SingleLegAirports.front().Continent;
-					route.Country = SingleLegAirports.front().Country;
-					route.Region = SingleLegAirports.front().Region;
+					flight.Continent = SingleLegAirports.front().Continent;
+					flight.Country = SingleLegAirports.front().Country;
+					flight.Region = SingleLegAirports.front().Region;
 
-					GRouteHandler->Add(route);
+					GFlightHandler->Add(flight);
 
 					// ==============================================================================================
 
@@ -429,14 +434,14 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
                     CalculateDistances(range, FromLatitude, FromLongitude);
                 }
 
-                if (RouteCache.size() != 0)
+				if (FlightCache.size() != 0)
                 {
-                    int random_airport = rand() % RouteCache.size();
+					int random_airport = rand() % FlightCache.size();
 
-                    MultiLegAirports.push_back(RouteCache[random_airport]);
+					MultiLegAirports.push_back(FlightCache[random_airport]);
 
-                    FromLatitude = RouteCache[random_airport].LatitudeR;
-                    FromLongitude = RouteCache[random_airport].LongitudeR;
+					FromLatitude = FlightCache[random_airport].LatitudeR;
+					FromLongitude = FlightCache[random_airport].LongitudeR;
                 }
                 else
                 {
@@ -476,18 +481,18 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
 
         FinaliseMultiLegData();
 
-		Route route(MultiLegAirports.front().Ident + L" to " + MultiLegAirports.back().Ident, MultiLegAirports.front().Distance);
+		Flight flight(MultiLegAirports.front().Ident + L" to " + MultiLegAirports.back().Ident, MultiLegAirports.front().Distance);
 
 		for (int t = 0; t < MultiLegAirports.size(); t++)
 		{
-			route.Airports.push_back(MultiLegAirports[t]);
+			flight.Airports.push_back(MultiLegAirports[t]);
 		}
 
-		route.Continent = MultiLegAirports.front().Continent;
-		route.Country = MultiLegAirports.front().Country;
-		route.Region = MultiLegAirports.front().Region;
+		flight.Continent = MultiLegAirports.front().Continent;
+		flight.Country = MultiLegAirports.front().Country;
+		flight.Region = MultiLegAirports.front().Region;
 
-		GRouteHandler->Add(route);
+		GFlightHandler->Add(flight);
 
 		HandleMultiLegExport();
 
@@ -531,11 +536,11 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 
             CalculateDistances(range, direction, DirectionMarginOfError, MultiLegAirports.back().LatitudeR, MultiLegAirports.back().LongitudeR);
 
-            if (RouteCache.size() != 0)
+			if (FlightCache.size() != 0)
             {
-                int random_airport = rand() % RouteCache.size();
+				int random_airport = rand() % FlightCache.size();
 
-                MultiLegAirports.push_back(RouteCache[random_airport]);
+				MultiLegAirports.push_back(FlightCache[random_airport]);
             }
             else
             {
@@ -558,18 +563,18 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 
 		// == add route to list =========================================================================
 
-		Route route(MultiLegAirports.front().Ident + L" to " + MultiLegAirports.back().Ident, MultiLegAirports.front().Distance);
+		Flight flight(MultiLegAirports.front().Ident + L" to " + MultiLegAirports.back().Ident, MultiLegAirports.front().Distance);
 
 		for (int t = 0; t < MultiLegAirports.size(); t++)
 		{
-			route.Airports.push_back(MultiLegAirports[t]);
+			flight.Airports.push_back(MultiLegAirports[t]);
 		}
 
-		route.Continent = MultiLegAirports.front().Continent;
-		route.Country = MultiLegAirports.front().Country;
-		route.Region = MultiLegAirports.front().Region;
+		flight.Continent = MultiLegAirports.front().Continent;
+		flight.Country = MultiLegAirports.front().Country;
+		flight.Region = MultiLegAirports.front().Region;
 
-		GRouteHandler->Add(route);
+		GFlightHandler->Add(flight);
 
 		// ==============================================================================================
 
@@ -634,6 +639,20 @@ void AirportHandler::HandleMultiLegExport()
 }
 
 
+int AirportHandler::GetIndexFromIATA(const std::wstring iata)
+{
+    for (int t = 0; t < Airports.size(); t++)
+    {
+        if (Airports[t].IATA == iata)
+        {
+            return t;
+        }
+    }
+
+    return kRandomAirport;
+}
+
+
 int AirportHandler::GetIndexFromICAO(const std::wstring icao)
 {
 	for (int t = 0; t < FilteredList.size(); t++)
@@ -673,20 +692,19 @@ bool AirportHandler::IsAirportInFilteredList(const std::wstring icao)
 	}
 
 	return false;
+
+	//Airport a(icao);
+
+	//return std::binary_search(FilteredList.begin(), FilteredList.end(), a, BinaryICAO);
 }
 
 
+// binary search requires data be sorted, airports are already sorted by ICAO (Ident) in fsac.csv
 bool AirportHandler::IsValidAirport(const std::wstring icao)
 {
-	for (int t = 0; t < Airports.size(); t++)
-	{
-		if (Airports[t].Ident == icao)
-		{
-			return true;
-		}
-	}
+	Airport a(icao);
 
-	return false;
+	return std::binary_search(Airports.begin(), Airports.end(), a, BinaryICAO);
 }
 
 
@@ -738,8 +756,10 @@ int AirportHandler::Search(AirportSearchFilter asf)
 			}
 		}
 
-        switch (Airports[t].Type)
+		switch (Airports[t].Type)
 		{
+		case AirportConstants::AirportType::None:
+			break;
 		case AirportConstants::AirportType::Small:
 			if (!asf.SmallAirports)
 			{
@@ -881,13 +901,15 @@ int AirportHandler::Filter(AirportLoadFilter alf)
 			}
 		}
 
-		if (Airports[t].Elevation < alf.MinimumElevation)
+		if (Airports[t].Elevation < alf.MinimumElevation || Airports[t].Elevation > alf.MaximumElevation)
 		{
 			add = false;
 		}
 
 		switch (Airports[t].Type)
 		{
+		case AirportConstants::AirportType::None:
+			break;
 		case AirportConstants::AirportType::Small:
 			if (!alf.SmallAirports)
 			{
@@ -965,7 +987,7 @@ bool AirportHandler::LoadAirports(const std::wstring file_name)
             }
         }
 
-        file.close();
+		file.close();
     }
     else
     {
@@ -978,9 +1000,10 @@ bool AirportHandler::LoadAirports(const std::wstring file_name)
 
 bool AirportHandler::ImportFromRow(const std::wstring row)
 {
-    if (row.length() != 0)
+	if (row.length() != 0)
     {
-        std::wstring Ident = L"";
+		std::wstring Ident = L"";
+		std::wstring IATA = L"";
         AirportConstants::AirportType Type = AirportConstants::AirportType::None;
         std::wstring tfield = L"";
         std::wstring Name = L"";
@@ -1063,6 +1086,9 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 				case kAFieldRegion:
 					Region = field;
 					break;
+				case kAFieldIATA:
+					IATA = field;
+					break;
 				case kAFieldMSFSCompatible:
 					if (field == L"1")
                     {
@@ -1095,23 +1121,36 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 		case AirportConstants::AirportType::None:
 			break;
         case AirportConstants::AirportType::Small:
-            TypeCount[AirportConstants::AirportTypeSmall]++;
+			Stats.TypeCount[AirportConstants::AirportTypeSmall]++;
             break;
         case AirportConstants::AirportType::Medium:
-            TypeCount[AirportConstants::AirportTypeMedium]++;
+			Stats.TypeCount[AirportConstants::AirportTypeMedium]++;
             break;
         case AirportConstants::AirportType::Large:
-            TypeCount[AirportConstants::AirportTypeLarge]++;
+			Stats.TypeCount[AirportConstants::AirportTypeLarge]++;
             break;
         case AirportConstants::AirportType::Heliport:
-            TypeCount[AirportConstants::AirportTypeHeliport]++;
+			Stats.TypeCount[AirportConstants::AirportTypeHeliport]++;
             break;
         case AirportConstants::AirportType::SeaplaneBase:
-            TypeCount[AirportConstants::AirportTypeSeaplaneBase]++;
+            Stats.TypeCount[AirportConstants::AirportTypeSeaplaneBase]++;
             break;
-        }
+		}
 
-        Airport airport(Ident, Type, Name, Elevation, Latitude, Longitude, Country, Continent, Region, MSFSCompatible);
+		// =====================================================================
+
+		for (int t = 0; t < 7; t++)
+		{
+			if (Location::ContinentShort[t] == Continent)
+			{
+				Stats.Continents[t]++;
+				break;
+			}
+		}
+
+		// =====================================================================
+
+		Airport airport(Ident, Type, Name, Elevation, Latitude, Longitude, Country, Continent, Region, IATA, MSFSCompatible);
 
         Airports.push_back(airport);
 
@@ -1124,8 +1163,10 @@ bool AirportHandler::ImportFromRow(const std::wstring row)
 
 AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row)
 {
-    switch (Utility::GetAirportType(row))
-    {
+	switch (Utility::GetAirportType(row))
+	{
+	case AirportConstants::AirportType::None:
+		return AirportConstants::AirportType::None;
     case AirportConstants::AirportType::Small:
 		return AirportConstants::AirportType::Small;
 	case AirportConstants::AirportType::Medium:
@@ -1138,7 +1179,7 @@ AirportConstants::AirportType AirportHandler::GetTypeFrom(const std::wstring row
 		return AirportConstants::AirportType::SeaplaneBase;
 	}
 
-    return AirportConstants::AirportType::None;
+	return AirportConstants::AirportType::None;
 }
 
 
@@ -1163,13 +1204,13 @@ int AirportHandler::FindNearest(const std::wstring start_icao, double range, boo
 
         if (output)
 		{
-			if (RouteCache.size() != 0)
+			if (FlightCache.size() != 0)
 			{
 				// TO DO std::ranges::sort(RouteCache, {}, &Airport::Distance);
 
 //                std::wcout << L"  All airports wthin " << range << L" nm of " << start_icao << "\n\n";
 
-				for (int t = 0; t < RouteCache.size(); t++)
+				for (int t = 0; t < FlightCache.size(); t++)
 				{
   //                  std::wcout << std::format(L"    {0}, {1} ({2}), {3:.1f} nm, {4}\n", RouteCache[t].Ident, RouteCache[t].Country, RouteCache[t].Region, RouteCache[t].Distance, Utility::GetAirportTypeDisplay(RouteCache[t].Type));
 				}
@@ -1183,11 +1224,30 @@ int AirportHandler::FindNearest(const std::wstring start_icao, double range, boo
 		}
 	}
 
-	return static_cast<int>(RouteCache.size());
+	return static_cast<int>(FlightCache.size());
 }
 
 
 std::wstring AirportHandler::GetLastError()
 {
     return LastError;
+}
+
+
+void AirportHandler::Populate(int id)
+{
+	Flight& f = GFlightHandler->Flights[id];
+
+	int afrom = GetIndexFromICAO(f.SimpleFromICAO);
+	f.Airports.push_back(GAirportHandler->GetAirport(afrom));
+
+	int ato = GetIndexFromICAO(f.SimpleToICAO);
+	f.Airports.push_back(GetAirport(ato));
+
+	f.Airports.back().Distance = f.Distance;
+
+	f.Airports.back().Angle = Utility::AngleBetween(f.Airports.front().LatitudeR, f.Airports.front().LongitudeR,
+													f.Airports.back().LatitudeR, f.Airports.back().LongitudeR);
+
+	f.Simple = false;
 }

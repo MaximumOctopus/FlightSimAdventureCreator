@@ -13,11 +13,15 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("main.cpp", Form1);
-USEFORM("AirportSearchDialog.cpp", frmAirportSearchDialog);
+USEFORM("RouteBrowser.cpp", frmRouteBrowser);
+USEFORM("main.cpp", frmMain);
+USEFORM("StatsRoutes.cpp", frmStatsRoutes);
 USEFORM("About.cpp", frmAbout);
 USEFORM("Favourites.cpp", frmFavourites);
 USEFORM("Distance.cpp", frmDistanceCalc);
+USEFORM("AirportSearchDialog.cpp", frmAirportSearchDialog);
+USEFORM("StatsAirports.cpp", frmStatsAirports);
+USEFORM("StatsAircraft.cpp", frmStatsAircraft);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -25,11 +29,15 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 	{
 		Application->Initialize();
 		Application->MainFormOnTaskBar = true;
-		Application->CreateForm(__classid(TForm1), &Form1);
+		Application->CreateForm(__classid(TfrmMain), &frmMain);
 		Application->CreateForm(__classid(TfrmAirportSearchDialog), &frmAirportSearchDialog);
 		Application->CreateForm(__classid(TfrmAbout), &frmAbout);
 		Application->CreateForm(__classid(TfrmFavourites), &frmFavourites);
 		Application->CreateForm(__classid(TfrmDistanceCalc), &frmDistanceCalc);
+		Application->CreateForm(__classid(TfrmRouteBrowser), &frmRouteBrowser);
+		Application->CreateForm(__classid(TfrmStatsRoutes), &frmStatsRoutes);
+		Application->CreateForm(__classid(TfrmStatsAirports), &frmStatsAirports);
+		Application->CreateForm(__classid(TfrmStatsAircraft), &frmStatsAircraft);
 		Application->Run();
 	}
 	catch (Exception &exception)

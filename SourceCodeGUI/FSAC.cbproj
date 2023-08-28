@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>FSAC.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
@@ -68,7 +68,7 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
         <ProjectType>CppVCLApplication</ProjectType>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <AllPackageLibs>rtl.lib;vcl.lib;vclimg.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclimg.lib;bcbsmp.lib;vclx.lib;VclSmp.lib</AllPackageLibs>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <Multithreaded>true</Multithreaded>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
@@ -79,6 +79,7 @@
         <SanitizedProjectName>FSAC</SanitizedProjectName>
         <VerInfo_Locale>2057</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <BCC_Defines>_GUI;$(BCC_Defines)</BCC_Defines>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindcompvclsmp;bindcompvclwinx;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;tethering;vcl;vclactnband;vcldb;vcldsnap;vcledge;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;$(PackageImports)</PackageImports>
@@ -89,12 +90,10 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>FSAC_Icon1.ico</Icon_MainIcon>
-        <BCC_PCHName_Clang>FSACPCH1.h</BCC_PCHName_Clang>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindcompvclsmp;bindcompvclwinx;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;tethering;vcl;vclactnband;vcldb;vcldsnap;vcledge;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;$(PackageImports)</PackageImports>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
-        <BCC_PCHName_Clang>FSACPCH1.h</BCC_PCHName_Clang>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -139,7 +138,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UsePackages>true</UsePackages>
-        <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi</LinkPackageImports>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclimg.bpi;bcbsmp.bpi;vclx.bpi;VclSmp.bpi</LinkPackageImports>
+        <Icon_MainIcon>FSAC_Icon2.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -149,18 +149,16 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
-        <BCC_PCHName_Clang>FSACPCH1.h</BCC_PCHName_Clang>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <BCC_PCHName_Clang>FSACPCH1.h</BCC_PCHName_Clang>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DynamicRTL>false</DynamicRTL>
-        <LinkPackageStatics>rtl.lib;vcl.lib;vclimg.lib</LinkPackageStatics>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclimg.lib;bcbsmp.lib;vclx.lib;VclSmp.lib</LinkPackageStatics>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="About.cpp">
@@ -189,6 +187,22 @@
         <None Include="AircraftHandler.h">
             <VirtualFolder>{428444B9-8CEF-4B71-93ED-215DCED362BF}</VirtualFolder>
             <BuildOrder>6</BuildOrder>
+        </None>
+        <CppCompile Include="Airline.cpp">
+            <VirtualFolder>{B492EB28-1306-4101-9835-1C6870606CFE}</VirtualFolder>
+            <BuildOrder>54</BuildOrder>
+        </CppCompile>
+        <None Include="Airline.h">
+            <VirtualFolder>{B492EB28-1306-4101-9835-1C6870606CFE}</VirtualFolder>
+            <BuildOrder>55</BuildOrder>
+        </None>
+        <CppCompile Include="AirlineHandler.cpp">
+            <VirtualFolder>{B492EB28-1306-4101-9835-1C6870606CFE}</VirtualFolder>
+            <BuildOrder>56</BuildOrder>
+        </CppCompile>
+        <None Include="AirlineHandler.h">
+            <VirtualFolder>{B492EB28-1306-4101-9835-1C6870606CFE}</VirtualFolder>
+            <BuildOrder>57</BuildOrder>
         </None>
         <CppCompile Include="Airport.cpp">
             <VirtualFolder>{D43C5365-4200-432D-94CC-0C83A8EA1303}</VirtualFolder>
@@ -258,6 +272,22 @@
             <DependentOn>Favourites.h</DependentOn>
             <BuildOrder>48</BuildOrder>
         </CppCompile>
+        <CppCompile Include="Flight.cpp">
+            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
+            <BuildOrder>52</BuildOrder>
+        </CppCompile>
+        <None Include="Flight.h">
+            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
+            <BuildOrder>53</BuildOrder>
+        </None>
+        <CppCompile Include="FlightHandler.cpp">
+            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
+            <BuildOrder>53</BuildOrder>
+        </CppCompile>
+        <None Include="FlightHandler.h">
+            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
+            <BuildOrder>53</BuildOrder>
+        </None>
         <CppCompile Include="Formatting.cpp">
             <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
             <BuildOrder>24</BuildOrder>
@@ -277,6 +307,10 @@
             <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
             <BuildOrder>4</BuildOrder>
         </CppCompile>
+        <None Include="GlobalObjects.h">
+            <VirtualFolder>{31802975-4C77-4D03-96E7-B29C728A5490}</VirtualFolder>
+            <BuildOrder>59</BuildOrder>
+        </None>
         <CppCompile Include="Ini.cpp">
             <VirtualFolder>{36A7ABB0-BED7-4F3A-9353-DC9BD17CEB7E}</VirtualFolder>
             <BuildOrder>34</BuildOrder>
@@ -290,7 +324,7 @@
             <BuildOrder>33</BuildOrder>
         </None>
         <CppCompile Include="main.cpp">
-            <Form>Form1</Form>
+            <Form>frmMain</Form>
             <FormType>dfm</FormType>
             <DependentOn>main.h</DependentOn>
             <BuildOrder>2</BuildOrder>
@@ -312,21 +346,27 @@
             <BuildOrder>45</BuildOrder>
         </None>
         <CppCompile Include="Route.cpp">
-            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
-            <BuildOrder>40</BuildOrder>
+            <VirtualFolder>{3F853C2A-BC9E-4EDD-83EA-F9F0954FB787}</VirtualFolder>
+            <BuildOrder>54</BuildOrder>
         </CppCompile>
         <None Include="Route.h">
-            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
-            <BuildOrder>39</BuildOrder>
+            <VirtualFolder>{3F853C2A-BC9E-4EDD-83EA-F9F0954FB787}</VirtualFolder>
+            <BuildOrder>55</BuildOrder>
         </None>
+        <CppCompile Include="RouteBrowser.cpp">
+            <VirtualFolder>{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}</VirtualFolder>
+            <Form>frmRouteBrowser</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>RouteBrowser.h</DependentOn>
+            <BuildOrder>58</BuildOrder>
+        </CppCompile>
         <CppCompile Include="RouteHandler.cpp">
-            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
-            <DependentOn>RouteHandler.h</DependentOn>
-            <BuildOrder>38</BuildOrder>
+            <VirtualFolder>{3F853C2A-BC9E-4EDD-83EA-F9F0954FB787}</VirtualFolder>
+            <BuildOrder>56</BuildOrder>
         </CppCompile>
         <None Include="RouteHandler.h">
-            <VirtualFolder>{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}</VirtualFolder>
-            <BuildOrder>42</BuildOrder>
+            <VirtualFolder>{3F853C2A-BC9E-4EDD-83EA-F9F0954FB787}</VirtualFolder>
+            <BuildOrder>57</BuildOrder>
         </None>
         <CppCompile Include="Runway.cpp">
             <VirtualFolder>{BA969576-E695-450B-83AF-C8649067BBCE}</VirtualFolder>
@@ -344,6 +384,27 @@
             <VirtualFolder>{BA969576-E695-450B-83AF-C8649067BBCE}</VirtualFolder>
             <BuildOrder>10</BuildOrder>
         </None>
+        <CppCompile Include="StatsAircraft.cpp">
+            <VirtualFolder>{6B4EF5E5-41FE-4A11-AB70-5C42CA45E828}</VirtualFolder>
+            <Form>frmStatsAircraft</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>StatsAircraft.h</DependentOn>
+            <BuildOrder>62</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="StatsAirports.cpp">
+            <VirtualFolder>{6B4EF5E5-41FE-4A11-AB70-5C42CA45E828}</VirtualFolder>
+            <Form>frmStatsAirports</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>StatsAirports.h</DependentOn>
+            <BuildOrder>61</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="StatsRoutes.cpp">
+            <VirtualFolder>{6B4EF5E5-41FE-4A11-AB70-5C42CA45E828}</VirtualFolder>
+            <Form>frmStatsRoutes</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>StatsRoutes.h</DependentOn>
+            <BuildOrder>60</BuildOrder>
+        </CppCompile>
         <CppCompile Include="TextItinerary.cpp">
             <VirtualFolder>{4BBC39EA-D948-4E5B-918C-E5302FB26347}</VirtualFolder>
             <BuildOrder>28</BuildOrder>
@@ -376,9 +437,13 @@
             <VirtualFolder>{4BBC39EA-D948-4E5B-918C-E5302FB26347}</VirtualFolder>
             <BuildOrder>31</BuildOrder>
         </None>
+        <FormResources Include="RouteBrowser.dfm"/>
         <FormResources Include="main.dfm"/>
-        <FormResources Include="AirportSearchDialog.dfm"/>
+        <FormResources Include="StatsRoutes.dfm"/>
+        <FormResources Include="StatsAirports.dfm"/>
+        <FormResources Include="StatsAircraft.dfm"/>
         <FormResources Include="About.dfm"/>
+        <FormResources Include="AirportSearchDialog.dfm"/>
         <FormResources Include="Favourites.dfm"/>
         <FormResources Include="Distance.dfm"/>
         <BuildConfiguration Include="Release">
@@ -409,15 +474,20 @@
                 </Source>
                 <VFOLDERS>
                     <VFOLDER ID="{428444B9-8CEF-4B71-93ED-215DCED362BF}" name="Aircraft"/>
+                    <VFOLDER ID="{B492EB28-1306-4101-9835-1C6870606CFE}" name="Airline"/>
                     <VFOLDER ID="{D43C5365-4200-432D-94CC-0C83A8EA1303}" name="Airports"/>
                     <VFOLDER ID="{B3253DA4-1B2E-40E4-9CC0-33612D5E27FB}" name="Configuration"/>
+                    <VFOLDER ID="{EA974C4B-C925-48AF-AB3D-DBAFCBED70AC}" name="Equipment"/>
                     <VFOLDER ID="{4BBC39EA-D948-4E5B-918C-E5302FB26347}" name="Export"/>
-                    <VFOLDER ID="{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}" name="Forms"/>
+                    <VFOLDER ID="{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}" name="Flight"/>
+                    <VFOLDER ID="{EAC100FF-5D0A-460F-9EAC-26B5264B98B5}" name="Forms">
+                        <VFOLDER ID="{6B4EF5E5-41FE-4A11-AB70-5C42CA45E828}" name="Stats"/>
+                    </VFOLDER>
                     <VFOLDER ID="{36A7ABB0-BED7-4F3A-9353-DC9BD17CEB7E}" name="Ini"/>
                     <VFOLDER ID="{932B4AE4-038F-4B4A-BB7A-D3DBB10171CB}" name="MSFSSystem"/>
                     <VFOLDER ID="{40D1F4DA-E2E1-40BA-B7DB-87EDE528FAE0}" name="NavAids"/>
                     <VFOLDER ID="{E3206EC2-9F7A-4475-B540-153AB8E6F541}" name="POIs"/>
-                    <VFOLDER ID="{9CC34D36-1482-44F7-93FB-C9F31BDD7F4E}" name="Route"/>
+                    <VFOLDER ID="{3F853C2A-BC9E-4EDD-83EA-F9F0954FB787}" name="Routes"/>
                     <VFOLDER ID="{BA969576-E695-450B-83AF-C8649067BBCE}" name="Runways"/>
                     <VFOLDER ID="{31802975-4C77-4D03-96E7-B29C728A5490}" name="Utility"/>
                 </VFOLDERS>
@@ -437,13 +507,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32270.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgstl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin\cc32270.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -452,8 +522,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgstl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -495,13 +565,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX64">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c270mt.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32c270mt.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx64\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

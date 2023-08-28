@@ -11,13 +11,17 @@
 
 #pragma once
 
-
 #include <string>
- 
 
-namespace GlobalObjects
+
+class Airline
 {
-	[[nodiscard]] bool CreateGlobalObjects();
+public:
 
-    void FreeGlobalObjects();
-}
+	std::wstring Name = L"";
+	std::wstring IATA = L"";
+	std::wstring Callsign = L"";
+	std::wstring Country = L"";
+
+	Airline(const std::wstring, const std::wstring, const std::wstring, const std::wstring);
+};

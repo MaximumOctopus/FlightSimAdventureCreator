@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -21,7 +21,22 @@
 #include "Defaults.h"
 
 
-struct AircraftLoadFilter {
+struct AircraftStats
+{
+	int LowestCruise = 99999;
+	int HighestCruise = 0;
+
+	int LowestRange = 99999;
+	int HighestRange = 0;
+
+   	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+};
+
+
+struct AircraftLoadFilter
+{
+	bool Ignore = false;
+
 	bool Types[8] = { true, true, true, true, true, true, true, true };
 
 	int MaxSpeed = DataDefaults::MaxSpeed;		// maximum cruise speed required
@@ -41,8 +56,6 @@ class AircraftHandler
 
 	AircraftLoadFilter LoadFilter;
 
-	int TypeCount[AircraftConstants::AircraftTypeCount] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
 	enum class RowType { Unknown = 0, SectionStart = 1, SectionEnd = 2, Name = 3, Cruise = 4, Range = 5, Availability = 6, Type = 7, AirLiner = 8, Military = 9, Seaplane = 10, RunwayLength = 11 };
 	enum class ProcessingMode { ReadyForSection = 0, SectionFound = 1 };
 
@@ -56,6 +69,8 @@ class AircraftHandler
 public:
 
 	bool Loaded = false;
+
+    AircraftStats Stats;
 
 	std::vector<Aircraft> AircraftList;
 	std::vector<Aircraft> FilteredList;

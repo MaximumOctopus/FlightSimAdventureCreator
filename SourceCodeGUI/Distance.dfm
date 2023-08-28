@@ -181,6 +181,7 @@ object frmDistanceCalc: TfrmDistanceCalc
       Top = 24
       Width = 61
       Height = 21
+      CharCase = ecUpperCase
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -195,6 +196,7 @@ object frmDistanceCalc: TfrmDistanceCalc
       Top = 24
       Width = 61
       Height = 21
+      CharCase = ecUpperCase
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11

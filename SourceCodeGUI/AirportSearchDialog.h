@@ -21,6 +21,7 @@
 #include <Vcl.ExtCtrls.hpp>
 #include <System.ImageList.hpp>
 #include <Vcl.ImgList.hpp>
+#include <Vcl.Dialogs.hpp>
 //---------------------------------------------------------------------------
 class TfrmAirportSearchDialog : public TForm
 {
@@ -51,12 +52,15 @@ __published:	// IDE-managed Components
 	TBevel *Bevel4;
 	TButton *bSelect;
 	TImageList *ImageList1;
+	TButton *bSave;
+	TSaveDialog *sdSearch;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall bSearchClick(TObject *Sender);
 	void __fastcall eSearchKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall sgResultsDblClick(TObject *Sender);
 	void __fastcall bSelectClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
+	void __fastcall bSaveClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     std::wstring SelectedICAO = L"";

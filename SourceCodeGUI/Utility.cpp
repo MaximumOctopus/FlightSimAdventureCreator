@@ -72,7 +72,7 @@ namespace Utility
 			output += L"W";
 		}
 
-		output += std::to_wstring(abs(degree_lon)) + L"° " + std::to_wstring(abs(minutes_lon)) + L"' " + std::to_wstring(abs(seconds_lon)) + L"\"";
+		output += std::to_wstring(abs(degree_lon)) + L"° " + std::to_wstring(std::abs(minutes_lon)) + L"' " + std::to_wstring(std::abs(seconds_lon)) + L"\"";
 
 		return output;
 	}

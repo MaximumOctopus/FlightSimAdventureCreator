@@ -1,6 +1,7 @@
 object frmAbout: TfrmAbout
   Left = 0
   Top = 0
+  Cursor = crHandPoint
   BorderStyle = bsDialog
   Caption = 'About'
   ClientHeight = 422
@@ -2129,7 +2130,7 @@ object frmAbout: TfrmAbout
   end
   object Label5: TLabel
     Left = 40
-    Top = 164
+    Top = 161
     Width = 50
     Height = 13
     Caption = 'App Icon'
@@ -2142,7 +2143,7 @@ object frmAbout: TfrmAbout
   end
   object Label6: TLabel
     Left = 40
-    Top = 183
+    Top = 180
     Width = 55
     Height = 13
     Caption = 'GUI Icons'
@@ -2171,7 +2172,7 @@ object frmAbout: TfrmAbout
     Top = 123
     Width = 168
     Height = 13
-    Cursor = crHandPoint
+    Cursor = crArrow
     Caption = 'Rutherford, Freeman, and Maxwell'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
@@ -2179,11 +2180,10 @@ object frmAbout: TfrmAbout
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    OnClick = Label2Click
   end
   object Label9: TLabel
     Left = 161
-    Top = 202
+    Top = 199
     Width = 189
     Height = 13
     Caption = 'Brian Bernacki for his MSFS airport data'
@@ -2196,7 +2196,7 @@ object frmAbout: TfrmAbout
   end
   object Label10: TLabel
     Left = 40
-    Top = 202
+    Top = 199
     Width = 41
     Height = 13
     Caption = 'Thanks'
@@ -2209,7 +2209,7 @@ object frmAbout: TfrmAbout
   end
   object Label11: TLabel
     Left = 41
-    Top = 268
+    Top = 265
     Width = 69
     Height = 13
     Caption = 'Source code'
@@ -2222,7 +2222,7 @@ object frmAbout: TfrmAbout
   end
   object Label12: TLabel
     Left = 41
-    Top = 292
+    Top = 289
     Width = 81
     Height = 13
     Caption = 'Latest version'
@@ -2236,7 +2236,7 @@ object frmAbout: TfrmAbout
   object Label2: TLabel
     Tag = 4
     Left = 161
-    Top = 268
+    Top = 265
     Width = 312
     Height = 13
     Cursor = crHandPoint
@@ -2252,7 +2252,7 @@ object frmAbout: TfrmAbout
   object Label13: TLabel
     Tag = 5
     Left = 161
-    Top = 292
+    Top = 289
     Width = 310
     Height = 13
     Cursor = crHandPoint
@@ -2270,7 +2270,7 @@ object frmAbout: TfrmAbout
   object Label14: TLabel
     Tag = 2
     Left = 161
-    Top = 164
+    Top = 161
     Width = 107
     Height = 13
     Cursor = crHandPoint
@@ -2286,7 +2286,7 @@ object frmAbout: TfrmAbout
   object Label15: TLabel
     Tag = 3
     Left = 160
-    Top = 183
+    Top = 180
     Width = 403
     Height = 13
     Cursor = crHandPoint
@@ -2303,7 +2303,7 @@ object frmAbout: TfrmAbout
   end
   object Label16: TLabel
     Left = 40
-    Top = 145
+    Top = 142
     Width = 27
     Height = 13
     Caption = 'Data'
@@ -2317,7 +2317,7 @@ object frmAbout: TfrmAbout
   object Label17: TLabel
     Tag = 1
     Left = 160
-    Top = 145
+    Top = 142
     Width = 108
     Height = 13
     Cursor = crHandPoint
@@ -2332,7 +2332,7 @@ object frmAbout: TfrmAbout
   end
   object Label18: TLabel
     Left = 160
-    Top = 221
+    Top = 218
     Width = 98
     Height = 13
     Caption = 'r/MicrosoftFlightSim/'
@@ -2345,7 +2345,7 @@ object frmAbout: TfrmAbout
   end
   object Label19: TLabel
     Left = 161
-    Top = 341
+    Top = 338
     Width = 200
     Height = 13
     Caption = 'CLI version: C++ 20 in Visual Studio 2022'
@@ -2358,7 +2358,7 @@ object frmAbout: TfrmAbout
   end
   object Label20: TLabel
     Left = 161
-    Top = 360
+    Top = 357
     Width = 289
     Height = 13
     Caption = 'GUI version: C++ 17 in C++ Builder 10.4 Community Edition'
@@ -2368,6 +2368,15 @@ object frmAbout: TfrmAbout
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+  end
+  object Label21: TLabel
+    Left = 291
+    Top = 142
+    Width = 110
+    Height = 13
+    Cursor = crHandPoint
+    Caption = 'https://openflights.org'
+    OnClick = Label2Click
   end
   object Button1: TButton
     Left = 581

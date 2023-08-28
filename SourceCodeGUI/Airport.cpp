@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -9,7 +9,9 @@
 //
 //
 
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 
 #include "Airport.h"
 #include "Utility.h"
@@ -21,9 +23,19 @@ Airport::Airport()
 }
 
 
-Airport::Airport(const std::wstring ident, AirportConstants::AirportType type, const std::wstring name, int elevation, const  std::wstring latitude, const std::wstring longitude, const std::wstring country, const std::wstring continent, const  std::wstring region, bool msfs_compatible)
+Airport::Airport(const std::wstring ident)
 {
 	Ident = ident;
+}
+
+
+Airport::Airport(const std::wstring ident, AirportConstants::AirportType type, const std::wstring name, int elevation,
+	const std::wstring latitude, const std::wstring longitude, const std::wstring country, const std::wstring continent, const  std::wstring region,
+	const std::wstring iata,
+	bool msfs_compatible)
+{
+	Ident = ident;
+    IATA = iata;
 	Type = type;
 	Name = name;
 
@@ -44,6 +56,18 @@ Airport::Airport(const std::wstring ident, AirportConstants::AirportType type, c
 	LongitudeR = LongitudeD * (3.14159265358979323846 / 180);	//
 
 	MSFSCompatible = msfs_compatible;
+}
+
+
+std::wstring Airport::Angle1p()
+{
+	std::wostringstream sobj;
+
+	sobj << std::fixed;
+	sobj << std::setprecision(1);
+	sobj << Angle;
+
+	return sobj.str();
 }
 
 

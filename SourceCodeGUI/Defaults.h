@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -18,7 +18,8 @@ namespace DataDefaults
 	static const int Range = 100;				// nautical miles
 	static const int MaxSpeed = 9999;			// kts
 
-    static const int LowestElevation = -2000;
+	static const int LowestElevation = -2000;
+    static const int HighestElevation = 15000;
 
 	static const int RangeModifier = 10;         // percent + / -
 

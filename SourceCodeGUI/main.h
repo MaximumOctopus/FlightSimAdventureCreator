@@ -25,16 +25,15 @@
 
 #include "AircraftHandler.h"
 #include "AirportHandler.h"
-#include "RouteHandler.h"
+#include "FlightHandler.h"
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.Grids.hpp>
 #include <Vcl.Graphics.hpp>
 
 
-class TForm1 : public TForm
+class TfrmMain : public TForm
 {
 __published:	// IDE-managed Components
-	TGroupBox *GroupBox3;
 	TToolBar *ToolBar1;
 	TToolButton *tbSave;
 	TToolButton *tbOpen;
@@ -46,36 +45,8 @@ __published:	// IDE-managed Components
 	TStatusBar *sbMain;
 	TImageList *ImageList1;
 	TToolButton *ToolButton3;
-	TLabel *Label4;
-	TEdit *eLegs;
-	TLabel *Label9;
-	TEdit *eRange;
-	TLabel *Label10;
-	TLabel *Label11;
-	TEdit *eStartAirportICAO;
-	TLabel *Label12;
-	TEdit *eEndAirportICAO;
-	TLabel *Label13;
-	TLabel *Label14;
-	TCheckBox *cbUseAircraftRange;
-	TCheckBox *cbStartFromFavourite;
-	TCheckBox *cbUseDirection;
-	TEdit *eDirection;
-	TLabel *Label15;
-	TToolButton *tbReset;
-	TBevel *Bevel7;
-	TCheckBox *cbAllowExcessRange;
-	TToolButton *ToolButton1;
-	TEdit *eCount;
-	TEdit *eFlightTime;
-	TLabel *Label16;
-	TCheckBox *cbUseFlightTime;
 	TSaveDialog *sdMain;
 	TOpenDialog *odMain;
-	TBevel *Bevel9;
-	TBevel *Bevel10;
-	TLabel *Label17;
-	TBevel *Bevel11;
 	TStringGrid *sgRoutes;
 	TToolButton *tbExport;
 	TToolButton *tbExportItinerary;
@@ -83,10 +54,10 @@ __published:	// IDE-managed Components
 	TMenuItem *Createcustomaircrafttxt1;
 	TMenuItem *Help1;
 	TMenuItem *About1;
-	TLabel *Label19;
+	TLabel *lGeneratedRoutes;
 	TMemo *mMain;
 	TToolButton *ToolButton2;
-	TGroupBox *GroupBox1;
+	TGroupBox *gbGo;
 	TButton *bGenerate;
 	TCheckBox *cbKeepTrying;
 	TGroupBox *GroupBox4;
@@ -105,7 +76,6 @@ __published:	// IDE-managed Components
 	TMenuItem *Seaplanes1;
 	TMenuItem *Searcg1;
 	TMenuItem *Airports1;
-	TCheckBox *cbEndAtFavourite;
 	TGroupBox *gbAirports;
 	TBevel *Bevel5;
 	TBevel *Bevel4;
@@ -147,18 +117,14 @@ __published:	// IDE-managed Components
 	TButton *bExportSelected;
 	TImageList *il16x16;
 	TButton *bExportSelectedText;
-	TLabel *Label28;
 	TLabel *lStatsRunways;
 	TLabel *Label30;
 	TMenuItem *N1;
 	TMenuItem *Favourites1;
-	TMemo *mRouteDebug;
 	TBevel *Bevel13;
 	TLabel *Label18;
-	TEdit *eElevation;
+	TEdit *eMinElevation;
 	TLabel *Label20;
-	TRadioButton *rbStartEndLegs;
-	TRadioButton *rbStartEndRange;
 	TGroupBox *gbAircraft;
 	TBevel *Bevel12;
 	TLabel *lMinSpeed;
@@ -188,7 +154,6 @@ __published:	// IDE-managed Components
 	TEdit *eAircraftRangeModifier;
 	TButton *bRandomAircraft;
 	TButton *bLockAircraft;
-	TLabel *Label29;
 	TMenuItem *N2;
 	TMenuItem *Militaryjets1;
 	TMenuItem *Militarypropsturbo1;
@@ -204,7 +169,6 @@ __published:	// IDE-managed Components
 	TMenuItem *N4;
 	TMenuItem *Select1;
 	TImage *Image1;
-	TLabel *lDistanceStartEnd;
 	TMenuItem *N5;
 	TMenuItem *miUseHomeAirport;
 	TMenuItem *SetasHomeairport1;
@@ -371,7 +335,6 @@ __published:	// IDE-managed Components
 	TMenuItem *N1802;
 	TMenuItem *N2701;
 	TMenuItem *N2702;
-	TLabel *Label32;
 	TMenuItem *Gliders1;
 	TMenuItem *Helicopters1;
 	TMenuItem *AirlinersPropTurbo1;
@@ -549,14 +512,188 @@ __published:	// IDE-managed Components
 	TMenuItem *Australasia1;
 	TMenuItem *Asia1;
 	TMenuItem *MiddleEast1;
-	TLabel *lElevationRange;
+	TLabel *lMinElevationRange;
+	TLabel *Label36;
+	TLabel *lStatsRoutes;
+	TMenuItem *miNew;
+	TMenuItem *N15;
+	TToolButton *tbNew;
+	TToolButton *ToolButton4;
+	TMenuItem *N16;
+	TMenuItem *N17;
+	TMenuItem *N18;
+	TMenuItem *Edit4;
+	TMenuItem *Reset1;
+	TMenuItem *miResetAircraft;
+	TMenuItem *miResetAirports;
+	TMenuItem *miResetRoute;
+	TMenuItem *Routes1;
+	TMenuItem *miRouteBrowser;
+	TMenuItem *GisborneAirport1;
+	TMenuItem *MilfordSoundAirport1;
+	TMenuItem *MartinsBayAerodrome1;
+	TMenuItem *GorgeRiverAirstrip1;
+	TMenuItem *RotoruaAirport1;
+	TMenuItem *LakeTekapoAirport1;
+	TMenuItem *WhangareiAirport1;
+	TMenuItem *WestportAirport1;
+	TMenuItem *QuintinLodgeAirstrip1;
+	TMenuItem *Pacific1;
+	TMenuItem *EasterIsland1;
+	TMenuItem *Hawaii3;
+	TMenuItem *SolomanIslandsNusatupeAirport1;
+	TMenuItem *BoraBoraAirport1;
+	TMenuItem *IslandofMoorea1;
+	TMenuItem *CookIslandsAitutakiAirport1;
+	TMenuItem *PohnpeiIsland1;
+	TMenuItem *AdisumarmoInternationalAirport1;
+	TGroupBox *GroupBox2;
+	TPageControl *pcRoute;
+	TTabSheet *TabSheet1;
+	TBevel *Bevel7;
+	TLabel *Label9;
+	TLabel *Label10;
+	TLabel *Label16;
+	TBevel *Bevel9;
+	TLabel *Label11;
+	TLabel *Label13;
+	TLabel *Label29;
+	TLabel *Label14;
+	TLabel *Label12;
+	TLabel *lDistanceStartEnd;
+	TLabel *Label4;
+	TLabel *Label17;
+	TBevel *Bevel11;
+	TBevel *Bevel10;
+	TLabel *Label28;
+	TLabel *Label32;
+	TCheckBox *cbUseFlightTime;
+	TEdit *eRange;
+	TEdit *eFlightTime;
+	TCheckBox *cbUseAircraftRange;
+	TCheckBox *cbAllowExcessRange;
+	TEdit *eStartAirportICAO;
+	TCheckBox *cbStartFromFavourite;
+	TCheckBox *cbEndAtFavourite;
+	TRadioButton *rbStartEndRange;
+	TRadioButton *rbStartEndLegs;
+	TEdit *eEndAirportICAO;
+	TEdit *eLegs;
+	TEdit *eCount;
+	TCheckBox *cbUseDirection;
+	TEdit *eDirection;
+	TTabSheet *TabSheet2;
+	TLabel *Label8;
+	TBevel *Bevel15;
+	TLabel *Label15;
+	TLabel *Label27;
+	TBevel *Bevel17;
+	TEdit *eRWRange;
+	TCheckBox *cbRWUseAircraftRange;
+	TCheckBox *cbRWUseFlightTime;
+	TEdit *eRWFlightTime;
+	TCheckBox *cbRWAllowExcessRange;
+	TComboBox *cbRWAirlines;
+	TLabel *Label37;
+	TEdit *eRWAirport;
+	TEdit *eRWRouteCount;
+	TLabel *Label39;
+	TBevel *Bevel18;
+	TLabel *Label38;
+	TBevel *Bevel16;
+	TRadioButton *rbRWFromICAO;
+	TRadioButton *rbRWToICAO;
+	TCheckBox *cbRWAirline;
+	TLabel *Label33;
+	TEdit *eMaxElevation;
+	TLabel *Label34;
+	TLabel *lMaxElevationRange;
+	TComboBox *cbRWRouteType;
+	TPopupMenu *puRange;
+	TMenuItem *Range1;
+	TMenuItem *N19;
+	TMenuItem *miRange1;
+	TMenuItem *Cityhop100nm1;
+	TMenuItem *Crosscountry200nm1;
+	TMenuItem *International1500nm1;
+	TMenuItem *Mediumhaul1;
+	TMenuItem *Longhaul26001;
+	TMenuItem *Domestic500nm1;
+	TMenuItem *International5000nm1;
+	TPopupMenu *puLongitude;
+	TMenuItem *Longitude1;
+	TMenuItem *N20;
+	TMenuItem *AustraliaCanberra1;
+	TMenuItem *AustraliaCanberra2;
+	TMenuItem *BahamasNassau1;
+	TMenuItem *CanadaOttawa1;
+	TMenuItem *CaymanIslandsGeorgeTown1;
+	TMenuItem *CyprusNicosia1;
+	TMenuItem *DenmarkCopenhagen1;
+	TMenuItem *FranceParis1;
+	TMenuItem *GermanyBerlin1;
+	TMenuItem *ItalyRome1;
+	TMenuItem *JapanTokyo1;
+	TMenuItem *FijiSuva1;
+	TMenuItem *SenegalDakar1;
+	TMenuItem *SenegalDakar2;
+	TMenuItem *CanadaVancouver1;
+	TMenuItem *USA2;
+	TMenuItem *PolandWarsaw1;
+	TMenuItem *UkraineKyiv1;
+	TMenuItem *UkraineKyiv2;
+	TMenuItem *USAAnchorage1;
+	TMenuItem *CookIslandsAvarua1;
+	TPopupMenu *puLatitude;
+	TMenuItem *MenuItem1;
+	TMenuItem *MenuItem2;
+	TMenuItem *urkiyeAnkara1;
+	TMenuItem *SolomonIslands1;
+	TMenuItem *CocosIslands1;
+	TMenuItem *IcelandReykjavk1;
+	TMenuItem *USAWalesAlaska1;
+	TMenuItem *UnitedKingdomLondon1;
+	TMenuItem *CanadaVancouver2;
+	TMenuItem *CanadaVancouver3;
+	TMenuItem *DenmarkCopenhagen2;
+	TMenuItem *MoroccoTangier1;
+	TMenuItem *MoroccoTangier2;
+	TMenuItem *asmaniaHobart1;
+	TMenuItem *asmaniaHobart2;
+	TMenuItem *CameroonYaounde2;
+	TMenuItem *MarshallIslandsMajuro1;
+	TMenuItem *MarshallIslandsMajuro2;
+	TMenuItem *FaroeIslandsTorshavn1;
+	TMenuItem *BarbadosBridgetown1;
+	TMenuItem *BarbadosBridgetown2;
+	TMenuItem *Equator1;
+	TMenuItem *HeardIslandandMcDonaldIslands1;
+	TMenuItem *SvalbardandJanMayenLongyearbyen1;
+	TMenuItem *SvalbardandJanMayenLongyearbyen2;
+	TPopupMenu *puPercentage;
+	TMenuItem *Excessrange1;
+	TMenuItem *N21;
+	TMenuItem *N51;
+	TMenuItem *N101;
+	TMenuItem *N151;
+	TMenuItem *N201;
+	TMenuItem *N251;
+	TMenuItem *N252;
+	TMenuItem *N501;
+	TMenuItem *N502;
+	TMenuItem *N751;
+	TMemo *mRouteDebug;
+	TLabel *lExcessRange;
+	TMenuItem *N1001;
+	TButton *bSaveRoutes;
+	TMenuItem *N22;
+	TMenuItem *miOpenRouteFolder;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
 	void __fastcall bUpdateAirportsClick(TObject *Sender);
 	void __fastcall bGenerateClick(TObject *Sender);
 	void __fastcall cbContinentFilterClick(TObject *Sender);
-	void __fastcall tbResetClick(TObject *Sender);
 	void __fastcall tbSaveClick(TObject *Sender);
 	void __fastcall tbOpenClick(TObject *Sender);
 	void __fastcall tbExportClick(TObject *Sender);
@@ -577,7 +714,7 @@ __published:	// IDE-managed Components
 	void __fastcall cbUseFlightTimeClick(TObject *Sender);
 	void __fastcall cbUseDirectionClick(TObject *Sender);
 	void __fastcall eLegsExit(TObject *Sender);
-	void __fastcall eElevationExit(TObject *Sender);
+	void __fastcall eMinElevationExit(TObject *Sender);
 	void __fastcall eAircraftRangeModifierExit(TObject *Sender);
 	void __fastcall Label31Click(TObject *Sender);
 	void __fastcall bOpenStartMapClick(TObject *Sender);
@@ -596,25 +733,52 @@ __published:	// IDE-managed Components
 	void __fastcall N9Click(TObject *Sender);
 	void __fastcall DistancefromAtoB1Click(TObject *Sender);
 	void __fastcall BarraAirport1Click(TObject *Sender);
+	void __fastcall tbNewClick(TObject *Sender);
+	void __fastcall miResetAircraftClick(TObject *Sender);
+	void __fastcall miResetAirportsClick(TObject *Sender);
+	void __fastcall miResetRouteClick(TObject *Sender);
+	void __fastcall miRouteBrowserClick(TObject *Sender);
+	void __fastcall cbRWAirlineClick(TObject *Sender);
+	void __fastcall cbRWUseFlightTimeClick(TObject *Sender);
+	void __fastcall pcRouteChange(TObject *Sender);
+	void __fastcall eRWAirportExit(TObject *Sender);
+	void __fastcall lStatsRoutesClick(TObject *Sender);
+	void __fastcall lStatsAirportClick(TObject *Sender);
+	void __fastcall lStatsAircraftClick(TObject *Sender);
+	void __fastcall miRange1Click(TObject *Sender);
+	void __fastcall AustraliaCanberra1Click(TObject *Sender);
+	void __fastcall asmaniaHobart2Click(TObject *Sender);
+	void __fastcall eMaxElevationExit(TObject *Sender);
+	void __fastcall bSaveRoutesClick(TObject *Sender);
+	void __fastcall miOpenRouteFolderClick(TObject *Sender);
 
 private:	// User declarations
 
 	bool AircraftDetailsHaveChanged = false;
 	bool AirportDetailsHaveChanged = false;
 
-	void BuildGUIFrom(AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
+	void BuildGUIFrom(AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
 	void InitialGUISetup();
 	void ResetGUI();
-    void SetLabelStatus(int, TLabel *label);
+	void SetLabelStatus(int, TLabel *label);
+	void StatsGUI();
+	void UpdateExcessRange();
 
-	void GenerateRoutes();
+	void RandomPreCheck();
+	void RoutePreCheck();
+
+	void GenerateRandomRoutes();
+    void GenerateRealWorldRoutes();
+
+	Aircraft GetAircraftFromSelection();
+
 	bool UpdateRouteList();
 
 	void UpdateAircraftList();
 
 	AircraftLoadFilter BuildAircraftLoadFilterFromUI();
 	AirportLoadFilter BuildAirportLoadFilterFromUI();
-	RouteFilter BuildRouteLoadFilterFromUI();
+	FlightFilter BuildRouteLoadFilterFromUI();
 
 	void UpdateCountryList();
     void UpdateRouteDescription(int);
@@ -622,9 +786,9 @@ private:	// User declarations
 	void SetAircraftSelections(bool, bool, bool, bool, bool, bool, bool, bool, bool, bool, bool);
 
 public:		// User declarations
-	__fastcall TForm1(TComponent* Owner);
+	__fastcall TfrmMain(TComponent* Owner);
 };
 
-extern PACKAGE TForm1 *Form1;
+extern PACKAGE TfrmMain *frmMain;
 
 #endif

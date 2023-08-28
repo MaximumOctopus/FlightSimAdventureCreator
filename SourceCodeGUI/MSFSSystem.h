@@ -16,7 +16,7 @@
 
 namespace MSFSSystem
 {
-	[[nodiscard]] bool CreateAircraftList(bool);
+	[[nodiscard]] int CreateAircraftList(bool);
 
 	bool ProcessContentsFolder(std::vector<Aircraft>&, const std::wstring);
 

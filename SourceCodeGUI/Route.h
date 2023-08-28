@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -13,27 +13,29 @@
 
 
 #include <string>
-#include <vector>
-
-#include "Airport.h"
 
 
 class Route
 {
-
 public:
 
-	std::vector<Airport> Airports;      // in order of visit
+	std::wstring FromIATA = L"";
+	std::wstring ToIATA = L"";
+	std::wstring FromICAO = L"";
+	std::wstring ToICAO = L"";
+	std::wstring Airline = L"";
+	std::wstring Equipment = L"";
+	double Distance = 0;
+	std::wstring FromCountry = L"";
+	std::wstring FromContinent = L"";
+	std::wstring FromRegion = L"";
+	std::wstring ToCountry = L"";
+	std::wstring ToContinent = L"";
+	std::wstring ToRegion = L"";
 
-	std::wstring Name = L"";
-	int Distance = 0;
-
-	std::wstring Continent = L"";
-	std::wstring Country = L"";
-	std::wstring Region = L"";
-
-	Route(std::wstring, int);
-
-	std::wstring GetMSFSFileName();
-	std::wstring GetTextFileName();
+	Route(const std::wstring, const std::wstring, const std::wstring, const std::wstring, 
+		const std::wstring, 
+		const std::wstring,	double,
+		const std::wstring, const std::wstring, const std::wstring, 
+		const std::wstring, const std::wstring, const std::wstring);
 };

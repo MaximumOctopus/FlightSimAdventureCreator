@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -18,20 +18,25 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.3.0 (debug)";
+	static const std::wstring FSACVersion = L"0.4.0 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.3.0";
+	static const std::wstring FSACVersion = L"0.4.0";
 	#endif
 
-	static const std::wstring FSACDate = L"January 24th 2023";
+	static const std::wstring FSACDate = L"August 28th 2023";
 
     static const std::wstring ConfigFileName = L"fsac.data";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";
 
+    static const std::wstring AirlineFileName = L"fsacairlines.csv";
 	static const std::wstring AirportsFileName = L"fsac.csv";
+	static const std::wstring RoutesFileName = L"routes.csv";
+	static const std::wstring RoutesFromCacheFileName = L"routes_fromcache.csv";
+	static const std::wstring RoutesToCacheFileName = L"routes_tocache.csv";
 	static const std::wstring RunwaysFileName = L"runways.csv";
+
 	static const std::wstring POIFileName = L".csv";						// to do
 	static const std::wstring NavAidsFileName = L".csv";					// to do
 

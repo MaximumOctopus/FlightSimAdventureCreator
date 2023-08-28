@@ -25,9 +25,62 @@ namespace Location
 	static const int ISOCountriesCount = 249;
 	static const int ISRegionsCount = 148;
 
+#pragma region Longitudes
+	static const double CityLatitude[] = {
+		-12.438056,
+		-59.616667,
+		-16.5,
+		49.261111,
+		23.11666667,
+		55.66666667,
+		0,
+		62,
+		-53.1,
+		64.15,
+		35.68333333,
+		7.1,
+		35.776667,
+		-33.925278,
+		78.22,
+		-42.880556,
+		40.712778
+	};
+
+	static const double CityLongitude[] = {
+		149.133333,
+		16.366667,
+		-77.35,
+		-34.9,
+		-75.7,
+		-123.113889,
+		96.833333,
+		-159.766667,
+		-81.383333,
+		33.366667,
+		12.583333,
+		178.416667,
+		2.333333,
+		13.4,
+		-21.95,
+		12.483333,
+		139.75,
+		58.583333,
+		21,
+		-17.633333,
+		159.95,
+		32.866667,
+		30.516667,
+		-0.083333,
+		-149.893611,
+		-71.057778,
+		-168.089167
+	};
+#pragma end_region
+
+
 #pragma region Hand-Crafted
 
-	static const int HandCraftedICAOCount = 99;
+	static const int HandCraftedICAOCount = 116;
 
 	static const std::wstring HandCraftedICAO[] = {
 	L"LOWI", L"LOWK",                    				// austria
@@ -73,7 +126,11 @@ namespace Location
 	L"KFFA", L"KFHR", L"KATL", L"KJFK", L"KTVL",
 	L"KLAX", L"KNKX", L"KCGX", L"KORD", L"KMCO",
 	L"KCOF", L"KSFO", L"KSEA", L"KSEZ", L"KSWF",
-	L"KTEX", L"PAVD"
+	L"KTEX", L"PAVD",
+	L"NZGS", L"NZMF", L"NZMJ", L"NZQE", L"NZRO",        // World Update XII
+	L"NZTL", L"NZWR", L"NZWS", L"T004",
+	L"SCIP", L"PHKO", L"AGGN", L"NTTB", L"NTTM",        // World Update XIII
+	L"NCAI", L"PTPN", L"WARQ"                           // WARQ or WAHQ or WRSQ (this airport has 3 ICAO tags?!)
 	};
 #pragma end_region
 

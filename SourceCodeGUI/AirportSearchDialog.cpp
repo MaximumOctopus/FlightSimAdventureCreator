@@ -10,11 +10,14 @@
 //
 
 #include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <vcl.h>
 #pragma hdrstop
 
 #include "AirportHandler.h"
 #include "AirportSearchDialog.h"
+#include "Formatting.h"
 #include "Locations.h"
 #include "Utility.h"
 #include "WindowsUtility.h"
@@ -40,7 +43,7 @@ void __fastcall TfrmAirportSearchDialog::FormCreate(TObject *Sender)
 	sgResults->Cells[2][0] = L"Name";
 	sgResults->Cells[3][0] = L"Cntnt";
 	sgResults->Cells[4][0] = L"Cntry";
-	sgResults->Cells[5][0] =  L"Region";
+	sgResults->Cells[5][0] = L"Region";
 	sgResults->Cells[6][0] = L"Lat";
 	sgResults->Cells[7][0] = L"Long";
 	sgResults->Cells[8][0] = L"Type";
@@ -196,11 +199,46 @@ void __fastcall TfrmAirportSearchDialog::bSelectClick(TObject *Sender)
 		SelectedICAO = GAirportHandler->SearchResults[sgResults->Selection.Top - 1].Ident;
 
 		ModalResult = mrOk;
-    }
+	}
 }
 
 
 void TfrmAirportSearchDialog::SetSelectionMode(bool mode)
 {
 	bSelect->Visible = mode;
+}
+
+
+void __fastcall TfrmAirportSearchDialog::bSaveClick(TObject *Sender)
+{
+	sdSearch->Filter = "Search Results|*.csv";
+	sdSearch->DefaultExt = ".csv";
+
+	if (sdSearch->Execute())
+	{
+		std::wstring file_name = sdSearch->FileName.c_str();
+
+		std::ofstream ofile(file_name);
+
+		if (ofile)
+		{
+			ofile << Formatting::to_utf8(L"//icao,name,continent,country,region,latitude,longitude,type\n");
+
+			for (int t = 0; t < GAirportHandler->SearchResults.size(); t++)
+			{
+				std::wstring line(GAirportHandler->SearchResults[t].Ident + L',' +
+					GAirportHandler->SearchResults[t].Name + L',' +
+					GAirportHandler->SearchResults[t].Continent + L',' +
+					GAirportHandler->SearchResults[t].Country + L',' +
+					GAirportHandler->SearchResults[t].Region + L',' +
+					GAirportHandler->SearchResults[t].Latitude + L',' +
+					GAirportHandler->SearchResults[t].Longitude + L',' +
+					Utility::GetAirportTypeDisplay(GAirportHandler->SearchResults[t].Type));
+
+				ofile << Formatting::to_utf8(line + L'\n');
+			}
+
+			ofile.close();
+		}
+	}
 }

@@ -45,6 +45,7 @@ __published:	// IDE-managed Components
 	TLabel *Label19;
 	TLabel *Label20;
 	TImage *Image1;
+	TLabel *Label21;
 	void __fastcall Label2Click(TObject *Sender);
 
 private:	// User declarations

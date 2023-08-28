@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023
 //
 // paul@freshney.org
 //
@@ -18,7 +18,7 @@
 #include "AircraftHandler.h"
 #include "AirportHandler.h"
 #include "Defaults.h"
-#include "RouteHandler.h"
+#include "FlightHandler.h"
 
 
 struct SystemSettings
@@ -52,11 +52,11 @@ public:
 
 	std::wstring GetLastError();
 
-	[[nodiscard]] bool LoadConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
-	[[nodiscard]] bool SaveConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
+	[[nodiscard]] bool LoadConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
+	[[nodiscard]] bool SaveConfiguration(const std::wstring, AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
 
-	[[nodiscard]] std::wstring GenerateConfigCode(AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
-	[[nodiscard]] std::wstring DecodeConfigCode(std::wstring, AircraftLoadFilter&, AirportLoadFilter&, RouteFilter&);
+	[[nodiscard]] std::wstring GenerateConfigCode(AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
+	[[nodiscard]] std::wstring DecodeConfigCode(std::wstring, AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
 
 	std::wstring GetRandomFavourite();
 

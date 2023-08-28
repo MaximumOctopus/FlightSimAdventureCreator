@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include <string>
 
 static const int kDisplayModeConsole = 0;
 static const int kDisplayModeFile = 1;

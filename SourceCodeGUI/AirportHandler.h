@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -32,6 +32,7 @@ static const int kAFieldElevation = 6;
 static const int kAFieldContinent = 7;
 static const int kAFieldCountry = 8;
 static const int kAFieldRegion = 9;
+static const int kAFieldIATA = 13;
 static const int kAFieldMSFSCompatible = 25;
 
 enum class TimeOfDay { None = 0, Midday = 1, Midnight = 2 };
@@ -41,11 +42,19 @@ struct AirportStats
 {
 	int ElevationLowest = 99999;
 	int ElevationHighest = -99999;
+
+	int Continents[7] = { 0, 0, 0, 0, 0, 0, 0 };
+
+   	int TypeCount[AirportConstants::AirportTypeCount] = { 0, 0, 0, 0, 0 };
 };
 
 
-struct AirportLoadFilter {
+struct AirportLoadFilter
+{
+    bool Ignore = false;
+
 	int MinimumElevation = -2000;	// in feet (LLMZ is the lowest airport in the world at -1266 feet)
+	int MaximumElevation = 15000;	// in feet (ZUDC is the lowest airport in the world at 14472 feet)
 
 	int Continents[7] = { true, true, true, true, true, true, true };
 
@@ -162,11 +171,9 @@ class AirportHandler
 {
 	std::wstring LastError = L"";
 
-	int TypeCount[AirportConstants::AirportTypeCount] = { 0, 0, 0, 0, 0 };
-
 	std::vector<Airport> SingleLegAirports;
 	std::vector<Airport> MultiLegAirports;
-	std::vector<Airport> RouteCache;
+	std::vector<Airport> FlightCache;
 
 	bool ExportMSFSPlan = false;
 	bool ExportTextReport = false;
@@ -208,6 +215,7 @@ public:
 
 	Airport GetAirport(int);
 
+    int GetIndexFromIATA(const std::wstring);
 	int GetIndexFromICAO(const std::wstring);
 	int GetIndexFromICAOFullList(const std::wstring);
 	bool IsValidAirport(const std::wstring);
@@ -219,6 +227,8 @@ public:
 	int FindNearest(const std::wstring, double, bool);
 
 	[[nodiscard]] double DistanceBetweenTwoAirports(const std::wstring, const std::wstring);
+
+   	void Populate(int);
 
 	std::wstring GetLastError();
 };

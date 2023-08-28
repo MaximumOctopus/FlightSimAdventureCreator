@@ -54,7 +54,7 @@ namespace MSFSSystem
 	// this generates the custom_aircraft.txt file automatically from the contents of the \Community\ folder
 	// passing false to this function will cause it to scan the \Official\OneStore\ folder, this stores all default aircraft and marketplace purchases
 	// however, many marketplace aircraft are mising aircraft.cfg and can't be added accurately to the default_aircraft.txt file :(
-	bool CreateAircraftList(bool community)
+	int CreateAircraftList(bool community)
 	{
 		std::vector<std::wstring> msfsfolders;
 		std::vector<Aircraft> aircraft;
@@ -63,13 +63,13 @@ namespace MSFSSystem
 
 		if (community_folder != L"")
 		{
-			std::wcout << L"  Found community folder path: " << community_folder << L"\n";
+			//std::wcout << L"  Found community folder path: " << community_folder << L"\n";
 
 			FindFolder(msfsfolders, community_folder);
 
 			if (msfsfolders.size() != 0)
 			{
-				std::wcout << L"\n  Found " << msfsfolders.size() << L" folders.\n\n";
+				//std::wcout << L"\n  Found " << msfsfolders.size() << L" folders.\n\n";
 
 				for (int t = 0; t < msfsfolders.size(); t++)
 				{
@@ -78,27 +78,31 @@ namespace MSFSSystem
 
 				if (aircraft.size() != 0)
 				{
-					std::wcout << L"\n  Found " << aircraft.size() << L" aircraft.\n\n";
+					//std::wcout << L"\n  Found " << aircraft.size() << L" aircraft.\n\n";
 
 					std::wstring FileName = L"";
 
 					if (community)
 					{
-						FileName = L"__" + SystemConstants::CustomAircraft;
+						FileName = SystemConstants::CustomAircraft;
 					}
 					else
 					{
-						FileName = L"__" + SystemConstants::DefaultAircraft;
+						FileName = SystemConstants::DefaultAircraft;
 					}
 
 					SaveCustomAircraftFile(aircraft, FileName);
 				}
+				else
+				{
+					return 0;
+                }
 			}
 
-            return true;
+			return aircraft.size();
 		}
 
-		return false;
+		return 0;
 	}
 
 
@@ -304,6 +308,10 @@ namespace MSFSSystem
 			std::wcout << L"Saving config file: " << file_name << L"\n\n";
 
 			ofile << Formatting::to_utf8(L"// {\n");
+
+			ofile << Formatting::to_utf8(L"//");
+			ofile << Formatting::to_utf8(L"// found " + std::to_wstring(found_aircraft.size()) + L" aircraft.\n");
+            ofile << Formatting::to_utf8(L"// \n");
 			ofile << Formatting::to_utf8(L"// name=\n");
 			ofile << Formatting::to_utf8(L"// cruise=\n");
 			ofile << Formatting::to_utf8(L"// range=          { cannot be zero }\n");

@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -10,8 +10,10 @@
 //
 
 #include "AircraftHandler.h"
+#include "AirlineHandler.h"
 #include "AirportHandler.h"
 #include "Configuration.h"
+#include "FlightHandler.h"
 #include "GlobalObjects.h"
 //#include "JobHandler.h"
 #include "RouteHandler.h"
@@ -19,8 +21,10 @@
 
 
 extern AircraftHandler* GAircraftHandler;
+extern AirlineHandler* GAirlineHandler;
 extern AirportHandler* GAirportHandler;
 extern Configuration* GConfiguration;
+extern FlightHandler* GFlightHandler;
 extern RouteHandler* GRouteHandler;
 extern RunwayHandler* GRunwayHandler;
 //extern JobHandler* GJobHandler;
@@ -33,11 +37,15 @@ namespace GlobalObjects
 		// config to do, load from ini in root
 		GConfiguration = new Configuration();
 
+		GAirlineHandler = new AirlineHandler();
+
 		GAirportHandler = new AirportHandler();
 
 		GAircraftHandler = new AircraftHandler();
 
-		GRouteHandler = new RouteHandler();
+		GFlightHandler = new FlightHandler();
+
+		GRouteHandler = new RouteHandler(SystemConstants::RoutesFileName);
 
 		GRunwayHandler = new RunwayHandler(SystemConstants::RunwaysFileName);
 
@@ -64,6 +72,11 @@ namespace GlobalObjects
 			delete GRouteHandler;
 		}
 
+		if (GFlightHandler != nullptr)
+		{
+			delete GFlightHandler;
+		}
+
 		if (GAirportHandler != nullptr)
 		{
 			delete GAirportHandler;
@@ -73,6 +86,11 @@ namespace GlobalObjects
 		{
 			delete GAircraftHandler;
 		}
+
+		if (GAirlineHandler != nullptr)
+		{
+            delete GAirlineHandler;
+        }
 
 		if (GConfiguration != nullptr)
 		{
