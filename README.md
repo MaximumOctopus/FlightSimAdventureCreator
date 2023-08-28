@@ -1,5 +1,5 @@
 #  FlightSimulatorAdventureCreator 
-CLI v0.5, GUI v0.3.0 beta.
+CLI v0.6, GUI v0.4.0 beta.
   (c) Paul Alan Freshney 2023 / paul@freshney.org
 ```
 Source code and latest data and exe files
@@ -8,7 +8,7 @@ https://github.com/MaximumOctopus/FlightSimAdventureCreator
 Uses airport and runway data from Our Airports (without which this application couldn't exist)
 https://ourairports.com/data/
 ```	
-  January 24th 2023
+  August 28th 2023
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ List of files that come in the zip file:
     custom_aircraft.txt        a list of third party aircraft you own. editing instructions can be found inside
     default_aircraft.txt       a list of every aircraft that comes with MSFS and its various versions
     favourites.txt             store a list of your favourite airports (the ICAO code) in here
-    fcas.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
+    fsac.csv                   airport data, this is a special version of ourairports.com's airport.csv which is limited to MSFS airports
     FSAC.exe                   the command-line application
     FSAC_gui.exe               the Windows GUI version
     FSAC.pdf                   Detailed manual for the command-line version (GUI manual coming soon)
