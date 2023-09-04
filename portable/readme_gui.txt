@@ -13,9 +13,6 @@
   
   Uses airport and runway data from Our Airports (without which this application couldn't exist)
     https://ourairports.com/data/
-
-  Uses route data from Open Flights (many thanks, indeed)
-    https://openflights.org/
 	
   August 28th 2023
 ====================================================================================================================================
@@ -28,6 +25,7 @@ A powerful tool for creating random VFR routes for Flight Simulators (currently 
 Features:
 
  - Pick a random aircraft and starting location
+ - Pick a random real-world route from over 60000 routes travelled by real airlines
  - Create a selection of A -> B routes where B is within a specified range of A
  - Create random multi-leg routes where each leg of the journey is within a specified range
  - Export either route to an MSFS 2020 plan file
@@ -139,7 +137,15 @@ All of my software is free and open source; please consider donating to a local 
 
 Release History
 
-0.4.0 / August 2023
+0.5.0 / September 4th 2023
+
+Added: Improved GUI, with a larger route display
+Added: First column of the route table indicates with an * if either start or end airports are Favourites
+Added: Improvements to the Favourites dialog
+Fixed: Bug when calculating route range from aircraft range
+Fixed: Saving and loading configurations now includes real-world route options
+
+0.4.0 / August 28th 2023
 
 Added: Random real-world route option (currently beta)
        Nearly 60000 real-world routes. Not completly up-to-date, but I think they're new enough to be a useful addition.
