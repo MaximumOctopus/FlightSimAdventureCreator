@@ -58,6 +58,8 @@ public:
 	[[nodiscard]] std::wstring GenerateConfigCode(AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
 	[[nodiscard]] std::wstring DecodeConfigCode(std::wstring, AircraftLoadFilter&, AirportLoadFilter&, FlightFilter&);
 
+    bool IsAirportInFavourites(std::wstring);
+
 	std::wstring GetRandomFavourite();
 
 	void FavouritesHaveChanged();

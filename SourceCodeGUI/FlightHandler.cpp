@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2023
+// (c) Paul Alan Freshney 2022-2023
 //
 // paul@freshney.org
 //
@@ -19,11 +19,15 @@
 #include "MSFSFlightPlan.h"
 #include "FlightHandler.h"
 #include "Utility.h"
+#include "XPlaneFlightPlan.h"
 
 #pragma package(smart_init)
 
 
 FlightHandler* GFlightHandler;
+
+
+bool sortBySize(const Flight &lhs, const Flight &rhs) { return lhs.Distance < rhs.Distance; }
 
 
 FlightHandler::FlightHandler()
@@ -41,6 +45,12 @@ bool FlightHandler::ExportToMSFS(const std::wstring file_name, int route_id)
 bool FlightHandler::ExportToItinerary(const std::wstring file_name, int route_id)
 {
 	return TextItinerary::Export(Flights[route_id].Airports, file_name);
+}
+
+
+bool FlightHandler::ExportToXPlane11(const std::wstring file_name, int route_id)
+{
+	return XPlaneFlightPlan::Export(Flights[route_id].Airports, file_name);
 }
 
 
@@ -169,6 +179,12 @@ std::wstring FlightHandler::BuildRouteDescription(const std::wstring start_icao,
 	}
 
 	return RouteDescription;
+}
+
+
+void FlightHandler::Sort(int mode)
+{
+	std::sort(Flights.begin(), Flights.end(), sortBySize);
 }
 
 

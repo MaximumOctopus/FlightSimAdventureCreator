@@ -23,6 +23,30 @@ struct FlightFilter
 {
 	bool Ignore = false;
 
+	// =========================================================================
+
+	int GenerateMode = 0;                       // 0 = random, 1 = realworld
+
+	// =========================================================================
+
+	double RWRange = DataDefaults::Range;
+
+	bool RWUseAircraftRange = false;
+	bool RWUseFlightTime = false;
+	int RWFlightTime = DataDefaults::FlightTime;
+	bool RWUseExcessRange = false;
+
+	bool RWFromAirport = true;
+	std::wstring RWAirport = L"";
+	int RWRouteType = 0;
+
+	bool RWUseAirline = false;
+    std::wstring RWAirline = L"";
+
+	int RWCount = DataDefaults::Routes;
+
+	// =========================================================================
+
 	double Range = DataDefaults::Range;          // nautical miles
 	int Legs = 1;
 	int Count = 10;
@@ -41,12 +65,15 @@ struct FlightFilter
 
 	bool UseFlightTime = false;
 	int FlightTime = DataDefaults::FlightTime;
+	bool UseExcessRange = false;
 
 	bool StartEndUseLegs = true;
 
-	int SimpleRouteCount = 10;
+	int SimpleRouteCount = DataDefaults::Routes;
 
-    bool KeepTrying = false;
+	// =========================================================================
+
+	bool KeepTrying = false;
 };
 
 
@@ -62,8 +89,9 @@ public:
 	bool ExportAllToMSFS();
 	bool ExportAllToItinerary();
 
+	bool ExportToItinerary(const std::wstring, int);
 	bool ExportToMSFS(const std::wstring, int);
-    bool ExportToItinerary(const std::wstring, int);
+	bool ExportToXPlane11(const std::wstring, int);
 
 	int SetRangeFromTime(int, int, int, AircraftConstants::AircraftType);
 
@@ -71,6 +99,8 @@ public:
 
 	std::wstring BuildRouteDescription(const std::wstring, const std::wstring, bool, bool, double, double, int, int, int, bool,
 										bool, int, int);
+
+    void Sort(int);
 
 	void SaveToCSV(std::wstring);
 };

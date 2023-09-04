@@ -31,5 +31,6 @@ namespace DataDefaults
 
 	static const int MaximumAttempts = 5;
 
+    static const int Routes = 10;
     static const int FlightTime = 60;           // minutes
 }

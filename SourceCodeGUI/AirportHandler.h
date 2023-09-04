@@ -71,7 +71,7 @@ struct AirportLoadFilter
 	bool MediumAirports = true;		// "medium_airport" in fcas.csv
 	bool SmallAirports = true;		// "small_airport" in fcas.csv
 	bool Heliports = true;			// "heliport" in fcas.csv
-	bool SeaplaneBases = true;		// "seaplane_base" in fcas.csv
+	bool SeaplaneBases = false;		// "seaplane_base" in fcas.csv
 
 	double LongitudeFrom = 0;		// limit airports to a range of longitudes
 	double LongitudeTo = 0;			//

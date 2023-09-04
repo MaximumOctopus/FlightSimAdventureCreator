@@ -16,6 +16,7 @@
 #include <string>
 
 #include "AirportHandler.h"
+#include "Configuration.h"
 #include "Constants.h"
 #include "FlightHandler.h"
 #include "Locations.h"
@@ -25,6 +26,7 @@
 RouteHandler* GRouteHandler;
 
 extern AirportHandler* GAirportHandler;
+extern Configuration* GConfiguration;
 extern FlightHandler* GFlightHandler;
 
 
@@ -80,6 +82,8 @@ int RouteHandler::GenerateRoutes(RouteFilter& rf)
 		attempts++;
 	}
 	while (GFlightHandler->Flights.size() == 0 && attempts < DataDefaults::MaximumAttempts);
+
+	GFlightHandler->Sort(0);
 
 	return attempts;
 }
@@ -160,9 +164,17 @@ int RouteHandler::TryGenerateRoutes(RouteFilter& rf)
 
 			f.Name = Routes[Route].FromICAO + L" to " + Routes[Route].ToICAO;
 			f.Airline = Routes[Route].Airline;
-			f.Continent = Routes[Route].FromContinent;
-			f.Country = Routes[Route].FromCountry;
-			f.Region = Routes[Route].FromRegion;
+
+			f.FromContinent = Routes[Route].FromContinent;
+			f.FromCountry = Routes[Route].FromCountry;
+			f.FromRegion = Routes[Route].FromRegion;
+
+			f.ToContinent = Routes[Route].ToContinent;
+			f.ToCountry = Routes[Route].ToCountry;
+			f.ToRegion = Routes[Route].ToRegion;
+
+			f.Favourite = GConfiguration->IsAirportInFavourites(Routes[Route].FromICAO) ||
+						  GConfiguration->IsAirportInFavourites(Routes[Route].ToICAO);
 
 			GFlightHandler->Flights.push_back(f);
 
@@ -237,9 +249,17 @@ int RouteHandler::TryGenerateRoutesNoAirport(RouteFilter& rf)
 
 			f.Name = Routes[Route].FromICAO + L" to " + Routes[Route].ToICAO;
 			f.Airline = Routes[Route].Airline;
-			f.Continent = Routes[Route].FromContinent;
-			f.Country = Routes[Route].FromCountry;
-			f.Region = Routes[Route].FromRegion;
+
+			f.FromContinent = Routes[Route].FromContinent;
+			f.FromCountry = Routes[Route].FromCountry;
+			f.FromRegion = Routes[Route].FromRegion;
+
+			f.ToContinent = Routes[Route].ToContinent;
+			f.ToCountry = Routes[Route].ToCountry;
+			f.ToRegion = Routes[Route].ToRegion;
+
+			f.Favourite = GConfiguration->IsAirportInFavourites(Routes[Route].FromICAO) ||
+						  GConfiguration->IsAirportInFavourites(Routes[Route].ToICAO);
 
 			GFlightHandler->Flights.push_back(f);
 
@@ -332,8 +352,10 @@ bool RouteHandler::ImportFromRow(const std::wstring row)
 
         for (int t = 0; t < row.length(); t++)
         {
-			if ((row[t] == L',' && !inquotes) || t == row.length())
-            {
+			if ((row[t] == L',' && !inquotes) || t == row.length() - 1)
+			{
+                if (t == row.length() - 1) field += row[t];
+
                 switch (field_position)
                 {
 				case kFieldAirline:

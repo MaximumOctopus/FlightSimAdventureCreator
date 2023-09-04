@@ -15,6 +15,7 @@
 
 #include "Airport.h"
 #include "AirportHandler.h"
+#include "Configuration.h"
 #include "DateUtility.h"
 #include "Defaults.h"
 #include "Formatting.h"
@@ -28,6 +29,7 @@
 
 
 AirportHandler* GAirportHandler;
+extern Configuration* GConfiguration;
 extern FlightHandler* GFlightHandler;
 extern RunwayHandler* GRunwayHandler;
 
@@ -243,7 +245,9 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
 		{
 			MultiLegRoute(TargetICAO, range, direction, legs, keep_trying, reverse);
 		}
-    }
+	}
+
+    GFlightHandler->Sort(0);
 }
 
 
@@ -323,7 +327,9 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                     }
 
                     SingleLegAirports.front().Angle = Utility::AngleBetween(SingleLegAirports.front().LatitudeR, SingleLegAirports.front().LongitudeR,
-                    SingleLegAirports.back().LatitudeR, SingleLegAirports.back().LongitudeR);
+					SingleLegAirports.back().LatitudeR, SingleLegAirports.back().LongitudeR);
+
+                    SingleLegAirports.back().Angle = SingleLegAirports.front().Angle;
 
 					// == add route to list =========================================================================
 
@@ -332,9 +338,16 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 					flight.Airports.push_back(SingleLegAirports.front());
 					flight.Airports.push_back(SingleLegAirports.back());
 
-					flight.Continent = SingleLegAirports.front().Continent;
-					flight.Country = SingleLegAirports.front().Country;
-					flight.Region = SingleLegAirports.front().Region;
+					flight.FromContinent = SingleLegAirports.front().Continent;
+					flight.FromCountry = SingleLegAirports.front().Country;
+					flight.FromRegion = SingleLegAirports.front().Region;
+
+					flight.ToContinent = SingleLegAirports.back().Continent;
+					flight.ToCountry = SingleLegAirports.back().Country;
+					flight.ToRegion = SingleLegAirports.back().Region;
+
+					flight.Favourite = GConfiguration->IsAirportInFavourites(SingleLegAirports.front().Ident) ||
+									   GConfiguration->IsAirportInFavourites(SingleLegAirports.back().Ident);
 
 					GFlightHandler->Add(flight);
 
@@ -419,7 +432,7 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
         double FromLatitude = origin.LatitudeR;
         double FromLongitude = origin.LongitudeR;
 
-        MultiLegAirports.push_back(origin);
+		MultiLegAirports.push_back(origin);
 
         for (int leg = 0; leg < legs; leg++)
         {
@@ -488,9 +501,16 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
 			flight.Airports.push_back(MultiLegAirports[t]);
 		}
 
-		flight.Continent = MultiLegAirports.front().Continent;
-		flight.Country = MultiLegAirports.front().Country;
-		flight.Region = MultiLegAirports.front().Region;
+		flight.FromContinent = MultiLegAirports.front().Continent;
+		flight.FromCountry = MultiLegAirports.front().Country;
+		flight.FromRegion = MultiLegAirports.front().Region;
+
+		flight.ToContinent = MultiLegAirports.back().Continent;
+		flight.ToCountry = MultiLegAirports.back().Country;
+		flight.ToRegion = MultiLegAirports.back().Region;
+
+		flight.Favourite = GConfiguration->IsAirportInFavourites(MultiLegAirports.front().Ident) ||
+						   GConfiguration->IsAirportInFavourites(MultiLegAirports.back().Ident);
 
 		GFlightHandler->Add(flight);
 
@@ -525,7 +545,7 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 
     while (Attempt < MaximumAttempts)
     {
-        MultiLegAirports.push_back(origin);
+		MultiLegAirports.push_back(origin);
 
         // eg 3 legs = 4 airports, we have 1, so we need 2 more, then we add the end airport after this loop
 
@@ -570,9 +590,16 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
 			flight.Airports.push_back(MultiLegAirports[t]);
 		}
 
-		flight.Continent = MultiLegAirports.front().Continent;
-		flight.Country = MultiLegAirports.front().Country;
-		flight.Region = MultiLegAirports.front().Region;
+		flight.FromContinent = MultiLegAirports.front().Continent;
+		flight.FromCountry = MultiLegAirports.front().Country;
+		flight.FromRegion = MultiLegAirports.front().Region;
+
+		flight.ToContinent = MultiLegAirports.back().Continent;
+		flight.ToCountry = MultiLegAirports.back().Country;
+		flight.ToRegion = MultiLegAirports.back().Region;
+
+		flight.Favourite = GConfiguration->IsAirportInFavourites(MultiLegAirports.front().Ident) ||
+						   GConfiguration->IsAirportInFavourites(MultiLegAirports.back().Ident);
 
 		GFlightHandler->Add(flight);
 

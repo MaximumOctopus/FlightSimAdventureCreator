@@ -18,15 +18,17 @@ __published:	// IDE-managed Components
 	TEdit *eToICAO;
 	TLabel *Label3;
 	TButton *bCalculate;
-	TLabel *Label2;
 	TLabel *Label1;
+	TLabel *lError;
+	TGroupBox *GroupBox1;
+	TLabel *Label2;
 	TLabel *lDistanceNM;
 	TLabel *Label4;
 	TLabel *Label5;
 	TLabel *Label6;
 	TLabel *lDistanceKM;
 	TLabel *lDistanceMiles;
-	TLabel *lError;
+	TButton *Button1;
 	void __fastcall bCalculateClick(TObject *Sender);
 	void __fastcall eFromICAOKeyPress(TObject *Sender, System::WideChar &Key);
 private:	// User declarations

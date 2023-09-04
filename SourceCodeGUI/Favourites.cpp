@@ -13,13 +13,17 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "AirportHandler.h"
 #include "Configuration.h"
 #include "Favourites.h"
+#include "Utility.h"
+#include "WindowsUtility.h"
 
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TfrmFavourites *frmFavourites;
 
+extern AirportHandler* GAirportHandler;
 extern Configuration* GConfiguration;
 
 
@@ -93,4 +97,52 @@ void __fastcall TfrmFavourites::bOKClick(TObject *Sender)
 
         GConfiguration->FavouritesHaveChanged();
 	}
+}
+
+
+void __fastcall TfrmFavourites::lbFavouritesClick(TObject *Sender)
+{
+	PopulateFromSelected();
+}
+
+
+void TfrmFavourites::PopulateFromSelected()
+{
+	if (lbFavourites->Items->Count != 0)
+	{
+		int i = GAirportHandler->GetIndexFromICAOFullList(lbFavourites->Items->Strings[lbFavourites->ItemIndex].c_str());
+
+		if (i != -1)
+		{
+			std::wstring country(Utility::GetCountryFromShortCode(GAirportHandler->Airports[i].Country) + L" (" + GAirportHandler->Airports[i].Country + L")");
+			std::wstring continent(Utility::GetContinentFromShortCode(GAirportHandler->Airports[i].Continent) + L" (" + GAirportHandler->Airports[i].Continent + L")");
+
+			lName->Caption = GAirportHandler->Airports[i].Name.c_str();
+			lContinent->Caption = continent.c_str();
+			lCountry->Caption = country.c_str();
+			lRegion->Caption = GAirportHandler->Airports[i].Region.c_str();
+
+			_latitude = GAirportHandler->Airports[i].Latitude;
+			_longitude = GAirportHandler->Airports[i].Longitude;
+
+			return;
+		}
+	}
+
+	lName->Caption = "";
+	lContinent->Caption = "";
+	lCountry->Caption = "";
+	lRegion->Caption = "";
+
+	_latitude = L"";
+	_longitude = L"";
+}
+
+
+void __fastcall TfrmFavourites::Button1Click(TObject *Sender)
+{
+	if (!_latitude.empty() && !_longitude.empty())
+	{
+		WindowsUtility::OpenWebsite(L"https://maps.google.com/?q=" + _latitude + L"," + _longitude);
+    }
 }

@@ -29,9 +29,13 @@ public:
 	std::wstring Airline = L"";
 	int Distance = 0;
 
-	std::wstring Continent = L"";
-	std::wstring Country = L"";
-	std::wstring Region = L"";
+	std::wstring FromContinent = L"";
+	std::wstring FromCountry = L"";
+	std::wstring FromRegion = L"";
+
+	std::wstring ToContinent = L"";
+	std::wstring ToCountry = L"";
+	std::wstring ToRegion = L"";
 
 	bool Simple = false;                // if generating a large number of results we simply store the from and to ICAO values
 	std::wstring SimpleFromICAO = L"";  // if and when the airport object is required we can capture it ad-hoc to increase search
@@ -43,6 +47,8 @@ public:
 
 	std::wstring GetMSFSFileName();
 	std::wstring GetTextFileName();
+
+    bool Favourite = false;
 
 	std::wstring ToCSVRow();
 };

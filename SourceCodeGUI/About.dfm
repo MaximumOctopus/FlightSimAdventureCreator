@@ -2333,9 +2333,9 @@ object frmAbout: TfrmAbout
   object Label18: TLabel
     Left = 160
     Top = 218
-    Width = 98
+    Width = 185
     Height = 13
-    Caption = 'r/MicrosoftFlightSim/'
+    Caption = 'http://reddit.com/r/MicrosoftFlightSim/'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11

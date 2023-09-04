@@ -270,7 +270,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			rf.Legs = IntegerKey;
 		}
 
-		IntegerKey = config->ReadInteger(L"Route", L"Count", 1);
+		IntegerKey = config->ReadInteger(L"Route", L"Count", DataDefaults::Routes);
 		if (config->LastKeyExist)
 		{
 			rf.Count = IntegerKey;
@@ -330,7 +330,7 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 			rf.UseFlightTime = IntegerKey;
 		}
 
-		IntegerKey = config->ReadInteger(L"Route", L"FlightTime", 1);
+		IntegerKey = config->ReadInteger(L"Route", L"FlightTime", DataDefaults::FlightTime);
 		if (config->LastKeyExist)
 		{
 			rf.FlightTime = IntegerKey;
@@ -340,13 +340,89 @@ bool Configuration::LoadConfiguration(const std::wstring file_name, AircraftLoad
 		if (config->LastKeyExist)
 		{
 			rf.StartEndUseLegs = IntegerKey;
-        }
+		}
 
-		IntegerKey = config->ReadInteger(L"Route", L"SimpleRouteCount", 1);
+		IntegerKey = config->ReadInteger(L"Route", L"SimpleRouteCount", DataDefaults::Routes);
 		if (config->LastKeyExist)
 		{
 			rf.SimpleRouteCount = IntegerKey;
 		}
+
+		// =====================================================================
+
+		IntegerKey = config->ReadInteger(L"Route", L"GenerateMode", 0);
+		if (config->LastKeyExist)
+		{
+			rf.GenerateMode = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWRange", DataDefaults::Range);
+		if (config->LastKeyExist)
+		{
+			rf.RWRange = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWUseAircraftRange", 0);
+		if (config->LastKeyExist)
+		{
+			rf.RWUseAircraftRange = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWUseFlightTime", 0);
+		if (config->LastKeyExist)
+		{
+			rf.RWUseFlightTime = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWFlightTime", DataDefaults::FlightTime);
+		if (config->LastKeyExist)
+		{
+			rf.RWFlightTime = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWUseExcessRange", 0);
+		if (config->LastKeyExist)
+		{
+			rf.RWUseExcessRange = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWDirection", 1);
+		if (config->LastKeyExist)
+		{
+			rf.Direction = IntegerKey;
+		}
+
+		StringKey = config->ReadString(L"Route", L"RWAirport", L"");
+		if (config->LastKeyExist)
+		{
+			rf.RWAirport = StringKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWRouteType", 0);
+		if (config->LastKeyExist)
+		{
+			rf.RWRouteType = IntegerKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWUseAirline", 0);
+		if (config->LastKeyExist)
+		{
+			rf.RWUseAirline = IntegerKey;
+		}
+
+		StringKey = config->ReadString(L"Route", L"RWAirline", L"");
+		if (config->LastKeyExist)
+		{
+			rf.RWAirline = StringKey;
+		}
+
+		IntegerKey = config->ReadInteger(L"Route", L"RWCount", DataDefaults::Routes);
+		if (config->LastKeyExist)
+		{
+			rf.RWCount = IntegerKey;
+		}
+
+		// =====================================================================
 
 		IntegerKey = config->ReadInteger(L"Route", L"KeepTrying", 0);
 		if (config->LastKeyExist)
@@ -368,11 +444,12 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 	if (ofile)
 	{
 		ofile << L"// ===============================================================================\n";
+		ofile << L"// FSAC - PAFreshney 2022-2023 \n";
 		ofile << L"// Config created: " + DateUtility::DateTime(kDisplayModeConsole) + L"\n";
 		ofile << L"// ===============================================================================\n\n";
 
 		ofile << L"[version]\n";
-        ofile << L"Version=1\n";
+        ofile << L"Version=1\n\n";
 
 		ofile << L"[aircraft]\n";
 		ofile << L"Type0=" << aircraftlf.Types[0] << "\n";
@@ -446,6 +523,20 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 		ofile << L"FlightTime=" << rf.FlightTime << "\n";
 		ofile << L"StartEndUseLegs=" << rf.StartEndUseLegs << "\n";
 		ofile << L"SimpleRouteCount=" << rf.SimpleRouteCount << "\n";
+
+		ofile << L"GenerateMode=" << rf.GenerateMode << "\n";
+
+		ofile << L"RWRange=" << rf.RWRange << "\n";
+		ofile << L"RWUseAircraftRange=" << rf.RWUseAircraftRange << "\n";
+		ofile << L"RWUseFlightTime=" << rf.RWUseFlightTime << "\n";
+		ofile << L"RWFlightTime=" << rf.RWFlightTime << "\n";
+		ofile << L"RWUseExcessRange=" << rf.RWUseExcessRange << "\n";
+		ofile << L"RWDirection=" << rf.Direction << "\n";
+		ofile << L"RWAirport=" << rf.RWAirport << "\n";
+		ofile << L"RWRouteType=" << rf.RWRouteType << "\n";
+		ofile << L"RWUseAirline=" << rf.RWUseAirline << "\n";
+		ofile << L"RWAirline=" << rf.RWAirline << "\n";
+		ofile << L"RWCount=" << rf.RWCount << "\n";
 
 		ofile << L"KeepTrying=" << rf.KeepTrying << "\n";
 
@@ -720,6 +811,23 @@ std::wstring Configuration::GetRandomFavourite()
 	}
 
     return L"";
+}
+
+
+bool Configuration::IsAirportInFavourites(std::wstring icao)
+{
+	if (Favourites.size() != 0)
+	{
+		for (int t = 0; t < Favourites.size(); t++)
+		{
+			if (Favourites[t] == icao)
+			{
+				return true;
+            }
+		}
+	}
+
+	return false;
 }
 
 

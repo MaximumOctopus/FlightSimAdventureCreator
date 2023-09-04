@@ -20,7 +20,7 @@ object frmRouteBrowser: TfrmRouteBrowser
   object Bevel3: TBevel
     Left = 8
     Top = 473
-    Width = 908
+    Width = 900
     Height = 5
     Shape = bsTopLine
   end
@@ -390,7 +390,7 @@ object frmRouteBrowser: TfrmRouteBrowser
     end
   end
   object sgRoutes: TStringGrid
-    Left = 432
+    Left = 423
     Top = 8
     Width = 485
     Height = 451
@@ -408,7 +408,7 @@ object frmRouteBrowser: TfrmRouteBrowser
       73)
   end
   object Button1: TButton
-    Left = 842
+    Left = 833
     Top = 484
     Width = 75
     Height = 25
@@ -423,7 +423,7 @@ object frmRouteBrowser: TfrmRouteBrowser
     TabOrder = 2
   end
   object bExportSelected: TButton
-    Left = 804
+    Left = 795
     Top = 484
     Width = 25
     Height = 25
@@ -441,7 +441,7 @@ object frmRouteBrowser: TfrmRouteBrowser
     OnClick = bExportSelectedClick
   end
   object bExportSelectedText: TButton
-    Left = 773
+    Left = 764
     Top = 484
     Width = 25
     Height = 25

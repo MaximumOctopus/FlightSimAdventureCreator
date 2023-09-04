@@ -6,70 +6,23 @@ object frmMain: TfrmMain
   BorderStyle = bsSingle
   Caption = 'frmMain'
   ClientHeight = 770
-  ClientWidth = 1217
+  ClientWidth = 1215
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poDesktopCenter
   ShowHint = True
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
-  object lGeneratedRoutes: TLabel
-    Left = 806
-    Top = 47
-    Width = 118
-    Height = 16
-    Caption = 'Generated Routes'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object Image1: TImage
-    Left = 1095
-    Top = 47
-    Width = 16
-    Height = 16
-    AutoSize = True
-    Picture.Data = {
-      07544269746D617036030000424D360300000000000036000000280000001000
-      000010000000010018000000000000030000120B0000120B0000000000000000
-      0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFCFCFCD4D4D4FF00FFFF00FFFF00FFFF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      F8F8F81010106C6C6CFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFDBDBDB000000757575FF00FFFF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FF00FFFF00FFFF00FF222222888888FF00FF6666666767676666666666666767
-      676666666666666666666666666666666767676767677E7E7E5D5D5D0000007F
-      7F7F666666666666676767666666666666666666676767666666666666676767
-      6767676666667E7E7E5C5C5C0000007F7F7FFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF212121888888FF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FF00FFDADADA000000757575FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFF8F8F80F0F0F6B6B6BFF00FFFF00FFFF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FCFCFCD4D4D4FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-      00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-      FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-      FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-      00FF}
-    Transparent = True
-  end
   object gbAircraft: TGroupBox
     Left = 8
     Top = 47
@@ -82,11 +35,11 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 5
     object Bevel12: TBevel
-      Left = 15
+      Left = 11
       Top = 144
-      Width = 346
+      Width = 350
       Height = 73
       Shape = bsFrame
       Style = bsRaised
@@ -144,9 +97,9 @@ object frmMain: TfrmMain
       ParentFont = False
     end
     object Bevel8: TBevel
-      Left = 15
+      Left = 11
       Top = 22
-      Width = 346
+      Width = 350
       Height = 116
       Shape = bsFrame
       Style = bsRaised
@@ -400,9 +353,9 @@ object frmMain: TfrmMain
       OnClick = cbAircraftTypePropsClick
     end
     object cbAircraftList: TComboBox
-      Left = 17
+      Left = 11
       Top = 234
-      Width = 344
+      Width = 350
       Height = 21
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
@@ -416,7 +369,7 @@ object frmMain: TfrmMain
     end
     object bUpdateAircraft: TButton
       Left = 286
-      Top = 294
+      Top = 295
       Width = 75
       Height = 25
       Caption = 'Refresh'
@@ -506,7 +459,7 @@ object frmMain: TfrmMain
       OnExit = eAircraftRangeModifierExit
     end
     object bRandomAircraft: TButton
-      Left = 250
+      Left = 257
       Top = 295
       Width = 23
       Height = 25
@@ -532,7 +485,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 1217
+    Width = 1215
     Height = 41
     ButtonHeight = 38
     ButtonWidth = 39
@@ -613,35 +566,16 @@ object frmMain: TfrmMain
   object sbMain: TStatusBar
     Left = 0
     Top = 751
-    Width = 1217
+    Width = 1215
     Height = 19
     Panels = <>
     SimplePanel = True
   end
-  object sgRoutes: TStringGrid
-    Left = 797
-    Top = 66
-    Width = 412
-    Height = 379
-    DefaultRowHeight = 22
-    FixedCols = 0
-    RowCount = 2
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect, goFixedRowDefAlign]
-    ScrollBars = ssVertical
-    TabOrder = 1
-    OnClick = sgRoutesClick
-    ColWidths = (
-      181
-      41
-      41
-      53
-      60)
-  end
   object mMain: TMemo
     Left = 797
-    Top = 451
+    Top = 422
     Width = 412
-    Height = 186
+    Height = 215
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
@@ -649,7 +583,8 @@ object frmMain: TfrmMain
     Font.Style = []
     Lines.Strings = (
       'Click the button marked "Go!" below'
-      'to generate some random routes.'
+      '(or press F9) to generate some random'
+      'routes.'
       ''
       'Once you have some routes, selecting a '
       'route in the table above will show details '
@@ -657,7 +592,7 @@ object frmMain: TfrmMain
     ParentFont = False
     ReadOnly = True
     ScrollBars = ssVertical
-    TabOrder = 2
+    TabOrder = 1
   end
   object gbGo: TGroupBox
     Left = 797
@@ -671,7 +606,7 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     object Label23: TLabel
       Left = 44
       Top = 84
@@ -690,7 +625,7 @@ object frmMain: TfrmMain
       Top = 24
       Width = 75
       Height = 56
-      Hint = 'generate random routes!'
+      Hint = 'generate random routes! (F9)'
       ImageAlignment = iaCenter
       ImageIndex = 5
       Images = ImageList1
@@ -725,7 +660,7 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     object Label21: TLabel
       Left = 15
       Top = 19
@@ -855,7 +790,7 @@ object frmMain: TfrmMain
     Left = 389
     Top = 47
     Width = 402
-    Height = 698
+    Height = 329
     Caption = 'Airports'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -863,118 +798,34 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     object Bevel13: TBevel
-      Left = 15
-      Top = 451
-      Width = 370
+      Left = 11
+      Top = 250
+      Width = 378
       Height = 70
       Shape = bsFrame
       Style = bsRaised
     end
     object Bevel5: TBevel
-      Left = 15
-      Top = 387
-      Width = 370
+      Left = 11
+      Top = 186
+      Width = 378
       Height = 58
       Shape = bsFrame
       Style = bsRaised
     end
-    object Bevel4: TBevel
-      Left = 15
-      Top = 226
-      Width = 370
-      Height = 106
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Bevel1: TBevel
-      Left = 15
-      Top = 22
-      Width = 370
-      Height = 100
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Label5: TLabel
-      Left = 47
-      Top = 271
-      Width = 64
-      Height = 13
-      Caption = 'Latitude from'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label6: TLabel
-      Left = 205
-      Top = 271
-      Width = 10
-      Height = 13
-      Caption = 'to'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label7: TLabel
-      Left = 47
-      Top = 298
-      Width = 72
-      Height = 13
-      Caption = 'Longitude from'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object labellongto: TLabel
-      Left = 205
-      Top = 298
-      Width = 10
-      Height = 13
-      Caption = 'to'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Bevel2: TBevel
-      Left = 15
-      Top = 128
-      Width = 370
-      Height = 43
-      Shape = bsFrame
-      Style = bsRaised
-    end
-    object Bevel3: TBevel
-      Left = 15
-      Top = 177
-      Width = 370
-      Height = 43
-      Shape = bsFrame
-      Style = bsRaised
-    end
     object Bevel6: TBevel
-      Left = 15
-      Top = 338
-      Width = 370
+      Left = 11
+      Top = 137
+      Width = 378
       Height = 43
       Shape = bsFrame
       Style = bsRaised
     end
     object Label24: TLabel
       Left = 248
-      Top = 353
+      Top = 152
       Width = 30
       Height = 13
       Caption = '(beta)'
@@ -987,7 +838,7 @@ object frmMain: TfrmMain
     end
     object Label18: TLabel
       Left = 31
-      Top = 465
+      Top = 264
       Width = 67
       Height = 13
       Caption = 'Min. Elevation'
@@ -1000,7 +851,7 @@ object frmMain: TfrmMain
     end
     object Label20: TLabel
       Left = 151
-      Top = 465
+      Top = 264
       Width = 12
       Height = 13
       Caption = 'ft.'
@@ -1011,24 +862,9 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
     end
-    object Label31: TLabel
-      Left = 168
-      Top = 192
-      Width = 207
-      Height = 13
-      Cursor = crHandPoint
-      Caption = '(https://en.wikipedia.org/wiki/ISO_3166-2)'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      OnClick = Label31Click
-    end
     object lMinElevationRange: TLabel
       Left = 188
-      Top = 465
+      Top = 264
       Width = 12
       Height = 13
       Caption = '...'
@@ -1041,7 +877,7 @@ object frmMain: TfrmMain
     end
     object Label33: TLabel
       Left = 31
-      Top = 492
+      Top = 291
       Width = 71
       Height = 13
       Caption = 'Max. Elevation'
@@ -1054,7 +890,7 @@ object frmMain: TfrmMain
     end
     object Label34: TLabel
       Left = 151
-      Top = 492
+      Top = 291
       Width = 12
       Height = 13
       Caption = 'ft.'
@@ -1067,7 +903,7 @@ object frmMain: TfrmMain
     end
     object lMaxElevationRange: TLabel
       Left = 188
-      Top = 490
+      Top = 289
       Width = 12
       Height = 13
       Caption = '...'
@@ -1079,8 +915,8 @@ object frmMain: TfrmMain
       ParentFont = False
     end
     object bUpdateAirports: TButton
-      Left = 312
-      Top = 536
+      Left = 304
+      Top = 342
       Width = 75
       Height = 25
       Caption = 'Refresh'
@@ -1093,243 +929,9 @@ object frmMain: TfrmMain
       TabOrder = 0
       OnClick = bUpdateAirportsClick
     end
-    object cbContinentAF: TCheckBox
-      Left = 47
-      Top = 66
-      Width = 74
-      Height = 17
-      Caption = 'Africa'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 1
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentAN: TCheckBox
-      Left = 143
-      Top = 66
-      Width = 82
-      Height = 17
-      Caption = 'Antarctica'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 2
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentAS: TCheckBox
-      Left = 231
-      Top = 66
-      Width = 50
-      Height = 17
-      Caption = 'Asia'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 3
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentEU: TCheckBox
-      Left = 326
-      Top = 66
-      Width = 59
-      Height = 17
-      Caption = 'Europe'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 4
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentNA: TCheckBox
-      Left = 47
-      Top = 89
-      Width = 90
-      Height = 17
-      Caption = 'North America'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 5
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentOC: TCheckBox
-      Left = 143
-      Top = 89
-      Width = 82
-      Height = 17
-      Caption = 'Oceania'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 6
-      OnClick = cbContinentAFClick
-    end
-    object cbContinentSA: TCheckBox
-      Left = 231
-      Top = 89
-      Width = 97
-      Height = 17
-      Caption = 'South America'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 7
-      OnClick = cbContinentAFClick
-    end
-    object cbCountryFilter: TCheckBox
-      Tag = 1
-      Left = 29
-      Top = 142
-      Width = 18
-      Height = 17
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 8
-      OnClick = cbContinentFilterClick
-    end
-    object eLatFrom: TEdit
-      Left = 125
-      Top = 268
-      Width = 75
-      Height = 21
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      PopupMenu = puLatitude
-      TabOrder = 9
-      Text = '0'
-      OnChange = cbContinentAFClick
-    end
-    object cbLatLongFilter: TCheckBox
-      Tag = 3
-      Left = 29
-      Top = 239
-      Width = 114
-      Height = 17
-      Caption = 'Latitude / Longitude'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 10
-      OnClick = cbContinentFilterClick
-    end
-    object eLatTo: TEdit
-      Left = 221
-      Top = 268
-      Width = 75
-      Height = 21
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      PopupMenu = puLatitude
-      TabOrder = 11
-      Text = '0'
-      OnChange = cbContinentAFClick
-    end
-    object cbCountryList: TComboBox
-      Left = 63
-      Top = 140
-      Width = 314
-      Height = 21
-      Style = csDropDownList
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 12
-      OnChange = cbContinentAFClick
-    end
-    object eLongFrom: TEdit
-      Left = 125
-      Top = 295
-      Width = 75
-      Height = 21
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      PopupMenu = puLongitude
-      TabOrder = 13
-      Text = '0'
-      OnChange = cbContinentAFClick
-    end
-    object eLongTo: TEdit
-      Left = 221
-      Top = 295
-      Width = 75
-      Height = 21
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      PopupMenu = puLongitude
-      TabOrder = 14
-      Text = '0'
-      OnChange = cbContinentAFClick
-    end
     object cbLargeAirports: TCheckBox
       Left = 47
-      Top = 397
+      Top = 196
       Width = 90
       Height = 17
       Caption = 'Large Airports'
@@ -1341,12 +943,12 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 15
+      TabOrder = 1
       OnClick = cbContinentAFClick
     end
     object cbMediumAirports: TCheckBox
       Left = 143
-      Top = 397
+      Top = 196
       Width = 90
       Height = 17
       Caption = 'Medium Airports'
@@ -1358,12 +960,12 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 16
+      TabOrder = 2
       OnClick = cbContinentAFClick
     end
     object cbSmallAirports: TCheckBox
       Left = 255
-      Top = 397
+      Top = 196
       Width = 90
       Height = 17
       Caption = 'Small Airports'
@@ -1375,12 +977,12 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 17
+      TabOrder = 3
       OnClick = cbContinentAFClick
     end
     object cbHeliports: TCheckBox
       Left = 47
-      Top = 420
+      Top = 219
       Width = 90
       Height = 17
       Caption = 'Heliports'
@@ -1392,12 +994,12 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 18
+      TabOrder = 4
       OnClick = cbContinentAFClick
     end
     object cbSeaplaneBases: TCheckBox
       Left = 143
-      Top = 420
+      Top = 219
       Width = 90
       Height = 17
       Caption = 'Seaplane bases'
@@ -1409,63 +1011,13 @@ object frmMain: TfrmMain
       Font.Style = []
       ParentFont = False
       State = cbChecked
-      TabOrder = 19
+      TabOrder = 5
       OnClick = cbContinentAFClick
-    end
-    object cbContinentFilter: TCheckBox
-      Left = 29
-      Top = 33
-      Width = 74
-      Height = 17
-      Caption = 'Continent'
-      Checked = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 20
-      OnClick = cbContinentFilterClick
-    end
-    object cbRegionFilter: TCheckBox
-      Tag = 2
-      Left = 29
-      Top = 191
-      Width = 58
-      Height = 17
-      Caption = 'Region'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 21
-      OnClick = cbContinentFilterClick
-    end
-    object eRegionICO: TEdit
-      Left = 86
-      Top = 189
-      Width = 59
-      Height = 21
-      CharCase = ecUpperCase
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      PopupMenu = puRegionSelect
-      TabOrder = 22
-      OnChange = cbContinentAFClick
     end
     object cbTimeOfDay: TCheckBox
       Tag = 1
       Left = 29
-      Top = 352
+      Top = 151
       Width = 74
       Height = 17
       Caption = 'Time of Day'
@@ -1475,12 +1027,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 23
+      TabOrder = 6
       OnClick = cbTimeOfDayClick
     end
     object rbDay: TRadioButton
       Left = 128
-      Top = 352
+      Top = 151
       Width = 41
       Height = 17
       Caption = 'Day'
@@ -1492,13 +1044,13 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 24
+      TabOrder = 7
       TabStop = True
       OnClick = cbContinentAFClick
     end
     object rbNight: TRadioButton
       Left = 175
-      Top = 352
+      Top = 151
       Width = 41
       Height = 17
       Caption = 'Night'
@@ -1509,12 +1061,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 25
+      TabOrder = 8
       OnClick = cbContinentAFClick
     end
     object eMinElevation: TEdit
       Left = 104
-      Top = 462
+      Top = 261
       Width = 41
       Height = 21
       Alignment = taRightJustify
@@ -1525,14 +1077,14 @@ object frmMain: TfrmMain
       Font.Style = []
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 26
+      TabOrder = 9
       Text = '-2000'
       OnChange = cbContinentAFClick
       OnExit = eMinElevationExit
     end
     object eMagicCode: TEdit
-      Left = 16
-      Top = 539
+      Left = 24
+      Top = 344
       Width = 290
       Height = 21
       Font.Charset = DEFAULT_CHARSET
@@ -1541,12 +1093,12 @@ object frmMain: TfrmMain
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 27
+      TabOrder = 10
       Visible = False
     end
     object eMaxElevation: TEdit
       Left = 104
-      Top = 489
+      Top = 288
       Width = 41
       Height = 21
       Alignment = taRightJustify
@@ -1557,107 +1109,382 @@ object frmMain: TfrmMain
       Font.Style = []
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 28
+      TabOrder = 11
       Text = '15000'
       OnChange = cbContinentAFClick
       OnExit = eMaxElevationExit
     end
-    object mRouteDebug: TMemo
-      Left = 16
-      Top = 583
-      Width = 369
-      Height = 108
-      Font.Charset = ANSI_CHARSET
+    object cbAirportTypeAutomatic: TCheckBox
+      Left = 255
+      Top = 219
+      Width = 90
+      Height = 17
+      Caption = 'Automatic!'
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Courier New'
-      Font.Style = []
-      Lines.Strings = (
-        'Selected route parameters will '
-        'be shown here...')
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsItalic]
       ParentFont = False
-      ReadOnly = True
-      ScrollBars = ssVertical
-      TabOrder = 29
-      Visible = False
+      TabOrder = 12
+      OnClick = cbAirportTypeAutomaticClick
+    end
+    object pcGeography: TPageControl
+      Left = 11
+      Top = 22
+      Width = 378
+      Height = 109
+      ActivePage = TabSheet3
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 13
+      OnChange = pcGeographyChange
+      object TabSheet7: TTabSheet
+        Caption = 'None'
+        ImageIndex = 4
+        object Label19: TLabel
+          Left = 15
+          Top = 12
+          Width = 274
+          Height = 13
+          Caption = 'Only the "time of day" setting will select airport locations.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label35: TLabel
+          Left = 15
+          Top = 31
+          Width = 346
+          Height = 13
+          Caption = 
+            'Time of Day (below) must be selected if the "None" option is bei' +
+            'ng used.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Continent'
+        object cbContinentAF: TCheckBox
+          Left = 15
+          Top = 16
+          Width = 74
+          Height = 17
+          Caption = 'Africa'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 0
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentNA: TCheckBox
+          Left = 15
+          Top = 39
+          Width = 90
+          Height = 17
+          Caption = 'North America'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentAN: TCheckBox
+          Left = 111
+          Top = 16
+          Width = 82
+          Height = 17
+          Caption = 'Antarctica'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 2
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentOC: TCheckBox
+          Left = 111
+          Top = 39
+          Width = 82
+          Height = 17
+          Caption = 'Oceania'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 3
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentAS: TCheckBox
+          Left = 199
+          Top = 16
+          Width = 50
+          Height = 17
+          Caption = 'Asia'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 4
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentSA: TCheckBox
+          Left = 199
+          Top = 39
+          Width = 97
+          Height = 17
+          Caption = 'South America'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 5
+          OnClick = cbContinentAFClick
+        end
+        object cbContinentEU: TCheckBox
+          Left = 294
+          Top = 16
+          Width = 59
+          Height = 17
+          Caption = 'Europe'
+          Checked = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 6
+          OnClick = cbContinentAFClick
+        end
+      end
+      object TabSheet4: TTabSheet
+        Caption = 'Country'
+        ImageIndex = 1
+        object cbCountryList: TComboBox
+          Left = 14
+          Top = 18
+          Width = 340
+          Height = 21
+          Style = csDropDownList
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          OnChange = cbContinentAFClick
+        end
+      end
+      object TabSheet5: TTabSheet
+        Caption = 'Region'
+        ImageIndex = 2
+        object Label31: TLabel
+          Left = 88
+          Top = 20
+          Width = 207
+          Height = 13
+          Cursor = crHandPoint
+          Caption = '(https://en.wikipedia.org/wiki/ISO_3166-2)'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGray
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          OnClick = Label31Click
+        end
+        object Bevel3: TBevel
+          Left = 15
+          Top = 177
+          Width = 370
+          Height = 43
+          Shape = bsFrame
+          Style = bsRaised
+        end
+        object eRegionICO: TEdit
+          Left = 14
+          Top = 18
+          Width = 59
+          Height = 21
+          CharCase = ecUpperCase
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = puRegionSelect
+          TabOrder = 0
+          OnChange = cbContinentAFClick
+        end
+      end
+      object TabSheet6: TTabSheet
+        Caption = 'Longitude && Latitude'
+        ImageIndex = 3
+        object Label5: TLabel
+          Left = 11
+          Top = 17
+          Width = 64
+          Height = 13
+          Caption = 'Latitude from'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label7: TLabel
+          Left = 11
+          Top = 44
+          Width = 72
+          Height = 13
+          Caption = 'Longitude from'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 169
+          Top = 17
+          Width = 10
+          Height = 13
+          Caption = 'to'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object labellongto: TLabel
+          Left = 169
+          Top = 44
+          Width = 10
+          Height = 13
+          Caption = 'to'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object eLatFrom: TEdit
+          Left = 89
+          Top = 14
+          Width = 75
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = puLatitude
+          TabOrder = 0
+          Text = '0'
+          OnChange = cbContinentAFClick
+        end
+        object eLatTo: TEdit
+          Left = 185
+          Top = 14
+          Width = 75
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = puLatitude
+          TabOrder = 1
+          Text = '0'
+          OnChange = cbContinentAFClick
+        end
+        object eLongTo: TEdit
+          Left = 185
+          Top = 41
+          Width = 75
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = puLongitude
+          TabOrder = 2
+          Text = '0'
+          OnChange = cbContinentAFClick
+        end
+        object eLongFrom: TEdit
+          Left = 89
+          Top = 41
+          Width = 75
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = puLongitude
+          TabOrder = 3
+          Text = '0'
+          OnChange = cbContinentAFClick
+        end
+      end
     end
   end
-  object bExportSelected: TButton
-    Left = 1158
-    Top = 45
-    Width = 25
-    Height = 18
-    Hint = 'export selected route to MSFS plan file'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ImageAlignment = iaCenter
-    ImageIndex = 0
-    Images = il16x16
-    ParentFont = False
-    TabOrder = 6
-    OnClick = bExportSelectedClick
-  end
-  object bExportSelectedText: TButton
-    Left = 1184
-    Top = 45
-    Width = 25
-    Height = 18
-    Hint = 'export selected route to text file'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ImageAlignment = iaCenter
-    ImageIndex = 1
-    Images = il16x16
-    ParentFont = False
-    TabOrder = 7
-    OnClick = bExportSelectedTextClick
-  end
-  object bOpenStartMap: TButton
-    Left = 1067
-    Top = 45
-    Width = 25
-    Height = 18
-    Hint = 'open departure airport'#39's location on google maps'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ImageAlignment = iaCenter
-    ImageIndex = 5
-    Images = il16x16
-    ParentFont = False
-    TabOrder = 9
-    OnClick = bOpenStartMapClick
-  end
-  object bOpenEndMap: TButton
-    Left = 1115
-    Top = 45
-    Width = 25
-    Height = 18
-    Hint = 'open arrival airport'#39's location on google maps'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ImageAlignment = iaCenter
-    ImageIndex = 5
-    Images = il16x16
-    ParentFont = False
-    TabOrder = 10
-    OnClick = bOpenEndMapClick
-  end
   object GroupBox2: TGroupBox
-    Left = 9
-    Top = 382
-    Width = 374
+    Left = 797
+    Top = 48
+    Width = 412
     Height = 368
     Caption = 'Route'
     Font.Charset = DEFAULT_CHARSET
@@ -1666,13 +1493,13 @@ object frmMain: TfrmMain
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 6
     object pcRoute: TPageControl
       Left = 11
       Top = 24
-      Width = 363
+      Width = 390
       Height = 337
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -1686,7 +1513,7 @@ object frmMain: TfrmMain
         object Bevel10: TBevel
           Left = 3
           Top = 192
-          Width = 343
+          Width = 372
           Height = 63
           Shape = bsFrame
           Style = bsRaised
@@ -1694,7 +1521,7 @@ object frmMain: TfrmMain
         object Bevel7: TBevel
           Left = 3
           Top = 3
-          Width = 343
+          Width = 372
           Height = 63
           Shape = bsFrame
           Style = bsRaised
@@ -1742,7 +1569,7 @@ object frmMain: TfrmMain
         object Bevel9: TBevel
           Left = 3
           Top = 72
-          Width = 343
+          Width = 372
           Height = 114
           Shape = bsFrame
           Style = bsRaised
@@ -1854,7 +1681,7 @@ object frmMain: TfrmMain
         object Bevel11: TBevel
           Left = 3
           Top = 261
-          Width = 343
+          Width = 372
           Height = 43
           Shape = bsFrame
           Style = bsRaised
@@ -2149,7 +1976,7 @@ object frmMain: TfrmMain
         object Bevel16: TBevel
           Left = 3
           Top = 72
-          Width = 343
+          Width = 372
           Height = 65
           Shape = bsFrame
           Style = bsRaised
@@ -2157,7 +1984,7 @@ object frmMain: TfrmMain
         object Bevel18: TBevel
           Left = 3
           Top = 190
-          Width = 343
+          Width = 372
           Height = 43
           Shape = bsFrame
           Style = bsRaised
@@ -2179,7 +2006,7 @@ object frmMain: TfrmMain
         object Bevel15: TBevel
           Left = 3
           Top = 3
-          Width = 343
+          Width = 372
           Height = 63
           Shape = bsFrame
           Style = bsRaised
@@ -2213,7 +2040,7 @@ object frmMain: TfrmMain
         object Bevel17: TBevel
           Left = 3
           Top = 143
-          Width = 343
+          Width = 372
           Height = 41
           Shape = bsFrame
           Style = bsRaised
@@ -2459,26 +2286,241 @@ object frmMain: TfrmMain
       end
     end
   end
-  object bSaveRoutes: TButton
-    Left = 1023
-    Top = 45
-    Width = 25
-    Height = 18
-    Hint = 'export routes to a CSV file'
+  object gbGeneratedRoutes: TGroupBox
+    Left = 8
+    Top = 382
+    Width = 783
+    Height = 363
+    Caption = 'Generated Routes'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -13
     Font.Name = 'Tahoma'
-    Font.Style = []
-    ImageAlignment = iaCenter
-    ImageIndex = 7
-    Images = il16x16
+    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 13
-    OnClick = bSaveRoutesClick
+    TabOrder = 8
+    object Image1: TImage
+      Left = 759
+      Top = 88
+      Width = 18
+      Height = 18
+      AutoSize = True
+      Picture.Data = {
+        07544269746D617026040000424D260400000000000036000000280000001200
+        0000120000000100180000000000F0030000120B0000120B0000000000000000
+        0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF737373747474
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FF909090000000000000909090FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FF7200FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FF9090900000000000000000000000008F8F8FFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FF4D00FF00FFFF00FFFF00FFFF00FFFF00FF90909000000000
+        0000000000000000000000000000909090FF00FFFF00FFFF00FFFF00FFFF00FF
+        0000FF00FFFF00FFFF00FFFF00FF9090900000000000004444440F0F0F101010
+        4444440000000000008F8F8FFF00FFFF00FFFF00FFFF00FF7400FF00FFFF00FF
+        FF00FF909090000000000000888888FF00FF050505050505FF00FF8888880000
+        00000000909090FF00FFFF00FFFF00FF0000FF00FFFF00FF9595950000000000
+        006B6B6BFF00FFFF00FF000000000000FF00FFFF00FF6A6A6A00000000000096
+        9696FF00FFFF00FF0000FF00FFFF00FFFF00FF0505054F4F4FFF00FFFF00FFFF
+        00FF000000000000FF00FFFF00FFFF00FF4F4F4F050505FF00FFFF00FFFF00FF
+        0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000FF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FF000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FF000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000FF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FF000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FF000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000FF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FF0000}
+      Transparent = True
+    end
+    object bExportSelected: TButton
+      Left = 755
+      Top = 142
+      Width = 25
+      Height = 22
+      Hint = 'export selected route to MSFS plan file'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 0
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 0
+      OnClick = bExportSelectedClick
+    end
+    object bExportSelectedText: TButton
+      Left = 755
+      Top = 166
+      Width = 25
+      Height = 22
+      Hint = 'export selected route to text file'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 1
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 1
+      OnClick = bExportSelectedTextClick
+    end
+    object bOpenStartMap: TButton
+      Left = 755
+      Top = 64
+      Width = 25
+      Height = 22
+      Hint = 'open departure airport'#39's location on google maps'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 5
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 2
+      OnClick = bOpenStartMapClick
+    end
+    object bOpenEndMap: TButton
+      Left = 755
+      Top = 110
+      Width = 25
+      Height = 22
+      Hint = 'open arrival airport'#39's location on google maps'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 5
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 3
+      OnClick = bOpenEndMapClick
+    end
+    object bSaveRoutes: TButton
+      Left = 755
+      Top = 24
+      Width = 25
+      Height = 22
+      Hint = 'export routes to a CSV file'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 7
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 4
+      OnClick = bSaveRoutesClick
+    end
+    object sgRoutes: TStringGrid
+      Left = 6
+      Top = 22
+      Width = 745
+      Height = 341
+      ColCount = 10
+      DefaultRowHeight = 22
+      FixedCols = 0
+      RowCount = 2
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect, goFixedRowDefAlign]
+      ParentFont = False
+      ScrollBars = ssVertical
+      TabOrder = 5
+      OnClick = sgRoutesClick
+      ColWidths = (
+        189
+        59
+        41
+        53
+        10
+        64
+        64
+        64
+        60
+        64)
+    end
+    object bExportSelectedXPlane: TButton
+      Left = 755
+      Top = 190
+      Width = 25
+      Height = 22
+      Hint = 'export selected route to text file'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      ImageIndex = 8
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 6
+      OnClick = bExportSelectedXPlaneClick
+    end
+    object mRouteDebug: TMemo
+      Left = 6
+      Top = 293
+      Width = 745
+      Height = 67
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+      Lines.Strings = (
+        'Selected route parameters will '
+        'be shown here...')
+      ParentFont = False
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 7
+      Visible = False
+    end
+    object bShowSearchParameters: TButton
+      Left = 755
+      Top = 338
+      Width = 25
+      Height = 22
+      Hint = 'export selected route to text file'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageAlignment = iaCenter
+      Images = il16x16
+      ParentFont = False
+      TabOrder = 8
+      Visible = False
+      OnClick = bShowSearchParametersClick
+    end
   end
   object MainMenu1: TMainMenu
-    Left = 288
+    Left = 312
     Top = 65532
     object File1: TMenuItem
       Caption = 'File'
@@ -3731,7 +3773,7 @@ object frmMain: TfrmMain
     Left = 1024
     Top = 65532
     Bitmap = {
-      494C010108001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3749,24 +3791,32 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000AAAA
+      AA0000000000B8B8B80000000000000000000000000000000000B8B8B8000000
+      0000AAAAAA000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00005858580042424200000000000000000000000000F4F4F400262626005858
+      5800000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000D1D1D10000000000AAAAAA000000000000000000AAAAAA0000000000D1D1
+      D100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000008D8D8D0026262600F4F4F400E9E9E900000000009C9C9C000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3774,6 +3824,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000F4F4F400262626009C9C9C006B6B6B0026262600F4F4F4000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3781,6 +3832,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000AAAAAA000000000000000000B8B8B800000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3788,6 +3840,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000DDDDDD000000000000000000F4F4F400000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3795,6 +3848,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000006B6B6B0042424200424242007D7D7D00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3802,6 +3856,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000B8B8B80000000000B8B8B800B8B8B80000000000D1D1D1000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3809,45 +3864,32 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000F4F4F400424242006B6B6B0000000000000000006B6B6B0042424200F4F4
+      F400000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000AAAAAA0000000000D1D1D1000000000000000000DDDDDD0000000000AAAA
+      AA00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000E9E9
+      E900000000007D7D7D00000000000000000000000000000000008D8D8D000000
+      0000DDDDDD000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000E9E9
+      E900D1D1D100F4F4F40000000000000000000000000000000000F4F4F400D1D1
+      D100E9E9E9000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4119,11 +4161,11 @@ object frmMain: TfrmMain
       000000000000D4D4D400393939000C0C0C000C0C0C0039393900D3D3D3000000
       000000000000000000000000000000000000424D3E000000000000003E000000
       2800000040000000300000000100010000000000800100000000000000000000
-      000000000000000000000000FFFFFF0000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FC7FFC0FF00F0000F01FFE3FE3070000
+      000000000000000000000000FFFFFF00FFFF000000000000FFFF000000000000
+      E3C7000000000000F38F000000000000F18F000000000000F81F000000000000
+      F81F000000000000FC3F000000000000FC3F000000000000FC3F000000000000
+      F81F000000000000F18F000000000000F18F000000000000E3C7000000000000
+      E3C7000000000000FFFF000000000000FC7FFC0FF00F0000F01FFE3FE3070000
       C007F80FCFE300008003E0019FF900008003C0013FFD00008003C0033FFC0000
       800380033FFC0000800380037FFC0000800300013FFE0000800300013FFC0000
       800300013FFC0000800380033FF80000C00780039BF90000F01FC007C3F30000

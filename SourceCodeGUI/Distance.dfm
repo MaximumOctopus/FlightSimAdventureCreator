@@ -3,8 +3,8 @@ object frmDistanceCalc: TfrmDistanceCalc
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Distance calculator'
-  ClientHeight = 237
-  ClientWidth = 329
+  ClientHeight = 240
+  ClientWidth = 328
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,106 +15,9 @@ object frmDistanceCalc: TfrmDistanceCalc
   Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object Label2: TLabel
-    Left = 45
-    Top = 104
-    Width = 49
-    Height = 13
-    Caption = 'Distance'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object lDistanceNM: TLabel
-    Left = 122
-    Top = 99
-    Width = 58
-    Height = 22
-    Alignment = taRightJustify
-    AutoSize = False
-    Caption = '...'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label4: TLabel
-    Left = 193
-    Top = 99
-    Width = 23
-    Height = 19
-    Caption = 'nm'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label5: TLabel
-    Left = 194
-    Top = 155
-    Width = 37
-    Height = 19
-    Caption = 'miles'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label6: TLabel
-    Left = 194
-    Top = 127
-    Width = 22
-    Height = 19
-    Caption = 'km'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object lDistanceKM: TLabel
-    Left = 122
-    Top = 127
-    Width = 58
-    Height = 22
-    Alignment = taRightJustify
-    AutoSize = False
-    Caption = '...'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object lDistanceMiles: TLabel
-    Left = 125
-    Top = 155
-    Width = 55
-    Height = 22
-    Alignment = taRightJustify
-    AutoSize = False
-    Caption = '...'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
   object lError: TLabel
     Left = 8
-    Top = 216
+    Top = 212
     Width = 9
     Height = 13
     Caption = '...'
@@ -152,7 +55,7 @@ object frmDistanceCalc: TfrmDistanceCalc
     end
     object Label3: TLabel
       Left = 180
-      Top = 26
+      Top = 28
       Width = 28
       Height = 13
       Caption = '----->'
@@ -221,5 +124,125 @@ object frmDistanceCalc: TfrmDistanceCalc
       TabOrder = 2
       OnClick = bCalculateClick
     end
+  end
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 87
+    Width = 313
+    Height = 114
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    object Label2: TLabel
+      Left = 21
+      Top = 16
+      Width = 49
+      Height = 13
+      Caption = 'Distance'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lDistanceNM: TLabel
+      Left = 108
+      Top = 11
+      Width = 58
+      Height = 22
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 179
+      Top = 11
+      Width = 23
+      Height = 19
+      Caption = 'nm'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 180
+      Top = 67
+      Width = 37
+      Height = 19
+      Caption = 'miles'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 180
+      Top = 39
+      Width = 22
+      Height = 19
+      Caption = 'km'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lDistanceKM: TLabel
+      Left = 108
+      Top = 39
+      Width = 58
+      Height = 22
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lDistanceMiles: TLabel
+      Left = 111
+      Top = 67
+      Width = 55
+      Height = 22
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object Button1: TButton
+    Left = 246
+    Top = 207
+    Width = 75
+    Height = 25
+    Cancel = True
+    Caption = 'Close'
+    ModalResult = 2
+    TabOrder = 2
   end
 end
