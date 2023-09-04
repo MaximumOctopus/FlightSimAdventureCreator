@@ -1,5 +1,5 @@
 #  FlightSimulatorAdventureCreator 
-CLI v0.6, GUI v0.4.0 beta.
+CLI v0.6, GUI v0.5.0 beta.
   (c) Paul Alan Freshney 2023 / paul@freshney.org
 ```
 Source code and latest data and exe files
@@ -8,7 +8,7 @@ https://github.com/MaximumOctopus/FlightSimAdventureCreator
 Uses airport and runway data from Our Airports (without which this application couldn't exist)
 https://ourairports.com/data/
 ```	
-  August 28th 2023
+  September 4th 2023
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
