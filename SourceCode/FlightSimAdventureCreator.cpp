@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -69,7 +69,7 @@ void GenerateAircraftAndLocation()
 
         std::wcout << std::format(L"    {0} ({1} kts, {2} nm)", aircraft.Name, aircraft.CruiseSpeed, aircraft.Range) << L"\n\n";
 
-        std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
+        std::wcout << L"    " << GJobHandler->FindJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
     }
     else
     {
@@ -86,7 +86,7 @@ void GenerateRealWorldRoutes()
     Aircraft aircraft = GAircraftHandler->GetRandomAircraft();
 
     std::wcout << L"  " << aircraft.Show() << "\n";
-    std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
+    std::wcout << L"    " << GJobHandler->FindJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
     // =========================================================================
 
     RouteFilter rf;
@@ -175,7 +175,7 @@ void GenerateUserRoutes(int route)
     Aircraft aircraft = GAircraftHandler->GetRandomAircraft();
 
     std::wcout << L"  " << aircraft.Show() << "\n";
-    std::wcout << L"    " << GJobHandler->GetJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
+    std::wcout << L"    " << GJobHandler->FindJob(aircraft.Type, aircraft.Airliner, aircraft.Military) << L"\n\n";
 
     if (GConfiguration->Route.RequestedFlightTime != 0)
     {
@@ -218,7 +218,8 @@ void GenerateUserRoutes(int route)
 
     GAirportHandler->GetRoute(GConfiguration->Route.StartAirportICAO, GConfiguration->Route.EndAirportICAO, range_per_leg, GConfiguration->Route.Direction, GConfiguration->Route.Legs,
         GConfiguration->Route.SimpleRouteCount,
-        GConfiguration->Airport.KeepTrying);   
+        GConfiguration->Airport.KeepTrying,
+        GConfiguration->Airport.MoreRandom);   
 }
 
 

@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -94,6 +94,7 @@ static const std::wstring kNoDefaultAircraft = L"/nodefault";		// exclude defaul
 static const std::wstring kNoCustomAircraft = L"/nocustom";			// exclude custom aircraft
 
 static const std::wstring kKeepTrying = L"/keeptrying";				// will expand user direction and range until options exhausted
+static const std::wstring kMoreRandom = L"/morerandom";				// choses a new source/destination for each route (single leg only)
 
 static const std::wstring kFindNearest = L"/findnearest";			// find nearest airports
 static const std::wstring kListAirports = L"/list";
@@ -125,11 +126,11 @@ enum class ParameterOption {
 	Day = 46, Night = 47, StartFromFavourite = 48, SimpleRouteCount = 49, Silent = 50, ListAirports = 51,
 	Time = 52, LatitudeMax = 53, LatitudeMin = 54, LongitudeMax = 55, LongitudeMin = 56,
 	AddStartToFav = 57, AddEndToFav = 58, Seaplanes = 59, Route = 60, RealWorld = 61, Internal = 62, External = 63, Airline = 64,
-	ExtraDetail = 65
+	ExtraDetail = 65, MoreRandom = 66
 };
 
 
-static const int kCommandListCount = 66;
+static const int kCommandListCount = 67;
 
 static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig, kElevation, kContinent, kCountry, kRegion, kNoSmallAiports, kNoMediumAiports, kNoLargeAiports,
 	kNoHeliports, kOnlySmallAiports, kOnlyMediumAiports, kOnlyLargeAiports, kOnlyHeliports, kAtoB, kLegs, kRange, kStartAirport, kEndAirport, kCount, kBearing,
@@ -142,7 +143,7 @@ static const std::wstring CommandList[kCommandListCount] = { kCats, kLoadConfig,
 	kTime, kLatitudeMax, kLatitudeMin, kLongitudeMax, kLongitudeMin, kAddStartToFav, kAddEndToFav,
 	kAircraftSeaplanes, kRoute,
 	kRealWorld, kInternal, kExternal, kAirline,
-	kExtraDetail
+	kExtraDetail, kMoreRandom
 };
 
 
@@ -157,7 +158,7 @@ static const ParameterOption ParameterReference[kCommandListCount] = { Parameter
 	ParameterOption::Time,  ParameterOption::LatitudeMax, ParameterOption::LatitudeMin, ParameterOption::LongitudeMax, ParameterOption::LongitudeMin,
 	ParameterOption::AddStartToFav, ParameterOption::AddEndToFav, ParameterOption::Seaplanes, ParameterOption::Route,
 	ParameterOption::RealWorld, ParameterOption::Internal, ParameterOption::External, ParameterOption::Airline,
-	ParameterOption::ExtraDetail
+	ParameterOption::ExtraDetail, ParameterOption::MoreRandom
 };
 #pragma endregion
 
@@ -210,6 +211,7 @@ struct AirportData {
 	std::wstring Region = L"";						// ISO region codes https://en.wikipedia.org/wiki/ISO_3166-2 (has links for each country to available codes)
 
 	bool KeepTrying = false;
+	bool MoreRandom = false;
 
 	double LongitudeFrom = 0;						// limit airports to a range of longitudes
 	double LongitudeTo = 0;							//

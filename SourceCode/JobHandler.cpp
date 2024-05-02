@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -39,10 +39,10 @@ JobHandler::JobHandler(bool silent)
 }
 
 
-std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, bool is_airliner, bool is_military)
+std::wstring JobHandler::FindJob(AircraftConstants::AircraftType aircraft_type, bool is_airliner, bool is_military)
 {
     JobAircraft jt = JobAircraft::None;
-                        
+
     if (is_military)
     {
         jt = JobAircraft::Military;
@@ -56,6 +56,7 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
         switch (aircraft_type)
         {
         case AircraftConstants::AircraftType::None:
+        case AircraftConstants::AircraftType::Glider:
             break;
 
         case AircraftConstants::AircraftType::Prop:
@@ -72,7 +73,7 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
         case AircraftConstants::AircraftType::Helicopter:
         case AircraftConstants::AircraftType::Balloon:
             jt = JobAircraft::Helicopters;
-            break;        
+            break;
         }
     }
 
@@ -88,6 +89,8 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
 
             switch (job.Cargo)
             {
+            case JobCargo::None:
+                break;
             case JobCargo::Object:
                 if (jt == JobAircraft::Airliners)
                 {
@@ -106,11 +109,11 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
                 break;
             }
 
-            return std::vformat(job.Text, std::make_wformat_args(item));
+            return Format(job.Text, item);
         }
     }
 
-    return L"";
+    return L"Unsupported aircraft!";
 }
 
 
@@ -119,6 +122,8 @@ int JobHandler::JobAircraftTypeToIndex(JobAircraft job_aircraft)
 {
     switch (job_aircraft)
     {
+    case JobAircraft::None:
+        break;
     case JobAircraft::All:
         return kAddToAll;
     case JobAircraft::AllPropsTwins:
@@ -341,4 +346,19 @@ void JobHandler::AddTo(JobAircraft job_aircraft_type, JobCargo job_cargo, const 
             Jobs[t].push_back(job);
         }
     }
+}
+
+
+std::wstring JobHandler::Format(const std::wstring job, const std::wstring value)
+{
+    std::wstring output(job);
+
+    auto pos = output.find(L"{0}");
+
+    if (pos != std::wstring::npos)
+    {
+        output.replace(pos, 3, value);
+    }
+
+    return output;
 }

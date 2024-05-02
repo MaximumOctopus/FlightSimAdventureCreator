@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -150,6 +150,11 @@ void Configuration::ShowConfiguration()
 	if (Airport.KeepTrying)
 	{
 		std::wcout << L"\n    Keep trying      : Yes\n";
+	}
+
+	if (Airport.MoreRandom)
+	{
+		std::wcout << L"\n    More Random      : Yes\n";
 	}
 
 	std::wcout << "\n";
@@ -636,6 +641,9 @@ void Configuration::SetFromCommandLine()
 			case ParameterOption::ExtraDetail:
 				Meta.ExtraDetail = true;
 				break;
+
+			case ParameterOption::MoreRandom:
+				Airport.MoreRandom = true;
 
 			default:
 				std::wcout << L" Warning, parameter " << Parameters[p].command << " was unhandled.\n";
@@ -1400,6 +1408,12 @@ bool Configuration::LoadConfiguration(const std::wstring file_name)
 			Airport.KeepTrying = IntegerKey;
 		}
 
+		IntegerKey = config->ReadInteger(L"Airport", L"MoreRandom", 0);
+		if (config->LastKeyExist)
+		{
+			Airport.MoreRandom = IntegerKey;
+		}
+
 		IntegerKey = config->ReadInteger(L"Airport", L"LatitudeFrom", 0);
 		if (config->LastKeyExist)
 		{
@@ -1689,6 +1703,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name)
 		if (Airport.LargeAirports != 1)								ofile << Formatting::to_utf8(L"LargeAirports=" + std::to_wstring(Airport.LargeAirports) + L"\n");
 		if (Airport.Heliports != 1)									ofile << Formatting::to_utf8(L"Heliports=" + std::to_wstring(Airport.Heliports) + L"\n");
 		if (Airport.KeepTrying != 0)								ofile << Formatting::to_utf8(L"KeepTrying=1\n");
+		if (Airport.MoreRandom != 0)								ofile << Formatting::to_utf8(L"MoreRandom=1\n");
 
 		if (Airport.LatitudeFilter)
 		{

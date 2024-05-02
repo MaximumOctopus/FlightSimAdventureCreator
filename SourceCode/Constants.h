@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -18,12 +18,12 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.6 (debug)";
+	static const std::wstring FSACVersion = L"0.5 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.6";
+	static const std::wstring FSACVersion = L"0.5";
 	#endif
 
-	static const std::wstring FSACDate = L"August 28th 2023";
+	static const std::wstring FSACDate = L"May 2nd 2024";
 
 	static const std::wstring OurAirportsFileName = L"airports.csv";
 	static const std::wstring MSFSCompatSourceFileName = L"LetsFlyDB.csv";

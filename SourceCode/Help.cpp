@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -66,6 +66,7 @@ namespace Help
 		std::wcout << "\n";
 		std::wcout << L"    /keeptrying               : expand range and/or direction if the route cannot be continued due to lack\n";
 		std::wcout << L"                                of airports within range and/or direction.\n";
+		std::wcout << L"    /morerandom               : choses a different source/desintation for each route\n";
 		std::wcout << "\n";
 		std::wcout << L"    /nosmall                  : ignore small aiports\n";
 		std::wcout << L"    /nomedium                 : ignore medium aiports\n";

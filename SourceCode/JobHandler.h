@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2023-2024
 //
 // paul@freshney.org
 // 
@@ -34,6 +34,8 @@ class JobHandler
 
 	void AddTo(JobAircraft, JobCargo, const std::wstring);
 
+	std::wstring Format(const std::wstring, const std::wstring);
+
 public:
 
 	std::vector<Job> Jobs[kJobAircraftTypes];
@@ -44,5 +46,5 @@ public:
 
 	JobHandler(bool);
 
-	std::wstring GetJob(AircraftConstants::AircraftType, bool, bool);
+	std::wstring FindJob(AircraftConstants::AircraftType, bool, bool);
 };
