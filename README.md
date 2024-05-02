@@ -1,6 +1,6 @@
 #  FlightSimulatorAdventureCreator 
-CLI v0.6, GUI v0.5.0 beta.
-  (c) Paul Alan Freshney 2023 / paul@freshney.org
+CLI v0.7, GUI v0.6 beta.
+  (c) Paul Alan Freshney 2022-2024 / paul@freshney.org
 ```
 Source code and latest data and exe files
 https://github.com/MaximumOctopus/FlightSimAdventureCreator
@@ -104,8 +104,6 @@ Multi-language support.
 Support for X-Plane 11/12. Their flight plan file format seems very simple, if anyone can test this for me please get in touch.
 
 Support for IFR flying.
-
-Mac version.
 
 (if you dive in to the code you'll see that some of these have been started, so they aren't that far away from being released)
 
