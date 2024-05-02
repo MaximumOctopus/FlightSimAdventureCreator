@@ -3,18 +3,16 @@ object frmStatsAirports: TfrmStatsAirports
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Airport Stats'
-  ClientHeight = 436
-  ClientWidth = 778
+  ClientHeight = 435
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 236
@@ -152,49 +150,49 @@ object frmStatsAirports: TfrmStatsAirports
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc2: TGauge
     Left = 130
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc3: TGauge
     Left = 236
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc4: TGauge
     Left = 342
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc5: TGauge
     Left = 448
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc6: TGauge
     Left = 554
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gc7: TGauge
     Left = 660
     Top = 256
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object lCount: TLabel
     Left = 24
@@ -279,35 +277,35 @@ object frmStatsAirports: TfrmStatsAirports
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gt2: TGauge
     Left = 236
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gt3: TGauge
     Left = 342
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gt4: TGauge
     Left = 448
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object gt5: TGauge
     Left = 554
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object lc1: TLabel
     Left = 118

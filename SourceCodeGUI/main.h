@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -692,6 +692,36 @@ __published:	// IDE-managed Components
 	TEdit *eLongFrom;
 	TMemo *mRouteDebug;
 	TButton *bShowSearchParameters;
+	TGroupBox *GroupBox1;
+	TMemo *mJob;
+	TButton *bRandomJob;
+	TMenuItem *ParisLeBourgetAirport1;
+	TMenuItem *CzechRepublic1;
+	TMenuItem *KarlovyVaryAirport1;
+	TMenuItem *Slovakia1;
+	TMenuItem *LetiskoPopradTatry1;
+	TMenuItem *Hungry1;
+	TMenuItem *PcsPognyAirport1;
+	TMenuItem *Croatia1;
+	TMenuItem *RijekaAirport1;
+	TMenuItem *boz1;
+	TMenuItem *PrijedorUrijeAirport1;
+	TMenuItem *CologneBonnAirport1;
+	TMenuItem *AkureyriAirport1;
+	TMenuItem *Norway1;
+	TMenuItem *MoiRanaAirport1;
+	TMenuItem *KirunaAirport1;
+	TMenuItem *IvaloAirport1;
+	TMenuItem *LeknesAirport1;
+	TMenuItem *Caribbean1;
+	TMenuItem *ViloAcuaAirportCuba1;
+	TMenuItem *GregorioLupernInternationalAirportDominicanRepublic1;
+	TMenuItem *AntoineSimonAirportHaiti1;
+	TMenuItem *SangsterInternationalAirportJamaica1;
+	TMenuItem *ANRRobinsonInternationalAirportTrinidadTobago1;
+	TMenuItem *NorthEleutheraAirportBahamas1;
+	TMenuItem *LesSaintesAirportGuadeloupe1;
+	TCheckBox *cbMoreRandom;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall bUpdateAircraftClick(TObject *Sender);
@@ -759,6 +789,8 @@ __published:	// IDE-managed Components
 	void __fastcall bExportSelectedXPlaneClick(TObject *Sender);
 	void __fastcall bShowSearchParametersClick(TObject *Sender);
 	void __fastcall cbAirportTypeAutomaticClick(TObject *Sender);
+	void __fastcall bRandomJobClick(TObject *Sender);
+	void __fastcall Exit1Click(TObject *Sender);
 
 private:	// User declarations
 
@@ -774,6 +806,8 @@ private:	// User declarations
 
 	void RandomPreCheck();
 	void RoutePreCheck();
+
+    void FillJob();
 
 	void GenerateRandomRoutes();
     void GenerateRealWorldRoutes();

@@ -1,15 +1,14 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
-#include <format>
 #include <fstream>
 #include <iostream>
 
@@ -21,25 +20,23 @@
 JobHandler* GJobHandler;
 
 
-JobHandler::JobHandler(bool silent)
+JobHandler::JobHandler()
 {
 	Loaded = LoadJobs(SystemConstants::JobsFileName);
 
-    if (!Silent)
-    {
-        int JobCount = 0;
+	int JobCount = 0;
 
-        for (int t = 0; t < kJobAircraftTypes; t++)
-        {
-            JobCount += Jobs[t].size();
-        }
+	for (int t = 0; t < kJobAircraftTypes; t++)
+	{
+	   JobCount += Jobs[t].size();
+	}
 
-        std::wcout << std::format(L"  Loaded {0} Jobs, {1} Objects, and {2} SLF.", JobCount, ObjectsUnusual.size() + ObjectsSmall.size() + ObjectsLarge.size(), SLF.size()) << L"\n";
-    }
+
+		// to do std::wcout << std::format(L"  Loaded {0} Jobs, {1} Objects, and {2} SLF.", JobCount, ObjectsUnusual.size() + ObjectsSmall.size() + ObjectsLarge.size(), SLF.size()) << L"\n";
 }
 
 
-std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, bool is_airliner, bool is_military)
+std::wstring JobHandler::FindJob(AircraftConstants::AircraftType aircraft_type, bool is_airliner, bool is_military)
 {
     JobAircraft jt = JobAircraft::None;
                         
@@ -55,7 +52,8 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
     {
         switch (aircraft_type)
         {
-        case AircraftConstants::AircraftType::None:
+		case AircraftConstants::AircraftType::None:
+		case AircraftConstants::AircraftType::Glider:
             break;
 
         case AircraftConstants::AircraftType::Prop:
@@ -87,7 +85,9 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
             Job job = Jobs[index][rand() % Jobs[index].size()];
 
             switch (job.Cargo)
-            {
+			{
+			case JobCargo::None:
+				break;
             case JobCargo::Object:
                 if (jt == JobAircraft::Airliners)
                 {
@@ -106,21 +106,23 @@ std::wstring JobHandler::GetJob(AircraftConstants::AircraftType aircraft_type, b
                 break;
             }
 
-            return std::vformat(job.Text, std::make_wformat_args(item));
+			return Format(job.Text, item);
         }
     }
 
-    return L"";
+	return L"Unsupported aircraft!";
 }
 
 
 // converts a JobAircraft type to an index to the Jobs vector list
 int JobHandler::JobAircraftTypeToIndex(JobAircraft job_aircraft)
 {
-    switch (job_aircraft)
-    {
+	switch (job_aircraft)
+	{
+	case JobAircraft::None:
+		break;
     case JobAircraft::All:
-        return kAddToAll;
+		return kAddToAll;
     case JobAircraft::AllPropsTwins:
         return 0;
     case JobAircraft::Airliners:
@@ -129,7 +131,7 @@ int JobHandler::JobAircraftTypeToIndex(JobAircraft job_aircraft)
         return 2;
     case JobAircraft::Military:
         return 3;
-    case JobAircraft::Helicopters:
+	case JobAircraft::Helicopters:
         return 4;
     }
 
@@ -141,9 +143,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
 {
     std::wifstream file(file_name);
 
-    //file.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>));
-
-    if (file)
+	if (file)
     {
         std::wstring s = L"";
 
@@ -200,7 +200,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                                     break;
 
                                 default:
-                                    std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+									// to do std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                                     break;
                                 }
                                 break;
@@ -229,7 +229,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid job list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+							// to do std::wcout << std::format(L"Invalid job list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'}':
@@ -258,7 +258,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+							// to do std::wcout << std::format(L"Unknown aircraft job type \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'o':
@@ -275,7 +275,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                                std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+							// to do std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L's':
@@ -292,7 +292,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+							// to do std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     case L'x':
@@ -309,7 +309,7 @@ bool JobHandler::LoadJobs(const std::wstring file_name)
                         }
                         else
                         {
-                            std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
+                            // to do std::wcout << std::format(L"Invalid object list identifier \"{0}\" @ line {1} in {2}\n", s, Line, SystemConstants::JobsFileName);
                         }
                         break;
                     }
@@ -331,7 +331,7 @@ void JobHandler::AddTo(JobAircraft job_aircraft_type, JobCargo job_cargo, const 
     int index = JobAircraftTypeToIndex(job_aircraft_type);
 
     if (index != kAddToAll)
-    {
+	{
         Jobs[index].push_back(job);
     }
     else
@@ -341,4 +341,19 @@ void JobHandler::AddTo(JobAircraft job_aircraft_type, JobCargo job_cargo, const 
             Jobs[t].push_back(job);
         }
     }
+}
+
+
+std::wstring JobHandler::Format(const std::wstring job, const std::wstring value)
+{
+	std::wstring output(job);
+
+	auto pos = output.find(L"{0}");
+
+	if (pos != std::wstring::npos)
+	{
+		output.replace(pos, 3, value);
+	}
+
+	return output;
 }

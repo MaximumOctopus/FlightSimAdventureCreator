@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -16,12 +16,12 @@
 USEFORM("RouteBrowser.cpp", frmRouteBrowser);
 USEFORM("main.cpp", frmMain);
 USEFORM("StatsRoutes.cpp", frmStatsRoutes);
-USEFORM("About.cpp", frmAbout);
-USEFORM("Favourites.cpp", frmFavourites);
-USEFORM("Distance.cpp", frmDistanceCalc);
-USEFORM("AirportSearchDialog.cpp", frmAirportSearchDialog);
 USEFORM("StatsAirports.cpp", frmStatsAirports);
 USEFORM("StatsAircraft.cpp", frmStatsAircraft);
+USEFORM("About.cpp", frmAbout);
+USEFORM("AirportSearchDialog.cpp", frmAirportSearchDialog);
+USEFORM("Favourites.cpp", frmFavourites);
+USEFORM("Distance.cpp", frmDistanceCalc);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

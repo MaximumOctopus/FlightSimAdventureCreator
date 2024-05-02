@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //

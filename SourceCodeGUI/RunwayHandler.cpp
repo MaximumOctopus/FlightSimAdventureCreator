@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -99,14 +99,12 @@ bool RunwayHandler::LoadRunways(const std::wstring file_name)
             }
         }
 
-        file.close();
-	}
-    else
-    {
-        return false;
-    }
+		file.close();
 
-    return true;
+		return true;
+	}
+
+	return false;
 }
 
 

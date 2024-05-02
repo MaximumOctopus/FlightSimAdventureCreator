@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -187,11 +187,11 @@ class AirportHandler
 
 	[[nodiscard]] double DistanceBetween(double, double, double, double);
 
-	void CalculateDistances(double, double, double);
-	void CalculateDistances(double, double, double, double, double);					// when we also need distance
+	void PopulateFlightsWithRange(double, double, double);
+	void PopulateFlightsWithRangeDirection(double, double, double, double, double);	 	// when we also need distance
 	void CalculateDistancesNoMinimum(double, double, double);							// unlike the above two, this is strictly if airport range <= range
 
-	bool SimpleRoute(const std::wstring, double, double, bool, bool);
+	bool SimpleRoute(const std::wstring, double, double, bool, bool, bool);
 	bool MultiLegRoute(const std::wstring, double, double, int, bool, bool);
 	bool StartToFinish(const std::wstring, const std::wstring, double, int, bool);
 
@@ -222,7 +222,7 @@ public:
 
 	bool IsAirportInFilteredList(const std::wstring);
 
-	void GetRoute(const std::wstring, const std::wstring, double, double, int, int, bool);
+	void GetRoute(const std::wstring, const std::wstring, double, double, int, int, bool, bool);
 
 	int FindNearest(const std::wstring, double, bool);
 

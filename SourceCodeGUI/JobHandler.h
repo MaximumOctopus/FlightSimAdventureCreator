@@ -1,13 +1,13 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
-// 
+//
+//
 
 #pragma once
 
@@ -34,6 +34,8 @@ class JobHandler
 
 	void AddTo(JobAircraft, JobCargo, const std::wstring);
 
+	std::wstring Format(const std::wstring, const std::wstring);
+
 public:
 
 	std::vector<Job> Jobs[kJobAircraftTypes];
@@ -42,7 +44,7 @@ public:
 	std::vector<std::wstring> ObjectsLarge;
 	std::vector<std::wstring> SLF;
 
-	JobHandler(bool);
+	JobHandler();
 
-	std::wstring GetJob(AircraftConstants::AircraftType, bool, bool);
+	std::wstring FindJob(AircraftConstants::AircraftType, bool, bool);
 };

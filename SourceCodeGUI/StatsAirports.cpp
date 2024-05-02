@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -39,13 +39,22 @@ void __fastcall TfrmStatsAirports::FormCreate(TObject *Sender)
 	lHighest->Caption = h.c_str();
     lCount->Caption = c.c_str();
 
-	gc1->Progress = ((double)GAirportHandler->Stats.Continents[0] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc2->Progress = ((double)GAirportHandler->Stats.Continents[1] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc3->Progress = ((double)GAirportHandler->Stats.Continents[2] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc4->Progress = ((double)GAirportHandler->Stats.Continents[3] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc5->Progress = ((double)GAirportHandler->Stats.Continents[4] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc6->Progress = ((double)GAirportHandler->Stats.Continents[5] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gc7->Progress = ((double)GAirportHandler->Stats.Continents[6] / (double)GAirportHandler->Airports.size()) * (double)100;
+	if (GAirportHandler->Airports.size() != 0)
+	{
+		gc1->Progress = ((double)GAirportHandler->Stats.Continents[0] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc2->Progress = ((double)GAirportHandler->Stats.Continents[1] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc3->Progress = ((double)GAirportHandler->Stats.Continents[2] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc4->Progress = ((double)GAirportHandler->Stats.Continents[3] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc5->Progress = ((double)GAirportHandler->Stats.Continents[4] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc6->Progress = ((double)GAirportHandler->Stats.Continents[5] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gc7->Progress = ((double)GAirportHandler->Stats.Continents[6] / (double)GAirportHandler->Airports.size()) * (double)100;
+
+		gt1->Progress = ((double)GAirportHandler->Stats.TypeCount[0] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gt2->Progress = ((double)GAirportHandler->Stats.TypeCount[1] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gt3->Progress = ((double)GAirportHandler->Stats.TypeCount[2] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gt4->Progress = ((double)GAirportHandler->Stats.TypeCount[3] / (double)GAirportHandler->Airports.size()) * (double)100;
+		gt5->Progress = ((double)GAirportHandler->Stats.TypeCount[4] / (double)GAirportHandler->Airports.size()) * (double)100;
+	}
 
 	lc1->Caption = GAirportHandler->Stats.Continents[0];
 	lc2->Caption = GAirportHandler->Stats.Continents[1];
@@ -54,12 +63,6 @@ void __fastcall TfrmStatsAirports::FormCreate(TObject *Sender)
 	lc5->Caption = GAirportHandler->Stats.Continents[4];
 	lc6->Caption = GAirportHandler->Stats.Continents[5];
 	lc7->Caption = GAirportHandler->Stats.Continents[6];
-
-	gt1->Progress = ((double)GAirportHandler->Stats.TypeCount[0] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gt2->Progress = ((double)GAirportHandler->Stats.TypeCount[1] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gt3->Progress = ((double)GAirportHandler->Stats.TypeCount[2] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gt4->Progress = ((double)GAirportHandler->Stats.TypeCount[3] / (double)GAirportHandler->Airports.size()) * (double)100;
-	gt5->Progress = ((double)GAirportHandler->Stats.TypeCount[4] / (double)GAirportHandler->Airports.size()) * (double)100;
 
 	lt1->Caption = GAirportHandler->Stats.TypeCount[0];
 	lt2->Caption = GAirportHandler->Stats.TypeCount[1];

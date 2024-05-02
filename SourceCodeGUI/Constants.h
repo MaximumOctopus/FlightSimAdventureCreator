@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -18,12 +18,12 @@
 namespace SystemConstants
 {
 	#ifdef _DEBUG
-	static const std::wstring FSACVersion = L"0.5.0 (debug)";
+	static const std::wstring FSACVersion = L"0.6.0 (debug)";
 	#else
-	static const std::wstring FSACVersion = L"0.5.0";
+	static const std::wstring FSACVersion = L"0.6.0";
 	#endif
 
-	static const std::wstring FSACDate = L"September 4th 2023";
+	static const std::wstring FSACDate = L"May 2nd 2024";
 
     static const std::wstring ConfigFileName = L"fsac.data";
 

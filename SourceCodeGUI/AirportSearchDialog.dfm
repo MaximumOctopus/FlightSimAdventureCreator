@@ -2,27 +2,25 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
   Left = 0
   Top = 0
   Caption = 'Airport Search'
-  ClientHeight = 607
-  ClientWidth = 1215
+  ClientHeight = 606
+  ClientWidth = 1211
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    1215
-    607)
-  PixelsPerInch = 96
+    1211
+    606)
   TextHeight = 13
   object GroupBox4: TGroupBox
     Left = 8
     Top = 8
-    Width = 1199
+    Width = 1191
     Height = 73
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Search Options'
@@ -33,6 +31,7 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1199
     object Label1: TLabel
       Left = 264
       Top = 15
@@ -345,8 +344,8 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
   object sgResults: TStringGrid
     Left = 8
     Top = 87
-    Width = 1199
-    Height = 495
+    Width = 1191
+    Height = 494
     Anchors = [akLeft, akTop, akRight, akBottom]
     ColCount = 10
     FixedCols = 0
@@ -354,6 +353,8 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect, goFixedRowDefAlign]
     TabOrder = 1
     OnDblClick = sgResultsDblClick
+    ExplicitWidth = 1199
+    ExplicitHeight = 495
     ColWidths = (
       50
       39
@@ -368,11 +369,13 @@ object frmAirportSearchDialog: TfrmAirportSearchDialog
   end
   object sbSearch: TStatusBar
     Left = 0
-    Top = 588
-    Width = 1215
+    Top = 587
+    Width = 1211
     Height = 19
     Panels = <>
     SimplePanel = True
+    ExplicitTop = 588
+    ExplicitWidth = 1215
   end
   object ImageList1: TImageList
     Left = 304

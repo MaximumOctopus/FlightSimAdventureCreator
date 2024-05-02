@@ -3,17 +3,15 @@ object frmFavourites: TfrmFavourites
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Favourites'
-  ClientHeight = 368
-  ClientWidth = 472
+  ClientHeight = 367
+  ClientWidth = 468
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
-  PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
     Left = 8

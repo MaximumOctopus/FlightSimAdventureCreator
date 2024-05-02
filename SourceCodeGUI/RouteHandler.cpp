@@ -1,16 +1,13 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
 //
 //
-
-#pragma once
-
 
 #include <fstream>
 #include <string>
@@ -313,16 +310,17 @@ bool RouteHandler::LoadRoutes(const std::wstring file_name)
 			}
 		}
 
-        Stats.Average = static_cast<int>((double)Stats.Total / (double)Routes.size());
+		if (Routes.size() != 0)
+		{
+			Stats.Average = static_cast<int>((double)Stats.Total / (double)Routes.size());
+        }
 
 		file.close();
-    }
-    else
-    {
-		return false;
+
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 

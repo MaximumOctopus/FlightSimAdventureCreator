@@ -3,18 +3,16 @@ object frmStatsRoutes: TfrmStatsRoutes
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Route Stats'
-  ClientHeight = 264
-  ClientWidth = 783
+  ClientHeight = 263
+  ClientWidth = 779
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object lCount: TLabel
     Left = 24
@@ -145,49 +143,49 @@ object frmStatsRoutes: TfrmStatsRoutes
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g2: TGauge
     Left = 130
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g3: TGauge
     Left = 236
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g4: TGauge
     Left = 342
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g5: TGauge
     Left = 448
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g6: TGauge
     Left = 554
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object g7: TGauge
     Left = 660
     Top = 88
     Width = 100
     Height = 100
-    Progress = 50
+    Progress = 0
   end
   object Label10: TLabel
     Left = 342

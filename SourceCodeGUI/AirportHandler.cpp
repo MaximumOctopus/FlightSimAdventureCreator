@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -109,7 +109,7 @@ double AirportHandler::DistanceBetween(double lat1, double long1, double lat2, d
 
 
 // calculates the distance from each airport to the origin
-void AirportHandler::CalculateDistances(double range, double origin_lat, double origin_long)
+void AirportHandler::PopulateFlightsWithRange(double range, double origin_lat, double origin_long)
 {
     double range_min = range * 0.9;
     double range_max = range * 1.1;
@@ -121,7 +121,7 @@ void AirportHandler::CalculateDistances(double range, double origin_lat, double 
 		FilteredList[t].Distance = DistanceBetween(origin_lat, origin_long, FilteredList[t].LatitudeR, FilteredList[t].LongitudeR);
 
 		if (FilteredList[t].Distance < range_max && FilteredList[t].Distance > range_min && FilteredList[t].Distance != 0)
-        {
+		{
 			FlightCache.push_back(FilteredList[t]);
         }
     }
@@ -129,7 +129,7 @@ void AirportHandler::CalculateDistances(double range, double origin_lat, double 
 
 
 // this version ensures the selected airports are within the specified range and direction
-void AirportHandler::CalculateDistances(double range, double direction, double direction_modifier, double origin_lat, double origin_long)
+void AirportHandler::PopulateFlightsWithRangeDirection(double range, double direction, double direction_modifier, double origin_lat, double origin_long)
 {
     double range_min = range * 0.9;
     double range_max = range * 1.1;
@@ -192,7 +192,9 @@ void AirportHandler::CalculateDistancesNoMinimum(double range, double origin_lat
 }
 
 
-void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring end_icao, double range, double direction, int legs, int simple_count, bool keep_trying)
+void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring end_icao,
+	double range, double direction, int legs, int simple_count,
+	bool keep_trying, bool more_random)
 {
 	FlightCache.clear();
 
@@ -237,7 +239,7 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
             Generation.ShortRouteCount = simple_count;
         }
 
-		SimpleRoute(TargetICAO, range, direction, keep_trying, reverse);
+		SimpleRoute(TargetICAO, range, direction, keep_trying, more_random, reverse);
     }
     else
 	{
@@ -252,7 +254,8 @@ void AirportHandler::GetRoute(const std::wstring start_icao, const std::wstring 
 
 
 // generates a route from one airport to another, A->B
-bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, double direction, bool keep_trying, bool reverse)
+// this will accept either a start airport (reverse = false) or destination airport (reverse = true)
+bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, double direction, bool keep_trying, bool more_random, bool reverse)
 {
     int MaximumAttempts = Generation.MaximumAttempts;
 	int Attempt = 0;
@@ -278,11 +281,11 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
         {
             if (direction != -1)
 			{
-                CalculateDistances(range, direction, DirectionMarginOfError, origin.LatitudeR, origin.LongitudeR);
+				PopulateFlightsWithRangeDirection(range, direction, DirectionMarginOfError, origin.LatitudeR, origin.LongitudeR);
             }
             else
             {
-                CalculateDistances(range, origin.LatitudeR, origin.LongitudeR);
+				PopulateFlightsWithRange(range, origin.LatitudeR, origin.LongitudeR);
             }
 
 			if (FlightCache.size() != 0)
@@ -293,7 +296,7 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                 origin.Runway.Length = runway.Length;
                 origin.Runway.Surface = runway.SurfaceType;
 
-                int OutputCount = Generation.ShortRouteCount;
+				int OutputCount = Generation.ShortRouteCount;
 
 				if (FlightCache.size() < Generation.ShortRouteCount)
                 {
@@ -353,6 +356,10 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
 
 					// ==============================================================================================
 
+					if (more_random) break;
+
+					// ==============================================================================================
+
                     if (ExportMSFSPlan || ExportTextReport)    
                     {
                         if (ExportMSFSPlan)
@@ -373,7 +380,10 @@ bool AirportHandler::SimpleRoute(const std::wstring airport_icao, double range, 
                     }
                 }
 
-                return true;
+				if (!more_random)
+				{
+					return true;
+				}
             }
         }
 
@@ -440,11 +450,11 @@ bool AirportHandler::MultiLegRoute(std::wstring airport_icao, double range, doub
             {
                 if (direction != -1)
                 {
-                    CalculateDistances(range, direction, DirectionMarginOfError, FromLatitude, FromLongitude);
+					PopulateFlightsWithRangeDirection(range, direction, DirectionMarginOfError, FromLatitude, FromLongitude);
                 }
                 else
                 {
-                    CalculateDistances(range, FromLatitude, FromLongitude);
+                    PopulateFlightsWithRange(range, FromLatitude, FromLongitude);
                 }
 
 				if (FlightCache.size() != 0)
@@ -554,7 +564,7 @@ bool AirportHandler::StartToFinish(std::wstring start_icao, std::wstring end_ica
             double direction = Utility::AngleBetween(MultiLegAirports.back().LatitudeR, MultiLegAirports.back().LongitudeR,
                 destination.LatitudeR, destination.LongitudeR);
 
-            CalculateDistances(range, direction, DirectionMarginOfError, MultiLegAirports.back().LatitudeR, MultiLegAirports.back().LongitudeR);
+            PopulateFlightsWithRangeDirection(range, direction, DirectionMarginOfError, MultiLegAirports.back().LatitudeR, MultiLegAirports.back().LongitudeR);
 
 			if (FlightCache.size() != 0)
             {
@@ -1015,13 +1025,11 @@ bool AirportHandler::LoadAirports(const std::wstring file_name)
         }
 
 		file.close();
-    }
-    else
-    {
-		return false;
-    }
 
-    return true;
+		return true;
+	}
+
+	return false;
 }
 
 

@@ -5,8 +5,8 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMain'
-  ClientHeight = 770
-  ClientWidth = 1215
+  ClientHeight = 842
+  ClientWidth = 1212
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,13 +15,11 @@ object frmMain: TfrmMain
   Font.Style = []
   KeyPreview = True
   Menu = MainMenu1
-  OldCreateOrder = False
   Position = poDesktopCenter
   ShowHint = True
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
-  PixelsPerInch = 96
   TextHeight = 13
   object gbAircraft: TGroupBox
     Left = 8
@@ -100,7 +98,7 @@ object frmMain: TfrmMain
       Left = 11
       Top = 22
       Width = 350
-      Height = 116
+      Height = 114
       Shape = bsFrame
       Style = bsRaised
     end
@@ -148,7 +146,7 @@ object frmMain: TfrmMain
       Left = 238
       Top = 33
       Width = 12
-      Height = 98
+      Height = 94
       Shape = bsLeftLine
     end
     object lExcessRange: TLabel
@@ -485,7 +483,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 1215
+    Width = 1212
     Height = 41
     ButtonHeight = 38
     ButtonWidth = 39
@@ -494,6 +492,7 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    ExplicitWidth = 1208
     object tbNew: TToolButton
       Left = 0
       Top = 0
@@ -565,11 +564,13 @@ object frmMain: TfrmMain
   end
   object sbMain: TStatusBar
     Left = 0
-    Top = 751
-    Width = 1215
+    Top = 823
+    Width = 1212
     Height = 19
     Panels = <>
     SimplePanel = True
+    ExplicitTop = 822
+    ExplicitWidth = 1208
   end
   object mMain: TMemo
     Left = 797
@@ -633,8 +634,8 @@ object frmMain: TfrmMain
       OnClick = bGenerateClick
     end
     object cbKeepTrying: TCheckBox
-      Left = 103
-      Top = 33
+      Left = 95
+      Top = 32
       Width = 75
       Height = 17
       Hint = 'increases the likelihood of finding routes'
@@ -656,7 +657,7 @@ object frmMain: TfrmMain
     Caption = 'Stats'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
@@ -828,6 +829,7 @@ object frmMain: TfrmMain
       Top = 152
       Width = 30
       Height = 13
+      Hint = '(yeah, you can say that again!)'
       Caption = '(beta)'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
@@ -1018,7 +1020,7 @@ object frmMain: TfrmMain
       Tag = 1
       Left = 29
       Top = 151
-      Width = 74
+      Width = 84
       Height = 17
       Caption = 'Time of Day'
       Font.Charset = DEFAULT_CHARSET
@@ -1499,7 +1501,7 @@ object frmMain: TfrmMain
       Top = 24
       Width = 390
       Height = 337
-      ActivePage = TabSheet2
+      ActivePage = TabSheet1
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -1969,6 +1971,20 @@ object frmMain: TfrmMain
           Text = '0'
           OnExit = eDirectionExit
         end
+        object cbMoreRandom: TCheckBox
+          Left = 203
+          Top = 202
+          Width = 166
+          Height = 17
+          Caption = 'Different source/destination'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 15
+        end
       end
       object TabSheet2: TTabSheet
         Caption = 'Real-world'
@@ -2344,7 +2360,7 @@ object frmMain: TfrmMain
     end
     object bExportSelected: TButton
       Left = 755
-      Top = 142
+      Top = 140
       Width = 25
       Height = 22
       Hint = 'export selected route to MSFS plan file'
@@ -2362,7 +2378,7 @@ object frmMain: TfrmMain
     end
     object bExportSelectedText: TButton
       Left = 755
-      Top = 166
+      Top = 164
       Width = 25
       Height = 22
       Hint = 'export selected route to text file'
@@ -2398,7 +2414,7 @@ object frmMain: TfrmMain
     end
     object bOpenEndMap: TButton
       Left = 755
-      Top = 110
+      Top = 108
       Width = 25
       Height = 22
       Hint = 'open arrival airport'#39's location on google maps'
@@ -2465,7 +2481,7 @@ object frmMain: TfrmMain
     end
     object bExportSelectedXPlane: TButton
       Left = 755
-      Top = 190
+      Top = 188
       Width = 25
       Height = 22
       Hint = 'export selected route to text file'
@@ -2485,7 +2501,7 @@ object frmMain: TfrmMain
       Left = 6
       Top = 293
       Width = 745
-      Height = 67
+      Height = 70
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -2502,21 +2518,63 @@ object frmMain: TfrmMain
     end
     object bShowSearchParameters: TButton
       Left = 755
-      Top = 338
+      Top = 336
       Width = 25
       Height = 22
-      Hint = 'export selected route to text file'
+      Hint = 'show search paarameters'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ImageAlignment = iaCenter
+      ImageIndex = 9
       Images = il16x16
       ParentFont = False
       TabOrder = 8
       Visible = False
       OnClick = bShowSearchParametersClick
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 748
+    Width = 1201
+    Height = 74
+    Caption = 'Job'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+    object mJob: TMemo
+      Left = 6
+      Top = 21
+      Width = 1144
+      Height = 40
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+    object bRandomJob: TButton
+      Left = 1156
+      Top = 24
+      Width = 34
+      Height = 33
+      Hint = 'generate random routes! (F9)'
+      ImageAlignment = iaCenter
+      ImageIndex = 4
+      Images = il16x16
+      TabOrder = 1
+      OnClick = bRandomJobClick
     end
   end
   object MainMenu1: TMainMenu
@@ -2547,6 +2605,7 @@ object frmMain: TfrmMain
       end
       object Exit1: TMenuItem
         Caption = 'Exit'
+        OnClick = Exit1Click
       end
       object N16: TMenuItem
         Caption = '-'
@@ -3773,7 +3832,7 @@ object frmMain: TfrmMain
     Left = 1024
     Top = 65532
     Bitmap = {
-      494C010109001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3793,7 +3852,7 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000000000000000000000AAAA
       AA0000000000B8B8B80000000000000000000000000000000000B8B8B8000000
-      0000AAAAAA000000000000000000000000000000000000000000000000000000
+      0000AAAAAA000000000000000000000000000000000015151500000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3801,23 +3860,23 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00005858580042424200000000000000000000000000F4F4F400262626005858
-      5800000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      5800000000000000000000000000000000008F8F8F006B6B6B00000000000000
+      000000000000272727001C1C1C001B1B1B001A1A1A001B1B1B001C1C1C001A1A
+      1A001A1A1A001B1B1B001C1C1C00262626000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000D1D1D10000000000AAAAAA000000000000000000AAAAAA0000000000D1D1
-      D100000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      D100000000000000000000000000000000000000000000000000B7B7B7008888
+      8800000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000008D8D8D0026262600F4F4F400E9E9E900000000009C9C9C000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000E0E0E00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3825,23 +3884,23 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000F4F4F400262626009C9C9C006B6B6B0026262600F4F4F4000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009090900067676700050505000000
+      000000000000272727001A1A1A001A1A1A001A1A1A001A1A1A001A1A1A001A1A
+      1A001A1A1A001A1A1A001A1A1A00262626000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000AAAAAA000000000000000000B8B8B800000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000BDBDBD008585
+      8500000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000DDDDDD000000000000000000F4F4F400000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000028282800000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3849,23 +3908,23 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000006B6B6B0042424200424242007D7D7D00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000909090005F5F5F00000000000000
+      000000000000272727001A1A1A001A1A1A001A1A1A001A1A1A001A1A1A001A1A
+      1A001A1A1A001A1A1A001A1A1A00262626000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000B8B8B80000000000B8B8B800B8B8B80000000000D1D1D1000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000BABABA009393
+      9300000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000F4F4F400424242006B6B6B0000000000000000006B6B6B0042424200F4F4
-      F400000000000000000000000000000000000000000000000000000000000000
+      F400000000000000000000000000000000000000000027272700000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3873,16 +3932,16 @@ object frmMain: TfrmMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000AAAAAA0000000000D1D1D1000000000000000000DDDDDD0000000000AAAA
-      AA00000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      AA00000000000000000000000000000000009494940046464600020202000000
+      000000000000272727001A1A1A001A1A1A001A1A1A001A1A1A001A1A1A001A1A
+      1A001A1A1A001A1A1A001A1A1A00262626000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000000000000000000000E9E9
       E900000000007D7D7D00000000000000000000000000000000008D8D8D000000
-      0000DDDDDD000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000DDDDDD000000000000000000000000000000000000000000A6A6A6008A8A
+      8A00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4161,11 +4220,11 @@ object frmMain: TfrmMain
       000000000000D4D4D400393939000C0C0C000C0C0C0039393900D3D3D3000000
       000000000000000000000000000000000000424D3E000000000000003E000000
       2800000040000000300000000100010000000000800100000000000000000000
-      000000000000000000000000FFFFFF00FFFF000000000000FFFF000000000000
-      E3C7000000000000F38F000000000000F18F000000000000F81F000000000000
-      F81F000000000000FC3F000000000000FC3F000000000000FC3F000000000000
-      F81F000000000000F18F000000000000F18F000000000000E3C7000000000000
-      E3C7000000000000FFFF000000000000FC7FFC0FF00F0000F01FFE3FE3070000
+      000000000000000000000000FFFFFF00FFFFFFFF00000000FFFFFFFF00000000
+      E3C7BFFF00000000F38F180000000000F18FCFFF00000000F81FBFFF00000000
+      F81F180000000000FC3FCFFF00000000FC3FBFFF00000000FC3F180000000000
+      F81FCFFF00000000F18FBFFF00000000F18F180000000000E3C7CFFF00000000
+      E3C7FFFF00000000FFFFFFFF00000000FC7FFC0FF00F0000F01FFE3FE3070000
       C007F80FCFE300008003E0019FF900008003C0013FFD00008003C0033FFC0000
       800380033FFC0000800380037FFC0000800300013FFE0000800300013FFC0000
       800300013FFC0000800380033FF80000C00780039BF90000F01FC007C3F30000
@@ -4263,7 +4322,7 @@ object frmMain: TfrmMain
           Caption = 'Indonesia'
           object AdisumarmoInternationalAirport1: TMenuItem
             Tag = 115
-            Caption = 'Adisumarmo International Airport'
+            Caption = 'Adi Sumarmo International Airport'
             OnClick = BarraAirport1Click
           end
           object BugalagaAirstrip1: TMenuItem
@@ -4403,6 +4462,44 @@ object frmMain: TfrmMain
           end
         end
       end
+      object Caribbean1: TMenuItem
+        Caption = 'Caribbean'
+        object ANRRobinsonInternationalAirportTrinidadTobago1: TMenuItem
+          Tag = 132
+          Caption = 'A.N.R. Robinson International Airport (Trinidad & Tobago)'
+          OnClick = BarraAirport1Click
+        end
+        object AntoineSimonAirportHaiti1: TMenuItem
+          Tag = 130
+          Caption = 'Antoine-Simon Airport (Haiti)'
+          OnClick = BarraAirport1Click
+        end
+        object GregorioLupernInternationalAirportDominicanRepublic1: TMenuItem
+          Tag = 129
+          Caption = 'Gregorio Luper'#243'n International Airport (Dominican Republic)'
+          OnClick = BarraAirport1Click
+        end
+        object LesSaintesAirportGuadeloupe1: TMenuItem
+          Tag = 134
+          Caption = 'Les Saintes Airport (Guadeloupe)'
+          OnClick = BarraAirport1Click
+        end
+        object NorthEleutheraAirportBahamas1: TMenuItem
+          Tag = 133
+          Caption = 'North Eleuthera Airport (Bahamas)'
+          OnClick = BarraAirport1Click
+        end
+        object SangsterInternationalAirportJamaica1: TMenuItem
+          Tag = 131
+          Caption = 'Sangster International Airport (Jamaica)'
+          OnClick = BarraAirport1Click
+        end
+        object ViloAcuaAirportCuba1: TMenuItem
+          Tag = 128
+          Caption = 'Vilo Acu'#241'a Airport (Cuba)'
+          OnClick = BarraAirport1Click
+        end
+      end
       object Europe1: TMenuItem
         Caption = 'Europe'
         object UAE2: TMenuItem
@@ -4422,6 +4519,30 @@ object frmMain: TfrmMain
           object GustafIIIAirport1: TMenuItem
             Tag = 7
             Caption = 'Gustaf III Airport'
+            OnClick = BarraAirport1Click
+          end
+        end
+        object boz1: TMenuItem
+          Caption = 'Bosnia and Herzegovina'
+          object PrijedorUrijeAirport1: TMenuItem
+            Tag = 121
+            Caption = 'Prijedor Urije Airport'
+            OnClick = BarraAirport1Click
+          end
+        end
+        object CzechRepublic1: TMenuItem
+          Caption = 'Czech Republic'
+          object KarlovyVaryAirport1: TMenuItem
+            Tag = 117
+            Caption = 'Karlovy Vary Airport'
+            OnClick = BarraAirport1Click
+          end
+        end
+        object Croatia1: TMenuItem
+          Caption = 'Croatia'
+          object RijekaAirport1: TMenuItem
+            Tag = 120
+            Caption = 'Rijeka Airport'
             OnClick = BarraAirport1Click
           end
         end
@@ -4455,9 +4576,19 @@ object frmMain: TfrmMain
             Caption = 'Nice C'#244'te d'#39'Azur Airport'
             OnClick = BarraAirport1Click
           end
+          object ParisLeBourgetAirport1: TMenuItem
+            Tag = 116
+            Caption = 'Paris'#8211'Le Bourget Airport'
+            OnClick = BarraAirport1Click
+          end
         end
         object CairoInternationalAirport2: TMenuItem
           Caption = 'Finland'
+          object IvaloAirport1: TMenuItem
+            Tag = 126
+            Caption = 'Ivalo Airport'
+            OnClick = BarraAirport1Click
+          end
           object VaasaAirport1: TMenuItem
             Tag = 21
             Caption = 'Vaasa Airport'
@@ -4466,6 +4597,11 @@ object frmMain: TfrmMain
         end
         object Germany1: TMenuItem
           Caption = 'Germany'
+          object CologneBonnAirport1: TMenuItem
+            Tag = 122
+            Caption = 'Cologne Bonn Airport'
+            OnClick = BarraAirport1Click
+          end
           object FrankfurtAirport1: TMenuItem
             Tag = 26
             Caption = 'Frankfurt Airport'
@@ -4538,8 +4674,21 @@ object frmMain: TfrmMain
             OnClick = BarraAirport1Click
           end
         end
+        object Hungry1: TMenuItem
+          Caption = 'Hungry'
+          object PcsPognyAirport1: TMenuItem
+            Tag = 119
+            Caption = 'P'#233'cs-Pog'#225'ny Airport'
+            OnClick = BarraAirport1Click
+          end
+        end
         object DonegalAirport2: TMenuItem
           Caption = 'Iceland'
+          object AkureyriAirport1: TMenuItem
+            Tag = 123
+            Caption = 'Akureyri Airport'
+            OnClick = BarraAirport1Click
+          end
           object safjrurAirport1: TMenuItem
             Tag = 41
             Caption = #205'safj'#246'r'#240'ur Airport'
@@ -4574,6 +4723,19 @@ object frmMain: TfrmMain
           object IloiloInternationalAirport2: TMenuItem
             Tag = 47
             Caption = 'Marina di Campo Airport'
+            OnClick = BarraAirport1Click
+          end
+        end
+        object Norway1: TMenuItem
+          Caption = 'Norway'
+          object LeknesAirport1: TMenuItem
+            Tag = 127
+            Caption = 'Leknes Airport'
+            OnClick = BarraAirport1Click
+          end
+          object MoiRanaAirport1: TMenuItem
+            Tag = 124
+            Caption = 'Mo i Rana Airport'
             OnClick = BarraAirport1Click
           end
         end
@@ -4613,6 +4775,14 @@ object frmMain: TfrmMain
             OnClick = BarraAirport1Click
           end
         end
+        object Slovakia1: TMenuItem
+          Caption = 'Slovakia'
+          object LetiskoPopradTatry1: TMenuItem
+            Tag = 118
+            Caption = 'Letisko Poprad-Tatry'
+            OnClick = BarraAirport1Click
+          end
+        end
         object CapeTownInternationalAirport2: TMenuItem
           Caption = 'Spain'
           object ACoruaAirport1: TMenuItem
@@ -4641,6 +4811,11 @@ object frmMain: TfrmMain
         end
         object SvalbardAirport2: TMenuItem
           Caption = 'Sweden'
+          object KirunaAirport1: TMenuItem
+            Tag = 125
+            Caption = 'Kiruna Airport'
+            OnClick = BarraAirport1Click
+          end
           object StockholmArlandaAirport1: TMenuItem
             Tag = 70
             Caption = 'Stockholm Arlanda Airport'

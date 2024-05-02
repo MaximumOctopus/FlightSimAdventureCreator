@@ -1,12 +1,12 @@
 //
-// FlightSimAdventureCreator 1.0
+// FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
-// 
+//
 // https://github.com/MaximumOctopus/FlightSimAdventureCreator
-// 
+//
 //
 
 #pragma once

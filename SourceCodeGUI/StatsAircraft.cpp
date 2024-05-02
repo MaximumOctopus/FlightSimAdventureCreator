@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -44,14 +44,17 @@ void __fastcall TfrmStatsAircraft::FormCreate(TObject *Sender)
 
 	lCount->Caption = ac.c_str();
 
-	g1->Progress = ((double)GAircraftHandler->Stats.TypeCount[0] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g2->Progress = ((double)GAircraftHandler->Stats.TypeCount[1] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g3->Progress = ((double)GAircraftHandler->Stats.TypeCount[2] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g4->Progress = ((double)GAircraftHandler->Stats.TypeCount[3] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g5->Progress = ((double)GAircraftHandler->Stats.TypeCount[4] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g6->Progress = ((double)GAircraftHandler->Stats.TypeCount[5] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g7->Progress = ((double)GAircraftHandler->Stats.TypeCount[6] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
-	g8->Progress = ((double)GAircraftHandler->Stats.TypeCount[7] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+	if (GAircraftHandler->AircraftList.size() != 0)
+	{
+		g1->Progress = ((double)GAircraftHandler->Stats.TypeCount[0] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g2->Progress = ((double)GAircraftHandler->Stats.TypeCount[1] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g3->Progress = ((double)GAircraftHandler->Stats.TypeCount[2] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g4->Progress = ((double)GAircraftHandler->Stats.TypeCount[3] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g5->Progress = ((double)GAircraftHandler->Stats.TypeCount[4] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g6->Progress = ((double)GAircraftHandler->Stats.TypeCount[5] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g7->Progress = ((double)GAircraftHandler->Stats.TypeCount[6] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+		g8->Progress = ((double)GAircraftHandler->Stats.TypeCount[7] / (double)GAircraftHandler->AircraftList.size()) * (double)100;
+	}
 
 	lt1->Caption = GAircraftHandler->Stats.TypeCount[0];
 	lt2->Caption = GAircraftHandler->Stats.TypeCount[1];

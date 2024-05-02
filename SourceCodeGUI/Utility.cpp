@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -244,6 +244,8 @@ namespace Utility
 	{
 		switch (type)
 		{
+		case AircraftConstants::AircraftType::None:
+			break;
 		case AircraftConstants::AircraftType::Prop:
 			return AircraftConstants::AircraftTypeProp;
 		case AircraftConstants::AircraftType::Jet:
@@ -296,6 +298,8 @@ namespace Utility
 	{
 		switch (type)
 		{
+		case AircraftConstants::AircraftType::None:
+			break;
 		case AircraftConstants::AircraftType::Prop:
 			return 0;
 		case AircraftConstants::AircraftType::Jet:
@@ -423,6 +427,8 @@ namespace Utility
 
 		switch (type)
 		{
+		case AircraftConstants::AircraftType::None:
+			break;
 		case AircraftConstants::AircraftType::Prop:
 		case AircraftConstants::AircraftType::TwinProp:
 			time_reduced = (2 * legs * 6);

@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -444,7 +444,7 @@ bool Configuration::SaveConfiguration(const std::wstring file_name, AircraftLoad
 	if (ofile)
 	{
 		ofile << L"// ===============================================================================\n";
-		ofile << L"// FSAC - PAFreshney 2022-2023 \n";
+		ofile << L"// FSAC - PAFreshney 2022-2024 \n";
 		ofile << L"// Config created: " + DateUtility::DateTime(kDisplayModeConsole) + L"\n";
 		ofile << L"// ===============================================================================\n\n";
 

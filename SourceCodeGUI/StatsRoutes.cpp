@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -50,13 +50,16 @@ void __fastcall TfrmStatsRoutes::FormCreate(TObject *Sender)
 	lFrom->Caption = GRouteHandler->FromCache.size();
 	lTo->Caption = GRouteHandler->ToCache.size();
 
-	g1->Progress = ((double)GRouteHandler->Stats.Continents[0] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g2->Progress = ((double)GRouteHandler->Stats.Continents[1] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g3->Progress = ((double)GRouteHandler->Stats.Continents[2] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g4->Progress = ((double)GRouteHandler->Stats.Continents[3] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g5->Progress = ((double)GRouteHandler->Stats.Continents[4] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g6->Progress = ((double)GRouteHandler->Stats.Continents[5] / (double)GRouteHandler->Routes.size()) * (double)100;
-	g7->Progress = ((double)GRouteHandler->Stats.Continents[6] / (double)GRouteHandler->Routes.size()) * (double)100;
+	if (GRouteHandler->Routes.size() != 0)
+	{
+		g1->Progress = ((double)GRouteHandler->Stats.Continents[0] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g2->Progress = ((double)GRouteHandler->Stats.Continents[1] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g3->Progress = ((double)GRouteHandler->Stats.Continents[2] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g4->Progress = ((double)GRouteHandler->Stats.Continents[3] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g5->Progress = ((double)GRouteHandler->Stats.Continents[4] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g6->Progress = ((double)GRouteHandler->Stats.Continents[5] / (double)GRouteHandler->Routes.size()) * (double)100;
+		g7->Progress = ((double)GRouteHandler->Stats.Continents[6] / (double)GRouteHandler->Routes.size()) * (double)100;
+	}
 
 	lc1->Caption = GRouteHandler->Stats.Continents[0];
 	lc2->Caption = GRouteHandler->Stats.Continents[1];

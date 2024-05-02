@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -80,7 +80,7 @@ namespace Location
 
 #pragma region Hand-Crafted
 
-	static const int HandCraftedICAOCount = 116;
+	static const int HandCraftedICAOCount = 134;
 
 	static const std::wstring HandCraftedICAO[] = {
 	L"LOWI", L"LOWK",                    				// austria
@@ -130,7 +130,13 @@ namespace Location
 	L"NZGS", L"NZMF", L"NZMJ", L"NZQE", L"NZRO",        // World Update XII
 	L"NZTL", L"NZWR", L"NZWS", L"T004",
 	L"SCIP", L"PHKO", L"AGGN", L"NTTB", L"NTTM",        // World Update XIII
-	L"NCAI", L"PTPN", L"WARQ"                           // WARQ or WAHQ or WRSQ (this airport has 3 ICAO tags?!)
+	L"NCAI", L"PTPN", L"WARQ",                          // WARQ or WAHQ or WRSQ (this airport has 3 ICAO tags?!)      (115)
+	L"LFPB",                                            // City Update II: France                                     (116)
+	L"LKKV", L"LZTT", L"LHPP", L"LDRI", L"LQPD",        // World Update XIV                                           (121)
+	L"EDDK",                                            // City Update IV: Western Europe                             (122)
+	L"BIAR", L"ENRA", L"ESNQ", L"EFIV", L"ENLK",        // World Update XV                                            (127)
+	L"MUCL", L"MDPP", L"MTCA", L"MKJS", L"TTCP",        // World Update XVI                                           (134)
+	L"MYEH", L"TFFS",
 	};
 #pragma end_region
 

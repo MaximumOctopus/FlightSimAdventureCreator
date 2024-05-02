@@ -1,7 +1,7 @@
 //
 // FlightSimAdventureCreator 1.0 (GUI Version)
 //
-// (c) Paul Alan Freshney 2022-2023
+// (c) Paul Alan Freshney 2022-2024
 //
 // paul@freshney.org
 //
@@ -28,6 +28,7 @@
 #include "Configuration.h"
 #include "Formatting.h"
 #include "GlobalObjects.h"
+#include "JobHandler.h"
 #include "Locations.h"
 #include "main.h"
 #include "MSFSSystem.h"
@@ -46,6 +47,7 @@ extern AirlineHandler* GAirlineHandler;
 extern AirportHandler* GAirportHandler;
 extern Configuration* GConfiguration;
 extern FlightHandler* GFlightHandler;
+extern JobHandler* GJobHandler;
 extern RouteHandler* GRouteHandler;
 extern RunwayHandler* GRunwayHandler;
 
@@ -87,10 +89,6 @@ void __fastcall TfrmMain::FormCreate(TObject *Sender)
 	}
 
 	StatsGUI();
-
-	SetLabelStatus(GAircraftHandler->AircraftList.size(), lStatsAircraft);
-	SetLabelStatus(GAirportHandler->Airports.size(), lStatsAirport);
-	SetLabelStatus(GRunwayHandler->Runways.size(), lStatsRunways);
 }
 
 
@@ -151,6 +149,12 @@ void __fastcall TfrmMain::miResetRouteClick(TObject *Sender)
 void __fastcall TfrmMain::miRouteBrowserClick(TObject *Sender)
 {
 	frmRouteBrowser->ShowModal();
+}
+
+
+void __fastcall TfrmMain::Exit1Click(TObject *Sender)
+{
+	Application->Free();
 }
 
 
@@ -370,12 +374,15 @@ void TfrmMain::InitialGUISetup()
 	ShowHint = GConfiguration->System.ShowToolTips;
 	miShowTooltips->Checked = ShowHint;
 
-	for (int t = 0; t < GAirlineHandler->Airlines.size(); t++)
+	if (GAircraftHandler->FilteredList.size() != 0)
 	{
-		cbRWAirlines->Items->Add(GAirlineHandler->Airlines[t].Name.c_str());
-	}
+		for (int t = 0; t < GAirlineHandler->Airlines.size(); t++)
+		{
+			cbRWAirlines->Items->Add(GAirlineHandler->Airlines[t].Name.c_str());
+		}
 
-  	cbRWAirlines->ItemIndex = 0;
+       	cbRWAirlines->ItemIndex = 0;
+	}
 }
 
 
@@ -442,7 +449,12 @@ void TfrmMain::StatsGUI()
 	{
 		Label36->Font->Color = clMaroon;
 		lStatsRoutes->Font->Color = clMaroon;
-    }
+	}
+
+	SetLabelStatus(GAircraftHandler->AircraftList.size(), lStatsAircraft);
+	SetLabelStatus(GAirportHandler->Airports.size(), lStatsAirport);
+	SetLabelStatus(GRunwayHandler->Runways.size(), lStatsRunways);
+	SetLabelStatus(GRouteHandler->Routes.size(), lStatsRoutes);
 }
 
 
@@ -501,14 +513,17 @@ void TfrmMain::UpdateAircraftList()
 {
 	cbAircraftList->Items->Clear();
 
-	for (int t = 0; t < GAircraftHandler->FilteredList.size(); t++)
+	if (GAircraftHandler->FilteredList.size() != 0)
 	{
-		cbAircraftList->Items->Add(GAircraftHandler->FilteredList[t].Name.c_str());
+		for (int t = 0; t < GAircraftHandler->FilteredList.size(); t++)
+		{
+			cbAircraftList->Items->Add(GAircraftHandler->FilteredList[t].Name.c_str());
+		}
+
+		cbAircraftList->ItemIndex = 0;
+
+		cbAircraftListChange(nullptr);
 	}
-
-	cbAircraftList->ItemIndex = 0;
-
-    cbAircraftListChange(nullptr);
 }
 
 
@@ -522,7 +537,7 @@ void __fastcall TfrmMain::bUpdateAirportsClick(TObject *Sender)
 
 	gbAirports->Caption = "Airports (" + System::Sysutils::IntToStr((int)GAirportHandler->FilteredList.size()) + " selected)";
 
-    sbMain->SimpleText = "";
+	sbMain->SimpleText = "";
 }
 
 
@@ -711,6 +726,12 @@ void TfrmMain::UpdateCountryList()
 }
 
 
+void __fastcall TfrmMain::bRandomJobClick(TObject *Sender)
+{
+	FillJob();
+}
+
+
 void __fastcall TfrmMain::bGenerateClick(TObject *Sender)
 {
 	if (pcRoute->TabIndex == 0)
@@ -721,6 +742,8 @@ void __fastcall TfrmMain::bGenerateClick(TObject *Sender)
 	{
 		RoutePreCheck();
 	}
+
+	FillJob();
 
 	std::wstring gr(L"Generated Routes (" + std::to_wstring(GFlightHandler->Flights.size()) + L")");
 
@@ -872,6 +895,16 @@ void TfrmMain::RoutePreCheck()
 }
 
 
+void TfrmMain::FillJob()
+{
+	Aircraft aircraft = GetAircraftFromSelection();
+
+	std::wstring job = GJobHandler->FindJob(aircraft.Type, aircraft.Airliner, aircraft.Military);
+
+	mJob->Text = job.c_str();
+}
+
+
 void TfrmMain::GenerateRandomRoutes()
 {
 	sbMain->SimpleText = "Generating random routes...";
@@ -960,7 +993,7 @@ void TfrmMain::GenerateRandomRoutes()
 		range_per_leg, RouteDirection, RouteLegs, RouteCount, FlightTime, cbKeepTrying->Checked,
 		cbUseAircraftRange->Checked, aircraft.Range, eAircraftRangeModifier->Text.ToIntDef(DataDefaults::AircraftRangePC)).c_str();
 
-	GAirportHandler->GetRoute(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), range_per_leg, RouteDirection, RouteLegs, RouteCount,	cbKeepTrying->Checked);
+	GAirportHandler->GetRoute(eStartAirportICAO->Text.c_str(), eEndAirportICAO->Text.c_str(), range_per_leg, RouteDirection, RouteLegs, RouteCount,	cbKeepTrying->Checked, cbMoreRandom->Checked);
 
 	sbMain->SimpleText = "Finished generating routes.";
 }
@@ -1881,3 +1914,5 @@ void __fastcall TfrmMain::bShowSearchParametersClick(TObject *Sender)
 {
 	mRouteDebug->Visible  = !mRouteDebug->Visible;
 }
+
+
